@@ -1,0 +1,36 @@
+/* Estilo para el texto dinámico */
+.text-producto-dinamico {
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    color: #333;
+    background-color: #fffae6; /* Fondo más claro */
+    transition: all 0.3s ease; /* Transición suave para cambios */
+}
+
+/* Placeholder estilo */
+#ap_producto_placeholder {
+    font-style: italic;
+    color: #bbb; /* Color más tenue */
+}
+
+/* Estilo cuando el texto de vista previa se actualiza */
+.text-producto-dinamico.updated {
+    background-color: #c3e6cb; /* Cambia el fondo temporalmente */
+    color: #155724;
+    border: 2px solid #28a745;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1.4rem; /* Tamaño de letra más grande */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Efecto de sombra */
+}
+
+/* Transiciones en los inputs */
+input.form-control {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input.form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); /* Resalta al enfocarse */
+}

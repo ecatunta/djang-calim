@@ -10,13 +10,13 @@ Actualizar producto
 <section id="pricing" class="pricing section light-background">
 
     <div class="container mt-5" style="margin-top: 50px;">
-        
+
         <!--<input type="text" name="csrfmiddlewaretoken" value="{{ csrf_token }}">-->
         {% csrf_token %}
-        
+
         <div class="row mb-3">
             <div class="col-12 text-center">
-                <h4> Lista de productos</h4>
+                <h4>Productos</h4>
             </div>
         </div>
         <div class="row">
@@ -79,16 +79,19 @@ Actualizar producto
                         <p id="ap_producto_nombre" class="text-muted"></p>
                     </div>
                 </div>
+                <!-- Vista previa Producto -->                
+                <!--<div class="row mb-0">
+                    <div class="col text-center">                        
+                        <p id="ap_producto_nombre_upd" class="bg-warning p-2 rounded text-producto-dinamico">
+                        </p>
+                    </div>
+                </div>-->
                 <!-- Vista previa Producto -->
                 <div class="row mb-0">
                     <div class="col text-center">
-                        <!--<strong class="h5">Vista previa Producto</strong>-->
-                        <p id="ap_producto_nombre_upd"
-                            class="text-update bg-warning p-2 rounded text-producto-dinamico">
-                            <!-- Placeholder dinámico -->
-                            <!--<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">
-                                Vista previa nombre del producto...
-                            </span>-->
+                        <p id="ap_producto_nombre_upd" class="p-2 rounded text-producto-dinamico shadow-sm">
+                            <span id="ap_producto_placeholder" style="color: #888; font-weight: normal;">Vista previa
+                                del producto ...</span>
                         </p>
                     </div>
                 </div>
@@ -103,7 +106,8 @@ Actualizar producto
                         <input type="text" id="ap_marca" name="marca" class="form-control v-placeholder" placeholder="">
                     </div>
                 </div>
-                <div class="row mb-4" style="background-color: #f1f1f1; padding: 0px 15px 15px 15px; border-radius: 8px;">
+                <div class="row mb-4"
+                    style="background-color: #f1f1f1; padding: 0px 15px 15px 15px; border-radius: 8px;">
                     <div class="col-6 d-flex flex-column justify-content-center text-center">
                         <label for="ap_descripcion_corta" class="form-label">Descripción corta</label>
                         <input type="text" id="ap_descripcion_corta" name="descripcion"
@@ -160,7 +164,7 @@ Actualizar producto
     </div>
 </div>
 
-
+<link href="{% static 'css/producto.css' %}" rel="stylesheet">
 <script src="{% static 'js/cookie.js' %}"></script>
 <script src="{% static 'js/producto.js' %}"></script>
 

@@ -608,17 +608,6 @@
   color: rgba(0, 0, 0, 0.3);  
 }
 
-/* css modal actualizar nombre del producto*/
-.text-update {
-  font-size: 1.25rem;
-  color: #007bff;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-.highlight {
-  color: #28a745;
-  font-size: 1.5rem;
-}
 
 .text-producto-dinamico{
   font-size: 1.2em; 

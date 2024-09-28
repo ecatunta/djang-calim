@@ -9,6 +9,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const inputMedida = document.getElementById('ap_medida');
     const vistaPrevia = document.getElementById('ap_producto_nombre_upd');
 
+    // Función para agregar y eliminar la clase 'updated'
+    function resaltarVistaPrevia() {
+        vistaPrevia.classList.add('updated');
+        setTimeout(() => {
+            vistaPrevia.classList.remove('updated');
+        }, 500); // El efecto de resaltado dura 500ms
+    }
+
     // Función para actualizar la vista previa
     function actualizarVistaPrevia() {
         const tipo = inputTipo.value.toUpperCase();
@@ -28,13 +36,8 @@ document.addEventListener('DOMContentLoaded', function () {
             vistaPrevia.textContent = cadenaVistaPrevia;
         }
 
-        /*// Añadir clase para resaltar (opcional)
-        vistaPrevia.classList.add('highlight');
-
-        // Remover la clase de resaltado después de 1 segundo
-        setTimeout(() => {
-            vistaPrevia.classList.remove('highlight');
-        }, 1000);*/
+        // Resaltar la vista previa al actualizar
+        resaltarVistaPrevia();
 
         // Forzar mayúsculas en los campos de entrada
         inputTipo.value = tipo;
@@ -60,8 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
             inputMarca.value = '';
             descripcionCorta.value = '';
             inputMedida.value = '';
-            // Resetear la vista previa con el placeholder
-            //vistaPrevia.innerHTML = '<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa nombre del producto...</span>';
+            // Resetear la vista previa con el placeholder            
             vistaPrevia.innerHTML = '<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa ...</span>';
 
             // Obtener la fila que contiene el botón
