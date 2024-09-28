@@ -1,0 +1,8 @@
+
+pjtcalim/settings.py
+
+venv/
+
+__pycache__/
+
+*.pyc
