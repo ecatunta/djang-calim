@@ -7,11 +7,9 @@ Actualizar producto
 {% endblock %}
 
 {% block content %}
-<section id="pricing" class="pricing section light-background">
 
-    <div class="container mt-5" style="margin-top: 50px;">
-
-        <!--<input type="text" name="csrfmiddlewaretoken" value="{{ csrf_token }}">-->
+<!--<section id="pricing" class="pricing section light-background">
+    <div class="container mt-5" style="margin-top: 50px;">        
         {% csrf_token %}
 
         <div class="row mb-3">
@@ -19,6 +17,54 @@ Actualizar producto
                 <h4>Productos</h4>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="table-dark text-center">
+                            <tr>
+                                <th>Nro</th>
+                                <th>Gondola</th>                                
+                                <th class="w-75">Producto</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for producto in productos %}
+                            <tr>
+                                <td class="text-center">{{ forloop.counter }}</td>
+                                <td class="text-center">{{ producto.producto_gondola }}</td>
+                                <td data-producto='{{ producto.producto_nombre }}'
+                                    data-subcategoria='{{ producto.subcategoria.subcategoria_nombre }}'
+                                    data-categoria='{{ producto.subcategoria.categoria.categoria_nombre }}'
+                                    data-producto-id='{{ producto.producto_id }}'
+                                    data-gondola='{{ producto.producto_gondola }}'>
+                                    {{ producto.producto_nombre }}
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-primary btn-sm actualiza_producto">Actualizar</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>-->
+
+<section id="pricing" class="pricing section light-background">
+    <div class="container mt-5" style="margin-top: 50px;">
+        {% csrf_token %}
+
+        <div class="row mb-3">
+            <div class="col-12 text-center">
+                <h4>Productos</h4>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12">
                 <div class="table-responsive">
@@ -48,6 +94,10 @@ Actualizar producto
                                     <button class="btn btn-primary btn-sm actualiza_producto">Actualizar</button>
                                 </td>
                             </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3" class="text-center">No hay productos disponibles.</td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>
@@ -55,6 +105,71 @@ Actualizar producto
             </div>
         </div>
 
+        <!-- Paginación -->
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        {% if productos.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1" aria-label="First">
+                                <span aria-hidden="true">&laquo;&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ productos.previous_page_number }}"
+                                aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="First">
+                                <span aria-hidden="true">&laquo;&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% for num in productos.paginator.page_range %}
+                        {% if productos.number == num %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        {% elif num > productos.number|add:-3 and num < productos.number|add:3 %} <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if productos.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ productos.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ productos.paginator.num_pages }}" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -79,7 +194,8 @@ Actualizar producto
                         <p id="ap_producto_nombre" class="text-muted"></p>
                     </div>
                 </div>
-                <!-- Vista previa Producto -->                
+
+                <!-- Vista previa Producto -->
                 <!--<div class="row mb-0">
                     <div class="col text-center">                        
                         <p id="ap_producto_nombre_upd" class="bg-warning p-2 rounded text-producto-dinamico">
@@ -96,6 +212,7 @@ Actualizar producto
                         </p>
                     </div>
                 </div>
+
                 <!-- Campos de actualización con fondo diferenciado -->
                 <div class="row mb-0" style="background-color: #f1f1f1; padding: 15px; border-radius: 8px;">
                     <div class="col-6 d-flex flex-column justify-content-center text-center">
@@ -107,6 +224,7 @@ Actualizar producto
                         <input type="text" id="ap_marca" name="marca" class="form-control v-placeholder" placeholder="">
                     </div>
                 </div>
+
                 <div class="row mb-4"
                     style="background-color: #f1f1f1; padding: 0px 15px 15px 15px; border-radius: 8px;">
                     <div class="col-6 d-flex flex-column justify-content-center text-center">
@@ -149,7 +267,7 @@ Actualizar producto
             </div>
 
             <!-- Modal Footer -->
-            <div class="modal-footer justify-content-center">                
+            <div class="modal-footer justify-content-center">
                 <!-- Botón Cancelar con nuevo ícono -->
                 <button type="button" class="btn btn-light px-4 py-2 rounded-pill shadow-sm ms-3"
                     data-bs-dismiss="modal">
@@ -160,7 +278,6 @@ Actualizar producto
                     <i class="bi bi-hand-thumbs-up-fill"></i> Aceptar
                 </button>
             </div>
-
         </div>
     </div>
 </div>

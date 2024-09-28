@@ -6,6 +6,8 @@ from django.utils import timezone
 from django.db.models import ForeignKey, OneToOneField, ManyToManyField, Sum
 from .models import Categoria, Subcategoria, Producto, Higiene, ParametroAtributo, Venta, Ticket, Ingreso, Inventario, InventarioIngreso, InventarioVenta
 from .forms import ParametroAtributoForm, VentaForm, IngresoForm
+from django.core.paginator import Paginator
+
 import json
 
 # Create your views here.
@@ -967,12 +969,26 @@ def Actualizar_ingreso(request, ingreso_id):
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)}, status=400)        
 
-def Actualizar_producto(request):    
+'''def Actualizar_producto(request):    
     #productos = Producto.objects.select_related('subcategoria').order_by('subcategoria__subcategoria_nombre')
     #productos = Producto.objects.select_related('subcategoria', 'subcategoria__categoria').order_by('subcategoria__subcategoria_nombre')    
     #productos = Producto.objects.select_related('subcategoria', 'subcategoria__categoria').order_by('producto_nombre')        
     productos = Producto.objects.select_related('subcategoria', 'subcategoria__categoria').order_by('-producto_fechaActualizacion')        
+    return render(request, 'productos_upd.html', {'productos': productos})'''
+
+def Actualizar_producto(request):
+    productos_list = Producto.objects.select_related('subcategoria', 'subcategoria__categoria').order_by('-producto_fechaActualizacion')    
+    
+    # Configura el paginador, aquí mostramos 10 productos por página
+    paginator = Paginator(productos_list, 10)  # 10 productos por página
+    
+    # Obtiene el número de página de la solicitud GET
+    page_number = request.GET.get('page')
+    
+    # Obtiene los productos de la página actual
+    productos = paginator.get_page(page_number)    
     return render(request, 'productos_upd.html', {'productos': productos})
+
 
 def Actualizar_producto_nombre(request):
     # Si el método es POST
