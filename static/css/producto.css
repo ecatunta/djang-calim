@@ -1,3 +1,29 @@
+.nombre-producto-actual {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #444; /* Un tono gris más oscuro */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nombre-producto-texto {
+    font-size: 1.1rem;
+    color: #555;
+    background-color: #e9ecef; /* Fondo gris claro */
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: normal;
+    transition: all 0.3s ease;
+}
+
+/* Transición suave en el hover */
+.nombre-producto-texto:hover {
+    background-color: #dee2e6; /* Un poco más oscuro al pasar el mouse */
+}
+
+
 /* Estilo para el texto dinámico */
 .text-producto-dinamico {
     font-size: 1.2rem;
