@@ -21,7 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Si todos los campos están vacíos, mostrar el placeholder
         if (!tipo && !marca && !descripcion && !medida) {
-            vistaPrevia.innerHTML = '<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa nombre del producto...</span>';
+            //vistaPrevia.innerHTML = '<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa nombre del producto...</span>';
+            vistaPrevia.innerHTML = '<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa ...</span>';
         } else {
             // Actualizar el contenido del elemento de vista previa
             vistaPrevia.textContent = cadenaVistaPrevia;
@@ -60,7 +61,8 @@ document.addEventListener('DOMContentLoaded', function () {
             descripcionCorta.value = '';
             inputMedida.value = '';
             // Resetear la vista previa con el placeholder
-            vistaPrevia.innerHTML = '<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa nombre del producto...</span>';
+            //vistaPrevia.innerHTML = '<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa nombre del producto...</span>';
+            vistaPrevia.innerHTML = '<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa ...</span>';
 
             // Obtener la fila que contiene el botón
             const row = button.closest('tr');
