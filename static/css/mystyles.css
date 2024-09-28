@@ -1,0 +1,627 @@
+.header {
+  --background-color: #3d4d6a !important;
+}
+
+.section {
+  border: 0px solid green !important;
+}
+
+.container-breadcrumb {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  border: 0px solid red;
+  /*background-color: #ffffff;*/
+  /*background-color: #f5f6f8;*/
+}
+
+.container-breadcrumb ul {
+  margin-bottom: 0px;
+  border: 0px solid yellow;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+@media (max-width: 1024px) {
+  .container-breadcrumb {
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-breadcrumb {
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-breadcrumb {
+    margin-top: 2px;
+  }
+}
+
+/* css inicio*/
+.container-calim {
+  border: 0px solid green;
+  margin-top: 30px;
+}
+
+.container-calim ul {
+  margin-bottom: 0px;
+  padding: 0px;
+}
+
+@media (max-width: 1024px) {
+  .container-calim {
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-calim {
+    margin-top: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-calim {
+    margin-top: 6px;
+  }
+}
+
+/* css fin*/
+
+
+.precio {
+  border: 0px solid green;
+  background: white;
+  border-radius: 0px;
+}
+
+.buy-btn2 {
+  color: var(--accent-color);
+  display: inline-block;
+  padding: 8px 35px 10px 35px;
+  border-radius: 50px;
+  transition: none;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: var(--heading-font);
+  transition: 0.3s;
+  border: 1px solid var(--accent-color);
+}
+
+
+/* .php-email-form2 {
+    background-color: var(--surface-color);
+    height: 100%;
+    padding: 30px;
+    border-top: 0px solid var(--accent-color);
+    border-bottom: 0px solid var(--accent-color);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  }*/
+
+.my-section {
+  /*background-color: blue;*/
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 0px;
+  /*box-shadow: 0 4px 8px rgba(0,0,0,0.1);  */
+}
+
+.my-section .row:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.my-section .row:nth-child(even) {
+  background-color: #ffffff;
+}
+
+/*.my-section .row{
+  padding-left: 1px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+}*/
+.my-section h4 {
+  color: black;
+}
+
+.product-description {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+/*
+.precio{
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.precio-paquete {
+  font-size: 1.3em;
+  color:#8C1408;
+  padding: 7px;
+  border: 0px solid black;
+  background-color: #FCB8B1;
+  border-radius: 5px;
+}
+.precio-jaba {
+  font-size: 1.3em;
+  color: #494947;
+  padding: 7px;
+  border: 0px solid black;
+  background-color: #A0F1F0;
+  border-radius: 5px;
+}
+.precio-descripcion{
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #757272;
+  color: white;
+  font-weight: bold;
+}*/
+
+
+.precio {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  position: relative;
+}
+
+/*.precio-paquete, .precio-jaba {
+  font-size: 1.3em;
+  padding: 7px;
+  border-radius: 5px;
+  position: relative;
+  display: inline-block;
+}
+.precio-paquete {
+  color: #8C1408;
+  background-color: #FCB8B1;
+}
+.precio-jaba {
+  color: #494947;
+  background-color: #A0F1F0;
+}
+.precio-descripcion {
+  padding: 4px;
+  border-radius: 5px;
+  background-color: #757272;
+  color: white;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 20px;
+  position: relative;
+}
+
+.precio-paquete::after, .precio-jaba::after {
+  content: '';
+  width: calc(100% + 20px);
+  height: 2px;
+  background-color: #757272;
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+}*/
+
+.precio-paquete2,
+.precio-jaba2 {
+  font-size: 1.7em;
+  padding: 7px 7px 1px 7px;
+  border-radius: 1px;
+  position: relative;
+  display: inline-block;
+}
+
+.precio-paquete2 {
+  /*  color: #8C1408;*/
+
+  /*color: #3d4d6a;*/
+  color: black;
+  /*background-color: #FCB8B1;*/
+  background-color: #Fff;
+  border-bottom: 2px solid #757272;
+}
+
+.precio-jaba2 {
+  /*color: #494947;*/
+  color: black;
+  /*background-color: #A0F1F0;*/
+  background-color: #Fff;
+  border-bottom: 2px solid #757272;
+}
+
+.precio-descripcion2 {
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #757272;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 8px;
+  position: relative;
+}
+
+.linea-paquete::after {
+  content: '';
+  width: 2px;
+  height: 20px;
+  /*background-color: #FCB8B1; /* Color para la línea de paquete */
+  background-color: #757272;
+  /* Color para la línea de paquete */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 100%;
+}
+
+.linea-descripcion-paquete::before {
+  content: '';
+  width: 4px;
+  height: 8px;
+  /*background-color: #FCB8B1; /* Color para la línea de paquete */
+  background-color: #757272;
+  /* Color para la línea de paquete */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 100%;
+}
+
+.linea-jaba::after {
+  content: '';
+  width: 2px;
+  height: 20px;
+  /*background-color: #A0F1F0;  Color para la línea de jaba */
+  background-color: #757272;
+  /* Color para la línea de jaba */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 100%;
+}
+
+.linea-descripcion-jaba::before {
+  content: '';
+  width: 4px;
+  height: 8px;
+  /*background-color: #A0F1F0; /* Color para la línea de jaba */
+  background-color: #757272;
+  /* Color para la línea de jaba */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 100%;
+}
+
+/* ---- CSS IMAGENES ---- */
+/*.thumbnail {
+  cursor: pointer;
+  margin: 0 5px;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+.thumbnail img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
+.thumbnail.active {
+  border-color: cyan;
+}
+.main-image img {
+  width: 100%;
+  height: 4000px; 
+  object-fit: cover;
+}
+@media (max-width: 768px) {
+  .main-image img {
+    height: 300px; 
+  }
+  .thumbnail img {
+    height: 80px;
+  }
+}
+@media (max-width: 576px) {
+  .main-image img {
+    height: 200px; 
+  }
+  .thumbnail img {
+    height: 60px;
+  }
+}*/
+
+
+/* Estilo base para todas las imágenes */
+.carousel-item img {
+  height: 700px;
+  /* Define una altura fija */
+  object-fit: cover;
+  /* Asegura que la imagen se ajuste sin distorsionarse */
+}
+
+/* Para dispositivos pequeños (por ejemplo, teléfonos móviles) */
+@media (max-width: 576px) {
+  .carousel-item img {
+    /*height: 400px; /* Ajusta la altura para dispositivos pequeños */
+    height: 380px;
+  }
+}
+
+/* Para dispositivos medianos (por ejemplo, tabletas) */
+@media (min-width: 577px) and (max-width: 768px) {
+  .carousel-item img {
+    height: 400px;
+    /* Ajusta la altura para dispositivos medianos */
+  }
+}
+
+/* Para dispositivos grandes (por ejemplo, pantallas de escritorio) */
+@media (min-width: 769px) {
+  .carousel-item img {
+    height: 700px;
+    /* Ajusta la altura para dispositivos grandes */
+  }
+}
+
+
+/* Ocultar controles del carrusel en dispositivos con pantallas pequeñas */
+@media (max-width: 768px) {
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    display: none;
+  }
+}
+
+/* Ajustar la duración de la transición del carrusel */
+.carousel-item {
+  transition: transform 0.2s ease-in-out;
+  /* Cambia 0.3s al tiempo que prefieras */
+}
+
+
+/* Imagen en pantalla completa */
+#fullScreenImage {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+}
+
+#fullScreenImage>div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+#fullScreenImg {
+  max-height: 90%;
+  max-width: 90%;
+}
+
+#closeFullScreen {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 100px;
+  cursor: pointer;
+}
+
+
+
+.breadcrumb-item+.breadcrumb-item::before {
+  content: ">";
+}
+
+
+/*.breadcrumb-item + .breadcrumb-item::before {
+  content: "\f415"; 
+  font-family: "Bootstrap Icons";
+  color: #000; 
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}*/
+
+.card {
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: #007bff;
+  /* Fondo azul */
+  color: white;
+  /* Texto blanco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Sombra ligera */
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+  /* Animación suave */
+}
+
+.card:hover .card-title {
+  color: white;
+  /* Cambia el color del título también */
+}
+
+.card:hover i {
+  color: white;
+  /* Cambia el color del ícono */
+}
+
+.card:active {
+  background-color: #0056b3;
+  /* Fondo más oscuro en clic */
+  color: white;
+}
+
+
+.scat-container-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 240px;
+  overflow: hidden;
+  /* Oculta cualquier desbordamiento */
+}
+
+.scat-container-img img {
+  width: 100%;
+  height: 100%;
+  /*  object-fit: cover; /* Hace que la imagen cubra todo el espacio sin distorsionarse */
+  object-fit: contain;
+  /* Cambia a 'contain' para evitar recortes */
+  object-position: center;
+  /* Centra la imagen */
+}
+
+.sb {
+  height: 320px;
+}
+
+
+/*formulario de ventas inicio*/
+
+/* Solo afectará a los elementos dentro de la clase .venta-form */
+.venta-form .form-control {
+  height: 60px;
+  /* Aumenta la altura de los campos */
+  font-size: 1.1rem;
+}
+
+.venta-form .row-producto {
+  background-color: #f8f9fa;
+  /* Color de fondo más claro para la primera fila */
+  padding: 20px;
+  border-radius: 5px;  
+}
+
+.venta-form .row-campos {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #e9ecef;
+  /* Color de fondo diferente para la segunda fila */
+  border-radius: 5px;
+}
+
+.venta-form #id_producto::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  /* Color más transparente para el placeholder */
+}
+
+.venta-form .v-placeholder::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  /* Color más transparente para el placeholder */
+}
+
+
+/* Estilo para los campos bloqueados */
+.disabled-input {
+      background-color: #e0e0e0;
+      cursor: not-allowed;
+      /*color: #495057;*/
+      /*font-weight: bold;*/
+  }
+
+/*formulario de ventas fin*/
+
+/* barras de busqueda inicio */
+
+#suggestions {
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  top: 100%;  /* Ubica la lista justo debajo del campo de texto */
+  left: 0;    /* Alinea la lista con el borde izquierdo del contenedor */
+  width: 100%; /* Hace que el ancho de la lista sea igual al del campo de texto */
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#suggestions li {
+  cursor: pointer;
+}
+
+#suggestions li:hover {
+  background-color: #f1f1f1;
+}
+/* barras de busqueda fin */
+
+/* ticket */
+.ticket-display {
+  display: inline-block;
+  background-color: #007bff; /* Color de fondo azul de Bootstrap */
+  color: white; /* Texto en blanco */
+  padding: 15px 30px; /* Espaciado interno */
+  border-radius: 10px; /* Bordes redondeados */
+  font-size: 2rem; /* Tamaño de fuente grande */
+  font-weight: bold; /* Texto en negrita */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+}
+
+.row-tabla-ventas {  
+  background-color: #fffefe;
+  border-radius: 0px;
+}
+
+/*modal para registrar el precio y ganancia del producto */
+.modal-custom {
+  max-width: 550px;
+  margin: auto;
+}
+
+.table-sm th, .table-sm td {
+  padding: 0.75rem;
+}
+
+.modal-footer .btn {
+  margin: 0 10px;
+}
+
+/* Resaltar columna "Valor Nuevo" */
+.highlight-column {
+  background-color: #f9f9f9;
+  font-weight: bold;
+  color: #2c3e50;
+  border-left: 3px solid #3498db;
+}
+
+/*.text-uppercase {
+  text-transform: uppercase;
+}*/
+
+.t-placeholder::placeholder {
+  color: rgba(0, 0, 0, 0.3);  
+}
+
+/* css modal actualizar nombre del producto*/
+.text-update {
+  font-size: 1.25rem;
+  color: #007bff;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+.highlight {
+  color: #28a745;
+  font-size: 1.5rem;
+}
+
+.text-producto-dinamico{
+  font-size: 1.2em; 
+  font-weight: bold; 
+  color: #000;
+}

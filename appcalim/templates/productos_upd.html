@@ -1,0 +1,167 @@
+{% extends 'inicio.html' %}
+
+{% load static %}
+
+{% block title %}
+Actualizar producto
+{% endblock %}
+
+{% block content %}
+<section id="pricing" class="pricing section light-background">
+
+    <div class="container mt-5" style="margin-top: 50px;">
+        
+        <!--<input type="text" name="csrfmiddlewaretoken" value="{{ csrf_token }}">-->
+        {% csrf_token %}
+        
+        <div class="row mb-3">
+            <div class="col-12 text-center">
+                <h4> Lista de productos</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="table-dark text-center">
+                            <tr>
+                                <!--<th>Nro</th>-->
+                                <th>Gondola</th>
+                                <!-- Ajustamos el ancho para que no se vea mal en pantallas pequeñas -->
+                                <th class="w-75">Nombre del Producto</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for producto in productos %}
+                            <tr>
+                                <!--<td class="text-center">{{ forloop.counter }}</td>-->
+                                <td class="text-center">{{ producto.producto_gondola }}</td>
+                                <td data-producto='{{ producto.producto_nombre }}'
+                                    data-subcategoria='{{ producto.subcategoria.subcategoria_nombre }}'
+                                    data-categoria='{{ producto.subcategoria.categoria.categoria_nombre }}'
+                                    data-producto-id='{{ producto.producto_id }}'
+                                    data-gondola='{{ producto.producto_gondola }}'>
+                                    {{ producto.producto_nombre }}
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-primary btn-sm actualiza_producto">Actualizar</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="actualizaProductoModal" tabindex="-1" aria-labelledby="actualizaProductoModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-custom">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="actualizaProductoModalLabel">Actualizar Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <!-- Producto -->
+                <div class="row mb-2">
+                    <div class="col text-center">
+                        <strong class="h5">Producto</strong>
+                        <p id="ap_producto_nombre" class="text-muted"></p>
+                    </div>
+                </div>
+                <!-- Vista previa Producto -->
+                <div class="row mb-2">
+                    <div class="col text-center">
+                        <!--<strong class="h5">Vista previa Producto</strong>-->
+                        <p id="ap_producto_nombre_upd"
+                            class="text-update bg-warning p-2 rounded text-producto-dinamico">
+                            <!-- Placeholder dinámico -->
+                            <!--<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">
+                                Vista previa nombre del producto...
+                            </span>-->
+                        </p>
+                    </div>
+                </div>
+                <!-- Campos de actualización con fondo diferenciado -->
+                <div class="row mb-0" style="background-color: #f1f1f1; padding: 15px; border-radius: 8px;">
+                    <div class="col-6 d-flex flex-column justify-content-center text-center">
+                        <label for="ap_tipo" class="form-label">Tipo</label>
+                        <input type="text" id="ap_tipo" name="tipo" class="form-control v-placeholder" placeholder="">
+                    </div>
+                    <div class="col-6 d-flex flex-column justify-content-center text-center">
+                        <label for="ap_marca" class="form-label">Marca</label>
+                        <input type="text" id="ap_marca" name="marca" class="form-control v-placeholder" placeholder="">
+                    </div>
+                </div>
+                <div class="row mb-4" style="background-color: #f1f1f1; padding: 15px; border-radius: 8px;">
+                    <div class="col-6 d-flex flex-column justify-content-center text-center">
+                        <label for="ap_descripcion_corta" class="form-label">Descripción corta</label>
+                        <input type="text" id="ap_descripcion_corta" name="descripcion"
+                            class="form-control v-placeholder" placeholder="">
+                    </div>
+                    <div class="col-6 d-flex flex-column justify-content-center text-center">
+                        <label for="ap_medida" class="form-label">Medida</label>
+                        <input type="text" id="ap_medida" name="medida" class="form-control v-placeholder"
+                            placeholder="">
+                    </div>
+                </div>
+
+                <!-- Información adicional -->
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <strong>Gondola:</strong>
+                    </div>
+                    <div class="col-8">
+                        <span id="ap_gondola"></span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <strong>Categoría:</strong>
+                    </div>
+                    <div class="col-8">
+                        <span id="ap_categoria"></span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4">
+                        <strong>Sub Categoría:</strong>
+                    </div>
+                    <div class="col-8">
+                        <span id="ap_subcategoria"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer justify-content-center">
+                <!-- Botón Aceptar con nuevo ícono -->
+                <button type="button" class="btn btn-success px-4 py-2 rounded-pill shadow-sm" id="ap_aceptar">
+                    <i class="bi bi-hand-thumbs-up-fill"></i> Aceptar
+                </button>
+                <!-- Botón Cancelar con nuevo ícono -->
+                <button type="button" class="btn btn-light px-4 py-2 rounded-pill shadow-sm ms-3"
+                    data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg"></i> Cancelar
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="{% static 'js/cookie.js' %}"></script>
+<script src="{% static 'js/producto.js' %}"></script>
+
+{% endblock %}

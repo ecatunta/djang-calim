@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Inicio{% endblock %}</title>
+
+    <!--<link rel="icon" href="{% static 'images/favicon.ico' %}">-->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+
+    <!--<link href="{% static 'glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+    -->
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'css/mystyles.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="index-page" style="border: 0px solid red;">
+
+    <header id="header" class="header d-flex align-items-center fixed-top" style="border: 0px solid blue;">       
+        
+        <div class="container-fluid container-xl position-relative d-flex align-items-center">
+            <a href="" class="logo d-flex align-items-center me-auto">
+                <h1 class="sitename"><i class="bi bi-cart4"></i> CALIM</h1>
+            </a>
+
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="{% url 'inicio' %}" class="active">Inicio</a></li>
+                    <!--<li><a href="#about">Nosotros</a></li>-->
+                    <li><a href="{% url 'actualizar_producto' %}">Actualizar Producto</a></li>
+                    <!--<li><a href="#services">Servicios</a></li>-->
+                    <!--<li><a href="#portfolio">Portfolio</a></li>-->
+                    <!--<li><a href="#team">Team</a></li>-->
+                    <!--<li><a href="{% url 'categorias' %}">Productos</a></li>-->
+                    <li class="dropdown"><a href="#"><span>Productos</span> <i
+                                class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul>                 
+                            <li><a href="{% url 'nueva_venta' 0 %}">Nueva Venta</a></li>                         
+                            <li><a href="{% url 'categorias' %}">Categorias</a></li>
+                            <li><a href="{% url 'nuevo_ingreso' %}">Ingreso</a></li>
+                            <li><a href="{% url 'actualizar_producto' %}">Actualizar Producto</a></li>
+                            <!--<li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i
+                                        class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                <ul>
+                                    <li><a href="#">Deep Dropdown 1</a></li>
+                                    <li><a href="#">Deep Dropdown 2</a></li>
+                                    <li><a href="#">Deep Dropdown 3</a></li>
+                                    <li><a href="#">Deep Dropdown 4</a></li>
+                                    <li><a href="#">Deep Dropdown 5</a></li>
+                                </ul>
+                            </li>-->
+                            <li><a href="{% url 'create_parametro_atributo' %}">Parametro Subcategorías</a></li>
+                           <!-- <li><a href="#">Dropdown 3</a></li>
+                            <li><a href="#">Dropdown 4</a></li>-->
+                        </ul>
+                    </li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+            <a class="btn-getstarted" href="#about">Get Started</a>
+        </div>
+    </header>
+
+    <main class="main" style="border: 0px solid black;">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="container copyright text-center mt-4">
+            <p>© <span>Copyright</span> <strong class="px-1 sitename">CALIM</strong> <span>Todos los derechos
+                    Reservados</span></p>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact.
+            You can delete the links only if you've purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/ 
+            Purchase the pro version with working PHP/AJAX contact form: [buy-url]-->
+                Diseñado por <a href="https://bootstrapmade.com/">SISCAT</a>
+            </div>
+        </div>
+    </footer>
+
+    <!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script src="{% static 'glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'swiper/swiper-bundle.min.js' %}"></script>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/carusel.js' %}"></script>-->
+    
+    <!--<script src="{% static 'js/main.js' %}"></script>-->
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/inicio.js' %}"></script>   
+
+</body>
+
+</html>

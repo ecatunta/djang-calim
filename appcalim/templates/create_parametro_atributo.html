@@ -1,0 +1,59 @@
+{% extends 'inicio.html' %}
+
+{% load static %}
+
+{% block title %}
+Categorias
+{% endblock %}
+
+{% block content %}
+
+<section id="pricing" class="pricing section light-background">
+
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1>Crear Parametro Atributo</h1>                
+                <div id="mensaje-div" class=""></div>  <!-- Aquí se mostrará el mensaje de JavaScript -->
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div id="patributo_nombre_container">
+                        <!-- Aquí se agregarán los checkboxes dinámicamente -->
+                    </div>
+                    <button type="submit">Guardar</button>
+                </form>
+            </div>
+            <div class="col-lg-6">
+                <h1>Lista Parametro Atributo</h1>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <!--<th>ID</th>-->
+                                <th>SUBCATEGORIA</th>              
+                                <th>ATRIBUTO</th>
+                                <th>TABLA</th>                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for parametroA in parametrosA %}
+                            <tr>                                
+                                <!--<td>{{ parametroA.patributo_id }}</td>-->
+                                <td>{{ parametroA.subcategoria.subcategoria_nombre }}</td>                                
+                                <td>{{ parametroA.patributo_nombre }}</td>
+                                <td>{{ parametroA.patributo_tabla }}</td>                                
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

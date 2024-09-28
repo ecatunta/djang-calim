@@ -1,0 +1,50 @@
+{% extends 'inicio.html' %}
+
+{% block title %}
+Lista de productos
+{% endblock %}
+
+{% block content %}
+
+<section id="pricing" class="pricing section light-background">
+
+    <div class="container" style="margin-top: 50px;">
+        <h1>Lista de Productos</h1>
+        <h5>Subcategoría: {{ subcategoria.subcategoria_nombre }}</h5> <!-- Muestra el nombre de la subcategoría -->
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>                        
+                        <th>Góndola</th>
+                        <th>Nombre</th>
+                        <th>Precio Unitario</th>
+                        <th>Stock</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                    <tr>
+                        <td><a href="#">{{ producto.producto_id }}</a></td>                        
+                        <td>{{ producto.producto_gondola }}</td>
+                        <td>{{ producto.producto_nombre }}</td>
+                        <td>{{ producto.producto_precio_uni }}</td>
+                        <td>{{ producto.producto_stock }}</td>
+                        <td>
+                            <button type="button">Editar</button>                                                        
+                            <a href="{% url 'producto_detalle' producto.producto_id subcategoria.id %}">Ver</a>
+                        </td>                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <br>        
+        <a href="javascript:history.back()">Atrás</a>
+    </div>
+
+</section>
+
+{% endblock %}

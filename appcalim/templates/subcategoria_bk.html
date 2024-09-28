@@ -1,0 +1,8 @@
+<h3>Subcategoria</h3>
+
+{% for subcategoria in subcategorias %}
+<a href="{% url 'productos' subcategoria.pk %}"><p>{{ subcategoria.subcategoria_nombre }}</p></a>
+{% endfor %}
+
+<br>
+<a href="{% url 'categorias' %}">Atras</a>

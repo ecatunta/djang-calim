@@ -1,0 +1,299 @@
+{% extends 'inicio.html' %}
+
+{% block title %}
+Producto
+{% endblock %}
+
+{% block content %}
+
+<!-- Inicio Section -->
+<section class="pricing section light-background">
+    <!-- Inicio container -->
+    <div class="container container-calim" data-aos="fade-up" data-aos-delay="100" style="margin-top: 50px;">
+
+        <!-- Inicio fila 1 - breadcrumb -->
+
+        <!--<div class="row mb-1">
+        <div class="col-12 py-0" style="border: 0px solid red; background-color: #fff; border-radius: 4px;">
+          <nav aria-label="breadcrumb" style="border: 0px solid cyan;">
+            <ul class="breadcrumb">              
+              {% for breadcrumb in breadcrumbs %}
+              {% if forloop.last %}
+              <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb.name }}</li>
+              {% else %}
+              <li class="breadcrumb-item"><a href="{{ breadcrumb.url }}" style="font-weight:bold;">{{breadcrumb.name}}</a>
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </nav>
+        </div>
+      </div>-->
+
+        <!-- Fin fila 1 - breadcrumb -->
+
+        <!-- Inicio fila 2 - titulo del producto -->
+        <div class="row mb-1" style="border: 0px solid rgb(21, 219, 104);">
+            <div class="col-12 py-3"
+                style="border: 0px solid black; background-color: #f4f0ff; border-radius:2px; text-align: center; ">
+                <h2
+                    style="margin-bottom: 0px; font-weight: 500!important; font-weight: 32px; color:inherit; font-family:'Montserrat', sans-serif">
+                    {{ producto.producto_nombre }}
+                </h2>
+            </div>
+        </div>
+        <!-- Fin fila 2 - titulo del producto -->
+
+        <!-- Inicio fila 3 - carousel y detalle -->
+        <div class="row mb-1">
+            <!-- Inicio columna 1 - carousel -->
+            <div class="col-lg-7" style="border: 0px solid red;">
+
+                <!--<div class="row mb-1" style="border: 0px solid red;">
+                    <div class="col-12 p-4" style="background-color: #fff;">
+                        <div id="productoCarousel" class="carousel slide" data-bs-touch="false"
+                            data-bs-interval="false">
+                            <div class="carousel-inner">
+                                {% for imagen in producto.imagenes.all %}
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="{{ imagen.imagen_nombre.url }}" class="d-block w-100 img-fluid"
+                                        alt="Imagen de {{ producto.prod_marca }}">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" href="#productoCarousel" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#productoCarousel" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                            <div class="image-counter"
+                                style="position: absolute; bottom: 10px; left: 10px; color: #fff; font-size: 16px;">
+                                <span id="imageNumber">1</span>/<span id="totalImages">{{ producto.imagenes.count
+                                    }}</span>
+                            </div>
+                            <div class="action-icons" style="position: absolute; bottom: 10px; right: 10px;">
+                                <button class="btn btn-light"><i class="bi bi-heart"></i></button>
+                                <button class="btn btn-light"><i class="bi bi-hand-thumbs-up-fill"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="fullScreenImage"
+                    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999;">
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">
+                        <img id="fullScreenImg" src="" style="max-height: 90%; max-width: 90%;">
+                    </div>
+                    <button id="closeFullScreen"
+                        style="position: absolute; top: 20px; left: 20px; background: none; border: none; color: #fff; font-size:80px; cursor: pointer;">&times;
+                    </button>
+                </div>-->
+
+            </div>
+            <!-- Fin columna 1 - carousel -->
+
+            <!-- Inicio columna 2 - precio, calificacion y detalle -->
+            <div class="col-lg-5" style="border: 0px solid black;">
+                {% if higiene %}
+                <!-- Inicio Fila 1 - precio -->
+                <div class="row mb-0" style="border: 0px solid yellow; background-color: #fff;">
+
+                    <div class="col-6 pt-4 pb-3 px-3" style="border: 0px solid red;">
+                        <div
+                            style="background-color:#f5f6f8; border:0px solid black; padding-top:15px; padding-bottom:15px; text-align:center; border-radius: 5px;">
+                            <b>
+                                <span style="font-size: 15px;">BOB</span>
+                                <!--<span style="font-size: 40px;">{{ higiene.higiene_paquete_precio }}</span>-->
+                                <span style="font-size: 40px;">{{ higiene.producto.producto_precio_uni }}</span>
+                            </b>
+                            <p style="color:#797676; font-size: 14px; margin-bottom: 0px;">Precio por paquete</p>
+                        </div>
+                    </div>
+
+                    <div class="col-6 pt-4 pb-3 px-3" style="border: 0px solid blue;">
+                        <div
+                            style="background-color: #f5f6f8; border: 0px solid black; padding-top:15px; padding-bottom:15px; text-align: center;border-radius: 5px;">
+                            <b>
+                                <span style="font-size: 15px;">BOB</span>
+                                <span style="font-size: 40px;">{{ higiene.higiene_jaba_precio }}</span>
+                            </b>
+                            <p style="color:#797676; font-size: 14px; margin-bottom: 0px;">Precio por jaba</p>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Fin Fila 1 - precios -->
+
+                <!-- Inicio Fila 2 - calificacion -->
+                <div class="row mb-1" style="border: 0px solid green; background-color: #fff;">
+                    <div class="col-6 col-md-4 rating2 d-flex align-items-center">
+                        <span class="text-warning">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </span>
+                    </div>
+                    <div class="col-6 col-md-8 d-flex justify-content-end align-items-center stock2">
+                        <!--<span><b>Stock:</b> Disponible</span>-->
+                        <span><b>Stock:</b> {{ higiene.producto.producto_stock }}</span>
+                    </div>
+                </div>
+                <!-- Fin Fila 2 - calificacion -->
+
+                <!-- Inicio Fila 3 - detalle de producto -->
+                <div class="row">
+                    <div class="col-12"
+                        style="border: 0px solid red; background-color:white; box-shadow: 0 4px 8px rgba(0,0,0,0.1);  ">
+                        <div class="container2 my-section">
+
+                            <div class="row" style="border: 0px solid green; background-color: #fff;">
+                                <div class="col-12 py-2" style="border: 0px solid blue;">
+                                    <h2 style="color: black; border:0px solid yellow;">Detalles</h2>
+                                </div>
+                            </div>
+
+                            <!--{% for campo, valor in campos_y_valores_filtrados %}
+                            <div class="row align-items-center">
+                                <div class="col-4 col-md-4 py-2">
+                                    <span>{{ campo }}</span>
+                                </div>
+                                <div class="col-8 col-md-8">
+                                    <span>{{ valor }}</span>
+                                </div>
+                            </div>                            
+                            {% endfor %}-->
+
+                            <!-- Iterar sobre cada elemento en la lista_respuesta_nivel3 -->
+                            {% for item in lista_respuesta_nivel3 %}
+                            <div class="row">
+                                <!-- Primera columna con el valor de patributo_label -->
+                                <div class="col-6">
+                                    <strong>{{ item.patributo_label }}:</strong>
+                                </div>
+                                <!-- Segunda columna con el valor de atributo_valor -->
+                                <div class="col-6">
+                                    {{ item.atributo_valor }}
+                                </div>
+                            </div>
+                            <hr> <!-- Línea divisoria entre filas -->
+                            {% endfor %}
+
+                            <!--<div class="row align-items-center">
+                                <div class="col-4 col-md-4 py-2">
+                                    <span>Color</span>
+                                </div>
+                                <div class="col-8 col-md-8">
+                                    <span>{{ higiene.higiene_color }}</span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-4 col-md-4 py-2">
+                                    <span>Marca</span>
+                                </div>
+                                <div class="col-8 col-md-8">
+                                    <span>{{ higiene.higiene_marca }}</span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-4 col-md-4 py-2">
+                                    <span>Talla</span>
+                                </div>
+                                <div class="col-8 col-md-8">
+                                    <span>{{ higiene.higiene_talla }}</span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-4 col-md-4 py-2">
+                                    <span>Peso del/la Bebé</span>
+                                </div>
+                                <div class="col-8 col-md-8">
+                                    <span>{{ higiene.higiene_peso_inicio }} - {{ higiene.higiene_peso_fin }} kg</span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-4 col-md-4 py-2">
+                                    <span>Protección</span>
+                                </div>
+                                <div class="col-8 col-md-8">
+                                    <span>{{ higiene.higiene_tiempo_proteccion }} horas</span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-4 col-md-4 py-2">
+                                    <span>Jaba</span>
+                                </div>
+                                <div class="col-8 col-md-8 py-2">
+                                    <span>{{ higiene.higiene_jaba_paquete }} paquetes</span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-4 col-md-4 py-2">
+                                    <span>Peso Jaba</span>
+                                </div>
+                                <div class="col-8 col-md-8 py-2">
+                                    <span>{{ higiene.higiene_jaba_peso }} kg</span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-4 col-md-4 py-2">
+                                    <span>Paquete</span>
+                                </div>
+                                <div class="col-8 col-md-8">
+                                    <span>{{ higiene.higiene_paquete_unidad }} unidades (pañales)</span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-4 col-md-4 py-2">
+                                    <span>Dimensión del paquete</span>
+                                </div>
+                                <div class="col-8 col-md-8">
+                                    <span>{{ higiene.higiene_paquete_medida }} cm</span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-4 col-md-4 py-2">
+                                    <span>Peso del paquete</span>
+                                </div>
+                                <div class="col-8 col-md-8">
+                                    <span>{{ higiene.higiene_paquete_peso }} kg</span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-4 col-md-4 py-2">
+                                    <span>Descripción</span>
+                                </div>
+                                <div class="col-8 col-md-8">
+                                    <span>{{ higiene.higiene_descripcion }}</span>
+                                </div>
+                            </div>-->
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin Fila 3 - detalle de producto -->
+                {% else %}
+                <p>Este producto no tiene detalles de higiene cargados.</p>
+                {% endif %}
+            </div>
+            <!-- Fin columna 2 - precio, calificacion y detalle -->
+        </div>
+        <!-- Fin fila 3 - carousel y detalle -->
+
+        <!-- Inicio fila 4 - botones -->
+        <div class="row mb-0">
+            <div class="col-12 py-3 text-center">
+                <a href="javascript:history.back()" class="buy-btn2">Volver</a>
+            </div>
+        </div>
+        <!-- Fin fila 4 - botones -->
+    </div>
+    <!-- Fin container -->
+</section>
+<!-- Fin Section -->
+
+{% endblock %}

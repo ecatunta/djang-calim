@@ -1,0 +1,54 @@
+{% extends 'inicio.html' %}
+
+{% load static %}
+
+{% block title %}
+Subcategorias
+{% endblock %}
+
+{% block content %}
+
+<section id="pricing" class="pricing section light-background">
+
+    <!--<div class="container" style="margin-top: 50px;">
+        {% for subcategoria in subcategorias %}
+        <a href="{% url 'productos' subcategoria.pk %}">
+            <p>{{ subcategoria.subcategoria_nombre }}</p>
+        </a>
+        {% endfor %}        
+        <br>
+        <a href="{% url 'categorias' %}">Atras</a>    
+    </div>-->
+
+    <div class="container" style="margin-top: 50px;">
+        <div class="row">
+            {% for subcategoria in subcategorias %}
+            <div class="col-lg-2 col-md-3 col-sm-4 mb-4"> <!-- Ajusta las columnas según el tamaño de pantalla -->
+                <div class="card text-center" data-url="{% url 'productos' subcategoria.pk %}">
+                    <!-- Parte superior (imagen) -->
+                    <div class="card-body d-flex flex-column justify-content-between sb">
+                        <div class="scat-container-img mb-1">
+                            <img src="{{ subcategoria.subcategoria_imagen.url }}"
+                                alt="{{ subcategoria.subcategoria_nombre }}" class="img-fluid w-100"
+                                style="object-fit: cover;">
+                        </div>
+                        <!-- Parte inferior (nombre de la subcategoría) -->                        
+                        <div class="bg-dark text-white py-2 mt-auto d-flex align-items-center justify-content-center"
+                            style="min-height: 60px;">
+                            <!-- Fondo oscuro, texto claro, altura fija y centrado vertical -->
+                            <h5 class="card-title mb-0">{{ subcategoria.subcategoria_nombre }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <br>
+        <a href="{% url 'categorias' %}">Atrás</a>
+    </div>
+
+</section>
+
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}
