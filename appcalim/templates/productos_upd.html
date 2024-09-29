@@ -58,14 +58,13 @@ Actualizar producto
 <section id="pricing" class="pricing section light-background">
     <div class="container mt-5" style="margin-top: 50px;">
         {% csrf_token %}
-
         <div class="row mb-1">
             <div class="col-12 text-center">
                 <h4>Productos</h4>
             </div>
         </div>
 
-        <div class="row mb-3">
+        <!--<div class="row mb-3">
             <div class="col-2 text-end">
                 <strong>Gondola: </strong>
             </div>
@@ -77,9 +76,30 @@ Actualizar producto
                     {% endfor %}
                 </select>
             </div>
+        </div>-->
+
+
+        <div class="row mb-3">
+            <div class="col-2 text-end">
+                <strong>Góndola: </strong>
+            </div>
+            <div class="col-2">
+                <select name="gondola" id="gondola-select" class="form-select">
+                    <option value="">Seleccione una góndola</option>
+                    {% for gondola in gondolas %}
+                    <option value="{{ gondola.producto_gondola }}">{{ gondola.producto_gondola }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-2 text-end">
+                <strong>Total: </strong>
+            </div>
+            <div class="col-2 ">
+                <p id="total">{{ total }}</p>
+            </div>
         </div>
 
-        <div class="row">
+        <!--<div class="row">
             <div class="col-12">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-hover">
@@ -114,9 +134,29 @@ Actualizar producto
                     </table>
                 </div>
             </div>
+        </div>-->
+
+        <!-- Contenedor donde se mostrarán los productos -->
+        <div class="row">
+            <div class="col-12">
+                <!-- Tabla de productos -->
+                <div id="productos-list">
+                    {% include 'productos_table.html' %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <!-- Paginación -->
+                <div id="pagination-container">
+                    {% include 'paginacion.html' %}
+                </div>
+            </div>
         </div>
 
         <!-- Paginación -->
+        <!--
         <div class="row">
             <div class="col-12">
                 <nav aria-label="Page navigation">
@@ -181,6 +221,7 @@ Actualizar producto
                 </nav>
             </div>
         </div>
+    -->
     </div>
 </section>
 

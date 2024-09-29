@@ -142,4 +142,85 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error:', error);
             });
     });
+
+
+    document.getElementById('gondola-select').addEventListener('change', function () {
+
+        /*var gondola = this.value;
+        var url = new URL(window.location.href);
+        //alert (gondola, url);
+
+        // Si hay un valor de góndola seleccionado, agregarlo como parámetro en la URL
+        if (gondola) {
+            url.searchParams.set('gondola', gondola);
+        } else {
+            url.searchParams.delete('gondola');  // Si no se selecciona ninguna góndola, eliminar el parámetro
+        }
+
+        // Recargar la página con el nuevo parámetro
+        window.location.href = url.toString();*/
+
+        var gondola = this.value;
+        //fetch("{% url 'listado_producto' %}", {
+        fetch(`/listado_producto/`, {
+            method: "POST",
+            headers: {
+                'X-CSRFToken': csrftoken,
+                "Content-Type": "application/json",
+                "X-Requested-With": "XMLHttpRequest"  // Este encabezado indica que es una solicitud Ajax
+            },
+            body: JSON.stringify({
+                'gondola': gondola
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Actualizar los productos
+                document.getElementById('productos-list').innerHTML = data.productos_html;
+
+                // Actualizar la paginación
+                document.getElementById('pagination-container').innerHTML = data.paginacion_html;
+
+                document.getElementById('total').textContent = data.total;
+
+            })
+            .catch(error => console.log("Error:", error));
+    });
+
+    // Escucha para los clics en los botones de paginación
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('page-link')) {
+            e.preventDefault();  // Evita la redirección estándar del enlace
+
+            var page = e.target.getAttribute('data-page');  // Obtén el número de página
+            var gondola = document.getElementById('gondola-select').value;  // Obtener la góndola seleccionada
+            console.log(page, gondola);
+
+
+            // Realiza la solicitud para cargar la página seleccionada con el filtro de góndola
+            fetch(`/listado_producto/?page=${page}`, {
+                method: "POST",
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: JSON.stringify({
+                    'gondola': gondola
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('productos-list').innerHTML = data.productos_html;
+                    //document.querySelector('.pagination').innerHTML = data.paginacion_html;
+                    document.getElementById('pagination-container').innerHTML = data.paginacion_html;
+
+                    document.getElementById('total').textContent = data.total;
+                })
+                .catch(error => console.log("Error:", error));
+
+        }
+    });
+
 });

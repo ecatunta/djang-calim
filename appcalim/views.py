@@ -7,6 +7,7 @@ from django.db.models import ForeignKey, OneToOneField, ManyToManyField, Sum
 from .models import Categoria, Subcategoria, Producto, Higiene, ParametroAtributo, Venta, Ticket, Ingreso, Inventario, InventarioIngreso, InventarioVenta
 from .forms import ParametroAtributoForm, VentaForm, IngresoForm
 from django.core.paginator import Paginator
+from django.template.loader import render_to_string
 
 import json
 
@@ -976,7 +977,7 @@ def Actualizar_ingreso(request, ingreso_id):
     productos = Producto.objects.select_related('subcategoria', 'subcategoria__categoria').order_by('-producto_fechaActualizacion')        
     return render(request, 'productos_upd.html', {'productos': productos})'''
 
-def Actualizar_producto(request):
+'''def Listar_producto(request):
     # Obtener los valores únicos de 'producto_gondola' y ordenarlos
     gondolas = Producto.objects.values('producto_gondola').distinct().order_by('producto_gondola')
 
@@ -990,12 +991,156 @@ def Actualizar_producto(request):
     
     # Obtiene los productos de la página actual
     productos = paginator.get_page(page_number)    
-    #return render(request, 'productos_upd.html', {'productos': productos})
 
     # Pasar las gondolas al template
+    return render(request, 'productos_upd.html', {'productos': productos, 'gondolas': gondolas})'''
+
+
+'''def Listar_producto(request):
+    # Obtener los valores únicos de 'producto_gondola' para el select
+    gondolas = Producto.objects.values('producto_gondola').distinct().order_by('producto_gondola')
+    
+    # Obtener el parámetro 'gondola' desde la URL
+    gondola_seleccionada = request.GET.get('gondola')
+    
+    if gondola_seleccionada:
+        # Filtrar los productos por la góndola seleccionada
+        productos_list = Producto.objects.filter(producto_gondola=gondola_seleccionada).select_related('subcategoria', 'subcategoria__categoria').order_by('-producto_fechaActualizacion')
+    else:
+        # Mostrar todos los productos si no se selecciona una góndola
+        productos_list = Producto.objects.select_related('subcategoria', 'subcategoria__categoria').order_by('-producto_fechaActualizacion')
+
+    # Configurar paginación
+    paginator = Paginator(productos_list, 10)
+    page_number = request.GET.get('page')
+    productos = paginator.get_page(page_number)
+
+    # Pasar las góndolas y el valor seleccionado al template
+    return render(request, 'productos_upd.html', {
+        'productos': productos,
+        'gondolas': gondolas,
+        'selected_gondola': gondola_seleccionada,
+    })'''
+
+
+'''def Listar_producto(request):    
+    # Obtener los valores únicos de 'producto_gondola' y ordenarlos
+    gondolas = Producto.objects.values('producto_gondola').distinct().order_by('producto_gondola')       
+    gondola_seleccionada = None
+
+    # Verificar si la solicitud es Ajax y si es POST
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == "POST":
+        # Solo intenta cargar el cuerpo de la solicitud si está presente
+        if request.body:
+            try:
+                data = json.loads(request.body)  # Cargar el cuerpo de la solicitud como JSON
+                gondola_seleccionada = data.get('gondola')                
+            except json.JSONDecodeError:
+                print("Error decodificando el cuerpo de la solicitud")
+    
+     # Filtrar los productos según la góndola seleccionada
+    if gondola_seleccionada:
+        productos_list = Producto.objects.filter(producto_gondola=gondola_seleccionada).select_related('subcategoria', 'subcategoria__categoria').order_by('-producto_fechaActualizacion')
+    else:        
+        productos_list = Producto.objects.select_related('subcategoria', 'subcategoria__categoria').order_by('-producto_fechaActualizacion')
+    
+    print(len(productos_list))
+
+    # Configurar el paginador (10 productos por página)
+    paginator = Paginator(productos_list, 10)
+    page_number = request.GET.get('page')
+    productos = paginator.get_page(page_number)
+    
+    # Verificar si la solicitud es Ajax
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':        
+        # Renderizar los productos a un template parcial (solo la tabla)        
+        productos_html = render_to_string('productos_table.html', {'productos': productos})
+        return JsonResponse({'productos_html': productos_html})
+        
+    # Si no es una solicitud Ajax, renderizar la página completa
+    return render(request, 'productos_upd.html', {'productos': productos, 'gondolas': gondolas})'''
+
+def Listar_producto(request):
+    print("Listar_producto")
+    # Obtener los valores únicos de 'producto_gondola' y ordenarlos
+    gondolas = Producto.objects.values('producto_gondola').distinct().order_by('producto_gondola')       
+    gondola_seleccionada = None
+
+    # Verificar si la solicitud es Ajax y si es POST
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == "POST":
+        # Solo intenta cargar el cuerpo de la solicitud si está presente
+        if request.body:
+            try:
+                data = json.loads(request.body)  # Cargar el cuerpo de la solicitud como JSON
+                gondola_seleccionada = data.get('gondola')                
+            except json.JSONDecodeError:
+                print("Error decodificando el cuerpo de la solicitud")
+    
+    # Filtrar los productos según la góndola seleccionada
+    if gondola_seleccionada:
+        productos_list = Producto.objects.filter(producto_gondola=gondola_seleccionada).select_related('subcategoria', 'subcategoria__categoria').order_by('-producto_fechaActualizacion')
+    else:        
+        productos_list = Producto.objects.select_related('subcategoria', 'subcategoria__categoria').order_by('-producto_fechaActualizacion')
+
+       
+    total_productos_list = len(productos_list)
+    
+    # Configurar el paginador (10 productos por página)
+    paginator = Paginator(productos_list, 10)
+    page_number = request.GET.get('page')
+    productos = paginator.get_page(page_number)
+    
+    # Verificar si la solicitud es Ajax
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        # Renderizar los productos y los botones de paginación en templates parciales
+        productos_html = render_to_string('productos_table.html', {'productos': productos })
+        paginacion_html = render_to_string('paginacion2.html', {'productos': productos })
+        return JsonResponse({
+            'productos_html': productos_html,
+            'paginacion_html': paginacion_html,
+            'total': total_productos_list
+        })
+
+    # Si no es una solicitud Ajax, renderizar la página completa
+    return render(request, 'productos_upd.html', {'productos': productos, 'gondolas': gondolas, 'total': total_productos_list})
+
+
+'''
+def Listar_producto(request):
+    gondolas = Producto.objects.values('producto_gondola').distinct().order_by('producto_gondola')    
+    gondola_seleccionada = None
+
+    # Verificar si la solicitud es Ajax y si es POST
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest' and request.method == "POST":
+        if request.body:
+            try:
+                data = json.loads(request.body)  # Cargar el cuerpo de la solicitud como JSON
+                gondola_seleccionada = data.get('gondola')                
+            except json.JSONDecodeError:
+                print("Error decodificando el cuerpo de la solicitud")
+
+    # Filtrar los productos según la góndola seleccionada
+    if gondola_seleccionada:
+        productos_list = Producto.objects.filter(producto_gondola=gondola_seleccionada).select_related('subcategoria', 'subcategoria__categoria').order_by('-producto_fechaActualizacion')
+    else:        
+        productos_list = Producto.objects.select_related('subcategoria', 'subcategoria__categoria').order_by('-producto_fechaActualizacion')
+
+    # Configurar el paginador (10 productos por página)
+    paginator = Paginator(productos_list, 10)
+    page_number = request.GET.get('page') or 1
+    productos = paginator.get_page(page_number)
+
+    # Verificar si la solicitud es Ajax
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':        
+        productos_html = render_to_string('productos_table.html', {'productos': productos})
+        paginacion_html = render_to_string('paginacion.html', {'productos': productos})
+        return JsonResponse({'productos_html': productos_html, 'paginacion_html': paginacion_html})
+    
+    # Si no es una solicitud Ajax, renderizar la página completa
     return render(request, 'productos_upd.html', {'productos': productos, 'gondolas': gondolas})
 
-
+'''
+    
 def Actualizar_producto_nombre(request):
     # Si el método es POST
     if request.method == 'POST':

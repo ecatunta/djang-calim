@@ -26,6 +26,6 @@ urlpatterns = [
     path('obtiene_precioU_vigente_nuevo/<int:ingreso_id>/', views.Obtiene_precioU_vigente_nuevo, name='obtiene_precioU'),
     path('actualizar_ingreso/<int:ingreso_id>/', views.Actualizar_ingreso, name='actualizar_ingreso'),
     path('inventario_ingreso/<int:ingreso_id>/', views.Inventario_ingreso, name='inventario_ingresoo'),    
-    path('actualizar_productos/', views.Actualizar_producto, name='actualizar_producto'),    
+    path('listado_producto/', views.Listar_producto, name='listado_producto'),    
     path('actualizar_nombre_producto/', views.Actualizar_producto_nombre, name='actualizar_nombre_producto'),    
 ]
