@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Seleccionar todos los botones de actualizar producto
-    const actualiza_producto = document.querySelectorAll('.actualiza_producto');
+    //const actualiza_producto = document.querySelectorAll('.actualiza_producto');
+    //const actualiza_producto = document.querySelectorAll('.actualiza_producto');
+
 
     // Obtener los inputs por su ID
     const inputTipo = document.getElementById('ap_tipo');
@@ -54,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     descripcionCorta.addEventListener('input', actualizarVistaPrevia);
     inputMedida.addEventListener('input', actualizarVistaPrevia);
 
+    /*
     // Agregar el evento click a cada botón de actualizar producto
     actualiza_producto.forEach(button => {
         button.addEventListener('click', function (event) {
@@ -88,6 +91,51 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.show();
         });
     });
+    */
+
+    // Función para agregar el evento a los botones de actualización
+    function agregarEventoActualizaProducto() {
+        //const actualiza_producto = document.querySelectorAll('.actualiza_producto');
+        const actualiza_producto = document.querySelectorAll('.actualiza_producto');
+
+        // Agregar el evento click a cada botón de actualizar producto
+        actualiza_producto.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                inputTipo.value = '';
+                inputMarca.value = '';
+                descripcionCorta.value = '';
+                inputMedida.value = '';
+                // Resetear la vista previa con el placeholder            
+                vistaPrevia.innerHTML = '<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa ...</span>';
+
+                // Obtener la fila que contiene el botón
+                const row = button.closest('tr');
+                // Obtener los atributos data-* de la celda donde están los datos del producto
+                const producto_td = row.querySelector('td[data-producto]');
+                const productoNombre = producto_td.getAttribute('data-producto');
+                const subcategoriaNombre = producto_td.getAttribute('data-subcategoria');
+                const categoriaNombre = producto_td.getAttribute('data-categoria');
+                const productoId = producto_td.getAttribute('data-producto-id');
+                const gondola = producto_td.getAttribute('data-gondola');
+
+                // Actualizar los campos en la ventana modal
+                document.getElementById('ap_producto_nombre').textContent = productoNombre;
+                document.getElementById('ap_subcategoria').textContent = subcategoriaNombre;
+                document.getElementById('ap_gondola').textContent = gondola;
+                document.getElementById('ap_categoria').textContent = categoriaNombre;
+                document.getElementById('ap_aceptar').setAttribute('data', productoId);
+
+                // Mostrar el modal
+                const modal = new bootstrap.Modal(document.getElementById('actualizaProductoModal'));
+                modal.show();
+            });
+        });
+    }
+
+    // Llamar la función para agregar los eventos cuando el DOM esté cargado
+    agregarEventoActualizaProducto();
 
     document.getElementById('ap_aceptar').addEventListener('click', function () {
         // Función para validar un campo
@@ -184,6 +232,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 document.getElementById('total').textContent = data.total;
 
+                // Vuelve a agregar los eventos a los nuevos botones después de actualizar el contenido
+                agregarEventoActualizaProducto();
+
             })
             .catch(error => console.log("Error:", error));
     });
@@ -217,6 +268,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('pagination-container').innerHTML = data.paginacion_html;
 
                     document.getElementById('total').textContent = data.total;
+
+                    
+                    // Vuelve a agregar los eventos a los nuevos botones después de actualizar el contenido
+                    agregarEventoActualizaProducto();
                 })
                 .catch(error => console.log("Error:", error));
 
