@@ -59,9 +59,23 @@ Actualizar producto
     <div class="container mt-5" style="margin-top: 50px;">
         {% csrf_token %}
 
-        <div class="row mb-3">
+        <div class="row mb-1">
             <div class="col-12 text-center">
                 <h4>Productos</h4>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-2 text-end">
+                <strong>Gondola: </strong>
+            </div>
+            <div class="col-2">              
+                <select name="gondola" class="form-select">
+                    <option value="">Seleccione una góndola</option>
+                    {% for gondola in gondolas %}
+                        <option value="{{ gondola.producto_gondola }}">{{ gondola.producto_gondola }}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
 
@@ -71,9 +85,7 @@ Actualizar producto
                     <table class="table table-bordered table-striped table-hover">
                         <thead class="table-dark text-center">
                             <tr>
-                                <!--<th>Nro</th>-->
                                 <th>Gondola</th>
-                                <!-- Ajustamos el ancho para que no se vea mal en pantallas pequeñas -->
                                 <th class="w-75">Producto</th>
                                 <th>Acción</th>
                             </tr>
@@ -81,7 +93,6 @@ Actualizar producto
                         <tbody>
                             {% for producto in productos %}
                             <tr>
-                                <!--<td class="text-center">{{ forloop.counter }}</td>-->
                                 <td class="text-center">{{ producto.producto_gondola }}</td>
                                 <td data-producto='{{ producto.producto_nombre }}'
                                     data-subcategoria='{{ producto.subcategoria.subcategoria_nombre }}'
@@ -187,13 +198,6 @@ Actualizar producto
 
             <!-- Modal Body -->
             <div class="modal-body">
-                <!-- 
-                <div class="row mb-1">
-                    <div class="col text-center">
-                        <strong class="h5" style="font-size: 12px;">NOMBRE DEL PRODUCTO</strong>
-                        <p id="ap_producto_nombre" class="text-muted"></p>
-                    </div>
-                </div> -->
 
                 <!-- Producto -->
                 <div class="row mb-1">
@@ -202,14 +206,6 @@ Actualizar producto
                         <p id="ap_producto_nombre" class="nombre-producto-texto p-2 rounded"></p>
                     </div>
                 </div>
-
-                <!-- Vista previa Producto -->
-                <!--<div class="row mb-0">
-                    <div class="col text-center">                        
-                        <p id="ap_producto_nombre_upd" class="bg-warning p-2 rounded text-producto-dinamico">
-                        </p>
-                    </div>
-                </div>-->
 
                 <!-- Vista previa Producto -->
                 <div class="row mb-0">

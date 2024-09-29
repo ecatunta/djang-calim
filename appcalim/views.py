@@ -977,6 +977,9 @@ def Actualizar_ingreso(request, ingreso_id):
     return render(request, 'productos_upd.html', {'productos': productos})'''
 
 def Actualizar_producto(request):
+    # Obtener los valores únicos de 'producto_gondola' y ordenarlos
+    gondolas = Producto.objects.values('producto_gondola').distinct().order_by('producto_gondola')
+
     productos_list = Producto.objects.select_related('subcategoria', 'subcategoria__categoria').order_by('-producto_fechaActualizacion')    
     
     # Configura el paginador, aquí mostramos 10 productos por página
@@ -987,7 +990,10 @@ def Actualizar_producto(request):
     
     # Obtiene los productos de la página actual
     productos = paginator.get_page(page_number)    
-    return render(request, 'productos_upd.html', {'productos': productos})
+    #return render(request, 'productos_upd.html', {'productos': productos})
+
+    # Pasar las gondolas al template
+    return render(request, 'productos_upd.html', {'productos': productos, 'gondolas': gondolas})
 
 
 def Actualizar_producto_nombre(request):
