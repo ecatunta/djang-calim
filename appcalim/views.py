@@ -1141,6 +1141,7 @@ def Listar_producto(request):
 
 '''
     
+'''
 def Actualizar_producto_nombre(request):
     # Si el método es POST
     if request.method == 'POST':
@@ -1157,4 +1158,34 @@ def Actualizar_producto_nombre(request):
             print('Exception:', str(e))  # Depuración: imprimir la excepción
             return JsonResponse({'success': False, 'error': str(e)}, status=400)
 
+    return JsonResponse({'success': False, 'error': 'Método no permitido'}, status=405)
+    '''
+
+def Actualizar_producto_nombre(request):
+    
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        producto_id = data.get('producto_id')
+        producto_nombre = data.get('producto_nombre') 
+        try:
+            # Actualizar el nombre del producto
+            Producto.objects.filter(producto_id=producto_id).update(
+                producto_nombre=producto_nombre, 
+                producto_fechaActualizacion=timezone.now()
+            )
+            
+            # Recuperar el producto actualizado
+            producto_actualizado = Producto.objects.get(producto_id=producto_id)
+            
+            # Renderizar el template de la fila con el producto actualizado
+            fila_html = render_to_string('producto_fila.html', {'producto': producto_actualizado})
+            
+            return JsonResponse({
+                'message': 'producto actualizado correctamente.', 
+                'success': True,
+                'fila_html': fila_html
+            }, status=200)
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=400)
+    
     return JsonResponse({'success': False, 'error': 'Método no permitido'}, status=405)

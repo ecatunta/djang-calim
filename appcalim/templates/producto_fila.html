@@ -1,0 +1,13 @@
+<tr>
+    <td class="text-center">{{ producto.producto_gondola }}</td>
+    <td data-producto="{{ producto.producto_nombre }}"
+        data-subcategoria="{{ producto.subcategoria.subcategoria_nombre }}"
+        data-categoria="{{ producto.subcategoria.categoria.categoria_nombre }}"
+        data-producto-id="{{ producto.producto_id }}"
+        data-gondola="{{ producto.producto_gondola }}">
+        {{ producto.producto_nombre }}
+    </td>
+    <td class="text-center">
+        <button class="btn btn-primary btn-sm actualiza_producto">Actualizar</button>
+    </td>
+</tr>

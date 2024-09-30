@@ -60,3 +60,26 @@ input.form-control:focus {
     border-color: #28a745;
     box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); /* Resalta al enfocarse */
 }
+
+/* mensaje parte inferior*/
+#mensaje-exito {
+    position: fixed;
+    bottom: -100px; /* Empieza fuera de la vista */
+    left: 0;
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+    z-index: 1050; /* Asegura que el mensaje esté por encima del resto */
+    transition: bottom 0.5s ease;
+}
+
+#mensaje-exito.show {
+    bottom: 0; /* Desliza hacia arriba para mostrarse */
+}
+
+#mensaje-exito.hide {
+    bottom: -100px; /* Desliza hacia abajo para ocultarse */
+}

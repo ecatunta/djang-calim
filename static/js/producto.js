@@ -137,6 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Llamar la función para agregar los eventos cuando el DOM esté cargado
     agregarEventoActualizaProducto();
 
+    /*
     document.getElementById('ap_aceptar').addEventListener('click', function () {
         // Función para validar un campo
         function validarCampo(input) {
@@ -190,6 +191,90 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error:', error);
             });
     });
+    */
+
+    document.getElementById('ap_aceptar').addEventListener('click', function () {
+        // Función para validar un campo
+        function validarCampo(input) {
+            if (input.value.trim() === '') {
+                input.classList.add('is-invalid'); // Agrega borde rojo si está vacío
+                return false;
+            } else {
+                input.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
+                return true;
+            }
+        }
+
+        // Validar cada campo
+        const tipoValido = validarCampo(inputTipo);
+        const marcaValido = validarCampo(inputMarca);
+        const descripcionValida = validarCampo(descripcionCorta);
+        const medidaValida = validarCampo(inputMedida);
+
+        // Si algún campo es inválido, detener el proceso
+        if (!tipoValido || !marcaValido || !descripcionValida || !medidaValida) {
+            console.log("Uno o más campos están vacíos.");
+            return;
+        }
+
+        const producto_id = this.getAttribute('data');
+        const productoNombreElement = document.getElementById('ap_producto_nombre_upd');
+        const producto_nombre = productoNombreElement.textContent;
+
+        // Enviar la solicitud post 
+        fetch(`/actualizar_nombre_producto/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'producto_id': producto_id,
+                'producto_nombre': producto_nombre
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {                   
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('actualizaProductoModal'));
+                    modal.hide();
+
+                    // Encontrar la fila del producto a actualizar
+                    const filaProducto = document.querySelector(`tr td[data-producto-id="${producto_id}"]`).closest('tr');
+
+                    // Reemplazar el contenido de la fila con el HTML actualizado
+                    filaProducto.outerHTML = data.fila_html;
+
+                    // Reasignar el evento click para el nuevo botón de "Actualizar"
+                    /*
+                    const nuevoBoton = document.querySelector(`tr td[data-producto-id="${producto_id}"]`).closest('tr').querySelector('.actualiza_producto');
+                    nuevoBoton.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        const modal = new bootstrap.Modal(document.getElementById('actualizaProductoModal'));
+                        modal.show();
+                    });
+                    */
+
+                    agregarEventoActualizaProducto();
+
+                    // Mostrar mensaje de éxito con animación
+                    const mensajeExito = document.getElementById('mensaje-exito');
+                    mensajeExito.classList.remove('hide');
+                    mensajeExito.classList.add('show');
+
+                    // Ocultar el mensaje después de 5 segundos
+                    setTimeout(() => {
+                        mensajeExito.classList.remove('show');
+                        mensajeExito.classList.add('hide');
+                    }, 5000); // 5 segundos
+                } else {
+                    alert(data.error);
+                }
+            }).catch((error) => {
+                console.error('Error:', error);
+            });
+    });
+
 
 
     document.getElementById('gondola-select').addEventListener('change', function () {
@@ -269,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     document.getElementById('total').textContent = data.total;
 
-                    
+
                     // Vuelve a agregar los eventos a los nuevos botones después de actualizar el contenido
                     agregarEventoActualizaProducto();
                 })
