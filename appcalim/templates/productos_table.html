@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<!--<div class="table-responsive">
     <table class="table table-bordered table-striped table-hover">    
         <thead class="table-dark text-center">
             <tr>
@@ -21,6 +21,38 @@
                 <td class="text-center">
                     <button class="btn btn-primary btn-sm actualiza_producto">Actualizar</button>
                 </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>-->
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover align-middle">    
+        <thead class="table-dark text-center">
+            <tr>
+                <th>Góndola</th>
+                <th class="w-75">Producto</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td class="text-center">{{ producto.producto_gondola }}</td>
+                <td data-producto="{{ producto.producto_nombre }}"
+                    data-subcategoria="{{ producto.subcategoria.subcategoria_nombre }}"
+                    data-categoria="{{ producto.subcategoria.categoria.categoria_nombre }}"
+                    data-producto-id="{{ producto.producto_id }}"
+                    data-gondola="{{ producto.producto_gondola }}">
+                    {{ producto.producto_nombre }}
+                </td>
+                <td class="text-center">
+                    <button class="btn btn-sm btn-icon btn-primary actualiza_producto" title="Actualizar producto">
+                        <i class="bi bi-pencil"></i> Actualizar 
+                    </button>
+                </td>                
             </tr>
             {% endfor %}
         </tbody>
