@@ -193,6 +193,32 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     */
 
+    // Función para resaltar las columnas de la fila actualizada
+    function resaltarColumnasTemporalmente(filaProducto) {
+        //alert(filaProducto)
+        const columnas = filaProducto.querySelectorAll('td');
+
+        // Añadir la clase de resaltado a cada columna
+        columnas.forEach(columna => {
+            columna.classList.add('highlight-cell');
+        });
+
+        // Después de 10 segundos, restaurar el fondo original
+        setTimeout(() => {
+            columnas.forEach(columna => {
+                columna.classList.remove('highlight-cell');
+                columna.classList.add('restore-cell');
+            });
+
+            // Remover la clase de restauración después de la transición
+            setTimeout(() => {
+                columnas.forEach(columna => {
+                    columna.classList.remove('restore-cell');
+                });
+            }, 2000); // Duración de la transición de restauración (2 segundos)
+        }, 10000); // Duración del resaltado (10 segundos)
+    }
+
     document.getElementById('ap_aceptar').addEventListener('click', function () {
         // Función para validar un campo
         function validarCampo(input) {
@@ -255,8 +281,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                     */
 
+                    // Seleccionamos la nueva fila actualizada
+                    const nuevaFilaProducto = document.querySelector(`tr td[data-producto-id="${producto_id}"]`).closest('tr');
+
+                    // Aplicar resaltado a las columnas de la fila
+                    resaltarColumnasTemporalmente(nuevaFilaProducto);
+
                     agregarEventoActualizaProducto();
 
+
+                    /*
                     // Resaltar la fila actualizada
                     const nuevaFilaProducto = document.querySelector(`tr td[data-producto-id="${producto_id}"]`).closest('tr');
                     nuevaFilaProducto.classList.add('highlight-row', 'highlight-row-animate');
@@ -265,6 +299,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     setTimeout(() => {
                         nuevaFilaProducto.classList.remove('highlight-row', 'highlight-row-animate');
                     }, 10000); // 10 segundos
+                    */
+
 
                     // Mostrar mensaje de éxito con animación
                     const mensajeExito = document.getElementById('mensaje-exito');

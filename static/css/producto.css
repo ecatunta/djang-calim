@@ -84,18 +84,31 @@ input.form-control:focus {
     bottom: -100px; /* Desliza hacia abajo para ocultarse */
 }
 
-
 /* Resaltar fila con un borde animado */
+/*
 .highlight-row {
-    border: 2px solid #28a745;
+    border: 2px solid #28a745;    
     transition: border-color 0.5s ease;
 }
 
 .highlight-row-animate {
-    animation: flashHighlight 10s forwards; /* Duración del efecto 10 segundos */
+    animation: flashHighlight 10s forwards; 
 }
 
 @keyframes flashHighlight {
     0% { border-color: #28a745; }
     100% { border-color: transparent; }
+}*/
+
+
+/* Clase para resaltar las celdas con un color de fondo */
+.highlight-cell {
+    background-color: #d4edda !important; /* Verde claro */
+    transition: background-color 1s ease; /* Transición suave al aplicar */
+}
+
+/* Clase para restaurar el fondo original */
+.restore-cell {
+    background-color: transparent !important; /* Fondo original */
+    transition: background-color 2s ease; /* Transición suave al restaurar */
 }
