@@ -259,6 +259,7 @@ Actualizar producto
                 </div>
 
                 <!-- Campos de actualización con fondo diferenciado -->
+                <!--
                 <div class="row mb-0" style="background-color: #f1f1f1; padding: 15px; border-radius: 8px;">
                     <div class="col-6 d-flex flex-column justify-content-center text-center">
                         <label for="ap_tipo" class="form-label">Tipo</label>
@@ -283,8 +284,38 @@ Actualizar producto
                             placeholder="">
                     </div>
                 </div>
+                -->
+
+                <!-- Campos de actualización con fondo diferenciado -->
+                <div class="container">
+                    <div class="row mb-0"
+                        style="background-color: #f1f1f1; padding: 15px; border-radius: 8px;">
+                        <div class="col-6 d-flex flex-column">
+                            <label for="ap_tipo" class="form-label">Tipo</label>
+                            <input type="text" id="ap_tipo" name="tipo" class="form-control" placeholder="">
+                        </div>
+                        <div class="col-6 d-flex flex-column">
+                            <label for="ap_marca" class="form-label">Marca</label>
+                            <input type="text" id="ap_marca" name="marca" class="form-control" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="row mb-4"
+                        style="background-color: #f1f1f1; padding: 15px; border-radius: 8px;">
+                        <div class="col-6 d-flex flex-column">
+                            <label for="ap_descripcion_corta" class="form-label">Descripción corta</label>
+                            <input type="text" id="ap_descripcion_corta" name="descripcion" class="form-control"
+                                placeholder="">
+                        </div>
+                        <div class="col-6 d-flex flex-column">
+                            <label for="ap_medida" class="form-label">Medida</label>
+                            <input type="text" id="ap_medida" name="medida" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Información adicional -->
+                <!--
                 <div class="row mb-2">
                     <div class="col-4">
                         <strong>Gondola:</strong>
@@ -308,21 +339,51 @@ Actualizar producto
                     <div class="col-8">
                         <span id="ap_subcategoria"></span>
                     </div>
+                </div>-->
+
+                <!-- Información adicional -->
+                <div class="row mb-2">
+                    <div class="col-4 text-end"><strong>Góndola:</strong></div>
+                    <div class="col-8"><span id="ap_gondola"></span></div>
                 </div>
+                <div class="row mb-2">
+                    <div class="col-4 text-end"><strong>Categoría:</strong></div>
+                    <div class="col-8"><span id="ap_categoria"></span></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4 text-end"><strong>Subcategoría:</strong></div>
+                    <div class="col-8"><span id="ap_subcategoria"></span></div>
+                </div>
+
             </div>
+
+            <!-- 
+            <div class="modal-footer justify-content-center">
+               
+                <button type="button" class="btn btn-light px-4 py-2 rounded-pill shadow-sm ms-3"
+                    data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg"></i> Salir
+                </button>
+                
+                <button type="button" class="btn btn-success px-4 py-2 rounded-pill shadow-sm" id="ap_aceptar">
+                    <i class="bi bi-hand-thumbs-up-fill"></i> Aceptar
+                </button>
+            </div>
+             -->
 
             <!-- Modal Footer -->
             <div class="modal-footer justify-content-center">
                 <!-- Botón Cancelar con nuevo ícono -->
                 <button type="button" class="btn btn-light px-4 py-2 rounded-pill shadow-sm ms-3"
                     data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"></i> Cancelar
+                    <i class="bi bi-arrow-left"></i> Salir <!-- Flecha a la izquierda -->
                 </button>
                 <!-- Botón Aceptar con nuevo ícono -->
                 <button type="button" class="btn btn-success px-4 py-2 rounded-pill shadow-sm" id="ap_aceptar">
-                    <i class="bi bi-hand-thumbs-up-fill"></i> Aceptar
+                    <i class="bi bi-send"></i> Aceptar <!-- Flecha a la derecha -->
                 </button>
             </div>
+
         </div>
     </div>
 </div>
