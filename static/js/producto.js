@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => response.json())
             .then(data => {
-                if (data.success) {                   
+                if (data.success) {
                     const modal = bootstrap.Modal.getInstance(document.getElementById('actualizaProductoModal'));
                     modal.hide();
 
@@ -256,6 +256,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     */
 
                     agregarEventoActualizaProducto();
+
+                    // Resaltar la fila actualizada
+                    const nuevaFilaProducto = document.querySelector(`tr td[data-producto-id="${producto_id}"]`).closest('tr');
+                    nuevaFilaProducto.classList.add('highlight-row', 'highlight-row-animate');
+
+                    // Remover el resaltado después de 10 segundos
+                    setTimeout(() => {
+                        nuevaFilaProducto.classList.remove('highlight-row', 'highlight-row-animate');
+                    }, 10000); // 10 segundos
 
                     // Mostrar mensaje de éxito con animación
                     const mensajeExito = document.getElementById('mensaje-exito');
