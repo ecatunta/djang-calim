@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Seleccionar todos los botones de inventario ingreso
     const inventarioIngreso = document.querySelectorAll('.inventario_ingreso');
 
+    const suggestions = document.getElementById('suggestions');
+    const input_producto = document.getElementById('producto');
     //Barra de busqueda
     document.getElementById('producto').addEventListener('input', function () {
         const query = this.value;
@@ -419,8 +421,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Evento click sobre el elemento html con id pu_aceptar
     document.getElementById('pu_aceptar').addEventListener('click', function () {
-        
-        const ingresoId = this.getAttribute('data-id');        
+
+        const ingresoId = this.getAttribute('data-id');
         const costoUnitario = parseFloat(document.getElementById('pu_costoU_nuevo').value); // Convertir a número
         const porGanancia = parseFloat(document.getElementById('pu_pGanancia_nuevo').value);
         const ganancia = parseFloat(document.getElementById('pu_ganancia_nuevo').value);
@@ -448,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                if (data.success) {                    
+                if (data.success) {
                     location.reload()
                 }
             })
@@ -456,4 +458,113 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error al actualizar el ingreso:', error);
             });
     });
+
+    /*
+    document.getElementById('producto').addEventListener('focus', function () {
+        const searchBarContainer = document.getElementById('search-bar-container');
+        const suggestions = document.getElementById('suggestions');
+        const backArrow = document.getElementById('back-arrow');
+
+        // Solo ejecutar este código si estamos en pantallas pequeñas
+        if (window.innerWidth <= 768) {
+            // Aplicar clase para fijar la barra de búsqueda y sugerencias en la parte superior
+            searchBarContainer.classList.add('fixed-search-bar');
+            suggestions.classList.add('fixed-suggestions');
+
+            // Mostrar la flecha de regreso
+            backArrow.style.display = 'inline-block';
+        }
+    });
+
+    // Restaurar el diseño al hacer clic en la flecha de regreso
+    document.getElementById('back-arrow').addEventListener('click', function () {
+        const searchBarContainer = document.getElementById('search-bar-container');
+        const suggestions = document.getElementById('suggestions');
+        const backArrow = document.getElementById('back-arrow');
+
+        // Remover las clases que fijan la barra y sugerencias en la parte superior
+        searchBarContainer.classList.remove('fixed-search-bar');
+        suggestions.classList.remove('fixed-suggestions');
+
+        // Ocultar la flecha de regreso
+        backArrow.style.display = 'none';
+    });
+    */
+
+    /*
+    document.getElementById('producto').addEventListener('focus', function () {
+        const searchBarContainer = document.getElementById('search-bar-container');
+        const suggestions = document.getElementById('suggestions');
+        const backArrow = document.getElementById('back-arrow');
+
+        // Solo ejecutar este código si estamos en pantallas pequeñas
+        if (window.innerWidth <= 768) {
+            // Aplicar clase para fijar la barra de búsqueda y sugerencias en la parte superior
+            searchBarContainer.classList.add('fixed-search-bar');
+            suggestions.classList.add('fixed-suggestions');
+            // Mostrar la flecha de regreso
+            backArrow.style.display = 'inline-block';
+        }
+    });
+
+    // Restaurar el diseño al hacer clic en la flecha de regreso
+    document.getElementById('back-arrow').addEventListener('click', function () {
+        const searchBarContainer = document.getElementById('search-bar-container');
+        const suggestions = document.getElementById('suggestions');
+        const backArrow = document.getElementById('back-arrow');
+
+        // Remover las clases que fijan la barra y sugerencias en la parte superior
+        searchBarContainer.classList.remove('fixed-search-bar');
+        suggestions.classList.remove('fixed-suggestions');
+
+        // Ocultar la flecha de regreso
+        backArrow.style.display = 'none';
+
+        suggestions.style.display = 'none';
+        input_producto.value = '';
+
+    }); 
+*/
+
+    document.getElementById('producto').addEventListener('focus', function () {
+        const searchBarContainer = document.getElementById('search-bar-container');
+        const suggestions = document.getElementById('suggestions');
+        const searchIcon = document.getElementById('search-icon');
+        const backArrow = document.getElementById('back-arrow');
+
+        // Solo ejecutar este código si estamos en pantallas pequeñas
+        if (window.innerWidth <= 768) {
+            // Ocultar ícono de búsqueda y mostrar la flecha de regreso
+            searchIcon.style.display = 'none';
+            //backArrow.style.display = 'inline-block';
+            backArrow.style.display = 'block';
+
+            // Aplicar clases para fijar la barra de búsqueda y sugerencias en la parte superior
+            searchBarContainer.classList.add('fixed-search-bar');
+            suggestions.classList.add('fixed-suggestions');
+        }
+    });
+
+    // Restaurar el diseño al hacer clic en la flecha de regreso
+    document.getElementById('back-arrow').addEventListener('click', function () {
+        const searchBarContainer = document.getElementById('search-bar-container');
+        const suggestions = document.getElementById('suggestions');
+        const searchIcon = document.getElementById('search-icon');
+        const backArrow = document.getElementById('back-arrow');
+        const inputProducto = document.getElementById('producto');
+
+        // Restaurar ícono de búsqueda y ocultar la flecha de regreso
+        //searchIcon.style.display = 'inline-block';
+        searchIcon.style.display = 'block';
+        backArrow.style.display = 'none';
+
+        // Remover las clases que fijan la barra y sugerencias en la parte superior
+        searchBarContainer.classList.remove('fixed-search-bar');
+        suggestions.classList.remove('fixed-suggestions');
+
+        // Ocultar sugerencias y limpiar el campo de búsqueda
+        suggestions.style.display = 'none';
+        inputProducto.value = '';
+    });
+
 });

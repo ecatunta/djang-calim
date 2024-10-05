@@ -10,15 +10,57 @@ Ingreso
 
 <section id="pricing" class="pricing section light-background">
     <div class="container mt-5" style="margin-top: 50px;">
-        
+
         <form method="post" action="{% url 'nuevo_ingreso' %}" class="venta-form">
             {% csrf_token %}
             <div class="row row-producto mb-4">
                 <div class="col-12 text-center" style="position: relative;">
-                    <input type="text" id="producto" name="producto" class="form-control w-100 w-md-50 mx-auto"
+                    <!--<input type="text" id="producto" name="producto" class="form-control w-100 w-md-50 mx-auto"
                         placeholder="Nombre del Producto">
                     <input type="hidden" id="id_producto_id" name="producto_id">
+                    <ul id="suggestions" class="list-group mt-1" style="display: none;"></ul>}-->
+
+                    <!--<div class="input-group mb-3 search-bar-container" id="search-bar-container">
+                        <span class="input-group-text" id="back-arrow" style="display: none;"><i
+                                class="bi bi-arrow-left"></i></span>
+                        <input type="text" id="producto" name="producto" class="form-control"
+                            placeholder="Nombre del Producto" aria-label="Buscar producto"
+                            aria-describedby="search-icon">
+                        <input type="hidden" id="id_producto_id" name="producto_id">
+                    </div>
+                    <ul id="suggestions" class="list-group mt-1" style="display: none;"></ul>-->
+
+                    <!--
+                    <div class="input-group mb-3 search-bar-container" id="search-bar-container">
+                        <span class="input-group-text" id="back-arrow" style="display: none;">
+                            <i class="bi bi-arrow-left"></i>
+                        </span>
+                        <input type="text" id="producto" name="producto" class="form-control" placeholder="Buscar..."
+                            aria-label="Buscar producto">
+                        <input type="hidden" id="id_producto_id" name="producto_id">
+                    </div>
                     <ul id="suggestions" class="list-group mt-1" style="display: none;"></ul>
+                    -->
+
+                    <div class="input-group mb-3 search-bar-container" id="search-bar-container">
+                        <!-- Ícono de búsqueda, visible por defecto -->
+                        <span class="input-group-text" id="search-icon">
+                            <i class="bi bi-search"></i>
+                        </span>
+
+                        <!-- Ícono de la flecha hacia la izquierda, oculto por defecto -->
+                        <span class="input-group-text" id="back-arrow" style="display: none;">
+                            <i class="bi bi-arrow-left"></i>
+                        </span>
+
+                        <input type="text" id="producto" name="producto" class="form-control" placeholder="Buscar..."
+                            aria-label="Buscar producto">
+
+                        <input type="hidden" id="id_producto_id" name="producto_id">
+                    </div>
+
+                    <ul id="suggestions" class="list-group mt-1" style="display: none;"></ul>
+
                 </div>
             </div>
 
@@ -94,22 +136,23 @@ Ingreso
 </section>
 
 <!-- Modal -->
-<div class="modal fade" id="ingresoPrecioUModal" tabindex="-1" aria-labelledby="ingresoPrecioUModalLabel" aria-hidden="true">
+<div class="modal fade" id="ingresoPrecioUModal" tabindex="-1" aria-labelledby="ingresoPrecioUModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-custom">
-        <div class="modal-content">            
+        <div class="modal-content">
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title" id="ingresoPrecioUModalLabel">Actualizar Precio Unitario</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div class="modal-body">                
+            <div class="modal-body">
                 <div class="row mb-4">
                     <div class="col text-center">
                         <strong class="h5">Producto</strong>
                         <p id="pu_producto_nombre" class="text-muted"></p>
                     </div>
-                </div>               
-                
+                </div>
+
                 <table class="table table-sm align-middle">
                     <thead class="table-light text-center">
                         <tr>
@@ -126,22 +169,27 @@ Ingreso
                         </tr>
                         <tr class="bg-light">
                             <td class="text-center">Porcentaje de Ganancia</td>
-                            <td><input type="text" id="pu_pGanancia_actual" class="form-control text-center" disabled></td>
+                            <td><input type="text" id="pu_pGanancia_actual" class="form-control text-center" disabled>
+                            </td>
                             <td><input type="number" id="pu_pGanancia_nuevo" class="form-control text-center"></td>
                         </tr>
                         <tr>
                             <td class="text-center" style="background-color: #f8f9fa;">Ganancia</td>
-                            <td><input type="text" id="pu_ganancia_actual" class="form-control text-center" disabled></td>
-                            <td><input type="number" id="pu_ganancia_nuevo" class="form-control text-center" disabled></td>
+                            <td><input type="text" id="pu_ganancia_actual" class="form-control text-center" disabled>
+                            </td>
+                            <td><input type="number" id="pu_ganancia_nuevo" class="form-control text-center" disabled>
+                            </td>
                         </tr>
                         <tr class="bg-light">
                             <td class="text-center" style="background-color: #f8f9fa;">Precio Unitario</td>
-                            <td><input type="text" id="pu_precioU_actual" class="form-control text-center" disabled></td>
-                            <td><input type="number" id="pu_precioU_nuevo" class="form-control text-center" disabled></td>
+                            <td><input type="text" id="pu_precioU_actual" class="form-control text-center" disabled>
+                            </td>
+                            <td><input type="number" id="pu_precioU_nuevo" class="form-control text-center" disabled>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-                
+
                 <div class="row my-3">
                     <div class="col-6 text-end">
                         <strong>Unidades:</strong>
@@ -160,7 +208,7 @@ Ingreso
                     </div>
                 </div>
             </div>
-            
+
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-success px-4" id="pu_aceptar">Aceptar</button>
                 <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal">Cancelar</button>

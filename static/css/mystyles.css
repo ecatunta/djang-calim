@@ -504,7 +504,7 @@
   background-color: #f8f9fa;
   /* Color de fondo más claro para la primera fila */
   padding: 20px;
-  border-radius: 5px;  
+  border-radius: 5px;
 }
 
 .venta-form .row-campos {
@@ -528,23 +528,23 @@
 
 /* Estilo para los campos bloqueados */
 .disabled-input {
-      background-color: #e0e0e0;
-      cursor: not-allowed;
-      /*color: #495057;*/
-      /*font-weight: bold;*/
-  }
-
-/*formulario de ventas fin*/
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+  /*color: #495057;*/
+  /*font-weight: bold;*/
+}
 
 /* barras de busqueda inicio */
-
 #suggestions {
-  max-height: 200px;
+  max-height: 400px;
   overflow-y: auto;
   position: absolute;
-  top: 100%;  /* Ubica la lista justo debajo del campo de texto */
-  left: 0;    /* Alinea la lista con el borde izquierdo del contenedor */
-  width: 100%; /* Hace que el ancho de la lista sea igual al del campo de texto */
+  top: 100%;
+  /* Ubica la lista justo debajo del campo de texto */
+  left: 0;
+  /* Alinea la lista con el borde izquierdo del contenedor */
+  width: 100%;
+  /* Hace que el ancho de la lista sea igual al del campo de texto */
   z-index: 1000;
   background-color: white;
   border: 1px solid #ccc;
@@ -559,21 +559,152 @@
 #suggestions li:hover {
   background-color: #f1f1f1;
 }
-/* barras de busqueda fin */
+
+/* Para pantallas pequeñas */
+/*
+@media (max-width: 768px) {
+    #producto {
+        width: 100%;
+        border-radius: 0;
+    }
+
+    #suggestions {
+        max-height: 400px; 
+    }
+
+    
+    .input-group-text {
+        background-color: white;
+        border-right: none;
+        cursor: pointer;
+    }
+
+    #back-arrow {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 1060;
+        display: none;
+    }
+
+    .fixed-search-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1050;
+    }
+
+    .fixed-suggestions {
+        position: fixed;
+        top: 50px;
+        left: 0;
+        right: 0;
+        z-index: 1049; 
+    }
+}
+*/
+
+/* Ajustes adicionales para la barra de búsqueda y el panel de sugerencias */
+
+/* Para pantallas pequeñas */
+@media (max-width: 768px) {
+
+  .input-group-text {
+    cursor: pointer;
+    /*padding: 20px;*/
+    font-size: 1.1rem;
+    color: #000;
+  }
+  
+  #producto {
+    padding-left: 50px; /* Espacio para los íconos en el lado izquierdo */
+    width: calc(100% - 80px); /* Reducir el ancho del input cuando hay íconos */
+    /*padding-top: 50px;
+    padding-bottom: 25px;*/
+  }
+  /*  #back-arrow {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 10px;
+      font-size: 1.5rem;
+      color: #000;
+      cursor: pointer;
+  }*/
+
+  #back-arrow {
+    position: fixed;
+    /*top: 10px;
+    left: 10px;*/
+    top: 0px;
+    left: 0px;
+    z-index: 1060;
+    display: none;
+    padding: 15px 10px 15px 10px;
+  }
+
+  /*
+.fixed-search-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding-right: 10px;
+      z-index: 1050;
+      background-color: white;
+      display: flex;
+      align-items: center; 
+  }*/
+
+  .fixed-search-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050;
+    /* Para estar sobre el header */
+  }
+
+  .fixed-suggestions {
+    position: fixed !important;
+    top: 50px !important;
+    /* Justo debajo de la barra de búsqueda fija */
+    left: 0 !important;
+    right: 0 !important;
+    max-height: 400px !important;
+    /* Ajustar el tamaño del panel de sugerencias */
+    z-index: 1049 !important;
+    background-color: white !important;
+    overflow-y: auto !important;
+    border: 1px solid #ccc !important;
+    border-radius: 5px !important;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
 
 /* ticket */
 .ticket-display {
   display: inline-block;
-  background-color: #007bff; /* Color de fondo azul de Bootstrap */
-  color: white; /* Texto en blanco */
-  padding: 15px 30px; /* Espaciado interno */
-  border-radius: 10px; /* Bordes redondeados */
-  font-size: 2rem; /* Tamaño de fuente grande */
-  font-weight: bold; /* Texto en negrita */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  background-color: #007bff;
+  /* Color de fondo azul de Bootstrap */
+  color: white;
+  /* Texto en blanco */
+  padding: 15px 30px;
+  /* Espaciado interno */
+  border-radius: 10px;
+  /* Bordes redondeados */
+  font-size: 2rem;
+  /* Tamaño de fuente grande */
+  font-weight: bold;
+  /* Texto en negrita */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  /* Sombra suave */
 }
 
-.row-tabla-ventas {  
+.row-tabla-ventas {
   background-color: #fffefe;
   border-radius: 0px;
 }
@@ -584,7 +715,8 @@
   margin: auto;
 }
 
-.table-sm th, .table-sm td {
+.table-sm th,
+.table-sm td {
   padding: 0.75rem;
 }
 
@@ -605,7 +737,5 @@
 }*/
 
 .t-placeholder::placeholder {
-  color: rgba(0, 0, 0, 0.3);  
+  color: rgba(0, 0, 0, 0.3);
 }
-
-
