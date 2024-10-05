@@ -503,12 +503,12 @@
 .venta-form .row-producto {
   background-color: #f8f9fa;
   /* Color de fondo más claro para la primera fila */
-  padding: 20px;
+  /*padding: 20px;*/
   border-radius: 5px;
 }
 
 .venta-form .row-campos {
-  margin-top: 20px;
+  /*margin-top: 20px;*/
   padding: 20px;
   background-color: #e9ecef;
   /* Color de fondo diferente para la segunda fila */
@@ -682,8 +682,52 @@
     border-radius: 5px !important;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
   }
+
+  .row-campos{
+    font-size: 1.0rem;
+  }
+  .row-campos .form-control{
+    font-size: 1.0rem;
+  }
+
+  .row-tabla-ventas{
+    font-size: 0.8rem !important;
+  }
+
 }
 
+/* Estilos para pantallas grandes, por defecto */
+.label-unidad::before {
+  content: "Unidades";
+}
+
+.label-costoU::before {
+  content: "($) Costo / Unidad";
+}
+
+.label-costoT::before {
+  content: "($) Costo Total";
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+  .label-unidad::before {
+      content: "Uni"; /* Cambia el texto de "Unidad" a "Uni" */
+  }
+
+  .label-costoU::before {
+      content: "$ C/u"; /* Cambia el texto de "Costo Unidad" a "$ C/u" */
+  }
+
+  .label-costoT::before {
+      content: "Total ($)"; /* Cambia el texto de "Costo Total ($)" a "Total ($)" */
+  }
+}
+
+#btn_adicionar_sm i {
+  font-size: 2.8rem; /* Ajusta el tamaño del ícono */
+  color: #fff; /* Color del ícono */
+}
 
 /* ticket */
 .ticket-display {

@@ -566,5 +566,6 @@ document.addEventListener('DOMContentLoaded', function () {
         suggestions.style.display = 'none';
         inputProducto.value = '';
     });
+    
 
 });
