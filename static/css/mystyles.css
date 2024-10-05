@@ -697,6 +697,9 @@
   .row-tabla-ventas .form-control{
     font-size: 0.7rem !important;
   }
+  .accion{
+    width: 120px;
+  }
 }
 
 /* Estilos para pantallas grandes, por defecto */
