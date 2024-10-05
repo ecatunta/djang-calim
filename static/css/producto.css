@@ -61,6 +61,18 @@ input.form-control:focus {
     box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); /* Resalta al enfocarse */
 }
 
+.text-producto-dinamico{
+    font-size: 1.2em; 
+    /*font-weight: bold; */
+    font-weight: normal; 
+    color: #000;    
+  }
+  
+  .placeholder-nombre-producto{
+    color: #555 !important; 
+    font-weight: normal !important;
+  }
+
 /* mensaje parte inferior*/
 #mensaje-exito {
     position: fixed;
@@ -84,10 +96,37 @@ input.form-control:focus {
     bottom: -100px; /* Desliza hacia abajo para ocultarse */
 }
 
+/* mensaje superior*/
+#mensaje-error {
+    position: fixed;
+    top: -100px; /* Empieza fuera de la vista */
+    left: 0;
+    width: 100%;
+    background-color: #ec3a0f;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+    z-index: 1050; /* Asegura que el mensaje esté por encima del resto */
+    transition: top 0.5s ease;
+}
+
+#mensaje-error.show {
+    top: 0; /* Desliza hacia arriba para mostrarse */
+}
+
+#mensaje-error.hide {
+    top: -100px; /* Desliza hacia abajo para ocultarse */
+}
+
+.alert-vista-previa{
+    border: 2px solid #ec5f0f;
+}
 
 /* Clase para resaltar las celdas con un color de fondo */
 .highlight-cell {
-    background-color: #d4edda !important; /* Verde claro */
+    /*background-color: #d4edda !important; */ /* Verde claro */
+    background-color: #95f513 !important;
     transition: background-color 1s ease; /* Transición suave al aplicar */
 }
 

@@ -28,6 +28,11 @@ class Producto(models.Model):
     producto_precio_uni = models.FloatField(null=True, blank=True)
     producto_stock = models.FloatField(null=True, blank=True)
     producto_fechaActualizacion = models.DateTimeField(null=True, blank=True)
+    # Nuevos campos
+    producto_nombreTipo = models.CharField(max_length=100, null=True, blank=True)
+    producto_nombreMarca = models.CharField(max_length=100, null=True, blank=True)
+    producto_nombreDesc = models.CharField(max_length=150, null=True, blank=True)
+    producto_nombreMedida = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.producto_nombre

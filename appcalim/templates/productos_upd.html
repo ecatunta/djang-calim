@@ -229,6 +229,7 @@ Actualizar producto
 <!-- Modal -->
 <div class="modal fade" id="actualizaProductoModal" tabindex="-1" aria-labelledby="actualizaProductoModalLabel"
     aria-hidden="true">
+    <div id="mensaje-error" class="hide">Los campos son obligatorios.</div>
     <div class="modal-dialog modal-custom">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -252,8 +253,9 @@ Actualizar producto
                 <div class="row mb-0">
                     <div class="col text-center">
                         <p id="ap_producto_nombre_upd" class="p-2 rounded text-producto-dinamico shadow-sm" style="margin-bottom: 8px;">
-                            <span id="ap_producto_placeholder" style="color: #888; font-weight: normal;">Vista previa
-                                del producto ...</span>
+                            <!--<span id="ap_producto_placeholder" style="color: #888; font-weight: normal;">Vista previa
+                                del producto ...</span>-->
+                            <span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa ...</span>
                         </p>
                     </div>
                 </div>

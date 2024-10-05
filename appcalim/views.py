@@ -1161,16 +1161,25 @@ def Actualizar_producto_nombre(request):
     return JsonResponse({'success': False, 'error': 'Método no permitido'}, status=405)
     '''
 
-def Actualizar_producto_nombre(request):
+def Actualizar_nombre_producto(request):
     
     if request.method == 'POST':
         data = json.loads(request.body)
         producto_id = data.get('producto_id')
         producto_nombre = data.get('producto_nombre') 
+        producto_nombre_tipo = data.get('producto_nombre_tipo') 
+        producto_nombre_marca = data.get('producto_nombre_marca') 
+        producto_nombre_desc = data.get('producto_nombre_desc') 
+        producto_nombre_medida = data.get('producto_nombre_medida') 
+
         try:
             # Actualizar el nombre del producto
             Producto.objects.filter(producto_id=producto_id).update(
                 producto_nombre=producto_nombre, 
+                producto_nombreTipo=producto_nombre_tipo, 
+                producto_nombreMarca=producto_nombre_marca,                
+                producto_nombreDesc=producto_nombre_desc,
+                producto_nombreMedida=producto_nombre_medida,                
                 producto_fechaActualizacion=timezone.now()
             )
             

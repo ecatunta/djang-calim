@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Función para actualizar la vista previa
     function actualizarVistaPrevia() {
+        vistaPrevia.classList.remove('alert-vista-previa')
         const tipo = inputTipo.value.toUpperCase();
         const marca = inputMarca.value.toUpperCase();
         const descripcion = descripcionCorta.value.toUpperCase();
@@ -32,10 +33,13 @@ document.addEventListener('DOMContentLoaded', function () {
         // Si todos los campos están vacíos, mostrar el placeholder
         if (!tipo && !marca && !descripcion && !medida) {
             //vistaPrevia.innerHTML = '<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa nombre del producto...</span>';
-            vistaPrevia.innerHTML = '<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa ...</span>';
+            //vistaPrevia.innerHTML = '<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa ...</span>';
+            vistaPrevia.textContent = 'Vista previa ...';
+            vistaPrevia.classList.add('placeholder-nombre-producto');
         } else {
             // Actualizar el contenido del elemento de vista previa
             vistaPrevia.textContent = cadenaVistaPrevia;
+            vistaPrevia.classList.remove('placeholder-nombre-producto');
         }
 
         // Resaltar la vista previa al actualizar
@@ -93,12 +97,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     */
 
-    // Función para agregar el evento a los botones de actualización
-    function agregarEventoActualizaProducto() {
+    // Función para agregar el evento clic a los botones de actualización
+    function agregarEventoActualizaProducto() {        
         //const actualiza_producto = document.querySelectorAll('.actualiza_producto');
         const actualiza_producto = document.querySelectorAll('.actualiza_producto');
 
-        // Agregar el evento click a cada botón de actualizar producto
+        // Agregar el evento clic a cada botón de actualizar producto
         actualiza_producto.forEach(button => {
             button.addEventListener('click', function (event) {
                 event.preventDefault();
@@ -107,8 +111,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 inputMarca.value = '';
                 descripcionCorta.value = '';
                 inputMedida.value = '';
-                // Resetear la vista previa con el placeholder            
-                vistaPrevia.innerHTML = '<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa ...</span>';
+                // Resetear la vista previa con el placeholder           
+                //vistaPrevia.innerHTML = '<span id="ap_producto_placeholder" style="color: #555; font-weight: normal;">Vista previa ...</span>';
+                vistaPrevia.textContent = 'Vista previa ...';
+                vistaPrevia.classList.add('placeholder-nombre-producto');
+                vistaPrevia.classList.remove('alert-vista-previa')
+                inputTipo.classList.remove('is-invalid'); // Quita borde rojo 
+                inputMarca.classList.remove('is-invalid'); // Quita borde rojo 
+                descripcionCorta.classList.remove('is-invalid'); // Quita borde rojo 
+                inputMedida.classList.remove('is-invalid'); // Quita borde rojo 
 
                 // Obtener la fila que contiene el botón
                 const row = button.closest('tr');
@@ -126,6 +137,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('ap_gondola').textContent = gondola;
                 document.getElementById('ap_categoria').textContent = categoriaNombre;
                 document.getElementById('ap_aceptar').setAttribute('data', productoId);
+
+                // Actualizar los 4 nuevos campos para el nombre del producto
+                document.getElementById('ap_tipo').value = producto_td.getAttribute('data-nombre-tipo');
+                document.getElementById('ap_marca').value = producto_td.getAttribute('data-nombre-marca');
+                document.getElementById('ap_descripcion_corta').value = producto_td.getAttribute('data-nombre-desc');
+                document.getElementById('ap_medida').value = producto_td.getAttribute('data-nombre-medida');
 
                 // Mostrar el modal
                 const modal = new bootstrap.Modal(document.getElementById('actualizaProductoModal'));
@@ -219,9 +236,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 10000); // Duración del resaltado (10 segundos)
     }
 
+
     document.getElementById('ap_aceptar').addEventListener('click', function () {
+
+        const elemento_vista_previa = document.getElementById('ap_producto_nombre_upd');
+        // const texto_vista_previa = elemento_vista_previa.textContent.trim(); // O puedes usar innerText
+        // Selecciona el span dentro de ap_producto_nombre_upd
+        // const spanElemento = document.getElementById('ap_producto_nombre_upd').querySelector('#ap_producto_placeholder');
+
+        // Obtiene el texto del span
+        const texto = elemento_vista_previa.textContent.trim(); // O puedes usar innerText
+        //alert(texto)
         // Función para validar un campo
         function validarCampo(input) {
+            //alert('validarCampo');
             if (input.value.trim() === '') {
                 input.classList.add('is-invalid'); // Agrega borde rojo si está vacío
                 return false;
@@ -231,15 +259,39 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
+        function validarVistaPrevia(elem) {                        
+            const texto = elem.textContent.trim(); 
+            if (texto.includes('Vista previa')) {                
+                //elem.style.border = "1px solid red";
+                elem.classList.add('alert-vista-previa');
+            }else{
+                //elem.style.border = "0px solid red";
+                elem.classList.remove('alert-vista-previa');
+            }
+        }
+
         // Validar cada campo
         const tipoValido = validarCampo(inputTipo);
         const marcaValido = validarCampo(inputMarca);
         const descripcionValida = validarCampo(descripcionCorta);
         const medidaValida = validarCampo(inputMedida);
+        
+        const vistaPrevia__ = validarVistaPrevia(vistaPrevia)
 
         // Si algún campo es inválido, detener el proceso
-        if (!tipoValido || !marcaValido || !descripcionValida || !medidaValida) {
+        //if (!tipoValido || !marcaValido || !descripcionValida || !medidaValida || texto.includes('Vista previa')) {
+        if (!tipoValido || !marcaValido || !descripcionValida || !medidaValida || texto.includes('Vista previa')) {
             console.log("Uno o más campos están vacíos.");
+            // Mostrar mensaje de éxito con animación
+            const mensajeError = document.getElementById('mensaje-error');
+            mensajeError.classList.remove('hide');
+            mensajeError.classList.add('show');
+
+            // Ocultar el mensaje después de 5 segundos
+            setTimeout(() => {
+                mensajeError.classList.remove('show');
+                mensajeError.classList.add('hide');
+            }, 3000); // 5 segundos
             return;
         }
 
@@ -247,6 +299,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const productoNombreElement = document.getElementById('ap_producto_nombre_upd');
         const producto_nombre = productoNombreElement.textContent;
 
+        console.log(inputTipo.value + ' , ' + inputMarca.value + ' , ' + descripcionCorta.value + ' , ' + inputMedida.value);
         // Enviar la solicitud post 
         fetch(`/actualizar_nombre_producto/`, {
             method: 'POST',
@@ -256,7 +309,11 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify({
                 'producto_id': producto_id,
-                'producto_nombre': producto_nombre
+                'producto_nombre': producto_nombre,
+                'producto_nombre_tipo': inputTipo.value.trim(),
+                'producto_nombre_marca': inputMarca.value.trim(),
+                'producto_nombre_desc': descripcionCorta.value.trim(),
+                'producto_nombre_medida': inputMedida.value.trim()
             })
         })
             .then(response => response.json())
@@ -287,6 +344,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Aplicar resaltado a las columnas de la fila
                     resaltarColumnasTemporalmente(nuevaFilaProducto);
 
+                    // Vuelve a agregar los eventos a los nuevos botones después de actualizar el contenido
                     agregarEventoActualizaProducto();
 
 
@@ -319,7 +377,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error:', error);
             });
     });
-
 
 
     document.getElementById('gondola-select').addEventListener('change', function () {
@@ -399,13 +456,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     document.getElementById('total').textContent = data.total;
 
-
                     // Vuelve a agregar los eventos a los nuevos botones después de actualizar el contenido
                     agregarEventoActualizaProducto();
                 })
                 .catch(error => console.log("Error:", error));
-
         }
     });
-
 });

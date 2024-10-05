@@ -3,8 +3,11 @@
     <td data-producto="{{ producto.producto_nombre }}"
         data-subcategoria="{{ producto.subcategoria.subcategoria_nombre }}"
         data-categoria="{{ producto.subcategoria.categoria.categoria_nombre }}"
-        data-producto-id="{{ producto.producto_id }}"
-        data-gondola="{{ producto.producto_gondola }}">
+        data-producto-id="{{ producto.producto_id }}" data-gondola="{{ producto.producto_gondola }}"
+        data-nombre-tipo="{{ producto.producto_nombreTipo|default_if_none:'' }}"
+        data-nombre-marca="{{ producto.producto_nombreMarca|default_if_none:'' }}"
+        data-nombre-desc="{{ producto.producto_nombreDesc|default_if_none:'' }}"
+        data-nombre-medida="{{ producto.producto_nombreMedida|default_if_none:'' }}">
         {{ producto.producto_nombre }}
     </td>
     <!--<td class="text-center">
@@ -13,7 +16,7 @@
 
     <td class="text-center">
         <button class="btn btn-sm btn-icon btn-primary actualiza_producto" title="Actualizar producto">
-            <i class="bi bi-pencil"></i> Actualizar 
+            <i class="bi bi-pencil"></i> Actualizar
         </button>
-    </td>     
+    </td>
 </tr>
