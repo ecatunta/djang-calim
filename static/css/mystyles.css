@@ -691,9 +691,12 @@
   }
 
   .row-tabla-ventas{
-    font-size: 0.8rem !important;
+    font-size: 0.7rem !important;
   }
 
+  .row-tabla-ventas .form-control{
+    font-size: 0.7rem !important;
+  }
 }
 
 /* Estilos para pantallas grandes, por defecto */
