@@ -709,8 +709,8 @@
   .accion {
     width: 120px;
   }
-  
-  .unidad .costo-uni{
+
+  .unidad .costo-uni {
     width: 90px;
   }
 
@@ -732,21 +732,32 @@
     /* Tamaño de letra deseado para el contenido pequeño */
   }
 
+  .btn-pendiente {
+    padding: 3px;
+  }
+
 }
+
 /* fin media query*/
 
 .btn-pendiente {
-  border: 1px solid red; /* Borde llamativo */
-  box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4); /* Sombra roja */
-  animation: pulse 1.5s infinite; /* Animación suave */
+  border: 1px solid red;
+  /* Borde llamativo */
+  box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4);
+  /* Sombra roja */
+  animation: pulse 1.5s infinite;
+  /* Animación suave */
   /*font-weight: bold;*/
   transition: all 0.3s ease;
 }
 
 .btn-pendiente:hover {
-  background-color: #ffc107; /* Fondo más brillante al pasar el mouse */
-  border-color: #d9534f; /* Cambiar borde al pasar el mouse */
-  box-shadow: 0 6px 15px rgba(255, 0, 0, 0.6); /* Incrementar la sombra */
+  background-color: #ffc107;
+  /* Fondo más brillante al pasar el mouse */
+  border-color: #d9534f;
+  /* Cambiar borde al pasar el mouse */
+  box-shadow: 0 6px 15px rgba(255, 0, 0, 0.6);
+  /* Incrementar la sombra */
 }
 
 /* Estilos para pantallas grandes, por defecto */
