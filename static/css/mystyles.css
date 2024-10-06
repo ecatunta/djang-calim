@@ -709,6 +709,10 @@
   .accion {
     width: 120px;
   }
+  
+  .unidad .costo-uni{
+    width: 70px;
+  }
 
   th::before {
     content: attr(data-text-xs);
