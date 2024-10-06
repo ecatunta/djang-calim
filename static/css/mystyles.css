@@ -616,13 +616,16 @@
     font-size: 1.1rem;
     color: #000;
   }
-  
+
   #producto {
-    padding-left: 50px; /* Espacio para los íconos en el lado izquierdo */
-    width: calc(100% - 80px); /* Reducir el ancho del input cuando hay íconos */
+    padding-left: 50px;
+    /* Espacio para los íconos en el lado izquierdo */
+    width: calc(100% - 80px);
+    /* Reducir el ancho del input cuando hay íconos */
     /*padding-top: 50px;
     padding-bottom: 25px;*/
   }
+
   /*  #back-arrow {
       display: none;
       position: absolute;
@@ -683,23 +686,63 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
   }
 
-  .row-campos{
-    font-size: 1.0rem;
-  }
-  .row-campos .form-control{
+  .row-campos {
     font-size: 1.0rem;
   }
 
-  .row-tabla-ventas, .btn{
+  .row-campos .form-control {
+    font-size: 1.0rem;
+  }
+
+  #ingreso_tabla {
     font-size: 0.7rem !important;
   }
 
-  .row-tabla-ventas .form-control{
+  #ingreso_tabla .btn {
     font-size: 0.7rem !important;
   }
-  .accion{
-    width: 200px;
+
+  .row-tabla-ventas .form-control {
+    font-size: 0.7rem !important;
   }
+
+  .accion {
+    width: 120px;
+  }
+
+  th::before {
+    content: attr(data-text-xs);
+    font-weight: bold;
+    color: white;
+    /* Asegúrate de que el color sea adecuado */
+  }
+
+  /* Oculta el texto original en pantallas pequeñas */
+  th {
+    font-size: 0;
+  }
+
+  /* Ajustar la visibilidad de las columnas si es necesario */
+  th::before {
+    font-size: 14px;
+    /* Tamaño de letra deseado para el contenido pequeño */
+  }
+
+}
+/* fin media query*/
+
+.btn-pendiente {
+  border: 2px solid red; /* Borde llamativo */
+  box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4); /* Sombra roja */
+  animation: pulse 1.5s infinite; /* Animación suave */
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-pendiente:hover {
+  background-color: #ffc107; /* Fondo más brillante al pasar el mouse */
+  border-color: #d9534f; /* Cambiar borde al pasar el mouse */
+  box-shadow: 0 6px 15px rgba(255, 0, 0, 0.6); /* Incrementar la sombra */
 }
 
 /* Estilos para pantallas grandes, por defecto */
@@ -718,21 +761,26 @@
 /* Estilos para pantallas pequeñas */
 @media (max-width: 768px) {
   .label-unidad::before {
-      content: "Uni"; /* Cambia el texto de "Unidad" a "Uni" */
+    content: "Uni";
+    /* Cambia el texto de "Unidad" a "Uni" */
   }
 
   .label-costoU::before {
-      content: "$ C/u"; /* Cambia el texto de "Costo Unidad" a "$ C/u" */
+    content: "$ C/u";
+    /* Cambia el texto de "Costo Unidad" a "$ C/u" */
   }
 
   .label-costoT::before {
-      content: "Total ($)"; /* Cambia el texto de "Costo Total ($)" a "Total ($)" */
+    content: "Total ($)";
+    /* Cambia el texto de "Costo Total ($)" a "Total ($)" */
   }
 }
 
 #btn_adicionar_sm i {
-  font-size: 2.8rem; /* Ajusta el tamaño del ícono */
-  color: #fff; /* Color del ícono */
+  font-size: 2.8rem;
+  /* Ajusta el tamaño del ícono */
+  color: #fff;
+  /* Color del ícono */
 }
 
 /* ticket */

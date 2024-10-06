@@ -138,16 +138,27 @@ Ingreso
             <div class="col-12">
                 <div class="table-responsive">
                     <table id="ingreso_tabla" class="table table-bordered table-hover table-striped">
-                        <thead class="thead-dark text-center">
+                        <!--<thead class="thead-dark text-center">
                             <tr>
                                 
                                 <th>Producto</th>
                                 <th>Unidad</th>
-                                <th class="text-end">Costo Unitario</th>
-                                <th class="text-end">Costo Total</th>
-                                <th class="text-center accion">Accion2</th>
+                                <th class="text-end">Bs. Costo Unitario</th>
+                                <th class="text-end">Bs. Costo Total</th>
+                                <th class="text-center accion">Accion</th>
+                            </tr>
+                        </thead>-->
+
+                        <thead class="thead-dark text-center">
+                            <tr>
+                                <th data-text-xs="Prod.">Producto</th>
+                                <th data-text-xs="Uni.">Unidad</th>
+                                <th data-text-xs="Bs. C/u" class="text-end">Bs. Costo Unitario</th>
+                                <th data-text-xs="Total" class="text-end">Bs. Costo Total</th>
+                                <th data-text-xs="Est." class="text-center">Acción</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             {% for ingreso in ingresos %}
                             <tr data-ingreso-id="{{ ingreso.ingreso_id }}">
@@ -160,21 +171,21 @@ Ingreso
                                 </td>
 
                                 <td class="text-end" style="vertical-align: middle;">
-                                    <input type="number" class="form-control"
-                                        value="{{ ingreso.ingreso_costoUnitario }}" data-role="costo_unitario_number">
+                                    <input type="text" class="form-control" value="{{ ingreso.ingreso_costoUnitario }}"
+                                        data-role="costo_unitario_number">
                                 </td>
 
                                 <td class="text-end costo_total" style="vertical-align: middle;">
                                     {{ ingreso.ingreso_costoTotal }}
                                 </td>
-                                
+
                                 <!--<td class="text-center" style="vertical-align: middle;">
                                     <button class="inventario_ingreso">Inventario</button>
                                     <button class="ingreso_quitar">Quitar</button>
                                 </td>-->
 
                                 <td class="text-center" style="vertical-align: middle;">
-                                    
+
                                     <!--<button class="inventario_ingreso btn btn-primary">                                    
                                         <i class="bi bi-box-seam d-inline d-md-none"></i>                                    
                                         <i class="bi bi-box-seam d-none d-md-inline"></i> <span
@@ -188,10 +199,16 @@ Ingreso
                                             class="d-none d-md-inline">Quitar</span>
                                     </button>-->
 
-                                    <button class="btn btn-success">                                                                                                 
+                                    <!--<button class="btn btn-warning">                                                                                                 
                                         <i class="bi bi-box-seam d-md-inline"></i> <span
-                                            class="d-md-inline">Elegir</span>
+                                            class="d-md-inline">Pendiente</span>
+                                    </button>-->
+
+                                    <button class="btn btn-warning btn-pendiente">
+                                        <i class="bi bi-exclamation-triangle d-md-inline"></i>
+                                        <span class="d-md-inline">Pendiente</span>
                                     </button>
+                                    
                                 </td>
 
                             </tr>
