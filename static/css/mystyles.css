@@ -710,9 +710,9 @@
     width: 120px;
   }
 
-  .unidad .costo-uni {
+ /* .unidad .costo-uni {
     width: 90px;
-  }
+  }*/
 
   th::before {
     content: attr(data-text-xs);
@@ -734,6 +734,10 @@
 
   .btn-pendiente {
     padding: 3px;
+  }
+
+  .th-producto{
+    width : 95px;
   }
 
 }
