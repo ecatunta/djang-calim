@@ -140,8 +140,9 @@ Ingreso
                     <table id="ingreso_tabla" class="table table-bordered table-hover table-striped">
                         <thead class="thead-dark text-center">
                             <tr>
-                                <th>Unidad</th>
+                                
                                 <th>Producto</th>
+                                <th>Unidad</th>
                                 <th class="text-end">Costo Unitario</th>
                                 <th class="text-end">Costo Total</th>
                                 <th class="text-center accion">Accion2</th>
@@ -150,15 +151,19 @@ Ingreso
                         <tbody>
                             {% for ingreso in ingresos %}
                             <tr data-ingreso-id="{{ ingreso.ingreso_id }}">
-                                <td style="width: 80px;" style="vertical-align: middle;">
-                                    <input type="number" class="form-control" value="{{ ingreso.ingreso_unidad }}"
+
+                                <td style="vertical-align: middle;">{{ ingreso.producto }}</td>
+
+                                <td style="vertical-align: middle;">
+                                    <input type="text" class="form-control" value="{{ ingreso.ingreso_unidad }}"
                                         data-role="unidad_number">
                                 </td>
-                                <td style="vertical-align: middle;">{{ ingreso.producto }}</td>
+
                                 <td class="text-end" style="vertical-align: middle;">
                                     <input type="number" class="form-control"
                                         value="{{ ingreso.ingreso_costoUnitario }}" data-role="costo_unitario_number">
                                 </td>
+
                                 <td class="text-end costo_total" style="vertical-align: middle;">
                                     {{ ingreso.ingreso_costoTotal }}
                                 </td>
@@ -169,24 +174,26 @@ Ingreso
                                 </td>-->
 
                                 <td class="text-center" style="vertical-align: middle;">
-                                    <!-- Botón de "Inventario" -->
-                                    <button class="inventario_ingreso btn btn-primary">
-                                        <!-- Icono para pantallas pequeñas -->
-                                        <i class="bi bi-box-seam d-inline d-md-none"></i>
-                                        <!-- Icono y texto para pantallas medianas y grandes -->
+                                    
+                                    <!--<button class="inventario_ingreso btn btn-primary">                                    
+                                        <i class="bi bi-box-seam d-inline d-md-none"></i>                                    
                                         <i class="bi bi-box-seam d-none d-md-inline"></i> <span
                                             class="d-none d-md-inline">Inventario</span>
                                     </button>
-
-                                    <!-- Botón de "Quitar" -->
-                                    <button class="ingreso_quitar btn btn-danger">
-                                        <!-- Icono para pantallas pequeñas -->
+                                    
+                                    <button class="ingreso_quitar btn btn-danger">                                    
                                         <i class="bi bi-trash d-inline d-md-none"></i>
-                                        <!-- Icono y texto para pantallas medianas y grandes -->
+                                    
                                         <i class="bi bi-trash d-none d-md-inline"></i> <span
                                             class="d-none d-md-inline">Quitar</span>
+                                    </button>-->
+
+                                    <button class="btn btn-success">                                                                                                 
+                                        <i class="bi bi-box-seam d-md-inline"></i> <span
+                                            class="d-md-inline">Elegir</span>
                                     </button>
                                 </td>
+
                             </tr>
                             {% endfor %}
                         </tbody>
