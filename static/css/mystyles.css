@@ -732,10 +732,10 @@
 /* fin media query*/
 
 .btn-pendiente {
-  border: 2px solid red; /* Borde llamativo */
+  border: 1px solid red; /* Borde llamativo */
   box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4); /* Sombra roja */
   animation: pulse 1.5s infinite; /* Animación suave */
-  font-weight: bold;
+  /*font-weight: bold;*/
   transition: all 0.3s ease;
 }
 
