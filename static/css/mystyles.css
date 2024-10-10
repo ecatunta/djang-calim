@@ -787,11 +787,11 @@
 }
 
 .label-costoU::before {
-  content: "($) Costo / Unidad";
+  content: "Bs Costo Unitario";
 }
 
 .label-costoT::before {
-  content: "($) Costo Total";
+  content: "Bs Costo Total";
 }
 
 /* Estilos para pantallas pequeñas */
@@ -802,12 +802,12 @@
   }
 
   .label-costoU::before {
-    content: "$ C/u";
+    content: "Bs C/u";
     /* Cambia el texto de "Costo Unidad" a "$ C/u" */
   }
 
   .label-costoT::before {
-    content: "Total ($)";
+    content: "Bs Total";
     /* Cambia el texto de "Costo Total ($)" a "Total ($)" */
   }
 }
