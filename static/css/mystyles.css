@@ -797,7 +797,7 @@
 /* Estilos para pantallas pequeñas */
 @media (max-width: 768px) {
   .label-unidad::before {
-    content: "Uni";
+    content: "Unidad";
     /* Cambia el texto de "Unidad" a "Uni" */
   }
 
