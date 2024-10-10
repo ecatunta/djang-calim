@@ -695,15 +695,18 @@
   }
 
   #ingreso_tabla {
-    font-size: 0.7rem !important;
+    /*font-size: 0.7rem !important;*/
+    font-size: 1.0rem !important;
   }
 
   #ingreso_tabla .btn {
-    font-size: 0.7rem !important;
+    /*font-size: 0.7rem !important;*/
+    font-size: 1.0rem !important;
   }
 
-  .row-tabla-ventas .form-control {
-    font-size: 0.7rem !important;
+  #ingreso_tabla .form-control {
+    /*font-size: 0.7rem !important;*/
+    font-size: 1.0rem !important;
   }
 
   /*.accion {
@@ -714,7 +717,7 @@
     width: 90px;
   }*/
 
-  th::before {
+  #ingreso_tabla th::before {
     content: attr(data-text-xs);
     font-weight: bold;
     color: white;
@@ -722,12 +725,12 @@
   }
 
   /* Oculta el texto original en pantallas pequeñas */
-  th {
+  #ingreso_tabla th {
     font-size: 0;
   }
 
   /* Ajustar la visibilidad de las columnas si es necesario */
-  th::before {
+  #ingreso_tabla th::before {
     font-size: 14px;
     /* Tamaño de letra deseado para el contenido pequeño */
   }
@@ -738,6 +741,9 @@
 
   .th-producto{
     width : 85px;
+  }
+  .row-tabla-ventas .form-control {
+    font-size: 0.7rem !important;
   }
 
 }
@@ -809,20 +815,13 @@
 /* ticket */
 .ticket-display {
   display: inline-block;
-  background-color: #007bff;
-  /* Color de fondo azul de Bootstrap */
-  color: white;
-  /* Texto en blanco */
-  padding: 15px 30px;
-  /* Espaciado interno */
-  border-radius: 10px;
-  /* Bordes redondeados */
-  font-size: 2rem;
-  /* Tamaño de fuente grande */
-  font-weight: bold;
-  /* Texto en negrita */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  /* Sombra suave */
+  background-color: #007bff;   /* Color de fondo azul de Bootstrap */
+  color: white;   /* Texto en blanco */
+  padding: 15px 30px;   /* Espaciado interno */
+  border-radius: 10px;   /* Bordes redondeados */
+  font-size: 2rem;   /* Tamaño de fuente grande */
+  font-weight: bold;   /* Texto en negrita */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);   /* Sombra suave */
 }
 
 .row-tabla-ventas {
