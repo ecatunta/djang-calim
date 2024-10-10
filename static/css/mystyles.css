@@ -707,6 +707,7 @@
   #ingreso_tabla .form-control {
     /*font-size: 0.7rem !important;*/
     font-size: 0.9rem !important;
+    padding: 1px !important;
   }
 
   /*.accion {
