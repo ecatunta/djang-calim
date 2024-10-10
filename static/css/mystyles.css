@@ -739,6 +739,10 @@
     /* Tamaño de letra deseado para el contenido pequeño */
   }
 
+  .container-ingreso{
+    margin-top: 15px !important;
+  }
+
   .btn-pendiente {
     padding: 3px;
   }
@@ -752,6 +756,9 @@
 
 }
 
+.container-ingreso{
+  margin-top: 40px;
+}
 /* fin media query*/
 
 .btn-pendiente {

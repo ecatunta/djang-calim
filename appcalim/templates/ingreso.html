@@ -9,8 +9,7 @@ Ingreso
 {% block content %}
 
 <section id="pricing" class="pricing section light-background">
-    <div class="container mt-5" style="margin-top: 50px;">
-
+    <div class="container container-ingreso">
         <form method="post" action="{% url 'nuevo_ingreso' %}" class="venta-form">
             {% csrf_token %}
             <div class="row row-producto mb-1">
@@ -47,20 +46,15 @@ Ingreso
                         <span class="input-group-text" id="search-icon">
                             <i class="bi bi-search"></i>
                         </span>
-
                         <!-- Ícono de la flecha hacia la izquierda, oculto por defecto -->
                         <span class="input-group-text" id="back-arrow" style="display: none;">
                             <i class="bi bi-arrow-left"></i>
                         </span>
-
                         <input type="text" id="producto" name="producto" class="form-control" placeholder="Buscar..."
                             aria-label="Buscar producto">
-
                         <input type="hidden" id="id_producto_id" name="producto_id">
                     </div>
-
                     <ul id="suggestions" class="list-group mt-1" style="display: none;"></ul>
-
                 </div>
             </div>
 
@@ -210,11 +204,11 @@ Ingreso
                                         <span class="d-md-inline">P</span>
                                     </button>
                                     -->
-                                    <button class="btn btn-warning inventario_ingreso">                                        
-                                        <i class="bi bi-bag d-md-inline"></i> 
+                                    <button class="btn btn-warning inventario_ingreso">
+                                        <i class="bi bi-bag d-md-inline"></i>
                                         <!--<span class="d-md-inline">Inventario</span>-->
                                     </button>
-                                 
+
                                 </td>
 
                             </tr>
