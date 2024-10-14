@@ -69,8 +69,6 @@
 }
 
 /* css fin*/
-
-
 .precio {
   border: 0px solid green;
   background: white;
@@ -90,16 +88,6 @@
   border: 1px solid var(--accent-color);
 }
 
-
-/* .php-email-form2 {
-    background-color: var(--surface-color);
-    height: 100%;
-    padding: 30px;
-    border-top: 0px solid var(--accent-color);
-    border-bottom: 0px solid var(--accent-color);
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  }*/
-
 .my-section {
   /*background-color: blue;*/
   padding-left: 12px;
@@ -118,11 +106,7 @@
   background-color: #ffffff;
 }
 
-/*.my-section .row{
-  padding-left: 1px;
-  padding-top: 9px;
-  padding-bottom: 9px;
-}*/
+
 .my-section h4 {
   color: black;
 }
@@ -134,78 +118,12 @@
   box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
 }
 
-/*
-.precio{
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-.precio-paquete {
-  font-size: 1.3em;
-  color:#8C1408;
-  padding: 7px;
-  border: 0px solid black;
-  background-color: #FCB8B1;
-  border-radius: 5px;
-}
-.precio-jaba {
-  font-size: 1.3em;
-  color: #494947;
-  padding: 7px;
-  border: 0px solid black;
-  background-color: #A0F1F0;
-  border-radius: 5px;
-}
-.precio-descripcion{
-  padding: 5px;
-  border-radius: 5px;
-  background-color: #757272;
-  color: white;
-  font-weight: bold;
-}*/
-
 
 .precio {
   padding-top: 8px;
   padding-bottom: 8px;
   position: relative;
 }
-
-/*.precio-paquete, .precio-jaba {
-  font-size: 1.3em;
-  padding: 7px;
-  border-radius: 5px;
-  position: relative;
-  display: inline-block;
-}
-.precio-paquete {
-  color: #8C1408;
-  background-color: #FCB8B1;
-}
-.precio-jaba {
-  color: #494947;
-  background-color: #A0F1F0;
-}
-.precio-descripcion {
-  padding: 4px;
-  border-radius: 5px;
-  background-color: #757272;
-  color: white;
-  font-weight: bold;
-  display: inline-block;
-  margin-left: 20px;
-  position: relative;
-}
-
-.precio-paquete::after, .precio-jaba::after {
-  content: '';
-  width: calc(100% + 20px);
-  height: 2px;
-  background-color: #757272;
-  position: absolute;
-  top: 50%;
-  left: 100%;
-  transform: translateY(-50%);
-}*/
 
 .precio-paquete2,
 .precio-jaba2 {
@@ -296,44 +214,6 @@
   transform: translateX(-50%);
   bottom: 100%;
 }
-
-/* ---- CSS IMAGENES ---- */
-/*.thumbnail {
-  cursor: pointer;
-  margin: 0 5px;
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-}
-.thumbnail img {
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
-}
-.thumbnail.active {
-  border-color: cyan;
-}
-.main-image img {
-  width: 100%;
-  height: 4000px; 
-  object-fit: cover;
-}
-@media (max-width: 768px) {
-  .main-image img {
-    height: 300px; 
-  }
-  .thumbnail img {
-    height: 80px;
-  }
-}
-@media (max-width: 576px) {
-  .main-image img {
-    height: 200px; 
-  }
-  .thumbnail img {
-    height: 60px;
-  }
-}*/
-
 
 /* Estilo base para todas las imágenes */
 .carousel-item img {
@@ -534,113 +414,21 @@
   /*font-weight: bold;*/
 }
 
-/* barras de busqueda inicio */
-#suggestions {
-  max-height: 400px;
-  overflow-y: auto;
-  position: absolute;
-  top: 100%;
-  /* Ubica la lista justo debajo del campo de texto */
-  left: 0;
-  /* Alinea la lista con el borde izquierdo del contenedor */
-  width: 100%;
-  /* Hace que el ancho de la lista sea igual al del campo de texto */
-  z-index: 1000;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#suggestions li {
-  cursor: pointer;
-}
-
-#suggestions li:hover {
-  background-color: #f1f1f1;
-}
-
-/* Para pantallas pequeñas */
-/*
-@media (max-width: 768px) {
-    #producto {
-        width: 100%;
-        border-radius: 0;
-    }
-
-    #suggestions {
-        max-height: 400px; 
-    }
-
-    
-    .input-group-text {
-        background-color: white;
-        border-right: none;
-        cursor: pointer;
-    }
-
-    #back-arrow {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        z-index: 1060;
-        display: none;
-    }
-
-    .fixed-search-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1050;
-    }
-
-    .fixed-suggestions {
-        position: fixed;
-        top: 50px;
-        left: 0;
-        right: 0;
-        z-index: 1049; 
-    }
-}
-*/
-
-/* Ajustes adicionales para la barra de búsqueda y el panel de sugerencias */
-
 /* Para pantallas pequeñas */
 @media (max-width: 768px) {
-
   .input-group-text {
     cursor: pointer;
-    /*padding: 20px;*/
     font-size: 1.1rem;
     color: #000;
   }
 
   #producto {
-    padding-left: 50px;
-    /* Espacio para los íconos en el lado izquierdo */
-    width: calc(100% - 80px);
-    /* Reducir el ancho del input cuando hay íconos */
-    /*padding-top: 50px;
-    padding-bottom: 25px;*/
+    padding-left: 10px;    /* Espacio para los íconos en el lado izquierdo */
+    width: calc(100% - 80px);    /* Reducir el ancho del input cuando hay íconos */   
   }
-
-  /*  #back-arrow {
-      display: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      padding: 10px;
-      font-size: 1.5rem;
-      color: #000;
-      cursor: pointer;
-  }*/
-
+  
   #back-arrow {
     position: fixed;
-    /*top: 10px;
-    left: 10px;*/
     top: 0px;
     left: 0px;
     z-index: 1060;
@@ -648,36 +436,24 @@
     padding: 15px 10px 15px 10px;
   }
 
-  /*
-.fixed-search-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding-right: 10px;
-      z-index: 1050;
-      background-color: white;
-      display: flex;
-      align-items: center; 
-  }*/
-
   .fixed-search-bar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1050;
-    /* Para estar sobre el header */
+    z-index: 1050;  /* Para estar sobre el header */
+  }
+
+  .fixed-search-bar #producto{
+    padding-left: 50px;
   }
 
   .fixed-suggestions {
     position: fixed !important;
-    top: 50px !important;
-    /* Justo debajo de la barra de búsqueda fija */
+    top: 50px !important; /* Justo debajo de la barra de búsqueda fija */
     left: 0 !important;
     right: 0 !important;
-    max-height: 400px !important;
-    /* Ajustar el tamaño del panel de sugerencias */
+    max-height: 400px !important; /* Ajustar el tamaño del panel de sugerencias */
     z-index: 1049 !important;
     background-color: white !important;
     overflow-y: auto !important;
@@ -695,17 +471,14 @@
   }
 
   #ingreso_tabla {
-    /*font-size: 0.7rem !important;*/
     font-size: 0.9rem !important;
   }
 
   #ingreso_tabla .btn {
-    /*font-size: 0.7rem !important;*/
     font-size: 0.9rem !important;
   }
 
-  #ingreso_tabla .form-control {
-    /*font-size: 0.7rem !important;*/
+  #ingreso_tabla .form-control {  
     font-size: 0.9rem !important;
     padding-top: 8px !important;
     padding-bottom: 8px !important;
@@ -713,19 +486,10 @@
     padding-right: 0px !important;
   }
 
-  /*.accion {
-    width: 120px;
-  }*/
-
- /* .unidad .costo-uni {
-    width: 90px;
-  }*/
-
   #ingreso_tabla th::before {
     content: attr(data-text-xs);
     font-weight: bold;
-    color: white;
-    /* Asegúrate de que el color sea adecuado */
+    color: white;     /* Asegúrate de que el color sea adecuado */
   }
 
   /* Oculta el texto original en pantallas pequeñas */
@@ -735,8 +499,7 @@
 
   /* Ajustar la visibilidad de las columnas si es necesario */
   #ingreso_tabla th::before {
-    font-size: 14px;
-    /* Tamaño de letra deseado para el contenido pequeño */
+    font-size: 14px;     /* Tamaño de letra deseado para el contenido pequeño */
   }
 
   .container-ingreso{
@@ -757,7 +520,7 @@
 }
 
 .container-ingreso{
-  margin-top: 40px;
+  margin-top: 80px;
 }
 /* fin media query*/
 
@@ -863,10 +626,196 @@
   border-left: 3px solid #3498db;
 }
 
-/*.text-uppercase {
-  text-transform: uppercase;
-}*/
-
 .t-placeholder::placeholder {
   color: rgba(0, 0, 0, 0.3);
 }
+
+/* Añadir bordes redondeados completos y sombra a la barra de búsqueda */
+.search-bar-container {
+  border-radius: 50px;
+  overflow: hidden; /* Asegura que los elementos dentro del contenedor respeten los bordes redondeados */
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Efecto de enfoque para la barra de búsqueda */
+/* Sombra más destacada al hacer clic */
+/*
+.search-bar-container:focus-within {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); 
+}
+  */
+
+/* Efecto de enfoque mejorado para la barra de búsqueda */
+.search-bar-container {
+  transition: box-shadow 0.3s ease, border 0.3s ease; /* Transición suave */
+}
+
+.search-bar-container:focus-within {
+  box-shadow: 0 0 12px rgba(0, 123, 255, 0.5); /* Sombra más suave y color resaltado */
+  border: 1px solid rgba(0, 123, 255, 0.5); /* Borde con color azul claro */
+  border-radius: 50px; /* Asegura que el borde tenga esquinas redondeadas */
+}
+
+
+/* Ajustar los íconos para que no tengan borde y se mezclen con el fondo */
+.input-group-text {
+  border: none;
+  background-color: transparent;
+  color: #6c757d; /* Color gris oscuro para los íconos */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Cambiar el color del ícono al pasar el cursor para una mejor UX */
+.input-group-text:hover {
+  color: #000; /* Cambia el color del ícono a negro al pasar el cursor */
+}
+
+/* Estilo del input para que combine con el diseño general */
+.form-control:focus {
+  box-shadow: none; /* Eliminar el efecto de foco predeterminado de Bootstrap */
+  outline: none; /* Eliminar el borde del navegador en el enfoque */
+}
+
+
+/* Centrar el input para pantallas grandes 
+@media (min-width: 768px) {
+  .search-bar-container {
+      max-width: 700px; 
+      margin: auto; 
+  }
+}
+  */
+
+
+/* Ajustes para el panel de sugerencias */
+#suggestions {
+  max-height: 400px;
+  overflow-y: auto;
+  position: absolute;
+  top: 100%; /* Alinea el panel justo debajo de la barra de búsqueda */
+  left: 0;
+  width: 100%; /* Ajusta el ancho para que sea igual al de la barra de búsqueda */
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0; /* Sin relleno exterior */
+  opacity: 0; /* Inicialmente oculto para la animación */
+  transform: translateY(-10px); /* Posición inicial para animación */
+  transition: all 0.3s ease-in-out; /* Transición para la animación */
+}
+
+/* Estilo del panel de sugerencias */
+#suggestions {
+  max-height: 400px;
+  overflow-y: auto;
+  position: absolute;
+  top: 100%; /* Alinea el panel justo debajo de la barra de búsqueda */
+  left: 0;
+  width: 100%; /* Ajusta el ancho para que sea igual al de la barra de búsqueda */
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0; /* Sin relleno exterior */
+  opacity: 0; /* Inicialmente oculto para la animación */
+  transform: translateY(-10px); /* Posición inicial para animación */
+  transition: all 0.3s ease-in-out; /* Transición para la animación */
+}
+#suggestions.show {
+  opacity: 1; /* Visible cuando se muestra */
+  transform: translateY(0); /* Posición final para la animación */
+}
+
+#suggestions li {
+  padding: 10px; /* Relleno para mejorar la legibilidad */
+  cursor: pointer;
+  display: flex; /* Alineación del ícono y el texto */
+  align-items: center; /* Centra verticalmente el contenido */
+  border-bottom: none; /* Sin líneas entre los elementos */
+}
+
+#suggestions li i {
+  margin-right: 10px; /* Espacio entre el ícono y el texto */
+  color: #888; /* Color gris para el ícono */
+}
+
+#suggestions li:hover {
+  background-color: #f1f1f1; /* Efecto hover */
+}
+
+
+#capa-adicionar {
+  position: relative;
+  background-color: #f9f9f9; /* Fondo claro por defecto */
+  border: 1px solid transparent; /* Borde invisible por defecto */
+  box-shadow: none; /* Sin sombra por defecto */
+  transform: scale(1);
+  transition: background-color 0.5s ease, border 0.5s ease, box-shadow 0.5s ease, transform 0.3s ease;
+}
+
+#capa-adicionar.locked {
+  position: relative; /* Necesario para que la capa de bloqueo se posicione correctamente */
+  opacity: 0.5; /* Dar una apariencia de deshabilitado */
+  pointer-events: none; /* Bloquear la interacción con todos los elementos hijos */
+  background-color: rgba(200, 200, 200, 0.5); /* Fondo gris claro semi-transparente al estar bloqueado */
+  /*filter: blur(0px);  Efecto de desenfoque en el contenido */
+  transition: opacity 0.9s ease; /* Transición suave de la opacidad */
+}
+
+#capa-adicionar:not(.locked) {
+  background-color: #ffffff; /* Fondo blanco cuando está habilitado */
+  border: 2px solid #007bff; /* Borde azul claro cuando está habilitado */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave cuando está habilitado */
+  transform: scale(1.02); /* Aumento de escala ligero para hacer el elemento más atractivo */
+  cursor: pointer; /* Cambiar el cursor a mano cuando está habilitado */
+}
+
+#capa-adicionar:not(.locked):hover {
+  background-color: #e8f0fe; /* Fondo azul claro cuando el mouse pasa sobre el elemento habilitado */
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Resplandor azul cuando está habilitado */
+}
+/* Superposición con transición suave */
+#capa-adicionar.locked::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Color semi-transparente similar a un fondo modal */
+    transition: background-color 0.5s ease; /* Transición suave para el color de fondo */
+    z-index: 1; /* Asegurar que esté sobre todos los elementos hijos */
+    opacity: 1; /* Mostrar superposición cuando está bloqueado */
+}
+
+#capa-adicionar:not(.locked)::before {
+    opacity: 0; /* Ocultar la superposición cuando está desbloqueado */
+}
+
+#capa-adicionar.locked::after {
+    content: 'Bloqueado';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    z-index: 2; /* Asegura que esté sobre todo el contenido */
+    transition: opacity 0.5s ease; /* Transición suave para la opacidad del texto */
+    opacity: 1; /* Mostrar cuando esté bloqueado */
+}
+
+#capa-adicionar:not(.locked)::after {
+    opacity: 0; /* Ocultar cuando no esté bloqueado */
+}
+
+

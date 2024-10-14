@@ -11,7 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const suggestions = document.getElementById('suggestions');
     const input_producto = document.getElementById('producto');
+    input_producto.value = '';
+
+    const capaAdicionar = document.getElementById('capa-adicionar');
+    capaAdicionar.classList.add('locked');
+
     //Barra de busqueda
+    /*
     document.getElementById('producto').addEventListener('input', function () {
         const query = this.value;
         const suggestions = document.getElementById('suggestions');
@@ -49,6 +55,225 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Error fetching data:', error));
     });
+    */
+
+    /*
+    // Barra de búsqueda
+    document.getElementById('producto').addEventListener('input', function () {
+        const query = this.value;
+        const suggestions = document.getElementById('suggestions');
+
+        if (query.length < 3) {
+            suggestions.style.display = 'none';
+            return;
+        }
+
+        fetch(`/buscar/?q=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log('buscar: ', data);
+                suggestions.innerHTML = '';
+                if (data.length > 0) {
+                    data.forEach(product => {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item d-flex align-items-center';
+                        li.dataset.productId = product.producto_id;
+
+                        // Crear el ícono de búsqueda
+                        const icon = document.createElement('i');
+                        icon.className = 'bi bi-search me-2'; // Clase de Bootstrap Icons y margen a la derecha
+
+                        // Crear el texto del producto
+                        const text = document.createElement('span');
+                        text.textContent = product.producto_nombre;
+
+                        // Agregar el ícono y el texto al elemento 'li'
+                        li.appendChild(icon);
+                        li.appendChild(text);
+
+                        // Añadir evento al hacer clic en el elemento
+                        li.addEventListener('click', function () {
+                            document.getElementById('producto').value = this.textContent;
+                            document.getElementById('id_producto_id').value = product.producto_id;
+                            document.getElementById('id_ingreso_unidad').value = 1;
+                            document.getElementById('id_ingreso_costoU').value = 0;
+                            document.getElementById('btn_adicionar').disabled = false;
+                            suggestions.style.display = 'none';
+                        });
+
+                        suggestions.appendChild(li);
+                    });
+                    suggestions.style.display = 'block';
+                } else {
+                    suggestions.style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+    */
+
+    /*
+    // Barra de búsqueda
+    document.getElementById('producto').addEventListener('input', function () {
+        const query = this.value.toLowerCase();
+        const suggestions = document.getElementById('suggestions');
+
+        if (query.length < 3) {
+            suggestions.style.display = 'none';
+            return;
+        }
+
+        fetch(`/buscar/?q=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log('buscar: ', data);
+                suggestions.innerHTML = '';
+
+                if (data.length > 0) {
+                    data.forEach(product => {
+                        const li = document.createElement('li');
+                        //li.className = 'list-group-item';
+                        li.className = 'list-group-item d-flex align-items-center';
+
+                        // Resaltar el texto coincidente con negrita
+                        const regex = new RegExp(`(${query})`, 'gi'); // Expresión regular para buscar el patrón
+                        const highlightedText = product.producto_nombre.replace(regex, '<strong>$1</strong>'); // Reemplaza el patrón con el texto en negrita
+
+                        li.innerHTML = `<i class="bi bi-search"></i> ${highlightedText}`; // Incluye el ícono de búsqueda y el texto resaltado
+                        li.dataset.productId = product.producto_id;
+
+                        li.addEventListener('click', function () {
+                            document.getElementById('producto').value = this.textContent;
+                            document.getElementById('id_producto_id').value = product.producto_id;
+                            document.getElementById('id_ingreso_unidad').value = 1;
+                            document.getElementById('id_ingreso_costoU').value = 0;
+                            document.getElementById('btn_adicionar').disabled = false;
+                            suggestions.style.display = 'none';
+                        });
+
+                        suggestions.appendChild(li);
+                    });
+                    suggestions.style.display = 'block';
+                } else {
+                    suggestions.style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+    */
+
+    /*
+    // Barra de búsqueda
+    document.getElementById('producto').addEventListener('input', function () {
+        const query = this.value.toLowerCase();
+        const suggestions = document.getElementById('suggestions');
+
+        if (query.length < 3) {
+            suggestions.style.display = 'none';
+            return;
+        }
+
+        fetch(`/buscar/?q=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log('buscar: ', data);
+                suggestions.innerHTML = '';
+
+                if (data.length > 0) {
+                    data.forEach(product => {
+                        const li = document.createElement('li');
+                        //li.className = 'list-group-item';
+                        li.className = 'list-group-item d-flex align-items-center';
+
+                        // Resaltar el texto coincidente con negrita
+                        const regex = new RegExp(`(${query})`, 'gi'); // Expresión regular para buscar el patrón
+                        const parts = product.producto_nombre.split(regex); // Divide el texto en partes coincidentes y no coincidentes
+
+                        // Construir el contenido del elemento li
+                        li.innerHTML = `<i class="bi bi-search"></i> `;
+                        parts.forEach(part => {
+                            if (regex.test(part)) {
+                                li.innerHTML += `<strong>${part}</strong>`; // Parte coincidente en negrita
+                            } else {
+                                li.innerHTML += `${part}`; // Parte no coincidente tal como está
+                            }
+                        });
+
+                        li.dataset.productId = product.producto_id;
+
+                        li.addEventListener('click', function () {
+                            document.getElementById('producto').value = this.textContent;
+                            document.getElementById('id_producto_id').value = product.producto_id;
+                            document.getElementById('id_ingreso_unidad').value = 1;
+                            document.getElementById('id_ingreso_costoU').value = 0;
+                            document.getElementById('btn_adicionar').disabled = false;
+                            suggestions.style.display = 'none';
+                        });
+
+                        suggestions.appendChild(li);
+                    });
+                    suggestions.style.display = 'block';
+                } else {
+                    suggestions.style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+    */
+
+    // Barra de búsqueda
+    document.getElementById('producto').addEventListener('input', function () {
+        capaAdicionar.classList.add('locked');
+        const query = this.value.trim().toLowerCase();
+        const suggestions = document.getElementById('suggestions');
+
+        if (query.length < 3) {
+            suggestions.style.display = 'none';
+            return;
+        }
+
+        fetch(`/buscar/?q=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log('buscar: ', data);
+                suggestions.innerHTML = '';
+
+                if (data.length > 0) {
+                    data.forEach(product => {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item';
+
+                        // Resaltar el patrón en el nombre del producto
+                        const productName = product.producto_nombre;
+
+                        // Crear una expresión regular para resaltar el patrón sin perder los espacios
+                        const highlightedName = productName.replace(new RegExp(`(${query})`, 'gi'), '<strong>$1</strong>');
+                        console.log (highlightedName)
+
+                        // Agregar el ícono y el nombre resaltado
+                        //li.innerHTML = `<i class="bi bi-search"></i> ${highlightedName}`;
+                        li.innerHTML = `<p style='margin-bottom:0;'><i class="bi bi-search"></i> ${highlightedName}</p>`;               
+                        li.dataset.productId = product.producto_id;
+                        li.addEventListener('click', function () {
+                            document.getElementById('producto').value = product.producto_nombre;
+                            document.getElementById('id_producto_id').value = product.producto_id;
+                            document.getElementById('id_ingreso_unidad').value = 1;
+                            document.getElementById('id_ingreso_costoU').value = 0;
+                            document.getElementById('btn_adicionar').disabled = false;
+                            suggestions.style.display = 'none';
+                            capaAdicionar.classList.remove('locked');
+                        });
+
+                        suggestions.appendChild(li);
+                    });
+                    suggestions.style.display = 'block';
+                } else {
+                    suggestions.style.display = 'none';
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+
 
     // Evento input sobre el elemento html con id=id_ingreso_unidad
     document.getElementById('id_ingreso_unidad').addEventListener('input', function () {
@@ -102,6 +327,7 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();  // Evitar que se envíe el formulario
             alert('Por favor, ingrese un valor válido mayor a 0 para el costo unitario.');
         }
+        //capaAdicionar.classList.add('locked');
     });
 
     // Agregar evento a cada botón
@@ -527,6 +753,19 @@ document.addEventListener('DOMContentLoaded', function () {
 */
 
     document.getElementById('producto').addEventListener('focus', function () {
+        document.getElementById('suggestions').classList.add('show');
+    });
+
+    document.getElementById('producto').addEventListener('blur', function () {
+        setTimeout(function () {
+            document.getElementById('suggestions').classList.remove('show');
+        }, 200); // Retraso para permitir el clic en las sugerencias
+    });
+
+
+
+    /*
+    document.getElementById('producto').addEventListener('focus', function () {
         const searchBarContainer = document.getElementById('search-bar-container');
         const suggestions = document.getElementById('suggestions');
         const searchIcon = document.getElementById('search-icon');
@@ -544,6 +783,7 @@ document.addEventListener('DOMContentLoaded', function () {
             suggestions.classList.add('fixed-suggestions');
         }
     });
+    */
 
     // Restaurar el diseño al hacer clic en la flecha de regreso
     document.getElementById('back-arrow').addEventListener('click', function () {
@@ -566,6 +806,6 @@ document.addEventListener('DOMContentLoaded', function () {
         suggestions.style.display = 'none';
         inputProducto.value = '';
     });
-    
-
 });
+
+

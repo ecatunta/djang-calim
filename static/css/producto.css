@@ -56,10 +56,10 @@ input.form-control {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input.form-control:focus {
+/*input.form-control:focus {
     border-color: #28a745;
-    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); /* Resalta al enfocarse */
-}
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); 
+}*/
 
 .text-producto-dinamico{
     font-size: 1.2em; 
