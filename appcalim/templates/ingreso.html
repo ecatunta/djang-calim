@@ -74,22 +74,33 @@ Ingreso
                 <div class="col-md-3 col-4 d-flex flex-column justify-content-center text-center">
                     <label for="id_ingreso_costoU" class="label-costoU"></label>
                     <input type="text" id="id_ingreso_costoU" name="ingreso_costoUnitario"
-                        class="form-control v-placeholder text-center" placeholder="Costo Unidad" step="any">
+                        class="form-control v-placeholder text-center" placeholder="Costo Unidad" step="any" autocomplete="off">
                 </div>
 
                 <!-- Costo Total (ocupa 3 columnas en pantallas pequeñas) -->
-                <div class="col-md-3 col-4 d-flex flex-column justify-content-center text-center">
+                <!--<div class="col-md-3 col-4 d-flex flex-column justify-content-center text-center">
                     <label for="id_ingreso_costoT" class="label-costoT"></label>
                     <input type="text" id="id_ingreso_costoT" name="ingreso_costoTotal"
                         class="form-control disabled-input v-placeholder text-center" placeholder="Costo Total"
+                        readonly>
+                </div>-->
+                <div class="col-md-3 col-4 d-flex flex-column justify-content-center text-center">
+                    <label for="id_ingreso_costoT" class="label-costoT"></label>
+                    <input type="text" id="id_ingreso_costoT" name="ingreso_costoTotal"
+                        class="form-control v-placeholder text-center resultado-calculo" placeholder="Costo Total"
                         readonly>
                 </div>
 
                 <!-- Botón Adicionar (ocupa 3 columnas en pantallas pequeñas) -->
                 <div class="col-md-3 col-12 d-flex align-items-center justify-content-center mt-2">
                     <!-- Botón normal (solo en pantallas medianas o más grandes) -->
-                    <button type="submit" id="btn_adicionar" class="btn btn-primary w-100" style="height:80px;"
-                        disabled>Adicionar</button>
+                    <!--<button type="submit" id="btn_adicionar" class="btn btn-primary w-100" style="height:80px;"
+                        disabled>Adicionar</button>-->
+                    <!-- Botón normal (solo en pantallas medianas o más grandes) -->
+                    <button type="submit" id="btn_adicionar" class="btn btn-primary w-100 btn-custom-adicionar"
+                        disabled>
+                        <i class="bi bi-plus-circle"></i> Adicionar Producto
+                    </button>
                 </div>
 
                 <!-- Detalle (ocupa 12 columnas en pantallas pequeñas y 4 columnas en pantallas medianas) -->
@@ -276,6 +287,15 @@ Ingreso
         </div>
     </div>
 </div>
+
+<!--<div id="mensaje-exito" class="hide">El producto ha sido agregado correctamente.</div>-->
+
+{% if messages %}
+{% for message in messages %}
+<div id="mensaje-exito" class="hide">{{ message }}</div>
+{% endfor %}
+{% endif %}
+
 <link href="{% static 'css/producto.css' %}" rel="stylesheet">
 <script src="{% static 'js/cookie.js' %}"></script>
 <script src="{% static 'js/busqueda.js' %}"></script>

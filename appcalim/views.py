@@ -8,6 +8,7 @@ from .models import Categoria, Subcategoria, Producto, Higiene, ParametroAtribut
 from .forms import ParametroAtributoForm, VentaForm, IngresoForm
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
+from django.contrib import messages
 
 import json
 
@@ -572,9 +573,9 @@ def Nuevo_ingreso(request):
     ingresos = Ingreso.objects.filter(ingreso_estado__in=['P']).order_by('-ingreso_fecha')   
     
     if request.method == 'GET':
-        print('método: ', request.method)
+        print('Nuevo_ingreso método', request.method)
     if request.method == 'POST':  
-        print('método: ', request.method)      
+        print('Nuevo_ingreso método', request.method)      
 
         form = IngresoForm(request.POST)             
         if form.is_valid():
@@ -592,8 +593,9 @@ def Nuevo_ingreso(request):
                 nuevo_ingreso.ingreso_estado = 'P'
                 nuevo_ingreso.producto = producto_instancia
                 nuevo_ingreso.save()
+                #mensaje = 'Ingreso guardado con éxito'
+                messages.success(request, 'El producto ha sido agregado correctamente.')
                 print('Ingreso guardado con éxito')
-
                 return redirect('nuevo_ingreso')         
 
             except Producto.DoesNotExist:

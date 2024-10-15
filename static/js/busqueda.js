@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-
-    // valor por defecto al elmento html con id=id_ingreso_costoU
-    // document.getElementById('id_ingreso_costoU').value = 5.5;
+    //alert('busqueda.js');   
     const btnAdicionar = document.getElementById("btn_adicionar");
     const costoUnitarioInput = document.getElementById('id_ingreso_costoU');
+    const costoTotalInput = document.getElementById('id_ingreso_costoT');
     // Seleccionar todos los botones de quitar
     const quitarIngreso = document.querySelectorAll('.ingreso_quitar');
     // Seleccionar todos los botones de inventario ingreso
@@ -15,6 +14,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const capaAdicionar = document.getElementById('capa-adicionar');
     capaAdicionar.classList.add('locked');
+
+    // Mostrar mensaje de éxito con animación
+    const mensajeExito = document.getElementById('mensaje-exito');
+
+    // Selecciona la tabla ingreso
+    const tabla_ingreso = document.getElementById('ingreso_tabla');
+
+    // Selecciona la primera fila de la tabla ingreso
+    const filaIngreso = tabla_ingreso.querySelector('tbody tr:first-child');
+
+    // Columnas de la fila
+    const columnasFilaIngreso = filaIngreso.querySelectorAll('td');
+
+    if (mensajeExito && mensajeExito.textContent.trim() !== '') {
+        // Aquí puedes realizar alguna acción adicional si el mensaje tiene valor.
+        mensajeExito.classList.remove('hide');
+        mensajeExito.classList.add('show');
+
+        // Añadir la clase de resaltado a cada columna
+        columnasFilaIngreso.forEach(columna => {
+            columna.classList.add('highlight-cell');
+        });
+
+        // Ocultar el mensaje después de 5 segundos
+        setTimeout(() => {
+            mensajeExito.classList.remove('show');
+            mensajeExito.classList.add('hide');
+
+            columnasFilaIngreso.forEach(columna => {
+                columna.classList.remove('highlight-cell');
+                //columna.classList.add('restore-cell');
+            });
+            
+        }, 5000); // 5 segundos
+
+    } else {
+        console.log('El elemento "mensaje-exito" no tiene un valor o no existe.');
+    }
 
     //Barra de busqueda
     /*
@@ -224,6 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Barra de búsqueda
     document.getElementById('producto').addEventListener('input', function () {
         capaAdicionar.classList.add('locked');
+        costoTotalInput.value = '';
         const query = this.value.trim().toLowerCase();
         const suggestions = document.getElementById('suggestions');
 
@@ -248,11 +286,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         // Crear una expresión regular para resaltar el patrón sin perder los espacios
                         const highlightedName = productName.replace(new RegExp(`(${query})`, 'gi'), '<strong>$1</strong>');
-                        console.log (highlightedName)
+                        console.log(highlightedName)
 
                         // Agregar el ícono y el nombre resaltado
                         //li.innerHTML = `<i class="bi bi-search"></i> ${highlightedName}`;
-                        li.innerHTML = `<p style='margin-bottom:0;'><i class="bi bi-search"></i> ${highlightedName}</p>`;               
+                        li.innerHTML = `<p style='margin-bottom:0;'><i class="bi bi-search"></i> ${highlightedName}</p>`;
                         li.dataset.productId = product.producto_id;
                         li.addEventListener('click', function () {
                             document.getElementById('producto').value = product.producto_nombre;

@@ -818,4 +818,33 @@
     opacity: 0; /* Ocultar cuando no esté bloqueado */
 }
 
+/* Mejora del botón Adicionar */
+.btn-custom-adicionar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px; /* Espacio entre el ícono y el texto */
+  background-color: #007bff;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  height: 50px;
+}
 
+.btn-custom-adicionar:hover {
+  background-color: #0056b3; /* Color al pasar el mouse */
+  transform: scale(1.05); /* Efecto de agrandamiento al pasar el mouse */
+}
+
+.btn-custom-adicionar:disabled {
+  background-color: #c0c0c0; /* Color cuando está deshabilitado */
+  cursor: not-allowed;
+}
+
+/* Estilo del campo de entrada Costo Total */
+.resultado-calculo {
+  background-color: #e9ecef; /* Fondo más claro para resaltar */
+  /*border: 2px solid #007bff; */ /*Borde azul para distinguirlo */
+  border: 2px solid #818181;
+  color: #343a40; /* Texto más oscuro */
+  font-weight: bold;
+}
