@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 columna.classList.remove('highlight-cell');
                 //columna.classList.add('restore-cell');
             });
-            
+
         }, 5000); // 5 segundos
 
     } else {
@@ -262,6 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('producto').addEventListener('input', function () {
         capaAdicionar.classList.add('locked');
         costoTotalInput.value = '';
+
         const query = this.value.trim().toLowerCase();
         const suggestions = document.getElementById('suggestions');
 
@@ -269,6 +270,19 @@ document.addEventListener('DOMContentLoaded', function () {
             suggestions.style.display = 'none';
             return;
         }
+
+        //suggestions.innerHTML = '<li class="list-group-item">Cargando...</li>';
+
+        // Mostrar un spinner de carga utilizando Bootstrap
+        suggestions.innerHTML = `
+            <li class="list-group-item text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                </div>
+                <span class="ms-2">Buscando...</span>
+            </li>`;
+
+        suggestions.style.display = 'block';
 
         fetch(`/buscar/?q=${query}`)
             .then(response => response.json())
@@ -306,10 +320,24 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                     suggestions.style.display = 'block';
                 } else {
-                    suggestions.style.display = 'none';
+                    //suggestions.style.display = 'none';
+                    //suggestions.innerHTML = '<li class="list-group-item">No se encontraron resultados</li>';
+                    // Mensaje cuando no se encuentran resultados
+                    suggestions.innerHTML = `
+                    <li class="list-group-item text-center text-danger">
+                        <i class="bi bi-exclamation-circle"></i> No se encontraron resultados
+                    </li>`;
                 }
             })
-            .catch(error => console.error('Error fetching data:', error));
+            //.catch(error => console.error('Error fetching data:', error));
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                suggestions.innerHTML = `
+                    <li class="list-group-item text-center text-danger">
+                        <i class="bi bi-exclamation-triangle"></i> Error al buscar datos
+                    </li>`;
+            });
+
     });
 
 
