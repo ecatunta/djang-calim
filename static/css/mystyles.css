@@ -416,10 +416,23 @@
 
 /* Para pantallas pequeñas */
 @media (max-width: 768px) {
-  .input-group-text {
+  
+  /*.input-group-text {
     cursor: pointer;
     font-size: 1.1rem;
     color: #000;
+  }*/
+
+  .input-group-text {
+    border: none;
+    background-color: transparent;
+    color: #6c757d; /* Color gris oscuro para los íconos */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    /*border: 1px solid red !important;*/ 
   }
 
   #producto {
@@ -427,25 +440,28 @@
     width: calc(100% - 80px);    /* Reducir el ancho del input cuando hay íconos */   
   }
   
-  #back-arrow {
+  /*#back-arrow {
     position: fixed;
     top: 0px;
     left: 0px;
     z-index: 1060;
     display: none;
     padding: 15px 10px 15px 10px;
-  }
+  }*/
 
   .fixed-search-bar {
-    position: fixed;
+    position: fixed !important;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1050;  /* Para estar sobre el header */
+    background-color:#f5f6f8;
+    padding-bottom: 4px;
+    /*border: 1px solid green;*/
   }
 
   .fixed-search-bar #producto{
-    padding-left: 50px;
+    /*padding-left: 50px;*/
   }
 
   .fixed-suggestions {
@@ -635,6 +651,7 @@
   border-radius: 50px;
   overflow: hidden; /* Asegura que los elementos dentro del contenedor respeten los bordes redondeados */
   transition: box-shadow 0.3s ease-in-out;
+  border: 1px solid blue;
 }
 
 /* Efecto de enfoque para la barra de búsqueda */

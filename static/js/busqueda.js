@@ -829,10 +829,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-
-    /*
     document.getElementById('producto').addEventListener('focus', function () {
         const searchBarContainer = document.getElementById('search-bar-container');
+        const searchBarContainerPadre = document.getElementById('search-bar-container-padre');
+        
         const suggestions = document.getElementById('suggestions');
         const searchIcon = document.getElementById('search-icon');
         const backArrow = document.getElementById('back-arrow');
@@ -840,16 +840,17 @@ document.addEventListener('DOMContentLoaded', function () {
         // Solo ejecutar este código si estamos en pantallas pequeñas
         if (window.innerWidth <= 768) {
             // Ocultar ícono de búsqueda y mostrar la flecha de regreso
-            searchIcon.style.display = 'none';
+                searchIcon.style.display = 'none';
             //backArrow.style.display = 'inline-block';
-            backArrow.style.display = 'block';
+                backArrow.style.display = 'flex';
 
             // Aplicar clases para fijar la barra de búsqueda y sugerencias en la parte superior
-            searchBarContainer.classList.add('fixed-search-bar');
+            //searchBarContainer.classList.add('fixed-search-bar');
+            searchBarContainerPadre.classList.add('fixed-search-bar');
             suggestions.classList.add('fixed-suggestions');
         }
     });
-    */
+
 
     // Restaurar el diseño al hacer clic en la flecha de regreso
     document.getElementById('back-arrow').addEventListener('click', function () {
@@ -859,14 +860,20 @@ document.addEventListener('DOMContentLoaded', function () {
         const backArrow = document.getElementById('back-arrow');
         const inputProducto = document.getElementById('producto');
 
+        const searchBarContainerPadre = document.getElementById('search-bar-container-padre');
+
+
         // Restaurar ícono de búsqueda y ocultar la flecha de regreso
         //searchIcon.style.display = 'inline-block';
-        searchIcon.style.display = 'block';
+        searchIcon.style.display = 'flex';
         backArrow.style.display = 'none';
 
         // Remover las clases que fijan la barra y sugerencias en la parte superior
-        searchBarContainer.classList.remove('fixed-search-bar');
-        suggestions.classList.remove('fixed-suggestions');
+        //searchBarContainer.classList.remove('fixed-search-bar');
+        searchBarContainerPadre.classList.remove('fixed-search-bar');
+
+        suggestions.classList.remove('fixed-suggestions');    
+
 
         // Ocultar sugerencias y limpiar el campo de búsqueda
         suggestions.style.display = 'none';
