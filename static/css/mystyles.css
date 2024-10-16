@@ -414,6 +414,7 @@
   /*font-weight: bold;*/
 }
 
+
 /* Para pantallas pequeñas */
 @media (max-width: 768px) {
   
@@ -464,6 +465,17 @@
     padding-bottom: 4px;
   }*/
 
+
+  /*.fixed-search-bar #producto{
+    padding-left: 50px;
+  }
+  */
+
+  /* Estilo base del contenedor */
+  #search-bar-container-padre {
+    transition: all 0.3s ease;
+  }
+  
   .fixed-search-bar {
     position: fixed !important;
     top: 0;
@@ -472,13 +484,9 @@
     z-index: 1050; /* Para estar sobre el header */
     background-color: #f5f6f8;
     padding-bottom: 4px;
-    transition: top 0.3s ease, background-color 0.3s ease, opacity 0.3s ease; /* Suaviza el movimiento y el color */
-}
-
-  /*.fixed-search-bar #producto{
-    padding-left: 50px;
+    /* transition: top 0.3s ease, background-color 0.3s ease, opacity 0.3s ease; Suaviza el movimiento y el color */
+    transition: all 0.3s ease; /* Transición suave */
   }
-    */
 
   .fixed-suggestions {
     position: fixed !important;
