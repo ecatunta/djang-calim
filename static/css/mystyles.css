@@ -414,6 +414,14 @@
   /*font-weight: bold;*/
 }
 
+header {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.header-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
 
 /* Para pantallas pequeñas */
 @media (max-width: 768px) {

@@ -855,9 +855,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const suggestions = document.getElementById('suggestions');
         const searchIcon = document.getElementById('search-icon');
         const backArrow = document.getElementById('back-arrow');
+        const header = document.querySelector('header'); // Asegúrate de seleccionar el header correcto
 
         // Solo ejecutar este código si estamos en pantallas pequeñas
         if (window.innerWidth <= 768) {
+            /*
             // Reducir la opacidad para suavizar el cambio antes de hacer la transición
             searchBarContainerPadre.style.transition = 'opacity 0.2s ease';
             searchBarContainerPadre.style.opacity = '0';
@@ -876,6 +878,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 suggestions.classList.add('fixed-suggestions');
             }, 200); // Tiempo suficiente para reducir la opacidad antes de hacer el cambio
+        */
+
+            // Ocultar ícono de búsqueda y mostrar la flecha de regreso
+            searchIcon.style.display = 'none';
+            backArrow.style.display = 'flex';
+
+            // Aplicar la clase para animar el movimiento hacia arriba
+            searchBarContainerPadre.classList.add('fixed-search-bar');
+            suggestions.classList.add('fixed-suggestions');
+
+            // Ocultar el header suavemente
+            header.classList.add('header-hidden');
         }
 
     });
@@ -910,7 +924,25 @@ document.addEventListener('DOMContentLoaded', function () {
         const backArrow = document.getElementById('back-arrow');
         const inputProducto = document.getElementById('producto');
         const searchBarContainerPadre = document.getElementById('search-bar-container-padre');
+        const header = document.querySelector('header'); // Asegúrate de seleccionar el header correcto
 
+
+        // Restaurar ícono de búsqueda y ocultar la flecha de regreso
+        backArrow.style.display = 'none';
+        searchIcon.style.display = 'flex';
+
+        // Remover la clase para animar el movimiento hacia abajo
+        searchBarContainerPadre.classList.remove('fixed-search-bar');
+        suggestions.classList.remove('fixed-suggestions');
+
+        // Mostrar el header suavemente
+        header.classList.remove('header-hidden');
+
+        // Ocultar sugerencias y limpiar el campo de búsqueda
+        suggestions.style.display = 'none';
+        inputProducto.value = '';
+
+        /*
         // Reducir la opacidad antes de revertir el estado
         searchBarContainerPadre.style.transition = 'opacity 0.2s ease';
         searchBarContainerPadre.style.opacity = '0';
@@ -932,6 +964,7 @@ document.addEventListener('DOMContentLoaded', function () {
             suggestions.style.display = 'none';
             inputProducto.value = '';
         }, 200); // Tiempo suficiente para reducir la opacidad antes de hacer el cambio
+        */
 
     });
 
