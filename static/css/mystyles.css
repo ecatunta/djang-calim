@@ -435,6 +435,10 @@
     /*border: 1px solid red !important;*/ 
   }
 
+  /*.input-group-text {
+    font-size: 1.1rem;
+  }*/
+
   #producto {
     padding-left: 10px;    /* Espacio para los íconos en el lado izquierdo */
     width: calc(100% - 80px);    /* Reducir el ancho del input cuando hay íconos */   
@@ -449,20 +453,32 @@
     padding: 15px 10px 15px 10px;
   }*/
 
+  /*
   .fixed-search-bar {
     position: fixed !important;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1050;  /* Para estar sobre el header */
+    z-index: 1050;  
     background-color:#f5f6f8;
     padding-bottom: 4px;
-    /*border: 1px solid green;*/
-  }
+  }*/
 
-  .fixed-search-bar #producto{
-    /*padding-left: 50px;*/
+  .fixed-search-bar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050; /* Para estar sobre el header */
+    background-color: #f5f6f8;
+    padding-bottom: 4px;
+    transition: top 0.3s ease, background-color 0.3s ease; /* Suaviza el movimiento y el color */
+}
+
+  /*.fixed-search-bar #producto{
+    padding-left: 50px;
   }
+    */
 
   .fixed-suggestions {
     position: fixed !important;
@@ -675,6 +691,18 @@
 
 
 /* Ajustar los íconos para que no tengan borde y se mezclen con el fondo */
+/*
+.input-group-text {
+  border: none;
+  background-color: transparent;
+  color: #6c757d; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+*/
+
 .input-group-text {
   border: none;
   background-color: transparent;
@@ -683,7 +711,9 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: opacity 0.3s ease; /* Suaviza la transición de opacidad */
 }
+
 
 /* Cambiar el color del ícono al pasar el cursor para una mejor UX */
 .input-group-text:hover {
