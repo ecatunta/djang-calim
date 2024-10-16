@@ -863,7 +863,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 searchIcon.style.display = 'none';
                 backArrow.style.display = 'flex';
                 backArrow.style.opacity = '1';
-            }, 300); // Tiempo que tarda la transición
+            }, 100); // Tiempo que tarda la transición
 
             // Aplicar clases para fijar la barra de búsqueda y sugerencias en la parte superior
             searchBarContainerPadre.classList.add('fixed-search-bar');
@@ -908,7 +908,7 @@ document.addEventListener('DOMContentLoaded', function () {
             backArrow.style.display = 'none';
             searchIcon.style.display = 'flex';
             searchIcon.style.opacity = '1';
-        }, 300); // Tiempo que tarda la transición
+        }, 100); // Tiempo que tarda la transición
 
         // Remover las clases que fijan la barra y sugerencias en la parte superior
         searchBarContainerPadre.classList.remove('fixed-search-bar');
