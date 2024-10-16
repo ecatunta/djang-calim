@@ -470,10 +470,11 @@
     padding-left: 50px;
   }
   */
-
   /* Estilo base del contenedor */
   #search-bar-container-padre {
     transition: all 0.3s ease;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
   
   .fixed-search-bar {
@@ -487,6 +488,7 @@
     /* transition: top 0.3s ease, background-color 0.3s ease, opacity 0.3s ease; Suaviza el movimiento y el color */
     transition: all 0.3s ease; /* Transición suave */
   }
+
 
   .fixed-suggestions {
     position: fixed !important;
