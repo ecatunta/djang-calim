@@ -472,7 +472,7 @@
     z-index: 1050; /* Para estar sobre el header */
     background-color: #f5f6f8;
     padding-bottom: 4px;
-    transition: top 0.1s ease, background-color 0.1s ease; /* Suaviza el movimiento y el color */
+    transition: top 0.3s ease, background-color 0.3s ease, opacity 0.3s ease; /* Suaviza el movimiento y el color */
 }
 
   /*.fixed-search-bar #producto{
