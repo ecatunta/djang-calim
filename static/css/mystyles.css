@@ -490,7 +490,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1050; /* Para estar sobre el header */
+    /*z-index: 1050;  Para estar sobre el header */
     background-color: #f5f6f8;
     padding-bottom: 4px;
     /* transition: top 0.3s ease, background-color 0.3s ease, opacity 0.3s ease; Suaviza el movimiento y el color */
