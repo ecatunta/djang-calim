@@ -859,7 +859,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Solo ejecutar este código si estamos en pantallas pequeñas
         if (window.innerWidth <= 768) {
-            /*
+            
             // Reducir la opacidad para suavizar el cambio antes de hacer la transición
             searchBarContainerPadre.style.transition = 'opacity 0.2s ease';
             searchBarContainerPadre.style.opacity = '0';
@@ -877,9 +877,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 searchBarContainerPadre.style.opacity = '1';
 
                 suggestions.classList.add('fixed-suggestions');
-            }, 200); // Tiempo suficiente para reducir la opacidad antes de hacer el cambio
-        */
+            }, 300); // Tiempo suficiente para reducir la opacidad antes de hacer el cambio
+        
 
+
+            /*
             // Ocultar ícono de búsqueda y mostrar la flecha de regreso
             searchIcon.style.display = 'none';
             backArrow.style.display = 'flex';
@@ -890,6 +892,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Ocultar el header suavemente
             header.classList.add('header-hidden');
+            */
         }
 
     });
