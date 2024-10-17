@@ -877,6 +877,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 searchBarContainerPadre.style.opacity = '1';
 
                 suggestions.classList.add('fixed-suggestions');
+                header.classList.add('header-hidden');
             }, 300); // Tiempo suficiente para reducir la opacidad antes de hacer el cambio
         
 
