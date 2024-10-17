@@ -485,17 +485,30 @@ header {
     padding-bottom: 5px;
   }
   
+  /*.fixed-search-bar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050; 
+    background-color: #f5f6f8;
+    padding-bottom: 4px;
+    transition: top 0.3s ease, background-color 0.3s ease, opacity 0.3s ease; 
+    transition: all 0.3s ease; 
+  }*/
+
   .fixed-search-bar {
     position: fixed !important;
     top: 0;
     left: 0;
     width: 100%;
-    /*z-index: 1050;  Para estar sobre el header */
+    z-index: 1050;  /* Para estar sobre el header */
     background-color: #f5f6f8;
     padding-bottom: 4px;
-    /* transition: top 0.3s ease, background-color 0.3s ease, opacity 0.3s ease; Suaviza el movimiento y el color */
-    transition: all 0.3s ease; /* Transición suave */
-  }
+    transform: translateZ(0); /* Forzar renderización en GPU */
+    transition: transform 0.3s ease, top 0.3s ease, opacity 0.3s ease;
+    will-change: transform, top; /* Optimización para la GPU */
+}
 
 
   .fixed-suggestions {
