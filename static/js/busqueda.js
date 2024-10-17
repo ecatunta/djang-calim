@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Calcular el costo total y mostrarlo en el campo correspondiente
         const costoTotal = unidad * costoUnitario;
-        costoTotalElement.value = costoTotal.toFixed(2); // Redondear a 2 decimales*/       
+        costoTotalElement.value = costoTotal.toFixed(1); // Redondear a 2 decimales*/       
 
     });
 
@@ -380,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const costoTotal = unidad * costoUnitario;
-        costoTotalElement.value = costoTotal.toFixed(2); // Redondear a 2 decimales*/
+        costoTotalElement.value = costoTotal.toFixed(1); // Redondear a 2 decimales*/
 
     });
 

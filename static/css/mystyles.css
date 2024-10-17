@@ -636,6 +636,10 @@ header {
     content: "Bs Total";
     /* Cambia el texto de "Costo Total ($)" a "Total ($)" */
   }
+
+  #capa-adicionar{
+    margin-top: -10px;
+  }
 }
 
 #ingreso_tabla .form-control{
@@ -719,7 +723,6 @@ header {
   border: 1px solid rgba(0, 123, 255, 0.5); /* Borde con color azul claro */
   border-radius: 50px; /* Asegura que el borde tenga esquinas redondeadas */
 }
-
 
 /* Ajustar los íconos para que no tengan borde y se mezclen con el fondo */
 /*
@@ -848,7 +851,7 @@ header {
 
 #capa-adicionar:not(.locked) {
   background-color: #ffffff; /* Fondo blanco cuando está habilitado */
-  border: 2px solid #007bff; /* Borde azul claro cuando está habilitado */
+  border: 1px solid #007bff; /* Borde azul claro cuando está habilitado */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave cuando está habilitado */
   transform: scale(1.02); /* Aumento de escala ligero para hacer el elemento más atractivo */
   cursor: pointer; /* Cambiar el cursor a mano cuando está habilitado */
@@ -877,7 +880,8 @@ header {
 }
 
 #capa-adicionar.locked::after {
-    content: 'Bloqueado';
+    /*content: 'Bloqueado';*/
+    content: 'Deshabilitado';
     position: absolute;
     top: 50%;
     left: 50%;
