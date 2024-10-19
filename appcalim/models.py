@@ -149,6 +149,19 @@ class Ingreso(models.Model):
     class Meta:
         db_table = 'ingreso'  # Nombre de la tabla en la base de datos
 
+class IngresoProducto(models.Model):
+    iproducto_id = models.BigAutoField(primary_key=True)
+    ingreso = models.ForeignKey(Ingreso, on_delete=models.CASCADE)
+    iproducto_codigo = models.CharField(max_length=100, null=True, blank=True)
+    iproducto_fechaVencimiento = models.DateTimeField(null=True, blank=True)
+    iproducto_estado = models.CharField(max_length=1)
+    iproducto_descripcion = models.CharField(max_length=100, null=True, blank=True)
+    def __str__(self):
+        return f'{self.iproducto_id} - {self.iproducto_codigo or "Sin código"}'
+
+    class Meta:
+        db_table = 'ingreso_producto'  # Nombre exacto de la tabla en la base de datos
+
 
 class InventarioVenta(models.Model):
     venta = models.ForeignKey(Venta, on_delete=models.CASCADE)

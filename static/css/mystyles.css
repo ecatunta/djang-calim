@@ -533,7 +533,7 @@ header {
     font-size: 1.0rem;
   }
 
-  #ingreso_tabla {
+  #ingreso_tabla, #tabla-items {
     font-size: 0.9rem !important;
   }
 
@@ -541,7 +541,7 @@ header {
     font-size: 0.9rem !important;
   }
 
-  #ingreso_tabla .form-control {  
+  #ingreso_tabla, #tabla-items .form-control {  
     font-size: 0.9rem !important;
     padding-top: 8px !important;
     padding-bottom: 8px !important;

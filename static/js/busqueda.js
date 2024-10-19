@@ -859,7 +859,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Solo ejecutar este código si estamos en pantallas pequeñas
         if (window.innerWidth <= 768) {
-            
+
             // Reducir la opacidad para suavizar el cambio antes de hacer la transición
             searchBarContainerPadre.style.transition = 'opacity 0.2s ease';
             searchBarContainerPadre.style.opacity = '0';
@@ -879,7 +879,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 suggestions.classList.add('fixed-suggestions');
                 header.classList.add('header-hidden');
             }, 300); // Tiempo suficiente para reducir la opacidad antes de hacer el cambio
-        
+
 
 
             /*
@@ -972,6 +972,86 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
+    document.getElementById('genera-item').addEventListener('click', function () {
+        // Obtener el valor del campo 'pu_unidad'
+        const puUnidad = parseInt(document.getElementById('pu_unidad').value, 10);
+        const itemTableBody = document.getElementById('item-table-body');
+
+        // Obtener el valor del select y el campo de fecha
+        const selectFechaVencimiento = document.getElementById('select-fecha-vencimiento');
+        const fechaVencimientoValue = document.getElementById('fecha-vencimiento').value;
+
+
+        // Limpiar la tabla antes de agregar nuevas filas
+        itemTableBody.innerHTML = '';
+
+        // Generar las filas de la tabla según el valor de 'pu_unidad'
+        for (let i = 1; i <= puUnidad; i++) {
+            const row = document.createElement('tr');
+
+            // Columna de item secuencial
+            const itemCell = document.createElement('td');
+            itemCell.textContent = `ITEM ${i}`;
+            row.appendChild(itemCell);
+
+            // Columna de fecha con un widget para seleccionar la fecha
+            const dateCell = document.createElement('td');
+            const dateInput = document.createElement('input');
+            dateInput.type = 'date';
+            dateInput.className = 'form-control';
+
+            // Asignar el valor de la fecha unificada si el select tiene el valor "1"
+            if (selectFechaVencimiento.value === '1') {
+                dateInput.value = fechaVencimientoValue;
+            }
+
+            dateCell.appendChild(dateInput);
+            row.appendChild(dateCell);
+
+            // Columna de descripción (campo de texto)
+            const descriptionCell = document.createElement('td');
+            const descriptionInput = document.createElement('input');
+            descriptionInput.type = 'text';
+            descriptionInput.className = 'form-control';
+            descriptionCell.appendChild(descriptionInput);
+            row.appendChild(descriptionCell);
+
+            // Agregar la fila a la tabla
+            itemTableBody.appendChild(row);
+        }
+
+        // Ocultar la ventana modal principal
+        var ingresoPrecioUModal = document.getElementById('ingresoPrecioUModal');
+        var bootstrapModal = bootstrap.Modal.getInstance(ingresoPrecioUModal);
+        bootstrapModal.hide();
+
+        // Mostrar la nueva ventana modal
+        const itemModal = new bootstrap.Modal(document.getElementById('itemModal'));
+        itemModal.show();
+    });
+
+    // Al cerrar la segunda ventana modal, volver a mostrar la ventana modal principal
+    document.getElementById('itemModal').addEventListener('hidden.bs.modal', function () {
+        const ingresoModal = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
+        ingresoModal.show();
+    });
+
+    // Seleccionamos el campo select y el campo de fecha
+    const selectFechaVencimiento = document.getElementById('select-fecha-vencimiento');
+    const fechaVencimientoInput = document.getElementById('fecha-vencimiento');
+
+    // Añadimos un evento 'change' al campo select
+    selectFechaVencimiento.addEventListener('change', function () {
+        if (this.value === '1') { // Misma fecha en todos los Items
+            fechaVencimientoInput.disabled = false; // Habilita el campo de fecha
+        } else if (this.value === '0') { // No Aplica
+            fechaVencimientoInput.disabled = true;  // Deshabilita el campo de fecha
+            fechaVencimientoInput.value = ''; // Resetea el campo de fecha
+        }
+    });
+
 });
+
+
 
 
