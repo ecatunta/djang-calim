@@ -713,7 +713,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Evento click sobre el elemento html con id pu_aceptar
     document.getElementById('pu_aceptar').addEventListener('click', function () {
-
+        //alert('pu_aceptar');
         const ingresoId = this.getAttribute('data-id');
         const costoUnitario = parseFloat(document.getElementById('pu_costoU_nuevo').value); // Convertir a número
         const porGanancia = parseFloat(document.getElementById('pu_pGanancia_nuevo').value);
