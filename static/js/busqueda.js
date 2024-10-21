@@ -660,7 +660,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         let costo_total = unidad * costoUnitario
         costoTotalElement.textContent = costo_total.toFixed(1);
+        llena_tabla_items(unidad);
     });
+
 
 
     function calcular_precioU_ganancia(costo, p_ganancia) {
@@ -1027,7 +1029,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Obtener el valor del campo 'pu_unidad'
         const puUnidad = parseInt(document.getElementById('pu_unidad').value, 10);
 
-        llena_tabla_items(puUnidad);
+        //llena_tabla_items(puUnidad);
         // Ocultar la ventana modal principal
         var ingresoPrecioUModal = document.getElementById('ingresoPrecioUModal');
         var bootstrapModal = bootstrap.Modal.getInstance(ingresoPrecioUModal);
@@ -1179,6 +1181,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    const puUnidadInput = document.getElementById('pu_unidad');
     // Manejar el clic en el botón "genera-item"
     document.getElementById('genera-item').addEventListener('click', function () {
         puUnidadInput.disabled = true; // Desactivar el input "pu_unidad"
