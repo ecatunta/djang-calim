@@ -252,7 +252,7 @@ Ingreso
                     </div>
                 </div>
 
-                <table id="tabla-registro-inventario" class="table table-sm align-middle">
+                <!--<table id="tabla-registro-inventario" class="table table-sm align-middle">
                     <thead class="table-light text-center">
                         <tr>
                             <th>&nbsp;</th>
@@ -276,7 +276,7 @@ Ingreso
                         <tr>
                             <td class="text-end">$Ganancia:</td>
                             <td>
-                                <!--<input type="number" id="pu_ganancia_nuevo" class="form-control text-center" disabled>-->
+                                <input type="number" id="pu_ganancia_nuevo" class="form-control text-center" disabled>
                                 <span id="pu_ganancia_nuevo"></span>
                             </td>
                             <td>
@@ -286,7 +286,7 @@ Ingreso
                         <tr class="bg-lighthhh">
                             <td class="text-end">$Precio Unitario:</td>
                             <td>
-                                <!--<input type="number" id="pu_precioU_nuevo" class="form-control text-center" disabled>-->
+                                <input type="number" id="pu_precioU_nuevo" class="form-control text-center" disabled>
                                 <span id="pu_precioU_nuevo"></span>
                             </td>
                             <td>
@@ -296,13 +296,54 @@ Ingreso
                         <tr>
                             <td class="text-end">$Costo Total:</td>
                             <td>
-                                <!--<input type="number" id="pu_costo_total" class="form-control text-center">-->
+                                <input type="number" id="pu_costo_total" class="form-control text-center">
                                 <span id="pu_costo_total" class=""></span>
                             </td>
-                            <!--<td><input type="text" id="pu_costoU_actual" class="form-control text-center" disabled></td>-->
+                            <td><input type="text" id="pu_costoU_actual" class="form-control text-center" disabled></td>
+                        </tr>
+                    </tbody>
+                </table>-->
+
+                <table id="tabla-registro-inventario" class="table table-sm align-middle">
+                    <thead class="table-light text-center">
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>Datos<br>Nuevos</th>
+                            <th>Datos<br>Actuales</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pu_tabla-detalle">
+                        <tr>
+                            <td class="text-end">$Costo Unitario:</td>
+                            <td><input type="number" id="pu_costoU_nuevo" class="form-control text-center"></td>
+                            <td><input type="text" id="pu_costoU_actual" class="form-control text-center" disabled></td>
+                        </tr>
+                        <tr class="bg-light">
+                            <td class="text-end">%Porcentaje de Ganancia:</td>
+                            <td style="text-align:left;"><input type="number" id="pu_pGanancia_nuevo"
+                                    class="form-control text-center"></td>
+                            <td><input type="text" id="pu_pGanancia_actual" class="form-control text-center" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-end">$Ganancia:</td>
+                            <td><span id="pu_ganancia_nuevo"></span></td>
+                            <td><input type="text" id="pu_ganancia_actual" class="form-control text-center" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-end">$Precio Unitario:</td>
+                            <td><span id="pu_precioU_nuevo"></span></td>
+                            <td><input type="text" id="pu_precioU_actual" class="form-control text-center" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-end">$Costo Total:</td>
+                            <td><span id="pu_costo_total"></span></td>
                         </tr>
                     </tbody>
                 </table>
+
 
                 <div class="row mb-2">
                     <div class="col-4 text-end">

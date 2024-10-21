@@ -969,21 +969,48 @@ header {
 #tabla-registro-inventario thead th:first-child {
   background-color: transparent; /* Fondo transparente para la primera columna */
 }
+/*
 #tabla-registro-inventario thead th {
-  background-color: #343a40; /* Color de fondo oscuro para las otras columnas */
-  color: white; /* Texto blanco */
-  font-size: 0.9rem; /* Texto pequeño */
+  background-color: #343a40; 
+  color: white; 
+  font-size: 0.9rem;
+}
+*/
+#tabla-registro-inventario thead th:nth-child(2) {
+  background-color: #28a745; /* Verde oscuro para "Datos Nuevos" */
+  color: white;
+  font-size: 0.9rem;
+}
+
+#tabla-registro-inventario thead th:nth-child(3) {
+  background-color: #fd7e14; /* Naranja oscuro para "Datos Actuales" */
+  color: white;
+  font-size: 0.9rem;
 }
 
 /* Estilos para las columnas del cuerpo de la tabla */
+/*
 #tabla-registro-inventario tbody td:nth-child(2) {
-  background-color: #e9f7ef; /* Color de fondo suave para diferenciar */
-  border-right: 2px solid #d4efdf; /* Borde derecho para la separación */
+  background-color: #e9f7ef; 
+  border-right: 2px solid #d4efdf; 
+}
+*/
+
+#tabla-registro-inventario tbody td:nth-child(2) {
+  background-color: #e9f7ef; /* Verde suave para el cuerpo "Datos Nuevos" */
+  border-right: 2px solid #c3e6cb; /* Borde derecho para separación */
 }
 
+/*
 #tabla-registro-inventario tbody td:nth-child(3) {
-  background-color: #f4e8e8; /* Color de fondo suave para la tercera columna */
-  border-left: 2px solid #f5c6cb; /* Borde izquierdo para la separación */
+  background-color: #f4e8e8; 
+  border-left: 2px solid #f5c6cb;
+}
+*/
+
+#tabla-registro-inventario tbody td:nth-child(3) {
+  background-color: #ffe8d6; /* Naranja suave para el cuerpo "Datos Actuales" */
+  border-left: 2px solid #f5c6cb; /* Borde izquierdo para separación */
 }
 
 /* Estilo para la primera columna del cuerpo de la tabla */
