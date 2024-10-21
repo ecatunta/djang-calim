@@ -483,10 +483,17 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.getElementById('pu_costo_total').textContent = data.costo_total;
 
                         // Actualiza la columna "Valor Actual" con el estado "V"
-                        document.getElementById('pu_costoU_actual').value = ingreso.vigente.i_costo_unitario || '';
-                        document.getElementById('pu_pGanancia_actual').value = ingreso.vigente.i_porcentaje_ganancia || '';
-                        document.getElementById('pu_ganancia_actual').value = ingreso.vigente.i_ganancia || '';
-                        document.getElementById('pu_precioU_actual').value = ingreso.vigente.i_precio_unitario || '';
+                        //document.getElementById('pu_costoU_actual').value = ingreso.vigente.i_costo_unitario || '';
+                        document.getElementById('pu_costoU_actual').textContent = ingreso.vigente.i_costo_unitario || '';
+                        
+                        //document.getElementById('pu_pGanancia_actual').value = ingreso.vigente.i_porcentaje_ganancia || '';
+                        document.getElementById('pu_pGanancia_actual').textContent = ingreso.vigente.i_porcentaje_ganancia || '';                        
+                        
+                        //document.getElementById('pu_ganancia_actual').value = ingreso.vigente.i_ganancia || '';
+                        document.getElementById('pu_ganancia_actual').textContent = ingreso.vigente.i_ganancia || '';
+                        
+                        //document.getElementById('pu_precioU_actual').value = ingreso.vigente.i_precio_unitario || '';
+                        document.getElementById('pu_precioU_actual').textContent = ingreso.vigente.i_precio_unitario || '';
 
                         // Actualiza la columna "Nuevo" con el estado "P"
                         document.getElementById('pu_costoU_nuevo').value = ingreso.nuevo.i_costo_unitario || '';
