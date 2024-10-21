@@ -1093,6 +1093,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('actualizar-unidad').addEventListener('click', function () {
         const modalBody = document.querySelector('#ingresoPrecioUModal .modal-body');
+        const modalInv = document.getElementById('ingresoPrecioUModal');
         const actualizarUnidadBtn = document.getElementById('actualizar-unidad');
         const generaItemBtn = document.getElementById('genera-item');
         const puUnidadInput = document.getElementById('pu_unidad');
@@ -1102,20 +1103,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Verificar si la tabla tiene más de 1 fila
         if (rowCount > 1) {
-            // Crear y mostrar la ventana de alerta dentro del modal
-            const alertDiv = document.createElement('div');
-            alertDiv.classList.add('alert', 'alert-warning', 'text-center');
-            alertDiv.innerHTML = `
-                        Tiene ${rowCount} cantidad de items creados, si acepta, perderá los cambios, desea continuar?
-                        <div class="mt-2">
-                            <button type="button" class="btn btn-danger me-2" id="alert-cancelar">Cancelar</button>
-                            <button type="button" class="btn btn-success" id="alert-aceptar">Aceptar</button>
-                        </div>
-                    `;
+            /*
+             // Crear y mostrar la ventana de alerta dentro del modal
+             const alertDiv = document.createElement('div');
+             alertDiv.classList.add('alert', 'alert-warning', 'text-center');
+             alertDiv.innerHTML = `
+                         Tiene ${rowCount} cantidad de items creados, si acepta, perderá los cambios, desea continuar?
+                         <div class="mt-2">
+                             <button type="button" class="btn btn-danger me-2" id="alert-cancelar">Cancelar</button>
+                             <button type="button" class="btn btn-success" id="alert-aceptar">Aceptar</button>
+                         </div>
+                     `;
+             
+             // Agregar la alerta al cuerpo del modal
+             modalBody.appendChild(alertDiv);
+             */
 
-            // Agregar la alerta al cuerpo del modal
-            modalBody.appendChild(alertDiv);
+            // Crear la superposición y el popup
+            const overlayDiv = document.createElement('div');
+            overlayDiv.classList.add('custom-popup-overlay');
 
+            const popupDiv = document.createElement('div');
+            popupDiv.classList.add('custom-popup');
+            popupDiv.innerHTML = `
+                            <p><strong>Existe ${rowCount} items creados.</strong><br>Si acepta, perderá los cambios y creará los items que registre ahora ¿desea continuar?</p>
+                            <div class="popup-buttons">
+                                <button type="button" class="btn btn-danger" id="popup-cancelar">Cancelar</button>
+                                <button type="button" class="btn btn-success" id="popup-aceptar">Aceptar</button>
+                            </div>
+                        `;
+            // Agregar el popup al overlay y luego al cuerpo del modal
+            overlayDiv.appendChild(popupDiv);
+            modalInv.appendChild(overlayDiv);
+
+            /*
             // Manejar el clic en el botón "Cancelar" dentro de la alerta
             document.getElementById('alert-cancelar').addEventListener('click', function () {
                 alertDiv.remove(); // Eliminar la alerta si el usuario cancela
@@ -1125,6 +1146,17 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('alert-aceptar').addEventListener('click', function () {
                 puUnidadInput.disabled = false; // Habilitar el input "pu_unidad"
                 alertDiv.remove(); // Eliminar la alerta
+            });*/
+
+            // Manejar el clic en el botón "Cancelar" dentro del popup
+            document.getElementById('popup-cancelar').addEventListener('click', function () {
+                overlayDiv.remove(); // Eliminar la alerta si el usuario cancela
+            });
+
+            // Manejar el clic en el botón "Aceptar" dentro del popup
+            document.getElementById('popup-aceptar').addEventListener('click', function () {
+                puUnidadInput.disabled = false; // Habilitar el input "pu_unidad"
+                overlayDiv.remove(); // Eliminar la alerta
             });
         } else {
             // Si solo hay una fila, habilitar directamente el input "pu_unidad"
