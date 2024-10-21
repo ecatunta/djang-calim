@@ -218,46 +218,49 @@ Ingreso
     aria-hidden="true">
     <!--<div class="modal-dialog modal-custom">-->
     <div class="modal-dialog">
-        <div class="modal-content">        
+        <div class="modal-content">
             <!--<div class="modal-header bg-primary text-white">
                 <h5 class="modal-title" id="ingresoPrecioUModalLabel">Actualizar Precio Unitario</h5>                
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>-->
-            
-            <div class="modal-header bg-secondary text-white" style="height:10px;">
+
+            <div class="modal-header bg-secondary text-white" style="height:12px;">
                 <h5 class="modal-title" id="ingresoPrecioUModalLabel" style="color: #fff;">REGISTRO EN INVENTARIO</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
-                <div class="row mb-1">
+                <div class="row mb-3">
                     <div class="col text-center">
-                        <strong class="h5">Producto</strong>
-                        <p id="pu_producto_nombre" class="text-muted"></p>
+                        <!--<strong class="h5">Producto</strong>-->
+                        <strong class="h5" id="pu_producto_nombre"></strong>
+                        <!--<p id="pu_producto_nombre" class="text-muted"></p>-->
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-4 text-end">
+                        <strong>Unidades:</strong>
+                    </div>
+                    <div class="col-8">
+                        <div class="d-flex align-items-center"> <!-- Usamos d-flex para alinear horizontalmente -->
+                            <input type="number" id="pu_unidad" class="form-control text-center me-2" disabled>
+                            <!-- Botón con solo el icono de recargar -->
+                            <button id="actualizar-unidad" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-clockwise"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <table class="table table-sm align-middle">
+                <table id="tabla-registro-inventario" class="table table-sm align-middle">
                     <thead class="table-light text-center">
-                        <!--<tr>
+                        <tr>
                             <th>&nbsp;</th>
-                            <th>Nuevo</th>
-                            <th class="highlight-column">Actual</th>
-                        </tr>-->
+                            <th>Datos<br>Nuevos</th>
+                            <th>Datos<br>Actuales</th>
+                        </tr>
                     </thead>
                     <tbody id="pu_tabla-detalle">
-                        <tr>
-                            <td class="text-end">Unidades:</td>
-                            <td colspan="2"> <!-- Combinamos la columna -->
-                                <div class="d-flex align-items-center"> <!-- Usamos d-flex para alinear horizontalmente -->
-                                    <input type="number" id="pu_unidad" class="form-control text-center me-2" disabled>
-                                    <!-- Botón con solo el icono de recargar -->
-                                    <button id="actualizar-unidad" class="btn btn-outline-secondary">
-                                        <i class="bi bi-arrow-clockwise"></i> <!-- Icono de recargar de Bootstrap Icons -->
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>                        
                         <tr>
                             <td class="text-end">$Costo Unitario:</td>
                             <td><input type="number" id="pu_costoU_nuevo" class="form-control text-center"></td>
@@ -265,13 +268,14 @@ Ingreso
                         </tr>
                         <tr class="bg-light">
                             <td class="text-end">%Porcentaje de Ganancia:</td>
-                            <td style="text-align:left;"><input type="number" id="pu_pGanancia_nuevo" class="form-control text-center"></td>
+                            <td style="text-align:left;"><input type="number" id="pu_pGanancia_nuevo"
+                                    class="form-control text-center"></td>
                             <td><input type="text" id="pu_pGanancia_actual" class="form-control text-center" disabled>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-end">$Ganancia:</td>
-                            <td style="text-align:left;">
+                            <td>
                                 <!--<input type="number" id="pu_ganancia_nuevo" class="form-control text-center" disabled>-->
                                 <span id="pu_ganancia_nuevo"></span>
                             </td>
@@ -281,7 +285,7 @@ Ingreso
                         </tr>
                         <tr class="bg-lighthhh">
                             <td class="text-end">$Precio Unitario:</td>
-                            <td style="text-align:left;">
+                            <td>
                                 <!--<input type="number" id="pu_precioU_nuevo" class="form-control text-center" disabled>-->
                                 <span id="pu_precioU_nuevo"></span>
                             </td>
@@ -291,7 +295,7 @@ Ingreso
                         </tr>
                         <tr>
                             <td class="text-end">$Costo Total:</td>
-                            <td style="text-align:left;">
+                            <td>
                                 <!--<input type="number" id="pu_costo_total" class="form-control text-center">-->
                                 <span id="pu_costo_total" class=""></span>
                             </td>
@@ -322,7 +326,7 @@ Ingreso
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-light px-2" data-bs-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-primary px-2" id="genera-item">Items</button>
-                <button type="button" class="btn btn-success px-2" id="pu_aceptar">Aceptar</button>                
+                <button type="button" class="btn btn-success px-2" id="pu_aceptar">Aceptar</button>
             </div>
         </div>
     </div>

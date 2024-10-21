@@ -686,12 +686,13 @@ header {
 }
 
 /* Resaltar columna "Valor Nuevo" */
+/*
 .highlight-column {
   background-color: #f9f9f9;
   font-weight: bold;
   color: #2c3e50;
   border-left: 3px solid #3498db;
-}
+}*/
 
 .t-placeholder::placeholder {
   color: rgba(0, 0, 0, 0.3);
@@ -962,4 +963,31 @@ header {
 
 .custom-popup .popup-buttons button {
   margin: 0 10px;
+}
+
+
+#tabla-registro-inventario thead th:first-child {
+  background-color: transparent; /* Fondo transparente para la primera columna */
+}
+#tabla-registro-inventario thead th {
+  background-color: #343a40; /* Color de fondo oscuro para las otras columnas */
+  color: white; /* Texto blanco */
+  font-size: 0.9rem; /* Texto pequeño */
+}
+
+/* Estilos para las columnas del cuerpo de la tabla */
+#tabla-registro-inventario tbody td:nth-child(2) {
+  background-color: #e9f7ef; /* Color de fondo suave para diferenciar */
+  border-right: 2px solid #d4efdf; /* Borde derecho para la separación */
+}
+
+#tabla-registro-inventario tbody td:nth-child(3) {
+  background-color: #f4e8e8; /* Color de fondo suave para la tercera columna */
+  border-left: 2px solid #f5c6cb; /* Borde izquierdo para la separación */
+}
+
+/* Estilo para la primera columna del cuerpo de la tabla */
+#tabla-registro-inventario tbody td:first-child {
+  font-weight: bold; /* Texto en negrita */
+  text-align: right; /* Alineación a la derecha */
 }
