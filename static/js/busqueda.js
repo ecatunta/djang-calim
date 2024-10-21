@@ -502,8 +502,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         let [precio, ganancia] = calcular_precioU_ganancia(ingreso.nuevo.i_costo_unitario, 5);
                         //console.log(`Precio: ${precio}, Ganancia: ${ganancia}`);
-                        document.getElementById('pu_precioU_nuevo').value = precio.toFixed(2);
-                        document.getElementById('pu_ganancia_nuevo').value = ganancia.toFixed(2);
+                        //document.getElementById('pu_precioU_nuevo').value = precio.toFixed(2);
+                        document.getElementById('pu_precioU_nuevo').textContent = precio.toFixed(1);
+                        //document.getElementById('pu_ganancia_nuevo').value = ganancia.toFixed(2);
+                        document.getElementById('pu_ganancia_nuevo').textContent = ganancia.toFixed(1);
                         // Agregar el atributo data-id con un valor específico
                         button.setAttribute('data-id', ingresoId); // Reemplaza '123' con el valor que desees
 
@@ -591,11 +593,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }*/
 
         let [precio, ganancia] = calcular_precioU_ganancia(costoUnitario, porcentajeGanancia);
-        precioUnitarioElement.value = precio.toFixed(2);
-        gananciaElement.value = ganancia.toFixed(2);
+        //precioUnitarioElement.value = precio.toFixed(2);
+        precioUnitarioElement.textContent = precio.toFixed(1);
+        //gananciaElement.value = ganancia.toFixed(2);
+        gananciaElement.textContent = ganancia.toFixed(1);
 
         let costo_total = unidad * costoUnitario
-        costoTotalElement.textContent = costo_total.toFixed(2);
+        costoTotalElement.textContent = costo_total.toFixed(1);
 
     });
 
@@ -622,8 +626,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         //precio_unitario_nuevo = calcular_precioU_ganancia(costoUnitario, pGanancia)
         let [precio, ganancia] = calcular_precioU_ganancia(costoUnitario, pGanancia);
-        precioUnitarioElement.value = precio.toFixed(2); // Mostrar con dos decimales
-        gananciaElement.value = ganancia.toFixed(2);
+        //precioUnitarioElement.value = precio.toFixed(2); // Mostrar con dos decimales
+        precioUnitarioElement.textContent = precio.toFixed(1); // Mostrar con dos decimales
+        //gananciaElement.value = ganancia.toFixed(2);
+        gananciaElement.textContent = ganancia.toFixed(1);
 
     });
 
@@ -646,7 +652,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
         let costo_total = unidad * costoUnitario
-        costoTotalElement.textContent = costo_total.toFixed(2);
+        costoTotalElement.textContent = costo_total.toFixed(1);
     });
 
 
@@ -732,8 +738,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const ingresoId = this.getAttribute('data-id');
         const costoUnitario = parseFloat(document.getElementById('pu_costoU_nuevo').value); // Convertir a número
         const porGanancia = parseFloat(document.getElementById('pu_pGanancia_nuevo').value);
-        const ganancia = parseFloat(document.getElementById('pu_ganancia_nuevo').value);
-        const precioNuevo = parseFloat(document.getElementById('pu_precioU_nuevo').value);
+        //const ganancia = parseFloat(document.getElementById('pu_ganancia_nuevo').value);
+        const ganancia = parseFloat(document.getElementById('pu_ganancia_nuevo').textContent);
+        //const precioNuevo = parseFloat(document.getElementById('pu_precioU_nuevo').value);
+        const precioNuevo = parseFloat(document.getElementById('pu_precioU_nuevo').textContent);
         const unidad = parseFloat(document.getElementById('pu_unidad').value);
         const costoTotal = parseFloat(document.getElementById('pu_costo_total').textContent);
 
@@ -1126,7 +1134,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const popupDiv = document.createElement('div');
             popupDiv.classList.add('custom-popup');
             popupDiv.innerHTML = `
-                            <p><strong>Existe ${rowCount} items creados.</strong><br>Si acepta, perderá los cambios y creará los items que registre ahora ¿desea continuar?</p>
+                            <p><strong>Hay ${rowCount} items creados.</strong><br>Si acepta, perderá los cambios y creará los nuevos items que ahora registre ¿desea continuar?</p>
                             <div class="popup-buttons">
                                 <button type="button" class="btn btn-danger" id="popup-cancelar">Cancelar</button>
                                 <button type="button" class="btn btn-success" id="popup-aceptar">Aceptar</button>
