@@ -444,7 +444,22 @@ document.addEventListener('DOMContentLoaded', function () {
             const row = button.closest('tr');
             const ingresoId = row.getAttribute('data-ingreso-id');
             const modal = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
+            let unidad = 0;
 
+            // Verifica si la pantalla es mediana o más grande
+            if (window.matchMedia("(min-width: 768px)").matches) {
+                // Pantalla mediana o más grande, obtener el valor del input
+                const inputElement = row.querySelector('input[data-role="unidad_number"]');
+                unidad = inputElement.value
+                console.log('Valor del input (pantalla mediana o grande):', inputElement.value);
+            } else {
+                // Pantalla pequeña, obtener el valor del span
+                const spanElement = row.querySelector('span');
+                console.log('Valor del span (pantalla pequeña):', spanElement.textContent);
+                unidad = spanElement.textContent
+            }
+
+            //alert(unidad);
 
             fetch(`/obtiene_precioU_vigente_nuevo/${ingresoId}/`, {
                 method: 'GET',
@@ -455,7 +470,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     console.log('data: ', data)
-
+                    llena_tabla_items(unidad);
                     if (data.status === 'success') {
                         const ingreso = data.ingreso;
                         // Seleccionar el botón por su id
@@ -721,6 +736,23 @@ document.addEventListener('DOMContentLoaded', function () {
         const precioNuevo = parseFloat(document.getElementById('pu_precioU_nuevo').value);
         const unidad = parseFloat(document.getElementById('pu_unidad').value);
         const costoTotal = parseFloat(document.getElementById('pu_costo_total').textContent);
+
+        const tablaItems = document.getElementById('tabla-items');
+        const filas = tablaItems.getElementsByTagName('tr');
+
+        let datosTabla = [];
+
+        // Iterar sobre cada fila de la tabla
+        for (let i = 1; i < filas.length; i++) { // Comenzar desde 1 para evitar la fila de encabezado
+            const celdas = filas[i].getElementsByTagName('td');
+            let filaDatos = {
+                item: celdas[0].textContent.trim(),
+                fecha: celdas[1].querySelector('input').value,
+                codigo: celdas[2].querySelector('input').value
+            };
+            datosTabla.push(filaDatos);
+        }
+
         //console.log('ingresoId: ', ingresoId);
 
         // Envia la solicitud AJAX al backend        
@@ -736,7 +768,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 ganancia: ganancia,
                 precioNuevo: precioNuevo,
                 unidad: unidad,
-                costoTotal: costoTotal
+                costoTotal: costoTotal,
+                items: datosTabla
             })
         })
             .then(response => response.json())
@@ -744,6 +777,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log(data);
                 if (data.success) {
                     location.reload()
+                } else {
+                    //alert(data.message);
+                    alert(data.error);
                 }
             })
             .catch(error => {
@@ -975,12 +1011,25 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('genera-item').addEventListener('click', function () {
         // Obtener el valor del campo 'pu_unidad'
         const puUnidad = parseInt(document.getElementById('pu_unidad').value, 10);
+
+        llena_tabla_items(puUnidad);
+        // Ocultar la ventana modal principal
+        var ingresoPrecioUModal = document.getElementById('ingresoPrecioUModal');
+        var bootstrapModal = bootstrap.Modal.getInstance(ingresoPrecioUModal);
+        bootstrapModal.hide();
+
+        // Mostrar la nueva ventana modal
+        const itemModal = new bootstrap.Modal(document.getElementById('itemModal'));
+        itemModal.show();
+    });
+
+
+    function llena_tabla_items(puUnidad) {
         const itemTableBody = document.getElementById('item-table-body');
 
         // Obtener el valor del select y el campo de fecha
         const selectFechaVencimiento = document.getElementById('select-fecha-vencimiento');
         const fechaVencimientoValue = document.getElementById('fecha-vencimiento').value;
-
 
         // Limpiar la tabla antes de agregar nuevas filas
         itemTableBody.innerHTML = '';
@@ -1019,16 +1068,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Agregar la fila a la tabla
             itemTableBody.appendChild(row);
         }
-
-        // Ocultar la ventana modal principal
-        var ingresoPrecioUModal = document.getElementById('ingresoPrecioUModal');
-        var bootstrapModal = bootstrap.Modal.getInstance(ingresoPrecioUModal);
-        bootstrapModal.hide();
-
-        // Mostrar la nueva ventana modal
-        const itemModal = new bootstrap.Modal(document.getElementById('itemModal'));
-        itemModal.show();
-    });
+    }
 
     // Al cerrar la segunda ventana modal, volver a mostrar la ventana modal principal
     document.getElementById('itemModal').addEventListener('hidden.bs.modal', function () {
@@ -1048,6 +1088,53 @@ document.addEventListener('DOMContentLoaded', function () {
             fechaVencimientoInput.disabled = true;  // Deshabilita el campo de fecha
             fechaVencimientoInput.value = ''; // Resetea el campo de fecha
         }
+    });
+
+
+    document.getElementById('actualizar-unidad').addEventListener('click', function () {
+        const modalBody = document.querySelector('#ingresoPrecioUModal .modal-body');
+        const actualizarUnidadBtn = document.getElementById('actualizar-unidad');
+        const generaItemBtn = document.getElementById('genera-item');
+        const puUnidadInput = document.getElementById('pu_unidad');
+        const itemTableBody = document.getElementById('item-table-body');
+        const rowCount = itemTableBody.getElementsByTagName('tr').length;
+        //alert('ok');
+
+        // Verificar si la tabla tiene más de 1 fila
+        if (rowCount > 1) {
+            // Crear y mostrar la ventana de alerta dentro del modal
+            const alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-warning', 'text-center');
+            alertDiv.innerHTML = `
+                        Tiene ${rowCount} cantidad de items creados, si acepta, perderá los cambios, desea continuar?
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-danger me-2" id="alert-cancelar">Cancelar</button>
+                            <button type="button" class="btn btn-success" id="alert-aceptar">Aceptar</button>
+                        </div>
+                    `;
+
+            // Agregar la alerta al cuerpo del modal
+            modalBody.appendChild(alertDiv);
+
+            // Manejar el clic en el botón "Cancelar" dentro de la alerta
+            document.getElementById('alert-cancelar').addEventListener('click', function () {
+                alertDiv.remove(); // Eliminar la alerta si el usuario cancela
+            });
+
+            // Manejar el clic en el botón "Aceptar" dentro de la alerta
+            document.getElementById('alert-aceptar').addEventListener('click', function () {
+                puUnidadInput.disabled = false; // Habilitar el input "pu_unidad"
+                alertDiv.remove(); // Eliminar la alerta
+            });
+        } else {
+            // Si solo hay una fila, habilitar directamente el input "pu_unidad"
+            puUnidadInput.disabled = false;
+        }
+    });
+
+    // Manejar el clic en el botón "genera-item"
+    document.getElementById('genera-item').addEventListener('click', function () {
+        puUnidadInput.disabled = true; // Desactivar el input "pu_unidad"
     });
 
 });

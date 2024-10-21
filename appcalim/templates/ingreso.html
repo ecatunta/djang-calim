@@ -146,17 +146,23 @@ Ingreso
                                 <td style="vertical-align: middle;">{{ ingreso.producto }}</td>
 
                                 <td style="vertical-align: middle;">
-                                    <input type="text" class="form-control" value="{{ ingreso.ingreso_unidad }}"
-                                        data-role="unidad_number">
+                                    <!-- Mostrar solo en pantallas medianas y grandes -->
+                                    <input type="text" class="form-control d-none d-md-block"
+                                        value="{{ ingreso.ingreso_unidad }}" data-role="unidad_number">
+                                    <!-- Mostrar solo en pantallas pequeñas -->
+                                    <span class="d-md-none">{{ ingreso.ingreso_unidad }}</span>
                                 </td>
 
                                 <td class="text-end" style="vertical-align: middle;">
-                                    <input type="text" class="form-control" value="{{ ingreso.ingreso_costoUnitario }}"
-                                        data-role="costo_unitario_number">
+                                    <!-- Mostrar solo en pantallas medianas y grandes -->
+                                    <input type="text" class="form-control d-none d-md-block"
+                                        value="{{ ingreso.ingreso_costoUnitario }}" data-role="costo_unitario_number">
+                                    <!-- Mostrar solo en pantallas pequeñas -->
+                                    <span class="d-md-none">{{ ingreso.ingreso_costoUnitario }}</span>
                                 </td>
 
                                 <td class="text-end costo_total" style="vertical-align: middle;">
-                                    {{ ingreso.ingreso_costoTotal }}
+                                    <span>{{ ingreso.ingreso_costoTotal }}</span>
                                 </td>
 
                                 <!--<td class="text-center" style="vertical-align: middle;">
@@ -212,9 +218,14 @@ Ingreso
     aria-hidden="true">
     <!--<div class="modal-dialog modal-custom">-->
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="ingresoPrecioUModalLabel">Actualizar Precio Unitario</h5>
+        <div class="modal-content">        
+            <!--<div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="ingresoPrecioUModalLabel">Actualizar Precio Unitario</h5>                
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>-->
+            
+            <div class="modal-header bg-secondary text-white">
+                <h5 class="modal-title" id="ingresoPrecioUModalLabel" style="color: #fff;">REGISTRAR EN INVENTARIO</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -228,18 +239,25 @@ Ingreso
 
                 <table class="table table-sm align-middle">
                     <thead class="table-light text-center">
-                        <tr>
+                        <!--<tr>
                             <th>&nbsp;</th>
                             <th>Nuevo</th>
                             <th class="highlight-column">Actual</th>
-                        </tr>
+                        </tr>-->
                     </thead>
                     <tbody id="pu_tabla-detalle">
                         <tr>
                             <td class="text-end">Unidades:</td>
-                            <td><input type="number" id="pu_unidad" class="form-control text-center"></td>
-                            <!--<td><input type="text" id="pu_costoU_actual" class="form-control text-center" disabled></td>-->
-                        </tr>
+                            <td colspan="2"> <!-- Combinamos la columna -->
+                                <div class="d-flex align-items-center"> <!-- Usamos d-flex para alinear horizontalmente -->
+                                    <input type="number" id="pu_unidad" class="form-control text-center me-2" disabled>
+                                    <!-- Botón con solo el icono de recargar -->
+                                    <button id="actualizar-unidad" class="btn btn-outline-secondary">
+                                        <i class="bi bi-arrow-clockwise"></i> <!-- Icono de recargar de Bootstrap Icons -->
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>                        
                         <tr>
                             <td class="text-end">$Costo Unitario:</td>
                             <td><input type="number" id="pu_costoU_nuevo" class="form-control text-center"></td>
@@ -276,32 +294,14 @@ Ingreso
                     </tbody>
                 </table>
 
-                <!--<div class="row my-3">
-                  <div class="col-6 text-end">
-                        <strong>Unidades:</strong>
-                    </div>
-                    <div class="col-3">
-                        <input type="number" id="pu_unidad" class="form-control text-center" disabled>
-                    </div>
-                </div>
-
-                <div class="row mb-4">
-                    <div class="col-6 text-end">
-                        <strong>Costo Total:</strong>
-                    </div>
-                    <div class="col-3">
-                        <span id="pu_costo_total" class="h5 text-success"></span>
-                    </div>
-                </div>-->
-
                 <div class="row mb-2">
                     <div class="col-4 text-end">
                         <strong>Fecha de Vencimiento:</strong>
                     </div>
                     <div class="col-8">
-                        <select id="select-fecha-vencimiento"class="form-select">
+                        <select id="select-fecha-vencimiento" class="form-select">
                             <option value="0">Fecha No Requerida</option>
-                            <option value="1">Fecha Unificada</option>                            
+                            <option value="1">Fecha Unificada</option>
                         </select>
                     </div>
                 </div>
@@ -314,9 +314,9 @@ Ingreso
             </div>
 
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success px-4" id="pu_aceptar">Aceptar</button>
-                <button type="button" id="genera-item" class="">Items</button>
+                <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary px-4" id="genera-item">Items</button>
+                <button type="button" class="btn btn-success px-4" id="pu_aceptar">Aceptar</button>                
             </div>
         </div>
     </div>
@@ -362,7 +362,8 @@ Ingreso
             </div>
 
             <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
-                <table id="tabla-items" class="table table-bordered table-sm"> <!-- Añadimos table-sm para compactar filas -->
+                <table id="tabla-items" class="table table-bordered table-sm">
+                    <!-- Añadimos table-sm para compactar filas -->
                     <thead class="table-light text-center"> <!-- Encabezado centrado -->
                         <tr>
                             <th style="width: 30%;">Item</th> <!-- Ajuste del ancho de la columna Item -->
