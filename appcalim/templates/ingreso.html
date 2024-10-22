@@ -224,7 +224,7 @@ Ingreso
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>-->
 
-            <div class="modal-header bg-secondary text-white" style="height:12px;">
+            <div class="modal-header bg-secondary text-white" style="height:40px;">
                 <h5 class="modal-title" id="ingresoPrecioUModalLabel" style="color: #fff;">REGISTRO EN INVENTARIO</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -271,7 +271,7 @@ Ingreso
                                 class="d-flex align-items-center w-100 justify-content-between">
                                 <input type="number" id="pu_unidad" class="form-control text-center me-2" disabled>
                                 <!-- Primer texto y botón -->
-                                <div class="me-0" style="text-align: center; margin-top:-10px;">
+                                <div class="me-1" style="text-align: center; margin-top:-10px;">
                                     <!-- Espacio a la derecha -->
                                     <span style="font-size: 11px;">Cambiar</span> <!-- Texto en la primera fila -->
                                     <button id="actualizar-unidad" class="btn btn-outline-secondary ms-0">
@@ -280,7 +280,7 @@ Ingreso
                                     </button>
                                 </div>
                                 <!-- Segundo texto y botón -->
-                                <div class="me-0" style="text-align: center; margin-top:-10px;">
+                                <div class="me-1" style="text-align: center; margin-top:-10px;">
                                     <span style="font-size: 11px;">Items</span> <!-- Texto en la segunda fila -->
                                     <button type="button" class="btn btn-primary ms-0" id="genera-item">
                                         <i class="bi bi-table"></i>
@@ -475,8 +475,8 @@ Ingreso
     <div class="modal-dialog"> <!-- Usamos modal-lg para un tamaño más grande -->
         <div class="modal-content">
             <!-- Fijamos la altura y añadimos scroll -->
-            <div class="modal-header bg-secondary text-white">
-                <h5 class="modal-title" id="itemModalLabel" style="color: #fff;">Generar Items</h5>
+            <div class="modal-header bg-secondary text-white" style="height:40px;">
+                <h5 class="modal-title" id="itemModalLabel" style="color: #fff;">ITEMS</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -486,7 +486,7 @@ Ingreso
                     <thead class="table-light text-center"> <!-- Encabezado centrado -->
                         <tr>
                             <th style="width: 30%;">Item</th> <!-- Ajuste del ancho de la columna Item -->
-                            <th style="width: 35%;">Fecha</th> <!-- Ajuste del ancho de la columna Fecha -->
+                            <th style="width: 35%;">Fecha de Vencimiento</th> <!-- Ajuste del ancho de la columna Fecha -->
                             <th style="width: 35%;">Código</th> <!-- Ajuste del ancho de la columna Código -->
                         </tr>
                     </thead>
@@ -497,7 +497,11 @@ Ingreso
             </div>
 
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                <!--<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>-->
+                <button type="button" class="btn btn-light px-4 me-3" data-bs-dismiss="modal">
+                    <!--<i class="bi bi-x-circle me-2"></i>Volver-->
+                    <i class="bi bi-arrow-left"></i> Volver
+                </button>
             </div>
         </div>
     </div>
