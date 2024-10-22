@@ -1179,10 +1179,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const popupDiv = document.createElement('div');
             popupDiv.classList.add('custom-popup');
             popupDiv.innerHTML = `
-                            <p><strong>Hay ${rowCount} items creados.</strong><br>Si acepta, perderá los cambios y creará los nuevos items que ahora registre ¿desea continuar?</p>
+                            <p><strong>Hay ${rowCount} items creados.</strong><br>Si acepta, perderá los cambios y creará nuevos items ¿desea continuar?</p>
                             <div class="popup-buttons">
-                                <button type="button" class="btn btn-danger" id="popup-cancelar">Cancelar</button>
-                                <button type="button" class="btn btn-success" id="popup-aceptar">Aceptar</button>
+                                <button type="button" class="btn btn-danger" id="popup-cancelar">No</button>
+                                <button type="button" class="btn btn-success" id="popup-aceptar">Si</button>
                             </div>
                         `;
             // Agregar el popup al overlay y luego al cuerpo del modal
