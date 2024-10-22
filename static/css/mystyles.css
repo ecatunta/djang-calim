@@ -1018,3 +1018,20 @@ header {
   font-weight: bold; /* Texto en negrita */
   text-align: right; /* Alineación a la derecha */
 }
+/*
+@media (max-width: 768px) {
+  .modal.fade .modal-dialog {
+      transition: none; 
+  }      
+}
+*/
+
+
+.modal.fade .modal-dialog {
+  transition: transform 0.7s ease-out !important; /* Cambia el tiempo de transición */
+  transform: translateY(-50%);
+}
+
+.modal.show .modal-dialog {
+  transform: translateY(0);
+}
