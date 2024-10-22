@@ -444,6 +444,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const row = button.closest('tr');
             const ingresoId = row.getAttribute('data-ingreso-id');
             const modal = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
+            document.getElementById('fecha-vencimiento').value = '';
+            document.getElementById('select-fecha-vencimiento').value = "0";
             let unidad = 0;
 
             // Verifica si la pantalla es mediana o más grande
@@ -485,13 +487,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         // Actualiza la columna "Valor Actual" con el estado "V"
                         //document.getElementById('pu_costoU_actual').value = ingreso.vigente.i_costo_unitario || '';
                         document.getElementById('pu_costoU_actual').textContent = ingreso.vigente.i_costo_unitario || '';
-                        
+
                         //document.getElementById('pu_pGanancia_actual').value = ingreso.vigente.i_porcentaje_ganancia || '';
-                        document.getElementById('pu_pGanancia_actual').textContent = ingreso.vigente.i_porcentaje_ganancia || '';                        
-                        
+                        document.getElementById('pu_pGanancia_actual').textContent = ingreso.vigente.i_porcentaje_ganancia || '';
+
                         //document.getElementById('pu_ganancia_actual').value = ingreso.vigente.i_ganancia || '';
                         document.getElementById('pu_ganancia_actual').textContent = ingreso.vigente.i_ganancia || '';
-                        
+
                         //document.getElementById('pu_precioU_actual').value = ingreso.vigente.i_precio_unitario || '';
                         document.getElementById('pu_precioU_actual').textContent = ingreso.vigente.i_precio_unitario || '';
 
@@ -1064,7 +1066,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const dateCell = document.createElement('td');
             const dateInput = document.createElement('input');
             dateInput.type = 'date';
-            dateInput.className = 'form-control';
+            dateInput.className = 'form-control item-fecha-vencimiento';
+            dateInput.setAttribute('data-fecha', '1');
 
             // Asignar el valor de la fecha unificada si el select tiene el valor "1"
             if (selectFechaVencimiento.value === '1') {
@@ -1096,6 +1099,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Seleccionamos el campo select y el campo de fecha
     const selectFechaVencimiento = document.getElementById('select-fecha-vencimiento');
     const fechaVencimientoInput = document.getElementById('fecha-vencimiento');
+    const tablaItemsBody = document.getElementById('item-table-body');
 
     // Añadimos un evento 'change' al campo select
     selectFechaVencimiento.addEventListener('change', function () {
@@ -1104,6 +1108,38 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (this.value === '0') { // No Aplica
             fechaVencimientoInput.disabled = true;  // Deshabilita el campo de fecha
             fechaVencimientoInput.value = ''; // Resetea el campo de fecha
+
+            // Recorremos las filas del tbody para restablecer la segunda columna (Fecha)
+            const rows = tablaItemsBody.getElementsByTagName('tr'); // Obtener todas las filas
+
+            for (let i = 0; i < rows.length; i++) {
+                const fechaCell = rows[i].getElementsByTagName('td')[1]; // Obtener la segunda celda (índice 1)
+                if (fechaCell) {
+                    const inputFecha = fechaCell.querySelector('.item-fecha-vencimiento'); // Obtener el input dentro de la celda
+                    if (inputFecha) {
+                        inputFecha.value = ''; // Restablecer el valor del input de tipo date
+                    }
+                }
+            }
+        }
+    });
+
+    // Añadimos un evento 'change' al campo de fecha para capturar el cambio de valor
+    fechaVencimientoInput.addEventListener('change', function () {
+        const nuevaFecha = this.value; // Obtener el valor del input de fecha
+
+        // Recorremos todas las filas del tbody
+        const rows = tablaItemsBody.getElementsByTagName('tr');
+
+        for (let i = 0; i < rows.length; i++) {
+            const fechaCell = rows[i].getElementsByTagName('td')[1]; // Obtener la segunda celda (índice 1)
+
+            if (fechaCell) {
+                const inputFecha = fechaCell.querySelector('.item-fecha-vencimiento'); // Obtener el input de fecha en la celda
+                if (inputFecha) {
+                    inputFecha.value = nuevaFecha; // Actualizar el valor del input
+                }
+            }
         }
     });
 

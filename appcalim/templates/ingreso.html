@@ -230,7 +230,7 @@ Ingreso
             </div>
 
             <div class="modal-body">
-                <div class="row mb-3">
+                <div class="row mb-4">
                     <div class="col text-center">
                         <!--<strong class="h5">Producto</strong>-->
                         <strong class="h5" id="pu_producto_nombre"></strong>
@@ -263,14 +263,16 @@ Ingreso
                     <div class="col-4 d-flex align-items-center justify-content-end">
                         <strong>Unidades:</strong>
                     </div>
-                    <div class="col-8">
+                    <div class="col-8" style="border:0px solid red;">
                         <!-- Usamos d-flex para alinear los elementos en una misma línea -->
                         <div class="d-flex align-items-center justify-content-between">
                             <!-- Div para la primera fila -->
-                            <div class="d-flex align-items-center w-100 justify-content-between">
-                                <input type="number" id="pu_unidad" class="form-control text-center me-2" disabled>  
+                            <div style="border:0px solid blue;"
+                                class="d-flex align-items-center w-100 justify-content-between">
+                                <input type="number" id="pu_unidad" class="form-control text-center me-2" disabled>
                                 <!-- Primer texto y botón -->
-                                <div class="me-1" style="text-align: center;"> <!-- Espacio a la derecha -->
+                                <div class="me-0" style="text-align: center; margin-top:-10px;">
+                                    <!-- Espacio a la derecha -->
                                     <span style="font-size: 11px;">Cambiar</span> <!-- Texto en la primera fila -->
                                     <button id="actualizar-unidad" class="btn btn-outline-secondary ms-0">
                                         <!-- Margen izquierdo para espacio -->
@@ -278,7 +280,7 @@ Ingreso
                                     </button>
                                 </div>
                                 <!-- Segundo texto y botón -->
-                                <div class="me-3" style="text-align: center;">
+                                <div class="me-0" style="text-align: center; margin-top:-10px;">
                                     <span style="font-size: 11px;">Items</span> <!-- Texto en la segunda fila -->
                                     <button type="button" class="btn btn-primary ms-0" id="genera-item">
                                         <i class="bi bi-table"></i>
@@ -346,8 +348,10 @@ Ingreso
                     <thead class="table-light text-center">
                         <tr>
                             <th>&nbsp;</th>
-                            <th>Datos<br>Nuevos</th>
-                            <th>Datos<br>Actuales</th>
+                            <!--<th>Datos<br>Nuevos</th>-->
+                            <th>Nuevo</th>
+                            <!--<th>Datos<br>Actuales</th>-->
+                            <th>Actual</th>
                         </tr>
                     </thead>
                     <tbody id="pu_tabla-detalle">
@@ -388,6 +392,7 @@ Ingreso
                         <tr>
                             <td class="text-end">$Costo Total:</td>
                             <td><span id="pu_costo_total"></span></td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>
@@ -412,10 +417,26 @@ Ingreso
                 </div>
             </div>
 
+            <!--
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-light px-2" data-bs-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-success px-2" id="pu_aceptar">Aceptar</button>
             </div>
+            -->
+
+            <div class="modal-footer justify-content-center">
+                <!-- Botón Cancelar con ícono de "X" -->
+                <button type="button" class="btn btn-light px-4 me-3" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle me-2"></i>Cancelar
+                </button>
+
+                <!-- Botón Aceptar con ícono de "check" -->
+                <button type="button" class="btn btn-success px-4" id="pu_aceptar">
+                    <i class="bi bi-check-circle me-2"></i>Aceptar
+                </button>
+            </div>
+
+
         </div>
     </div>
 </div>
