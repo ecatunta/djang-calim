@@ -969,7 +969,8 @@ header {
 
 /* Estilos para el popup */
 .custom-popup-overlay {
-  position: absolute;
+  /*position: absolute;*/
+  position: fixed; /* Cambiar a 'fixed' para cubrir toda la página */
   top: 0;
   left: 0;
   width: 100%;
@@ -980,7 +981,24 @@ header {
   justify-content: center;
   z-index: 1050; /* Debe estar sobre otros elementos */
   border: 2px solid blue;
+  overflow: hidden; /* Evita el desplazamiento en la página */
 }
+
+.custom-popup-overlay2 {
+  position: fixed; /* Cambiar a 'fixed' para cubrir toda la página */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Fondo oscuro translúcido */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050; /* Debe estar sobre otros elementos */
+  border: 2px solid blue;
+  overflow: hidden; /* Evita el desplazamiento en la página */
+}
+
 
 .custom-popup {
   background: white;
