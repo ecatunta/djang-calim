@@ -979,6 +979,7 @@ header {
   align-items: center;
   justify-content: center;
   z-index: 1050; /* Debe estar sobre otros elementos */
+  border: 2px solid blue;
 }
 
 .custom-popup {
