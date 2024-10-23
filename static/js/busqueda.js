@@ -27,6 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Columnas de la fila
     const columnasFilaIngreso = filaIngreso.querySelectorAll('td');
 
+    const btn_actualizarUnidad = document.getElementById('actualizar-unidad');
+    const btn_generaItem = document.getElementById('genera-item');
+
+
     if (mensajeExito && mensajeExito.textContent.trim() !== '') {
         // Aquí puedes realizar alguna acción adicional si el mensaje tiene valor.
         mensajeExito.classList.remove('hide');
@@ -478,7 +482,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (data.status === 'success') {
                         // Ocultar el spinner cuando la solicitud Ajax es exitosa
                         loadingSpinner.style.display = 'none';
-                        
+
                         llena_tabla_items(unidad);
                         const ingreso = data.ingreso;
                         const button = document.getElementById('pu_aceptar');
@@ -597,6 +601,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
+    /*
+    // Función de debounce
+    function debounce(func, delay) {
+        let timeoutId;
+        return function (...args) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    }
+
+    // Evento input sobre el elemento html con id pu_unidad
+    document.getElementById('pu_unidad').addEventListener('input', debounce(function () {
+        const unidad = parseFloat(this.value);
+        const costoTotalElement = document.getElementById('pu_costo_total');
+        const costoUnitario = document.getElementById('pu_costoU_nuevo').value;
+
+        // Validar el valor de unidad
+        if (isNaN(unidad) || unidad < 0 || unidad > 50) {
+            this.value = ''; // Limpiar el campo si la entrada es inválida                                   
+            costoTotalElement.textContent = 0;
+            return;
+        }
+
+        let costo_total = unidad * costoUnitario;
+        costoTotalElement.textContent = costo_total.toFixed(1);
+
+        // Llamar a llena_tabla_items después de debounce
+        llena_tabla_items(unidad);
+
+    }, 300)); // 300 milisegundos de retraso
+    */
+
+
 
     // Evento input sobre el elemento html con id pu_costoU_nuevo
     document.getElementById('pu_unidad').addEventListener('input', function () {
@@ -605,21 +644,21 @@ document.addEventListener('DOMContentLoaded', function () {
         const costoTotalElement = document.getElementById('pu_costo_total');
         const costoUnitario = document.getElementById('pu_costoU_nuevo').value;
 
-        /*const precioUnitarioElement = document.getElementById('pu_precioU_nuevo');
-        const gananciaElement = document.getElementById('pu_ganancia_nuevo');
-        const porcentajeGananciaElement = document.getElementById('pu_pGanancia_nuevo');
-        const porcentajeGanancia = parseFloat(porcentajeGananciaElement.value);*/
-
-        if (isNaN(unidad) || unidad < 0) {
+        if (isNaN(unidad) || unidad <= 0 || unidad > 50) {
             this.value = ''; // Limpiar el campo si la entrada es inválida                                   
             costoTotalElement.textContent = 0;
+            btn_actualizarUnidad.disabled = true;
+            btn_generaItem.disabled = true;
             return;
         }
         let costo_total = unidad * costoUnitario
         costoTotalElement.textContent = costo_total.toFixed(1);
-        llena_tabla_items(unidad);
-    });
+        btn_actualizarUnidad.disabled = false;
+        btn_generaItem.disabled = false;
 
+        llena_tabla_items(unidad);
+
+    });
 
 
     function calcular_precioU_ganancia(costo, p_ganancia) {
@@ -1095,35 +1134,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
-    document.getElementById('actualizar-unidad').addEventListener('click', function () {
-        const modalBody = document.querySelector('#ingresoPrecioUModal .modal-body');
-        const modalInv = document.getElementById('ingresoPrecioUModal');
-        const actualizarUnidadBtn = document.getElementById('actualizar-unidad');
-        const generaItemBtn = document.getElementById('genera-item');
+    /*
+    document.getElementById('actualizar-unidad').addEventListener('click', function () {       
+        const modalInv = document.getElementById('ingresoPrecioUModal');             
         const puUnidadInput = document.getElementById('pu_unidad');
         const itemTableBody = document.getElementById('item-table-body');
-        const rowCount = itemTableBody.getElementsByTagName('tr').length;
-        //alert('ok');
+        const rowCount = itemTableBody.getElementsByTagName('tr').length;        
 
         // Verificar si la tabla tiene más de 1 fila
-        if (rowCount > 1) {
-            /*
-             // Crear y mostrar la ventana de alerta dentro del modal
-             const alertDiv = document.createElement('div');
-             alertDiv.classList.add('alert', 'alert-warning', 'text-center');
-             alertDiv.innerHTML = `
-                         Tiene ${rowCount} cantidad de items creados, si acepta, perderá los cambios, desea continuar?
-                         <div class="mt-2">
-                             <button type="button" class="btn btn-danger me-2" id="alert-cancelar">Cancelar</button>
-                             <button type="button" class="btn btn-success" id="alert-aceptar">Aceptar</button>
-                         </div>
-                     `;
-             
-             // Agregar la alerta al cuerpo del modal
-             modalBody.appendChild(alertDiv);
-             */
-
+        if (rowCount > 0) {
             // Crear la superposición y el popup
             const overlayDiv = document.createElement('div');
             overlayDiv.classList.add('custom-popup-overlay');
@@ -1131,43 +1150,91 @@ document.addEventListener('DOMContentLoaded', function () {
             const popupDiv = document.createElement('div');
             popupDiv.classList.add('custom-popup');
             popupDiv.innerHTML = `
-                            <p><strong>Hay ${rowCount} items creados.</strong><br>Si acepta, perderá los cambios y creará nuevos items ¿desea continuar?</p>
+                            <p><strong>Hay ${rowCount} items creados.</strong><br>Si acepta, perderá los cambios pero creará nuevos items ¿desea continuar?</p>
                             <div class="popup-buttons">
-                                <button type="button" class="btn btn-danger" id="popup-cancelar">No</button>
-                                <button type="button" class="btn btn-success" id="popup-aceptar">Si</button>
+                                <button type="button" class="btn btn-danger" id="popup-cancelar">Cancelar</button>
+                                <button type="button" class="btn btn-success" id="popup-aceptar">Aceptar</button>
                             </div>
                         `;
             // Agregar el popup al overlay y luego al cuerpo del modal
             overlayDiv.appendChild(popupDiv);
             modalInv.appendChild(overlayDiv);
 
-            /*
-            // Manejar el clic en el botón "Cancelar" dentro de la alerta
-            document.getElementById('alert-cancelar').addEventListener('click', function () {
-                alertDiv.remove(); // Eliminar la alerta si el usuario cancela
-            });
-
-            // Manejar el clic en el botón "Aceptar" dentro de la alerta
-            document.getElementById('alert-aceptar').addEventListener('click', function () {
-                puUnidadInput.disabled = false; // Habilitar el input "pu_unidad"
-                alertDiv.remove(); // Eliminar la alerta
-            });*/
-
             // Manejar el clic en el botón "Cancelar" dentro del popup
             document.getElementById('popup-cancelar').addEventListener('click', function () {
                 overlayDiv.remove(); // Eliminar la alerta si el usuario cancela
+                puUnidadInput.disabled = true;
             });
 
             // Manejar el clic en el botón "Aceptar" dentro del popup
             document.getElementById('popup-aceptar').addEventListener('click', function () {
                 puUnidadInput.disabled = false; // Habilitar el input "pu_unidad"
                 overlayDiv.remove(); // Eliminar la alerta
+                puUnidadInput.focus();
             });
         } else {
             // Si solo hay una fila, habilitar directamente el input "pu_unidad"
             puUnidadInput.disabled = false;
         }
     });
+    */
+
+    document.getElementById('actualizar-unidad').addEventListener('click', function () {
+        const modalInv = document.getElementById('ingresoPrecioUModal');
+        const puUnidadInput = document.getElementById('pu_unidad');
+        const itemTableBody = document.getElementById('item-table-body');
+        const rowCount = itemTableBody.getElementsByTagName('tr').length;
+
+        // Verificar si la tabla tiene más de 1 fila
+        if (rowCount > 0) {
+            // Crear la superposición y el popup
+            const overlayDiv = document.createElement('div');
+            overlayDiv.classList.add('custom-popup-overlay');
+
+            const popupDiv = document.createElement('div');
+            popupDiv.classList.add('custom-popup');
+            popupDiv.innerHTML = `
+                <div class="popup-header">
+                    <h5><i class="bi bi-exclamation-triangle-fill text-warning"></i> Advertencia</h5>
+                </div>
+                <div class="popup-body d-flex">
+                    <i class="bi bi-exclamation-circle-fill text-danger me-3" style="font-size: 4rem;"></i>
+                    <div>                                             
+                        Se detectaron ${rowCount} items ya creados. Si continúa, se eliminarán los cambios previos y se crearán nuevos items. <strong>Confirme si desea proceder</strong>.
+                    </div>
+                </div>
+                <div class="popup-footer text-end">
+                    <button type="button" class="btn btn-default me-2" id="popup-cancelar">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </button>
+                    <button type="button" class="btn btn-success" id="popup-aceptar">
+                        <i class="bi bi-check-circle"></i> Aceptar
+                    </button>
+                </div>
+            `;
+
+            // Agregar el popup al overlay y luego al cuerpo del modal
+            overlayDiv.appendChild(popupDiv);
+            modalInv.appendChild(overlayDiv);
+
+            // Manejar el clic en el botón "Cancelar" dentro del popup
+            document.getElementById('popup-cancelar').addEventListener('click', function () {
+                overlayDiv.remove(); // Eliminar la alerta si el usuario cancela
+                puUnidadInput.disabled = true;
+            });
+
+            // Manejar el clic en el botón "Aceptar" dentro del popup
+            document.getElementById('popup-aceptar').addEventListener('click', function () {
+                puUnidadInput.disabled = false; // Habilitar el input "pu_unidad"
+                overlayDiv.remove(); // Eliminar la alerta
+                puUnidadInput.focus();
+            });
+        } else {
+            // Si solo hay una fila, habilitar directamente el input "pu_unidad"
+            puUnidadInput.disabled = false;
+        }
+    });
+
 
     const puUnidadInput = document.getElementById('pu_unidad');
     // Manejar el clic en el botón "genera-item"
