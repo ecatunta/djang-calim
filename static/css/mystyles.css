@@ -1052,6 +1052,7 @@ header {
 #tabla-registro-inventario tbody td:first-child {
   font-weight: bold; /* Texto en negrita */
   text-align: right; /* Alineación a la derecha */
+  color: #5a5858 !important;
 }
 /*
 @media (max-width: 768px) {

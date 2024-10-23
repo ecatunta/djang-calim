@@ -435,19 +435,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    const loadingSpinner = document.getElementById('loading-spinner');
+    const modal = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
 
     // Agregar evento a cada botón
     inventarioIngreso.forEach(button => {
         button.addEventListener('click', function (event) {
             event.preventDefault();
-            // Obtener el id del ingreso de la fila correspondiente
             const row = button.closest('tr');
             const ingresoId = row.getAttribute('data-ingreso-id');
-            const modal = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
+
+            // Mostrar el spinner antes de la solicitud Ajax
+            loadingSpinner.style.display = 'block';
+
             document.getElementById('fecha-vencimiento').value = '';
             document.getElementById('select-fecha-vencimiento').value = "0";
-            let unidad = 0;
 
+            let unidad = 0;
             // Verifica si la pantalla es mediana o más grande
             if (window.matchMedia("(min-width: 768px)").matches) {
                 // Pantalla mediana o más grande, obtener el valor del input
@@ -461,7 +465,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 unidad = spanElement.textContent
             }
 
-            //alert(unidad);
 
             fetch(`/obtiene_precioU_vigente_nuevo/${ingresoId}/`, {
                 method: 'GET',
@@ -472,88 +475,40 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     console.log('data: ', data)
-                    llena_tabla_items(unidad);
                     if (data.status === 'success') {
+                        // Ocultar el spinner cuando la solicitud Ajax es exitosa
+                        loadingSpinner.style.display = 'none';
+
+                        llena_tabla_items(unidad);
                         const ingreso = data.ingreso;
-                        // Seleccionar el botón por su id
                         const button = document.getElementById('pu_aceptar');
-                        //let precio_unitario_nuevo;
                         // Actualiza el nombre del producto en el modal
                         document.getElementById('pu_producto_nombre').textContent = data.producto_nombre;
                         document.getElementById('pu_unidad').value = data.unidad;
-                        //document.getElementById('pu_unidad').textContent = data.unidad;
                         document.getElementById('pu_costo_total').textContent = data.costo_total;
-
-                        // Actualiza la columna "Valor Actual" con el estado "V"
-                        //document.getElementById('pu_costoU_actual').value = ingreso.vigente.i_costo_unitario || '';
                         document.getElementById('pu_costoU_actual').textContent = ingreso.vigente.i_costo_unitario || '';
-
-                        //document.getElementById('pu_pGanancia_actual').value = ingreso.vigente.i_porcentaje_ganancia || '';
                         document.getElementById('pu_pGanancia_actual').textContent = ingreso.vigente.i_porcentaje_ganancia || '';
-
-                        //document.getElementById('pu_ganancia_actual').value = ingreso.vigente.i_ganancia || '';
                         document.getElementById('pu_ganancia_actual').textContent = ingreso.vigente.i_ganancia || '';
-
-                        //document.getElementById('pu_precioU_actual').value = ingreso.vigente.i_precio_unitario || '';
                         document.getElementById('pu_precioU_actual').textContent = ingreso.vigente.i_precio_unitario || '';
-
-                        // Actualiza la columna "Nuevo" con el estado "P"
                         document.getElementById('pu_costoU_nuevo').value = ingreso.nuevo.i_costo_unitario || '';
-                        //document.getElementById('pu_pGanancia_nuevo').value = ingreso.nuevo.i_porcentaje_ganancia || '';
                         document.getElementById('pu_pGanancia_nuevo').value = 5;
-
-                        //document.getElementById('pu_precioU_nuevo').value = ingreso.nuevo.i_precio_unitario || '';
-
-                        //precio_unitario_nuevo = calcular_precioU_ganancia(ingreso.nuevo.i_costo_unitario, 5)
-
-                        //document.getElementById('pu_precioU_nuevo').value = ingreso.nuevo.i_costo_unitario || '';
-                        //console.log(precio_unitario_nuevo)
-
                         let [precio, ganancia] = calcular_precioU_ganancia(ingreso.nuevo.i_costo_unitario, 5);
-                        //console.log(`Precio: ${precio}, Ganancia: ${ganancia}`);
-                        //document.getElementById('pu_precioU_nuevo').value = precio.toFixed(2);
                         document.getElementById('pu_precioU_nuevo').textContent = precio.toFixed(1);
-                        //document.getElementById('pu_ganancia_nuevo').value = ganancia.toFixed(2);
                         document.getElementById('pu_ganancia_nuevo').textContent = ganancia.toFixed(1);
                         // Agregar el atributo data-id con un valor específico
-                        button.setAttribute('data-id', ingresoId); // Reemplaza '123' con el valor que desees
+                        button.setAttribute('data-id', ingresoId);
 
+                        // mostrar la ventana modal 
                         modal.show();
 
                     } else {
-                        alert('Error al obtener los datos del precio unitario.');
+                        alert('error en la respuesta Ajax.');
                     }
                 })
-                // .then(response => {console.log(response.json())})
                 .catch(error => {
                     console.error('Error:', error);
-                    alert("Ocurrió un error al intentar eliminar el ingreso.");
+                    alert("error en la solicitud Ajax.");
                 });
-
-
-            // Enviar la solicitud Ajax para actualizar el inventario
-
-            /*
-            fetch(`/cierra_activa_ingreso/${ingresoId}/`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            }).then(response => {
-                console.log(response)
-                if (response.ok) {                                                         
-                    //alert("update ok");
-                    row.style.transition = 'opacity 0.5s';
-                    row.style.opacity = '0'; // Fading out the row
-                    setTimeout(() => row.remove(), 500); // Remove the row after the anim                    
-                } else {
-                    alert("Error al eliminar el ingreso. Intenta nuevamente.");
-                }
-            }).catch(error => {
-                console.error('Error:', error);
-                alert("Ocurrió un error al intentar eliminar el ingreso.");
-            });
-            */
 
         });
     });
@@ -669,13 +624,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function calcular_precioU_ganancia(costo, p_ganancia) {
         let precio, ganancia;
-
         // Calcular el precio con ganancia
         precio = costo + (costo * p_ganancia / 100);
-
         // Calcular la ganancia
         ganancia = precio - costo;
-
         // Retornar ambos valores como una lista (array)
         return [precio, ganancia];
     }

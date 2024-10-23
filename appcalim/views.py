@@ -616,6 +616,7 @@ def Quitar_ingreso(request, ingreso_id):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)    
 
+'''
 def Incluir_inventario(request, ingreso_id):
     try:
         ingreso = Ingreso.objects.get(ingreso_id=ingreso_id) 
@@ -631,6 +632,7 @@ def Incluir_inventario(request, ingreso_id):
         return JsonResponse({'message': 'Ingreso eliminado correctamente.'}, status=200)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)    
+'''
 
 def Guardar_venta(request):
     print('Guardar_venta')
