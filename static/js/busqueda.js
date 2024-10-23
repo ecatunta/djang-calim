@@ -1094,12 +1094,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Añadimos un evento 'change' al campo select
     selectFechaVencimiento.addEventListener('change', function () {
-        if (this.value === '1') { // Misma fecha en todos los Items
-            alert (this.value);
+        if (this.value === '1') { // Misma fecha en todos los Items            
             fechaVencimientoInput.disabled = false; // Habilita el campo de fecha
-            fechaVencimientoInput.focus(); // Enfocar el campo de fecha
-            fechaVencimientoInput.click(); // Simular clic para abrir el widget de selección de fecha
-    
+            fechaVencimientoInput.focus(); // Enfocar el campo de fecha              
         } else if (this.value === '0') { // No Aplica
             fechaVencimientoInput.disabled = true;  // Deshabilita el campo de fecha
             fechaVencimientoInput.value = ''; // Resetea el campo de fecha

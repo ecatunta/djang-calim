@@ -995,6 +995,7 @@ header {
 .popup-header{
   background-color: #514f4f;
   padding: 5px 7px 7px 5px;
+  margin-bottom: 10px;
 }
 .popup-header h5 {
   font-size: 1.25rem;
@@ -1011,7 +1012,7 @@ header {
 }
 
 .popup-footer {
-  margin-top: 15px;
+  margin-top: 10px;
   text-align: right;
   border-top: 1px solid #f1efef;
   padding: 8px;
