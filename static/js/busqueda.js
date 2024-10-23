@@ -1095,7 +1095,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // Añadimos un evento 'change' al campo select
     selectFechaVencimiento.addEventListener('change', function () {
         if (this.value === '1') { // Misma fecha en todos los Items
+            alert (this.value);
             fechaVencimientoInput.disabled = false; // Habilita el campo de fecha
+            fechaVencimientoInput.focus(); // Enfocar el campo de fecha
+            fechaVencimientoInput.click(); // Simular clic para abrir el widget de selección de fecha
+    
         } else if (this.value === '0') { // No Aplica
             fechaVencimientoInput.disabled = true;  // Deshabilita el campo de fecha
             fechaVencimientoInput.value = ''; // Resetea el campo de fecha
@@ -1200,7 +1204,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="popup-body d-flex">
                     <i class="bi bi-exclamation-circle-fill text-danger me-3" style="font-size: 4rem;"></i>
                     <div>                                             
-                        Se detectaron ${rowCount} items ya creados. Si continúa, se eliminarán los cambios previos y se crearán nuevos items. <strong>Confirme si desea proceder</strong>.
+                        Se detectaron <strong>${rowCount} items</strong> ya creados. Si continúa, se eliminarán los cambios previos y se crearán nuevos items. <strong>Confirme si desea proceder</strong>.
                     </div>
                 </div>
                 <div class="popup-footer text-end">
