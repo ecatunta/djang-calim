@@ -478,7 +478,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (data.status === 'success') {
                         // Ocultar el spinner cuando la solicitud Ajax es exitosa
                         loadingSpinner.style.display = 'none';
-
+                        
                         llena_tabla_items(unidad);
                         const ingreso = data.ingreso;
                         const button = document.getElementById('pu_aceptar');

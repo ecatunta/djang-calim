@@ -1064,7 +1064,7 @@ header {
 
 
 .modal.fade .modal-dialog {
-  transition: transform 0.3s ease-out !important; /* Cambia el tiempo de transición */
+  transition: transform 0.5s ease-out !important; /* Cambia el tiempo de transición */
   transform: translateY(-25%);
 }
 
