@@ -1256,15 +1256,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="popup-body d-flex">
                     <i class="bi bi-exclamation-circle-fill text-danger me-3" style="font-size: 4rem;"></i>
                     <div>                                             
-                        Se detectaron <strong>${rowCount} items</strong> ya creados. Si continúa, se eliminarán los cambios previos y se crearán nuevos items. <strong>Confirme si desea proceder</strong>.
+                        <!--Se detectaron <strong>${rowCount} items</strong> ya creados. Si continúa, se eliminarán los cambios previos y se crearán nuevos items. <strong>Confirme si desea proceder</strong>.-->
+                        Hay <strong>${rowCount} items</strong> creados. Si continúa, perderá los cambios y se generarán nuevos items. <strong>¿Desea continuar?</strong>
                     </div>
                 </div>
                 <div class="popup-footer text-end">
                     <button type="button" class="btn btn-default me-2" id="popup-cancelar">
-                        <i class="bi bi-x-circle"></i> Cancelar
+                        <!--<i class="bi bi-x-circle"></i>--> Cancelar
                     </button>
                     <button type="button" class="btn btn-success" id="popup-aceptar">
-                        <i class="bi bi-check-circle"></i> Aceptar
+                        <!--<i class="bi bi-check-circle"></i>--> Aceptar
                     </button>
                 </div>
             `;
