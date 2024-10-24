@@ -181,6 +181,7 @@ Ingreso
 <!-- Modal principal-->
 <div class="modal fade" id="ingresoPrecioUModal" tabindex="-1" aria-labelledby="ingresoPrecioUModalLabel"
     aria-hidden="true">
+    <div id="mensaje-error" class="hide">Algunos campos están vacíos. Por favor, rellene todos los campos obligatorios.</div>
     <!--<div class="modal-dialog modal-custom">-->
     <div class="modal-dialog">
         <div class="modal-content">
@@ -209,6 +210,7 @@ Ingreso
                         <div class="d-flex align-items-center justify-content-between">
                             <!-- Div para la primera fila -->
                             <div class="d-flex align-items-center w-100 justify-content-between">
+                                <!--<input type="number" id="pu_unidad" class="form-control text-center me-2" disabled autocomplete="off">-->
                                 <input type="number" id="pu_unidad" class="form-control text-center me-2" disabled autocomplete="off">
                                 <!-- Primer texto y botón -->
                                 <div class="me-1" style="text-align: center; margin-top:-10px;">
@@ -235,10 +237,8 @@ Ingreso
                 <table id="tabla-registro-inventario" class="table table-sm align-middle">
                     <thead class="table-light text-center">
                         <tr>
-                            <th>&nbsp;</th>
-                            <!--<th>Datos<br>Nuevos</th>-->
-                            <th>Nuevo</th>
-                            <!--<th>Datos<br>Actuales</th>-->
+                            <th>&nbsp;</th>                            
+                            <th>Nuevo</th>                            
                             <th>Actual</th>
                         </tr>
                     </thead>
@@ -357,7 +357,7 @@ Ingreso
     </div>
 </div>
 
-<!--<div id="mensaje-exito" class="hide">El producto ha sido agregado correctamente.</div>-->
+<!--<div id="mensaje-exito" class="show">Mensaje de prueba .</div>-->
 
 {% if messages %}
 {% for message in messages %}

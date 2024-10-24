@@ -26,10 +26,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Columnas de la fila
     const columnasFilaIngreso = filaIngreso.querySelectorAll('td');
-
     const btn_actualizarUnidad = document.getElementById('actualizar-unidad');
     const btn_generaItem = document.getElementById('genera-item');
-
+    const input_pu_unidad = document.getElementById('pu_unidad');
+    const input_fecha_vencimiento = document.getElementById('fecha-vencimiento');
+    const select_fecha_vencimiento = document.getElementById('select-fecha-vencimiento');
 
     if (mensajeExito && mensajeExito.textContent.trim() !== '') {
         // Aquí puedes realizar alguna acción adicional si el mensaje tiene valor.
@@ -385,7 +386,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const costoTotal = unidad * costoUnitario;
         costoTotalElement.value = costoTotal.toFixed(1); // Redondear a 2 decimales*/
-
     });
 
     // Validación antes de enviar el formulario
@@ -655,7 +655,7 @@ document.addEventListener('DOMContentLoaded', function () {
         costoTotalElement.textContent = costo_total.toFixed(1);
         btn_actualizarUnidad.disabled = false;
         btn_generaItem.disabled = false;
-
+        input_pu_unidad.classList.remove('is-invalid');
         llena_tabla_items(unidad);
 
     });
@@ -746,11 +746,64 @@ document.addEventListener('DOMContentLoaded', function () {
         const precioNuevo = parseFloat(document.getElementById('pu_precioU_nuevo').textContent);
         const unidad = parseFloat(document.getElementById('pu_unidad').value);
         const costoTotal = parseFloat(document.getElementById('pu_costo_total').textContent);
-
         const tablaItems = document.getElementById('tabla-items');
         const filas = tablaItems.getElementsByTagName('tr');
-
         let datosTabla = [];
+
+
+        function validar_input_vacios(input, selectFechaV) {
+            //alert(selectFechaV);
+            if (selectFechaV == 0){
+                input.classList.remove('is-invalid');
+                return true;
+            }
+            if (selectFechaV == 1) { // si la fechaV es unificado, no debe estar vacio
+                if (input.value.trim() === '') {
+                    input.classList.add('is-invalid'); // Agrega borde rojo si está vacío    
+                } else {
+                    input.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
+                    return true;
+                }
+            } else {
+                if (input.value.trim() === '') {
+                    input.classList.add('is-invalid'); // Agrega borde rojo si está vacío
+                    return false;
+                } else {
+                    input.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
+                    return true;
+                }
+            }
+        }
+
+        const i_unidad = validar_input_vacios(input_pu_unidad, null);
+        const i_fechaV = validar_input_vacios(input_fecha_vencimiento, select_fecha_vencimiento.value);
+
+        if (!i_unidad || !i_fechaV) {
+            // Mostrar mensaje de éxito con animación
+            const mensajeError = document.getElementById('mensaje-error');
+            mensajeError.classList.remove('hide');
+            mensajeError.classList.add('show');
+
+            // Ocultar el mensaje después de 5 segundos
+            setTimeout(() => {
+                mensajeError.classList.remove('show');
+                mensajeError.classList.add('hide');
+            }, 3000); // 3 segundos
+            return;
+        }
+
+        /*if (input_pu_unidad.value.trim() === ''){
+            alert ('El campo unidad esta vacio...');
+            return false;
+        }
+
+        if (select_fecha_vencimiento.value == 1){
+            alert ('Fecha unificada, valor 1');
+            if (input_fecha_vencimiento.value.trim() === ''){
+                alert ('La fecha de vencimiento es requerido y esta vacio...');
+                return false;
+            }
+        }*/
 
         // Iterar sobre cada fila de la tabla
         for (let i = 1; i < filas.length; i++) { // Comenzar desde 1 para evitar la fila de encabezado
@@ -976,7 +1029,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const searchBarContainerPadre = document.getElementById('search-bar-container-padre');
         const header = document.querySelector('header'); // Asegúrate de seleccionar el header correcto
 
-
         // Restaurar ícono de búsqueda y ocultar la flecha de regreso
         backArrow.style.display = 'none';
         searchIcon.style.display = 'flex';
@@ -1101,6 +1153,8 @@ document.addEventListener('DOMContentLoaded', function () {
             fechaVencimientoInput.disabled = true;  // Deshabilita el campo de fecha
             fechaVencimientoInput.value = ''; // Resetea el campo de fecha
 
+            input_fecha_vencimiento.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
+
             // Recorremos las filas del tbody para restablecer la segunda columna (Fecha)
             const rows = tablaItemsBody.getElementsByTagName('tr'); // Obtener todas las filas
 
@@ -1118,6 +1172,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Añadimos un evento 'change' al campo de fecha para capturar el cambio de valor
     fechaVencimientoInput.addEventListener('change', function () {
+        input_fecha_vencimiento.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
         const nuevaFecha = this.value; // Obtener el valor del input de fecha
 
         // Recorremos todas las filas del tbody
@@ -1228,7 +1283,11 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('popup-aceptar').addEventListener('click', function () {
                 puUnidadInput.disabled = false; // Habilitar el input "pu_unidad"
                 overlayDiv.remove(); // Eliminar la alerta
+                puUnidadInput.value = '';
+                itemTableBody.innerHTML = '';
                 puUnidadInput.focus();
+                btn_actualizarUnidad.disabled = true;
+                btn_generaItem.disabled = true;
             });
         } else {
             // Si solo hay una fila, habilitar directamente el input "pu_unidad"
