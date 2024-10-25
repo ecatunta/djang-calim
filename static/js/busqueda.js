@@ -1072,55 +1072,99 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('genera-item').addEventListener('click', function () {
         // Obtener el valor del campo 'pu_unidad'
         //const puUnidad = parseInt(document.getElementById('pu_unidad').value, 10);
-
         //llena_tabla_items(puUnidad);
-
         // Ocultar la ventana modal principal
-
         /*var ingresoPrecioUModal = document.getElementById('ingresoPrecioUModal');        
         var bootstrapModal = bootstrap.Modal.getInstance(ingresoPrecioUModal);
         bootstrapModal.hide();*/
-
         // Mostrar la nueva ventana modal
         //const itemModal = new bootstrap.Modal(document.getElementById('itemModal'));
         //itemModal.show();
-
         //modal_s_item.show();
 
-
+        /*
         // Mostrar el modal secundario
         modal_s_item.show();
-
         // Modificar el z-index del modal secundario para que esté sobre el principal
         const modalElement = document.getElementById('itemModal');
         modalElement.style.zIndex = parseInt(window.getComputedStyle(document.querySelector('.modal')).zIndex) + 10;
-        //alert(parseInt(window.getComputedStyle(document.querySelector('.modal')).zIndex)+10);
-
-        /*
         // Asegurar que el backdrop del modal secundario esté correctamente encima del backdrop del modal principal
         const backdrop = document.querySelector('.modal-backdrop');
         if (backdrop) {
             backdrop.style.zIndex = parseInt(window.getComputedStyle(document.querySelector('.modal')).zIndex) + 5;
         }
-            */
+        */
+    });
+
+    /*
+    // Al abrir el modal secundario
+    document.getElementById('genera-item').addEventListener('click', function () {
+        // Mostrar el modal secundario
+        modal_s_item.show();
+
+        // Ajustar el z-index del modal secundario para que esté sobre el principal
+        const modalSecundario = document.getElementById('itemModal');
+        const modalPrincipal = document.getElementById('ingresoPrecioUModal');
+        modalSecundario.style.zIndex = parseInt(window.getComputedStyle(modalPrincipal).zIndex) + 10;
+
+        // Ajustar el z-index del backdrop del modal secundario para que esté entre ambos modales
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.style.zIndex = parseInt(window.getComputedStyle(modalPrincipal).zIndex) + 5;
+        }
     });
 
     // Manejar el cierre del modal secundario para eliminar el backdrop y restablecer el z-index
     document.getElementById('itemModal').addEventListener('hidden.bs.modal', function () {
         const backdrop = document.querySelector('.modal-backdrop');
-        /*
+        if (backdrop) {
+            backdrop.remove(); // Elimina el backdrop cuando se cierra el modal secundario
+        }
+
+        // Restablecer el z-index del modal principal
+        const modalElement = document.getElementById('ingresoPrecioUModal');
+        modalElement.style.zIndex = '';
+    });*/
+
+
+    // Abrir modal secundario y mantener principal abierto
+    document.getElementById('genera-item').addEventListener('click', function () {
+        // Mostrar el modal secundario (itemModal)
+        var itemModal = new bootstrap.Modal(document.getElementById('itemModal'));
+        itemModal.show();
+
+        // Hacer que la ventana modal principal quede visible pero detrás de la secundaria
+        document.querySelector('#ingresoPrecioUModal').classList.add('modal-visible-back');
+    });
+
+    // Evento para cuando se cierre el modal secundario
+    document.getElementById('itemModal').addEventListener('hidden.bs.modal', function () {
+        // Quitar la clase personalizada de la ventana modal principal
+        document.querySelector('#ingresoPrecioUModal').classList.remove('modal-visible-back');
+    });
+
+    // Para garantizar que la ventana principal funcione correctamente si se cierra antes
+    document.getElementById('ingresoPrecioUModal').addEventListener('hidden.bs.modal', function () {
+        document.querySelector('#ingresoPrecioUModal').classList.remove('modal-visible-back');
+    });
+
+
+
+    /*
+    // Manejar el cierre del modal secundario para eliminar el backdrop y restablecer el z-index
+    document.getElementById('itemModal').addEventListener('hidden.bs.modal', function () {
+        const backdrop = document.querySelector('.modal-backdrop');
+
         if (backdrop) {
             //alert ('backdrop existe');
             backdrop.remove(); // Elimina el backdrop cuando se cierra el modal secundario
         }
-            */
 
         // Restablecer el z-index del modal principal
         const modalElement = document.getElementById('ingresoPrecioUModal');
         modalElement.style.zIndex = '';
     });
-
-
+    */
 
     function llena_tabla_items(puUnidad) {
         const itemTableBody = document.getElementById('item-table-body');

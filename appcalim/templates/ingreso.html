@@ -50,13 +50,6 @@ Ingreso
                         autocomplete="off">
                 </div>
 
-                <!-- Costo Total (ocupa 3 columnas en pantallas pequeñas) -->
-                <!--<div class="col-md-3 col-4 d-flex flex-column justify-content-center text-center">
-                    <label for="id_ingreso_costoT" class="label-costoT"></label>
-                    <input type="text" id="id_ingreso_costoT" name="ingreso_costoTotal"
-                        class="form-control disabled-input v-placeholder text-center" placeholder="Costo Total"
-                        readonly>
-                </div>-->
                 <div class="col-md-3 col-4 d-flex flex-column justify-content-center text-center">
                     <label for="id_ingreso_costoT" class="label-costoT"></label>
                     <input type="text" id="id_ingreso_costoT" name="ingreso_costoTotal"
@@ -181,8 +174,7 @@ Ingreso
 <!-- Modal principal-->
 <div class="modal fade" id="ingresoPrecioUModal" tabindex="-1" aria-labelledby="ingresoPrecioUModalLabel"
     aria-hidden="true">
-    <div id="mensaje-error" class="hide">Por favor, complete todos los campos requeridos.</div>
-    <!--<div class="modal-dialog modal-custom">-->
+    <div id="mensaje-error" class="hide">Por favor, complete todos los campos requeridos.</div>    
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white" style="height:40px;">
@@ -194,8 +186,7 @@ Ingreso
                 <div class="row mb-4">
                     <div class="col text-center">
                         <!--<strong class="h5">Producto</strong>-->
-                        <strong class="h5" id="pu_producto_nombre"></strong>
-                        <!--<p id="pu_producto_nombre" class="text-muted"></p>-->
+                        <strong class="h5" id="pu_producto_nombre"></strong>                        
                     </div>
                 </div>
 
@@ -246,8 +237,7 @@ Ingreso
                         <tr>
                             <td class="text-end">$Costo Unitario:</td>
                             <td><input type="number" id="pu_costoU_nuevo" class="form-control text-center"></td>
-                            <td>
-                                <!--<input type="text" id="pu_costoU_actual" class="form-control text-center" disabled>-->
+                            <td>                                
                                 <span id="pu_costoU_actual"></span>
                             </td>
                         </tr>
@@ -256,24 +246,21 @@ Ingreso
                             <td style="text-align:left;">
                                 <input type="number" id="pu_pGanancia_nuevo" class="form-control text-center">
                             </td>
-                            <td>
-                                <!--<input type="text" id="pu_pGanancia_actual" class="form-control text-center" disabled>-->
+                            <td>                                
                                 <span id="pu_pGanancia_actual"></span>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-end">$Ganancia:</td>
                             <td><span id="pu_ganancia_nuevo"></span></td>
-                            <td>
-                                <!--<input type="text" id="pu_ganancia_actual" class="form-control text-center" disabled>-->
+                            <td>                                
                                 <span id="pu_ganancia_actual"></span>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-end">$Precio Unitario:</td>
                             <td><span id="pu_precioU_nuevo"></span></td>
-                            <td>
-                                <!--<input type="text" id="pu_precioU_actual" class="form-control text-center" disabled>-->
+                            <td>                                
                                 <span id="pu_precioU_actual"></span>
                             </td>
                         </tr>
@@ -304,13 +291,10 @@ Ingreso
                 </div>
             </div>
 
-            <div class="modal-footer justify-content-center">
-                <!-- Botón Cancelar con ícono de "X" -->
+            <div class="modal-footer justify-content-center">                
                 <button type="button" class="btn btn-light px-4 me-3" data-bs-dismiss="modal">
                     <i class="bi bi-x-circle me-2"></i>Cancelar
-                </button>
-
-                <!-- Botón Aceptar con ícono de "check" -->
+                </button>                
                 <button type="button" class="btn btn-success px-4" id="pu_aceptar">
                     <i class="bi bi-check-circle me-2"></i>Aceptar
                 </button>

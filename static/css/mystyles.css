@@ -1138,3 +1138,9 @@ header {
 .modal.show .modal-dialog {
   transform: translateY(0);
 }
+
+
+.modal-visible-back {
+  z-index: 1045 !important; /* Un nivel más bajo que el modal secundario */
+  opacity: 0.8; /* Puedes ajustar la opacidad para que se vea detrás del modal secundario */
+}
