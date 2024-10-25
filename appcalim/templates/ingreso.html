@@ -319,37 +319,30 @@ Ingreso
     </div>
 </div>
 
-<!-- Segunda Modal -->
+<!-- Modal secundario-->
 <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true">
-    <div class="modal-dialog"> <!-- Usamos modal-lg para un tamaño más grande -->
-        <div class="modal-content">
-            <!-- Fijamos la altura y añadimos scroll -->
+    <div class="modal-dialog"> 
+        <div class="modal-content">            
             <div class="modal-header bg-secondary text-white" style="height:40px;">
                 <h5 class="modal-title" id="itemModalLabel" style="color: #fff;">ITEMS</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
             <div class="modal-body" style="max-height: 65vh; overflow-y: auto;">
                 <table id="tabla-items" class="table table-bordered table-sm">
                     <!-- Añadimos table-sm para compactar filas -->
-                    <thead class="table-light text-center"> <!-- Encabezado centrado -->
+                    <thead class="table-light text-center"> 
                         <tr>
-                            <th style="width: 30%;">Item</th> <!-- Ajuste del ancho de la columna Item -->
-                            <th style="width: 35%;">Fecha de Vencimiento</th>
-                            <!-- Ajuste del ancho de la columna Fecha -->
-                            <th style="width: 35%;">Código</th> <!-- Ajuste del ancho de la columna Código -->
+                            <th style="width: 30%;">Item</th> 
+                            <th style="width: 35%;">Fecha de Vencimiento</th>                            
+                            <th style="width: 35%;">Código</th>
                         </tr>
                     </thead>
-                    <tbody id="item-table-body">
-                        <!-- Las filas se generarán aquí dinámicamente -->
+                    <tbody id="item-table-body">                        
                     </tbody>
                 </table>
             </div>
-
-            <div class="modal-footer justify-content-center">
-                <!--<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>-->
-                <button type="button" class="btn btn-light px-4 me-3" data-bs-dismiss="modal">
-                    <!--<i class="bi bi-x-circle me-2"></i>Volver-->
+            <div class="modal-footer justify-content-center">                
+                <button type="button" class="btn btn-light px-4 me-3" data-bs-dismiss="modal">                    
                     <i class="bi bi-arrow-left"></i> Volver
                 </button>
             </div>

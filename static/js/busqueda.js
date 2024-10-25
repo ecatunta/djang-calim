@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    //alert('busqueda.js');   
+
     const btnAdicionar = document.getElementById("btn_adicionar");
     const costoUnitarioInput = document.getElementById('id_ingreso_costoU');
     const costoTotalInput = document.getElementById('id_ingreso_costoT');
@@ -7,23 +7,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const quitarIngreso = document.querySelectorAll('.ingreso_quitar');
     // Seleccionar todos los botones de inventario ingreso
     const inventarioIngreso = document.querySelectorAll('.inventario_ingreso');
-
     const suggestions = document.getElementById('suggestions');
     const input_producto = document.getElementById('producto');
-    input_producto.value = '';
-
     const capaAdicionar = document.getElementById('capa-adicionar');
-    capaAdicionar.classList.add('locked');
-
     // Mostrar mensaje de éxito con animación
     const mensajeExito = document.getElementById('mensaje-exito');
-
     // Selecciona la tabla ingreso
     const tabla_ingreso = document.getElementById('ingreso_tabla');
-
     // Selecciona la primera fila de la tabla ingreso
     const filaIngreso = tabla_ingreso.querySelector('tbody tr:first-child');
-
     // Columnas de la fila
     const columnasFilaIngreso = filaIngreso.querySelectorAll('td');
     const btn_actualizarUnidad = document.getElementById('actualizar-unidad');
@@ -31,6 +23,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const input_pu_unidad = document.getElementById('pu_unidad');
     const input_fecha_vencimiento = document.getElementById('fecha-vencimiento');
     const select_fecha_vencimiento = document.getElementById('select-fecha-vencimiento');
+
+    const modal_p_ingreso = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
+    const modal_s_item = new bootstrap.Modal(document.getElementById('itemModal'));
+
+    input_producto.value = '';
+    capaAdicionar.classList.add('locked');
 
     if (mensajeExito && mensajeExito.textContent.trim() !== '') {
         // Aquí puedes realizar alguna acción adicional si el mensaje tiene valor.
@@ -440,7 +438,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const loadingSpinner = document.getElementById('loading-spinner');
-    const modal = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
+    //const modal = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
 
     // Agregar evento a cada botón
     inventarioIngreso.forEach(button => {
@@ -503,7 +501,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         button.setAttribute('data-id', ingresoId);
 
                         // mostrar la ventana modal 
-                        modal.show();
+                        //modal.show();
+                        modal_p_ingreso.show();
 
                     } else {
                         alert('error en la respuesta Ajax.');
@@ -753,7 +752,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function validar_input_vacios(input, selectFechaV) {
             //alert(selectFechaV);
-            if (selectFechaV == 0){
+            if (selectFechaV == 0) {
                 input.classList.remove('is-invalid');
                 return true;
             }
@@ -1072,18 +1071,55 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('genera-item').addEventListener('click', function () {
         // Obtener el valor del campo 'pu_unidad'
-        const puUnidad = parseInt(document.getElementById('pu_unidad').value, 10);
+        //const puUnidad = parseInt(document.getElementById('pu_unidad').value, 10);
 
         //llena_tabla_items(puUnidad);
+
         // Ocultar la ventana modal principal
-        var ingresoPrecioUModal = document.getElementById('ingresoPrecioUModal');
+
+        /*var ingresoPrecioUModal = document.getElementById('ingresoPrecioUModal');        
         var bootstrapModal = bootstrap.Modal.getInstance(ingresoPrecioUModal);
-        bootstrapModal.hide();
+        bootstrapModal.hide();*/
 
         // Mostrar la nueva ventana modal
-        const itemModal = new bootstrap.Modal(document.getElementById('itemModal'));
-        itemModal.show();
+        //const itemModal = new bootstrap.Modal(document.getElementById('itemModal'));
+        //itemModal.show();
+
+        //modal_s_item.show();
+
+
+        // Mostrar el modal secundario
+        modal_s_item.show();
+
+        // Modificar el z-index del modal secundario para que esté sobre el principal
+        const modalElement = document.getElementById('itemModal');
+        modalElement.style.zIndex = parseInt(window.getComputedStyle(document.querySelector('.modal')).zIndex) + 10;
+        //alert(parseInt(window.getComputedStyle(document.querySelector('.modal')).zIndex)+10);
+
+        /*
+        // Asegurar que el backdrop del modal secundario esté correctamente encima del backdrop del modal principal
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.style.zIndex = parseInt(window.getComputedStyle(document.querySelector('.modal')).zIndex) + 5;
+        }
+            */
     });
+
+    // Manejar el cierre del modal secundario para eliminar el backdrop y restablecer el z-index
+    document.getElementById('itemModal').addEventListener('hidden.bs.modal', function () {
+        const backdrop = document.querySelector('.modal-backdrop');
+        /*
+        if (backdrop) {
+            //alert ('backdrop existe');
+            backdrop.remove(); // Elimina el backdrop cuando se cierra el modal secundario
+        }
+            */
+
+        // Restablecer el z-index del modal principal
+        const modalElement = document.getElementById('ingresoPrecioUModal');
+        modalElement.style.zIndex = '';
+    });
+
 
 
     function llena_tabla_items(puUnidad) {
@@ -1133,11 +1169,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    /*
     // Al cerrar la segunda ventana modal, volver a mostrar la ventana modal principal
     document.getElementById('itemModal').addEventListener('hidden.bs.modal', function () {
-        const ingresoModal = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
-        ingresoModal.show();
+        //alert('cerrar ventana secundaria');
+        //const ingresoModal = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
+        //ingresoModal.show();
+
+        //modal_p_ingreso.show();
     });
+    */
 
     // Seleccionamos el campo select y el campo de fecha
     const selectFechaVencimiento = document.getElementById('select-fecha-vencimiento');
