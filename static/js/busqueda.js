@@ -23,11 +23,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const input_pu_unidad = document.getElementById('pu_unidad');
     const input_costo_nuevo = document.getElementById('pu_costoU_nuevo');
     const input_p_ganancia_nuevo = document.getElementById('pu_pGanancia_nuevo');
-    const input_fecha_vencimiento = document.getElementById('fecha-vencimiento');    
+    const input_fecha_vencimiento = document.getElementById('fecha-vencimiento');
     const select_fecha_vencimiento = document.getElementById('select-fecha-vencimiento');
-
     const modal_p_ingreso = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
     const modal_s_item = new bootstrap.Modal(document.getElementById('itemModal'));
+    const modal_ingreso = document.getElementById('ingresoPrecioUModal');
+    const span_n_precio_unidad = document.getElementById('pu_precioU_nuevo');
+    const strong_producto_nombre = document.getElementById('pu_producto_nombre');
+    const tabla_items_body = document.getElementById('item-table-body');
 
     input_producto.value = '';
     capaAdicionar.classList.add('locked');
@@ -457,11 +460,11 @@ document.addEventListener('DOMContentLoaded', function () {
             input_pu_unidad.disabled = true;
             input_fecha_vencimiento.disabled = true;
             btn_actualizarUnidad.disabled = false;
-            
+
             input_pu_unidad.classList.remove('is-invalid');
             input_fecha_vencimiento.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
             input_costo_nuevo.classList.remove('is-invalid');
-            input_p_ganancia_nuevo.classList.remove('is-invalid');            
+            input_p_ganancia_nuevo.classList.remove('is-invalid');
 
             let unidad = 0;
             // Verifica si la pantalla es mediana o más grande
@@ -757,8 +760,36 @@ document.addEventListener('DOMContentLoaded', function () {
         const costoTotal = parseFloat(document.getElementById('pu_costo_total').textContent);
         const tablaItems = document.getElementById('tabla-items');
         const filas = tablaItems.getElementsByTagName('tr');
-        let datosTabla = [];
+        // Crear la superposición y el popup       
+        const overlayDiv = document.createElement('div');
+        const popupDiv = document.createElement('div');
+        const tabla_items_body2 = document.getElementById('item-table-body');
+        //const rowCount = tabla_items_body2.getElementsByTagName('tr').length;
+        const row = tabla_items_body2.getElementsByTagName('tr');
+        //alert(rowCount);
+        var contador = 0;
+        // Recorremos todas las filas del tbody
+        for (let i = 0; i < row.length; i++) {
+            const fechaCell = row[i].getElementsByTagName('td')[1]; // Obtener la segunda celda (índice 1)
+            //alert('item');
+            if (fechaCell) {
+                const inputFecha = fechaCell.querySelector('.item-fecha-vencimiento'); // Obtener el input de fecha en la celda
+                //alert(inputFecha.value);
+                if (inputFecha.value != '') {
+                    contador = contador + 1;
+                    //inputFecha.value = nuevaFecha; // Actualizar el valor del input
+                }
+            }
+        }
 
+        if (row.length == contador) {
+            mensaje = 'incluyen fecha de vencimiento';
+        } else {
+            mensaje = 'no incluyen fecha de vencimiento';
+        }
+        //return;
+
+        let datosTabla = [];
 
         function validar_input_vacios(input, selectFechaV) {
             //alert(selectFechaV);
@@ -789,7 +820,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const i_costoN = validar_input_vacios(input_costo_nuevo, null);
         const i_porcentajeG = validar_input_vacios(input_p_ganancia_nuevo, null);
 
-        if (!i_unidad || !i_fechaV ||!i_costoN ||!i_porcentajeG) {
+        if (!i_unidad || !i_fechaV || !i_costoN || !i_porcentajeG) {
             // Mostrar mensaje de éxito con animación
             const mensajeError = document.getElementById('mensaje-error');
             mensajeError.classList.remove('hide');
@@ -803,50 +834,109 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        
-        // Iterar sobre cada fila de la tabla
-        for (let i = 1; i < filas.length; i++) { // Comenzar desde 1 para evitar la fila de encabezado
-            const celdas = filas[i].getElementsByTagName('td');
-            let filaDatos = {
-                item: celdas[0].textContent.trim(),
-                fecha: celdas[1].querySelector('input').value,
-                codigo: celdas[2].querySelector('input').value
-            };
-            datosTabla.push(filaDatos);
-        }
+        overlayDiv.classList.add('custom-popup-overlay');
+        popupDiv.classList.add('custom-popup');
+        /*
+        popupDiv.innerHTML = `
+            <div class="popup-header">
+                <h5><i class="bi bi-exclamation-triangle-fill text-warning"></i> Mensaje</h5>
+            </div> 
+            <div class="popup-body d-flex">
+                <i class="bi bi-exclamation-circle-fill text-danger me-3" style="font-size: 4rem;"></i>                
+                <div>
+                    Se agregarán al inventario <strong>${input_pu_unidad.value}</strong> unidades del producto <strong>"${strong_producto_nombre.textContent}"</strong>. 
+                    El nuevo precio por unidad será de <strong>Bs. ${span_n_precio_unidad.textContent}</strong>. 
+                    Nota: Los artículos <strong>${mensaje}</strong>. ¿Desea continuar?
+                </div>
+            </div>
+            <div class="popup-footer text-end">
+                <button type="button" class="btn btn-default me-2" id="popup-cancelar">
+                    <!--<i class="bi bi-x-circle"></i>--> Cancelar
+                </button>
+                <button type="button" class="btn btn-success" id="popup-aceptar">
+                    <!--<i class="bi bi-check-circle"></i>--> Aceptar
+                </button>
+            </div>
+        `;
+        */
+        popupDiv.innerHTML = `
+        <div class="popup-header">
+            <h5><i class="bi bi-info-circle-fill text-info"></i> Aviso</h5>
+        </div> 
+        <div class="popup-body d-flex">
+            <i class="bi bi-info-circle text-primary me-3" style="font-size: 3rem;"></i>                
+            <div>
+                Se agregarán al inventario <strong>${input_pu_unidad.value}</strong> unidades del producto <strong>"${strong_producto_nombre.textContent}"</strong>. 
+                El nuevo precio por unidad será de <strong>Bs. ${span_n_precio_unidad.textContent}</strong>. 
+                Nota: Los artículos <strong>${mensaje}</strong>. ¿Desea continuar?
+            </div>
+        </div>
+        <div class="popup-footer text-end">
+            <button type="button" class="btn btn-light me-2" id="popup-cancelar">
+                Cancelar
+            </button>
+            <button type="button" class="btn btn-primary" id="popup-aceptar">
+                Aceptar
+            </button>
+        </div>
+        `;
 
-        console.log('ingresoId: ', ingresoId);
+        // Agregar el popup al overlay y luego al cuerpo del modal
+        overlayDiv.appendChild(popupDiv);
+        // Agregar el mensaje de dialogo al modal principal  
+        modal_ingreso.appendChild(overlayDiv);
 
-        // Envia la solicitud AJAX al backend        
-        fetch(`/inventario_ingreso/${ingresoId}/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken // Token CSRF para seguridad
-            },
-            body: JSON.stringify({
-                costoUnitario: costoUnitario,
-                porGanancia: porGanancia,
-                ganancia: ganancia,
-                precioNuevo: precioNuevo,
-                unidad: unidad,
-                costoTotal: costoTotal,
-                items: datosTabla
+        // Manejar el clic en el botón "Cancelar" dentro del popup
+        document.getElementById('popup-cancelar').addEventListener('click', function () {
+            overlayDiv.remove(); // Eliminar la alerta si el usuario cancela
+        });
+
+        // Manejar el clic en el botón "Aceptar" dentro del popup
+        document.getElementById('popup-aceptar').addEventListener('click', function () {
+            // Iterar sobre cada fila de la tabla
+            for (let i = 1; i < filas.length; i++) { // Comenzar desde 1 para evitar la fila de encabezado
+                const celdas = filas[i].getElementsByTagName('td');
+                let filaDatos = {
+                    item: celdas[0].textContent.trim(),
+                    fecha: celdas[1].querySelector('input').value,
+                    codigo: celdas[2].querySelector('input').value
+                };
+                datosTabla.push(filaDatos);
+            }
+
+            console.log('ingresoId: ', ingresoId);
+            // Envia la solicitud AJAX al backend        
+            fetch(`/inventario_ingreso/${ingresoId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken // Token CSRF para seguridad
+                },
+                body: JSON.stringify({
+                    costoUnitario: costoUnitario,
+                    porGanancia: porGanancia,
+                    ganancia: ganancia,
+                    precioNuevo: precioNuevo,
+                    unidad: unidad,
+                    costoTotal: costoTotal,
+                    items: datosTabla
+                })
             })
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                if (data.success) {
-                    location.reload()
-                } else {
-                    //alert(data.message);
-                    alert(data.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error al actualizar el ingreso:', error);
-            });
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.success) {
+                        location.reload()
+                    } else {
+                        //alert(data.message);
+                        alert(data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al actualizar el ingreso:', error);
+                });
+
+        });
     });
 
     /*
@@ -1337,7 +1427,7 @@ document.addEventListener('DOMContentLoaded', function () {
             popupDiv.innerHTML = `
                 <div class="popup-header">
                     <h5><i class="bi bi-exclamation-triangle-fill text-warning"></i> Advertencia</h5>
-                </div>
+                </div> 
                 <div class="popup-body d-flex">
                     <i class="bi bi-exclamation-circle-fill text-danger me-3" style="font-size: 4rem;"></i>
                     <div>                                             
