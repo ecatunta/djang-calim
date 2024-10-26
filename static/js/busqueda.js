@@ -21,7 +21,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const btn_actualizarUnidad = document.getElementById('actualizar-unidad');
     const btn_generaItem = document.getElementById('genera-item');
     const input_pu_unidad = document.getElementById('pu_unidad');
-    const input_fecha_vencimiento = document.getElementById('fecha-vencimiento');
+    const input_costo_nuevo = document.getElementById('pu_costoU_nuevo');
+    const input_p_ganancia_nuevo = document.getElementById('pu_pGanancia_nuevo');
+    const input_fecha_vencimiento = document.getElementById('fecha-vencimiento');    
     const select_fecha_vencimiento = document.getElementById('select-fecha-vencimiento');
 
     const modal_p_ingreso = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
@@ -452,6 +454,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             document.getElementById('fecha-vencimiento').value = '';
             document.getElementById('select-fecha-vencimiento').value = "0";
+            input_pu_unidad.disabled = true;
+            input_fecha_vencimiento.disabled = true;
+            btn_actualizarUnidad.disabled = false;
+            
+            input_pu_unidad.classList.remove('is-invalid');
+            input_fecha_vencimiento.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
+            input_costo_nuevo.classList.remove('is-invalid');
+            input_p_ganancia_nuevo.classList.remove('is-invalid');            
 
             let unidad = 0;
             // Verifica si la pantalla es mediana o más grande
@@ -776,8 +786,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const i_unidad = validar_input_vacios(input_pu_unidad, null);
         const i_fechaV = validar_input_vacios(input_fecha_vencimiento, select_fecha_vencimiento.value);
+        const i_costoN = validar_input_vacios(input_costo_nuevo, null);
+        const i_porcentajeG = validar_input_vacios(input_p_ganancia_nuevo, null);
 
-        if (!i_unidad || !i_fechaV) {
+        if (!i_unidad || !i_fechaV ||!i_costoN ||!i_porcentajeG) {
             // Mostrar mensaje de éxito con animación
             const mensajeError = document.getElementById('mensaje-error');
             mensajeError.classList.remove('hide');
@@ -791,19 +803,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        /*if (input_pu_unidad.value.trim() === ''){
-            alert ('El campo unidad esta vacio...');
-            return false;
-        }
-
-        if (select_fecha_vencimiento.value == 1){
-            alert ('Fecha unificada, valor 1');
-            if (input_fecha_vencimiento.value.trim() === ''){
-                alert ('La fecha de vencimiento es requerido y esta vacio...');
-                return false;
-            }
-        }*/
-
+        
         // Iterar sobre cada fila de la tabla
         for (let i = 1; i < filas.length; i++) { // Comenzar desde 1 para evitar la fila de encabezado
             const celdas = filas[i].getElementsByTagName('td');
@@ -815,7 +815,7 @@ document.addEventListener('DOMContentLoaded', function () {
             datosTabla.push(filaDatos);
         }
 
-        //console.log('ingresoId: ', ingresoId);
+        console.log('ingresoId: ', ingresoId);
 
         // Envia la solicitud AJAX al backend        
         fetch(`/inventario_ingreso/${ingresoId}/`, {
