@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+
     const btnAdicionar = document.getElementById("btn_adicionar");
     const costoUnitarioInput = document.getElementById('id_ingreso_costoU');
     const costoTotalInput = document.getElementById('id_ingreso_costoT');
@@ -936,16 +937,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(data => {
                     ocultarSpinner();
 
-                    if (data.success) {                        
-                        const popupHeader = document.querySelector('.popup-header');                        
-                        const popupBody = document.getElementById('popup-body-i');
+                    if (data.success) {
+                        // Modificar el contenido del popup en caso de éxito
+                        const popupHeader = document.querySelector('.popup-header');
+                        //const popupBody = document.querySelector('.popup-body');
+                        const popupBody = document.getElementById('popup-body-inv');
+
                         const popupFooter = document.querySelector('.popup-footer');
 
                         // Cambiar el encabezado para reflejar el éxito
                         popupHeader.innerHTML = `
-                            
+                            <h5><i class="bi bi-check-circle-fill text-success"></i> Éxito</h5>
                         `;
 
+                        // Modificar el contenido del popup en caso de éxito
+                        //const popupBody = document.querySelector('.popup-body');
                         popupBody.innerHTML = `
                 <div class="text-center mb-3">
                     <strong style="font-size: 1.2rem;">${strong_producto_nombre.textContent}</strong>
@@ -1634,6 +1640,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+
     const puUnidadInput = document.getElementById('pu_unidad');
     // Manejar el clic en el botón "genera-item"
     document.getElementById('genera-item').addEventListener('click', function () {
@@ -1644,7 +1651,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function openPopup() {
         document.getElementById('popupOverlay').style.display = 'flex';
         document.body.style.overflow = 'hidden'; // Evitar desplazamiento del body
-        //mostrarSpinner();
     }
 
     document.getElementById('abrir-popup').addEventListener('click', function () {
@@ -1655,6 +1661,11 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('popupOverlay').style.display = 'none'; // Cierra el popup
         document.body.style.overflow = 'auto'; // Restaura el scroll del body
     });
-    openPopup();
+
+    // Simulamos abrir el popup al cargar la página
+    /*window.onload = function () {
+         openPopup();
+    };
+    */
 
 });
