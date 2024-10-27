@@ -763,6 +763,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Crear la superposición y el popup       
         const overlayDiv = document.createElement('div');
         const popupDiv = document.createElement('div');
+
+
         const tabla_items_body2 = document.getElementById('item-table-body');
         //const rowCount = tabla_items_body2.getElementsByTagName('tr').length;
         const row = tabla_items_body2.getElementsByTagName('tr');
@@ -835,30 +837,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         overlayDiv.classList.add('custom-popup-overlay');
+
         popupDiv.classList.add('custom-popup');
         /*
-        popupDiv.innerHTML = `
-            <div class="popup-header">
-                <h5><i class="bi bi-exclamation-triangle-fill text-warning"></i> Mensaje</h5>
-            </div> 
-            <div class="popup-body d-flex">
-                <i class="bi bi-exclamation-circle-fill text-danger me-3" style="font-size: 4rem;"></i>                
-                <div>
-                    Se agregarán al inventario <strong>${input_pu_unidad.value}</strong> unidades del producto <strong>"${strong_producto_nombre.textContent}"</strong>. 
-                    El nuevo precio por unidad será de <strong>Bs. ${span_n_precio_unidad.textContent}</strong>. 
-                    Nota: Los artículos <strong>${mensaje}</strong>. ¿Desea continuar?
-                </div>
-            </div>
-            <div class="popup-footer text-end">
-                <button type="button" class="btn btn-default me-2" id="popup-cancelar">
-                    <!--<i class="bi bi-x-circle"></i>--> Cancelar
-                </button>
-                <button type="button" class="btn btn-success" id="popup-aceptar">
-                    <!--<i class="bi bi-check-circle"></i>--> Aceptar
-                </button>
-            </div>
-        `;
-        */
         popupDiv.innerHTML = `
         <div class="popup-header">
             <h5><i class="bi bi-info-circle-fill text-info"></i> Aviso</h5>
@@ -880,6 +861,35 @@ document.addEventListener('DOMContentLoaded', function () {
             </button>
         </div>
         `;
+        */
+
+        popupDiv.innerHTML = `
+        <div class="popup-header">
+            <h5><i class="bi bi-info-circle-fill text-info"></i> Aviso</h5>
+        </div> 
+        <div id="popup-body-inv" class="popup-body d-flex">
+            <i class="bi bi-info-circle text-primary me-3" style="font-size: 3rem;"></i>                
+            <div>
+                Se agregarán al inventario <strong>${input_pu_unidad.value}</strong> unidades del producto <strong>"${strong_producto_nombre.textContent}"</strong>. 
+                El nuevo precio por unidad será de <strong>Bs. ${span_n_precio_unidad.textContent}</strong>. 
+                Nota: Los artículos <strong>${mensaje}</strong>. ¿Desea continuar?
+            </div>
+        </div>
+        <div class="popup-footer text-end">
+            <button type="button" class="btn btn-light me-2" id="popup-cancelar">
+                Cancelar
+            </button>
+            <button type="button" class="btn btn-primary" id="popup-aceptar">
+                Aceptar
+            </button>
+        </div>
+        <!-- Capa de overlay con el spinner -->
+        <div id="loading-overlay" class="loading-overlay d-none">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        `;
 
         // Agregar el popup al overlay y luego al cuerpo del modal
         overlayDiv.appendChild(popupDiv);
@@ -893,6 +903,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Manejar el clic en el botón "Aceptar" dentro del popup
         document.getElementById('popup-aceptar').addEventListener('click', function () {
+            mostrarSpinner();
+
             // Iterar sobre cada fila de la tabla
             for (let i = 1; i < filas.length; i++) { // Comenzar desde 1 para evitar la fila de encabezado
                 const celdas = filas[i].getElementsByTagName('td');
@@ -904,7 +916,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 datosTabla.push(filaDatos);
             }
 
-            console.log('ingresoId: ', ingresoId);
             // Envia la solicitud AJAX al backend        
             fetch(`/inventario_ingreso/${ingresoId}/`, {
                 method: 'POST',
@@ -924,9 +935,157 @@ document.addEventListener('DOMContentLoaded', function () {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    ocultarSpinner();
+
                     if (data.success) {
-                        location.reload()
+                        // Modificar el contenido del popup en caso de éxito
+                        const popupHeader = document.querySelector('.popup-header');
+                        //const popupBody = document.querySelector('.popup-body');
+                        const popupBody = document.getElementById('popup-body-inv');
+
+                        const popupFooter = document.querySelector('.popup-footer');
+
+                        // Cambiar el encabezado para reflejar el éxito
+                        popupHeader.innerHTML = `
+                            <h5><i class="bi bi-check-circle-fill text-success"></i> Éxito</h5>
+                        `;
+
+                        // Modificar el contenido del popup en caso de éxito
+                        //const popupBody = document.querySelector('.popup-body');
+                        popupBody.innerHTML = `
+                <div class="text-center mb-3">
+                    <strong style="font-size: 1.2rem;">${strong_producto_nombre.textContent}</strong>
+                </div>
+            `;
+/*
+                        // Iterar sobre los datos de `data.lista` y agregar filas con el formato solicitado
+                        data.lista.forEach(obj => {
+                            popupBody.innerHTML += `
+                    <div class="mb-2">
+                        <h6><strong>Estado</strong></h6>
+                        <p>${obj.inv_estado}</p>
+                    </div>
+                    <div class="mb-2">
+                        <h6><strong>Fecha en Inventario</strong></h6>
+                        <p>${obj.inv_fecha}</p>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <h6><strong>Unidades en Inventario</strong></h6>
+                            <p>${obj.inv_cantidad_actual}</p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <p class="text-danger" style="text-decoration: line-through;">${obj.inv_cantidad_anterior}</p>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <h6><strong>Unidades de Ingreso</strong></h6>
+                        <p>${obj.ingreso_unidad}</p>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <h6><strong>Costo por Unidad</strong></h6>
+                            <p>${obj.ingreso_costoU_upd}</p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <p class="text-danger" style="text-decoration: line-through;">${obj.ingreso_costoU_ant}</p>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <h6><strong>Costo Total del Ingreso</strong></h6>
+                        <p>${obj.ingreso_costo_total}</p>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <h6><strong>Porcentaje de Ganancia</strong></h6>
+                            <p>${obj.ingreso_porcentaje_upd}</p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <p class="text-danger" style="text-decoration: line-through;">${obj.ingreso_porcentaje_ant}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <h6><strong>Precio por Unidad</strong></h6>
+                            <p>${obj.ingreso_precioU_upd}</p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <p class="text-danger" style="text-decoration: line-through;">${obj.ingreso_precioU_ant}</p>
+                        </div>
+                    </div>
+                `;
+                        });
+*/
+                        /*                  
+                        popupBody.innerHTML = `
+                        <div>
+                            <p>El ingreso se ha actualizado con éxito. Aquí están los detalles:</p>
+                            <ul>
+                                ${data.lista.map(obj => `
+                                    <li>Costo Unitario Anterior: ${obj.ingreso_costoU_ant}</li>
+                                    <li>Costo Unitario Actualizado: ${obj.ingreso_costoU_upd}</li>
+                                    <li>Costo Total: ${obj.ingreso_costo_total}</li>
+                                    <li>Ganancia Anterior: ${obj.ingreso_ganancia_ant}</li>
+                                    <li>Ganancia Actualizada: ${obj.ingreso_ganancia_upd}</li>
+                                    <li>Porcentaje Ganancia Anterior: ${obj.ingreso_porcentaje_ant}</li>
+                                    <li>Porcentaje Ganancia Actualizado: ${obj.ingreso_porcentaje_upd}</li>
+                                    <li>Precio Unitario Anterior: ${obj.ingreso_precioU_ant}</li>
+                                    <li>Precio Unitario Actualizado: ${obj.ingreso_precioU_upd}</li>
+                                    <li>Unidades: ${obj.ingreso_unidad}</li>
+                                    <li>Cantidad Anterior en Inventario: ${obj.inv_cantidad_anterior}</li>
+                                    <li>Cantidad Actual en Inventario: ${obj.inv_cantidad_actual}</li>
+                                    <li>Estado de Inventario: ${obj.inv_estado}</li>
+                                    <li>Fecha de Inventario: ${obj.inv_fecha}</li>
+                                    <li>Modo de Inventario: ${obj.inv_modo}</li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    `;*/
+
+
+                        // Modificar el pie de página con un solo botón de "Salir"
+                        popupFooter.innerHTML = `
+                            <button type="button" class="btn btn-primary" id="popup-salir">Salir</button>
+                        `;
+
+                        /*
+                        ocultarSpinner();
+    
+                        if (data.success) {
+                            // Recorre los valores de la respuesta json 
+                            data.lista.forEach(obj => {
+                                ingreso_costo_unitario_ant = obj.ingreso_costoU_ant;
+                                ingreso_costo_unitario_upd = obj.ingreso_costoU_upd;
+                                ingreso_costo_total = obj.ingreso_costo_total;
+                                ingreso_ganancia_ant = obj.ingreso_ganancia_ant;
+                                ingreso_ganancia_upd = obj.ingreso_ganancia_upd;
+                                ingreso_porcentaje_ant = obj.ingreso_porcentajeG_ant;
+                                ingreso_porcentaje_upd = obj.ingreso_porcentajeG_upd;
+                                ingreso_precio_unitario_ant = obj.ingreso_precioU_ant;
+                                ingreso_precio_unitario_upd = obj.ingreso_precioU_upd;
+                                ingreso_unidad = obj.ingreso_unidad;
+                                inv_cantidad = obj.inv_cantidad;
+                                inv_cantidad_actual = obj.inv_cantidadActual;
+                                inv_cantidad_anterior = obj.inv_cantidadAnterior;
+                                inv_estado = obj.inv_estado;
+                                inv_fecha = obj.inv_fecha;
+                                inv_modo = obj.inv_modo;
+                            });
+    
+                            document.querySelector('.popup-body').innerHTML = `<p>Actualización exitosa.</p>`;                        
+                            const popupContent = document.getElementById('popup-content');               
+                            popupContent.innerHTML = `<p>${strong_producto_nombre.textcontent}</p>
+                            <ul>
+                                <li>Estado ${inv_estado}</li>                                                            
+                                <li>Total unidades en inventario ${inv_cantidad_actual} - ${inv_cantidad_anterior}</li>
+                                <li>Unidades ${inv_cantidad}</li>                                                                                
+                                <li>$ Costo unitario ${ingreso_costo_unitario_upd} - ${ingreso_costo_unitario_ant}</li>                             
+                                <li>$ Costo Total ${ingreso_costo_total}</li>
+                                <li>% Porcentaje de Ganancia ${ingreso_porcentaje_upd} - ${ingreso_porcentaje_ant}</li>
+                                <li>$ Ganancia ${ingreso_ganancia_upd} - ${ingreso_ganancia_ant}</li>                                                       
+                                <li>$ Precio unitario ${ingreso_precio_unitario_ant} - ${ingreso_precio_unitario_upd}</li>                                                        
+                            </ul>
+                            `;*/
                     } else {
                         //alert(data.message);
                         alert(data.error);
@@ -938,6 +1097,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
     });
+
+    // Función para mostrar el overlay del spinner
+    function mostrarSpinner() {
+        document.getElementById('loading-overlay').classList.remove('d-none');
+    }
+
+    // Función para ocultar el overlay del spinner
+    function ocultarSpinner() {
+        document.getElementById('loading-overlay').classList.add('d-none');
+    }
 
     /*
     document.getElementById('producto').addEventListener('focus', function () {

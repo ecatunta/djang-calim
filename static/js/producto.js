@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        function validarVistaPrevia(elem) {                        
+       /* function validarVistaPrevia(elem) {                        
             const texto = elem.textContent.trim(); 
             if (texto.includes('Vista previa')) {                
                 //elem.style.border = "1px solid red";
@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 //elem.style.border = "0px solid red";
                 elem.classList.remove('alert-vista-previa');
             }
-        }
+        }*/
 
         // Validar cada campo
         const tipoValido = validarCampo(inputTipo);
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const descripcionValida = validarCampo(descripcionCorta);
         const medidaValida = validarCampo(inputMedida);
         
-        const vistaPrevia__ = validarVistaPrevia(vistaPrevia)
+        //const vistaPrevia__ = validarVistaPrevia(vistaPrevia)
 
         // Si algún campo es inválido, detener el proceso
         //if (!tipoValido || !marcaValido || !descripcionValida || !medidaValida || texto.includes('Vista previa')) {

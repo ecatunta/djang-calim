@@ -709,18 +709,33 @@ def Inventario_ingreso(request, ingreso_id):
         try:
             # Iniciar una transacción para garantizar que todas las operaciones sean atómicas
             with transaction.atomic():
-                print('debug: ingreso_id-> ' ,ingreso_id)
+                #print('debug: ingreso_id-> ' ,ingreso_id)
+                lista = []
+                datos_dic = {}
+                
                 # Recuperar el ingreso o retornar un error 404 si no se encuentra
                 ingreso = get_object_or_404(Ingreso, ingreso_id=ingreso_id)
                 producto_id = ingreso.producto.producto_id
-                print('debug: producto_id-> ' ,producto_id)
+                #print('debug: producto_id-> ' ,producto_id)
+                
+                # PARA EL ANTES -> una opcion es recuperar los datos de la tabla ingreso filtrando el peoducto y estado=V   (antes de actualizar a C)
+                ingreso_ant = Ingreso.objects.filter(producto=producto_id, ingreso_estado='V').first()                                          
+                if ingreso_ant is None:                    
+                    datos_dic.update({'ingreso_costoU_ant': 0, 'ingreso_porcentajeG_ant': 0, 'ingreso_ganancia_ant': 0, 'ingreso_precioU_ant':0})  
+                else:
+                    datos_dic.update({
+                        'ingreso_costoU_ant': ingreso_ant.ingreso_costoUnitario,                           
+                        'ingreso_porcentajeG_ant': ingreso_ant.ingreso_porcentajeGanancia,                           
+                        'ingreso_ganancia_ant': ingreso_ant.ingreso_ganancia,                           
+                        'ingreso_precioU_ant': ingreso_ant.ingreso_precioUnitario,                        
+                    })              
 
-                # Actualizar todos los ingresos vigentes para ese producto a estado 'C'
+                # Actualizar a estado 'C' los ingresos del producto que están vigentes
                 Ingreso.objects.filter(producto=producto_id, ingreso_estado='V').update(
                     ingreso_estado='C', 
                     ingreso_fechaCierre=timezone.now()
                 )
-                print('debug: update a estado C-> Ok')
+                #print('debug: update a estado C-> Ok')
 
                 # Recuperar los datos enviados via POST
                 try:
@@ -751,13 +766,22 @@ def Inventario_ingreso(request, ingreso_id):
                 ingreso.ingreso_unidad = unidad
                 ingreso.ingreso_costoTotal = costo_total
                 ingreso.save()
-                print('debug: update ingreso-> Ok')
+                #print('debug: update ingreso-> Ok')
+                
+                datos_dic.update({
+                    'ingreso_costoU_upd': costo_unitario,                           
+                    'ingreso_porcentajeG_upd': porcentaje_ganancia, 
+                    'ingreso_ganancia_upd': ganancia,                 
+                    'ingreso_precioU_upd': precio_nuevo,                         
+                    'ingreso_unidad': unidad, 
+                    'ingreso_costo_total': costo_total                 
+                }) 
 
                 # Actualizar el nuevo precio del producto 
                 Producto.objects.filter(producto_id=producto_id).update(
                     producto_precio_uni=precio_nuevo,                  
                 )
-                print('debug: update precio producto-> Ok')                
+                #print('debug: update precio producto-> Ok')                
 
                 # Registrar los items en la tabla ingreso_producto
                 items = data.get('items', [])
@@ -768,16 +792,7 @@ def Inventario_ingreso(request, ingreso_id):
                 
                 # Recorrer la lista items
                 for item in items:
-                    print('item-> ', item['item'], 'fecha->', item['fecha'], 'codigo->', item['codigo'])                    
-                    '''
-                    # Manejar el valor vacío para la fecha
-                    fecha_vencimiento = None
-                    if item['fecha']:
-                        # Convertir la fecha a un objeto datetime con zona horaria
-                        fecha_naive = datetime.strptime(item['fecha'], '%Y-%m-%d')
-                        fecha_vencimiento = timezone.make_aware(fecha_naive, timezone.get_current_timezone())
-                    print(fecha_naive, ' - ',fecha_vencimiento)
-                    '''
+                    #print('item-> ', item['item'], 'fecha->', item['fecha'], 'codigo->', item['codigo'])                    
                      # Manejar el valor vacío para la fecha
                     fecha_vencimiento = None
                     if item['fecha']:                        
@@ -793,37 +808,17 @@ def Inventario_ingreso(request, ingreso_id):
                         iproducto_estado='D',
                         iproducto_descripcion='Disponible'
                     )
-                    nuevo_item.save()
-                '''
-                # Recorrer la lista items
-                for item in items:    
-                    print('item-> ',item['item'], 'fecha-> ' ,item['fecha'], 'codigo-> ',item['codigo'])        
-                    # Manejar el valor vacío para la fecha
-                    fecha_vencimiento = item['fecha'] if item['fecha'] else None
-
-                    nuevo_item = IngresoProducto(
-                        ingreso_id = ingreso_id,
-                        iproducto_codigo = item['item'],
-                        iproducto_fechaVencimiento=fecha_vencimiento,                        
-                        iproducto_estado = 'D',
-                        iproducto_descripcion = 'Disponible'
-                    )
-                    nuevo_item.save()
-                '''
-
+                    nuevo_item.save()                     
                 '''
                 try:
                     # Verificar si 'items' está vacío
                     if not items:
-                        raise Exception('La lista de items está vacía')
-                    
+                        raise Exception('La lista de items está vacía')                    
                     # Recorrer la lista items
                     for item in items:    
                         print('item-> ',item['item'], 'fecha-> ' ,item['fecha'], 'codigo-> ',item['codigo'])            
-
                         # Manejar el valor vacío para la fecha
                         fecha_vencimiento = item['fecha'] if item['fecha'] else None
-
                         nuevo_item = IngresoProducto(
                             ingreso_id = ingreso_id,
                             iproducto_codigo = item['item'],
@@ -837,14 +832,32 @@ def Inventario_ingreso(request, ingreso_id):
                 except Exception as e:
                         return JsonResponse({'message': str(e), 'success': False})    
                 '''
-
                 # Llamar a la función Registra_inventario bajo la misma transacción
                 response = Registra_inventario('INGRESO', ingreso_id, '',unidad)                
+                #print('response: ',response.content)
+                data = json.loads(response.content.decode('utf-8'))  # Decodificar la respuesta a JSON                
+                #print('data: ',data)
+
+                inventario_id_ok = data.get('inventario_id')
+                ingreso_id_ok = data.get('ingreso_id') 
+                print(inventario_id_ok,ingreso_id_ok)                
+                
+                inventario = Inventario.objects.filter(inv_id=inventario_id_ok).first()                                          
+                datos_dic.update({
+                    'inv_modo': inventario.inv_modo,                           
+                    'inv_fecha': inventario.inv_fecha,                           
+                    'inv_cantidad': inventario.inv_cantidad,     
+                    'inv_cantidad_anterior': inventario.inv_cantidadAnterior, 
+                    'inv_cantidad_actual': inventario.inv_cantidadActual, 
+                    'inv_estado': inventario.inv_estado                 
+                })              
 
                 if response.status_code != 201:  # Si ocurre algún error, abortar la transacción
                     raise Exception('Error al registrar el inventario')
-                print('debug: insert inventario -> Ok')                
-                return JsonResponse({'message': 'Ingreso actualizado correctamente.', 'success': True}, status=200)
+                
+                #print('debug: insert inventario -> Ok')  
+                lista.append(datos_dic)                
+                return JsonResponse({'message': 'Ingreso actualizado correctamente.', 'success': True, 'lista': lista}, status=200)
         
         except Ingreso.DoesNotExist:
             return JsonResponse({'error': 'Ingreso no encontrado'}, status=404)
