@@ -994,7 +994,8 @@ header {
   justify-content: center;
   z-index: 1050; /* Debe estar sobre otros elementos */
   /*border: 2px solid blue;*/
-  overflow: hidden; /* Evita el desplazamiento en la página */
+  /*overflow: hidden; /* Evita el desplazamiento en la página */
+  overflow: auto; /* Evita el desplazamiento en la página */
 }
 
 .custom-popup {
