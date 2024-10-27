@@ -957,65 +957,65 @@ document.addEventListener('DOMContentLoaded', function () {
                     <strong style="font-size: 1.2rem;">${strong_producto_nombre.textContent}</strong>
                 </div>
             `;
-/*
-                        // Iterar sobre los datos de `data.lista` y agregar filas con el formato solicitado
-                        data.lista.forEach(obj => {
-                            popupBody.innerHTML += `
-                    <div class="mb-2">
-                        <h6><strong>Estado</strong></h6>
-                        <p>${obj.inv_estado}</p>
-                    </div>
-                    <div class="mb-2">
-                        <h6><strong>Fecha en Inventario</strong></h6>
-                        <p>${obj.inv_fecha}</p>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-6">
-                            <h6><strong>Unidades en Inventario</strong></h6>
-                            <p>${obj.inv_cantidad_actual}</p>
-                        </div>
-                        <div class="col-6 text-end">
-                            <p class="text-danger" style="text-decoration: line-through;">${obj.inv_cantidad_anterior}</p>
-                        </div>
-                    </div>
-                    <div class="mb-2">
-                        <h6><strong>Unidades de Ingreso</strong></h6>
-                        <p>${obj.ingreso_unidad}</p>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-6">
-                            <h6><strong>Costo por Unidad</strong></h6>
-                            <p>${obj.ingreso_costoU_upd}</p>
-                        </div>
-                        <div class="col-6 text-end">
-                            <p class="text-danger" style="text-decoration: line-through;">${obj.ingreso_costoU_ant}</p>
-                        </div>
-                    </div>
-                    <div class="mb-2">
-                        <h6><strong>Costo Total del Ingreso</strong></h6>
-                        <p>${obj.ingreso_costo_total}</p>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-6">
-                            <h6><strong>Porcentaje de Ganancia</strong></h6>
-                            <p>${obj.ingreso_porcentaje_upd}</p>
-                        </div>
-                        <div class="col-6 text-end">
-                            <p class="text-danger" style="text-decoration: line-through;">${obj.ingreso_porcentaje_ant}</p>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-6">
-                            <h6><strong>Precio por Unidad</strong></h6>
-                            <p>${obj.ingreso_precioU_upd}</p>
-                        </div>
-                        <div class="col-6 text-end">
-                            <p class="text-danger" style="text-decoration: line-through;">${obj.ingreso_precioU_ant}</p>
-                        </div>
-                    </div>
-                `;
-                        });
-*/
+                        /*
+                                                // Iterar sobre los datos de `data.lista` y agregar filas con el formato solicitado
+                                                data.lista.forEach(obj => {
+                                                    popupBody.innerHTML += `
+                                            <div class="mb-2">
+                                                <h6><strong>Estado</strong></h6>
+                                                <p>${obj.inv_estado}</p>
+                                            </div>
+                                            <div class="mb-2">
+                                                <h6><strong>Fecha en Inventario</strong></h6>
+                                                <p>${obj.inv_fecha}</p>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-6">
+                                                    <h6><strong>Unidades en Inventario</strong></h6>
+                                                    <p>${obj.inv_cantidad_actual}</p>
+                                                </div>
+                                                <div class="col-6 text-end">
+                                                    <p class="text-danger" style="text-decoration: line-through;">${obj.inv_cantidad_anterior}</p>
+                                                </div>
+                                            </div>
+                                            <div class="mb-2">
+                                                <h6><strong>Unidades de Ingreso</strong></h6>
+                                                <p>${obj.ingreso_unidad}</p>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-6">
+                                                    <h6><strong>Costo por Unidad</strong></h6>
+                                                    <p>${obj.ingreso_costoU_upd}</p>
+                                                </div>
+                                                <div class="col-6 text-end">
+                                                    <p class="text-danger" style="text-decoration: line-through;">${obj.ingreso_costoU_ant}</p>
+                                                </div>
+                                            </div>
+                                            <div class="mb-2">
+                                                <h6><strong>Costo Total del Ingreso</strong></h6>
+                                                <p>${obj.ingreso_costo_total}</p>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-6">
+                                                    <h6><strong>Porcentaje de Ganancia</strong></h6>
+                                                    <p>${obj.ingreso_porcentaje_upd}</p>
+                                                </div>
+                                                <div class="col-6 text-end">
+                                                    <p class="text-danger" style="text-decoration: line-through;">${obj.ingreso_porcentaje_ant}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-6">
+                                                    <h6><strong>Precio por Unidad</strong></h6>
+                                                    <p>${obj.ingreso_precioU_upd}</p>
+                                                </div>
+                                                <div class="col-6 text-end">
+                                                    <p class="text-danger" style="text-decoration: line-through;">${obj.ingreso_precioU_ant}</p>
+                                                </div>
+                                            </div>
+                                        `;
+                                                });
+                        */
                         /*                  
                         popupBody.innerHTML = `
                         <div>
@@ -1647,8 +1647,25 @@ document.addEventListener('DOMContentLoaded', function () {
         puUnidadInput.disabled = true; // Desactivar el input "pu_unidad"
     });
 
+    // Para abrir el popup y ocultar el scroll del body
+    function openPopup() {
+        document.getElementById('popupOverlay').style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Evitar desplazamiento del body
+    }
+
+    document.getElementById('abrir-popup').addEventListener('click', function () {
+        openPopup();
+    });
+
+    document.getElementById('cerrar-popup').addEventListener('click', function () {
+        document.getElementById('popupOverlay').style.display = 'none'; // Cierra el popup
+        document.body.style.overflow = 'auto'; // Restaura el scroll del body
+    });
+
+    // Simulamos abrir el popup al cargar la página
+    /*window.onload = function () {
+         openPopup();
+    };
+    */
+
 });
-
-
-
-

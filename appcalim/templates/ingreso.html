@@ -319,7 +319,7 @@ Ingreso
                 <h5 class="modal-title" id="itemModalLabel" style="color: #fff;">ITEMS</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" style="max-height: 65vh; overflow-y: auto;">
+            <div class="modal-body" style="max-height: 65vh; overflow-y: auto;">            
                 <table id="tabla-items" class="table table-bordered table-sm">
                     <!-- Añadimos table-sm para compactar filas -->
                     <thead class="table-light text-center">
@@ -342,320 +342,9 @@ Ingreso
     </div>
 </div>
 
-<!--
-<div class="custom-popup-overlay">
+<div class="custom-popup-overlay" id="popupOverlay">
+
     <div class="custom-popup">
-        <div class="popup-header">
-            <h5><i class="bi bi-info-circle-fill text-info"></i> Aviso</h5>
-        </div>
-        <div id="popup-body-inv" class="container">
-            <div class="row">
-                <div class="col-4">
-                    <p>Estado</p>
-                </div>
-                <div class="col-8">
-                    En Inventario
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-4">
-                    <p>Producto</p>
-                </div>
-                <div class="col-8">
-                    PAÑALES BEBITUS DESECHABLE TALLA XXG
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <ul>
-                        <li>
-                            <p>Fecha de Ingreso</p>
-                            2024-10-26 17:05
-                        </li>
-
-                        <li>
-                            <p>Unidades</p>
-                            120
-                        </li>
-                        <li>
-                            <p>Costo por Unidad</p>
-                            <span>$85.5</span>
-                            <span class="text-danger" style="text-decoration: line-through;">70</span>
-                        </li>
-                        <li>
-                            <p>Costo Total</p>
-                            $123
-                        </li>
-                        <li>
-                            <p>Porcentaje de Ganancia</p>
-                            <span>%13</span>
-                            <span class="text-danger" style="text-decoration: line-through;">12</span>
-                        </li>
-                        <li>
-                            <p>Ganancia</p>
-                            <span>$12</span>
-                            <span class="text-danger" style="text-decoration: line-through;">8</span>
-                        </li>
-                        <li>
-                            <p>Precio Unitario</p>
-                            <span>$50</span>
-                            <span class="text-danger" style="text-decoration: line-through;">45</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <ul>
-                        <li>
-                            <p>Modo</p>
-                            INGRESO
-                        </li>
-                        <li>
-                            <p>Fecha de Inventario</p>
-                            2024-10-30 18:00
-                        </li>
-                        <li>
-                            <p>Unidades en Inventario</p>
-                            <span>120</span>
-                            <span class="text-danger" style="text-decoration: line-through;">0</span>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="popup-footer text-end">
-            <button type="button" class="btn btn-light me-2" id="popup-cancelar">
-                Cancelar
-            </button>
-            <button type="button" class="btn btn-primary" id="popup-aceptar">
-                Aceptar
-            </button>
-        </div>
-        <div id="loading-overlay" class="loading-overlay d-none">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
-    </div>
-</div>
--->
-
-<!--
-<div class="custom-popup-overlay">
-    <div class="custom-popup">
-        <div class="popup-header text-center bg-info text-white p-2 rounded-top">
-            <h5><i class="bi bi-info-circle-fill me-2"></i> Aviso</h5>
-        </div>
-
-        <div id="popup-body-i" class="container py-3">
-            <div class="text-center mb-4">
-                <h6 class="fw-bold">Producto: PAÑALES BEBITUS DESECHABLE TALLA XXG</h6>
-            </div>
-
-            <div class="row mb-2">
-                <div class="col-4 text-secondary">Estado</div>
-                <div class="col-8">En Inventario</div>
-            </div>
-
-            <hr>
-
-            <div class="row">                
-                <div class="col-md-6">
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <p class="fw-bold mb-1">Fecha de Ingreso</p>
-                            <p>2024-10-26 17:05</p>
-                        </li>
-                        <li class="mb-2">
-                            <p class="fw-bold mb-1">Unidades de Ingreso</p>
-                            <p>120</p>
-                        </li>
-                        <li class="mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Costo por Unidad</p>
-                            <div>
-                                <span>$85.5</span>
-                                <span class="text-danger" style="text-decoration: line-through;">70</span>
-                            </div>
-                        </li>
-                        <li class="mb-2">
-                            <p class="fw-bold mb-1">Costo Total</p>
-                            <p>$123</p>
-                        </li>
-                        <li class="mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Porcentaje de Ganancia</p>
-                            <div>
-                                <span>%13</span>
-                                <span class="text-danger" style="text-decoration: line-through;">12</span>
-                            </div>
-                        </li>
-                        <li class="mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Ganancia</p>
-                            <div>
-                                <span>$12</span>
-                                <span class="text-danger" style="text-decoration: line-through;">8</span>
-                            </div>
-                        </li>
-                        <li class="mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Precio Unitario</p>
-                            <div>
-                                <span>$50</span>
-                                <span class="text-danger" style="text-decoration: line-through;">45</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="col-md-6">
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <p class="fw-bold mb-1">Modo</p>
-                            <p>INGRESO</p>
-                        </li>
-                        <li class="mb-2">
-                            <p class="fw-bold mb-1">Fecha en Inventario</p>
-                            <p>2024-10-30 18:00</p>
-                        </li>
-                        <li class="mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Unidades en Inventario</p>
-                            <div>
-                                <span>120</span>
-                                <span class="text-danger" style="text-decoration: line-through;">0</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="popup-footer text-end bg-light p-3 rounded-bottom">
-            <button type="button" class="btn btn-light me-2" id="popup-cancelar">Cancelar</button>
-            <button type="button" class="btn btn-primary" id="popup-aceptar">Aceptar</button>
-        </div>
-        
-        <div id="loading-overlay" class="loading-overlay d-none">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
-    </div>
-</div>
--->
-
-<!--
-<div class="custom-popup-overlay">
-    <div class="custom-popup">
-        <div class="popup-header text-center bg-info text-white p-2 rounded-top">
-            <h5><i class="bi bi-info-circle-fill me-2"></i> Aviso</h5>
-        </div>
-
-        <div id="popup-body-i" class="container py-3">
-            <div class="text-center mb-4">
-                <h6 class="fw-bold">Producto: PAÑALES BEBITUS DESECHABLE TALLA XXG</h6>
-            </div>
-
-            <div class="row mb-2">
-                <div class="col-4 text-secondary">Estado</div>
-                <div class="col-8">En Inventario</div>
-            </div>
-
-            <hr>
-
-            <div class="row">                
-                <div class="col-6">
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <p class="fw-bold mb-1">Fecha de Ingreso</p>
-                            <p>2024-10-26 17:05</p>
-                        </li>
-                        <li class="mb-2">
-                            <p class="fw-bold mb-1">Unidades de Ingreso</p>
-                            <p>120</p>
-                        </li>
-                        <li class="mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Costo por Unidad</p>
-                            <div>
-                                <span>$85.5</span>
-                                <span class="text-danger" style="text-decoration: line-through;">70</span>
-                            </div>
-                        </li>
-                        <li class="mb-2">
-                            <p class="fw-bold mb-1">Costo Total</p>
-                            <p>$123</p>
-                        </li>
-                        <li class="mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Porcentaje de Ganancia</p>
-                            <div>
-                                <span>%13</span>
-                                <span class="text-danger" style="text-decoration: line-through;">12</span>
-                            </div>
-                        </li>
-                        <li class="mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Ganancia</p>
-                            <div>
-                                <span>$12</span>
-                                <span class="text-danger" style="text-decoration: line-through;">8</span>
-                            </div>
-                        </li>
-                        <li class="mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Precio Unitario</p>
-                            <div>
-                                <span>$50</span>
-                                <span class="text-danger" style="text-decoration: line-through;">45</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="col-6">
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <p class="fw-bold mb-1">Fecha en Inventario</p>
-                            <p>2024-10-30 18:00</p>
-                        </li>
-
-                        <li class="mb-2">
-                            <p class="fw-bold mb-1">Modo</p>
-                            <p>INGRESO</p>
-                        </li>
-
-                        <li class="mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Unidades en Inventario</p>
-                            <div>
-                                <span>120</span>
-                                <span class="text-danger" style="text-decoration: line-through;">0</span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="popup-footer text-end bg-light p-3 rounded-bottom">
-            <button type="button" class="btn btn-light me-2" id="popup-cancelar">Cancelar</button>
-            <button type="button" class="btn btn-primary" id="popup-aceptar">Aceptar</button>
-        </div>
-        
-        <div id="loading-overlay" class="loading-overlay d-none">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
-    </div>
-</div>
--->
-
-<div class="custom-popup-overlay">
-    <div class="custom-popup">
-        <!--<div class="popup-header text-center bg-info text-white p-2 rounded-top">
-            <h5><i class="bi bi-info-circle-fill me-2"></i> Ingreso registrado con éxito en el Inventario</h5>
-        </div>-->
-
-        <!--<div class="popup-header text-center bg-success text-white p-2 rounded-top d-flex align-items-center justify-content-center">
-            <h5 class="mb-0">
-                <i class="bi bi-check-circle-fill me-2" style="font-size: 50px;"></i> Ingreso registrado con éxito en el Inventario
-            </h5>
-        </div>-->
 
         <div class="popup-header bg-success text-white p-2 rounded-top d-flex align-items-center">
             <div class="col-2 d-flex justify-content-center">
@@ -665,7 +354,7 @@ Ingreso
                 <h5 class="mb-0">Ingreso exitoso. ¡Gracias por actualizar el inventario!</h5>
             </div>
         </div>
-        
+
 
         <div id="popup-body-i" class="container py-3">
             <div class="text-center mb-4">
@@ -699,14 +388,6 @@ Ingreso
                             </div>
                         </li>
 
-                        <!--<li class="list-item mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Costo por Unidad</p>
-                            <div>
-                                <span>$85.5</span>
-                                <span class="text-danger" style="text-decoration: line-through;">70</span>
-                            </div>
-                        </li>-->
-
                         <li class="list-item mb-2">
                             <p class="fw-bold mb-1">Costo Total</p>
                             <p>$123</p>
@@ -718,14 +399,6 @@ Ingreso
                                 <span class="text-danger" style="text-decoration: line-through;">%12</span>
                             </div>
                         </li>
-
-                        <!--<li class="list-item mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Rentabilidad </p>
-                            <div>
-                                <span>%13</span>
-                                <span class="text-danger" style="text-decoration: line-through;">%12</span>
-                            </div>
-                        </li>-->
 
                         <li class="list-item mb-2 d-flex justify-content-between">
                             <p class="fw-bold mb-1">Utilidad</p>
@@ -742,14 +415,7 @@ Ingreso
                                 <span class="text-danger" style="text-decoration: line-through;">45</span>
                             </div>
                         </li>
-                        
-                        <!--<li class="list-item mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Precio Actual por Unidad</p>
-                            <div>
-                                <span>$50</span>
-                                <span class="text-danger" style="text-decoration: line-through;">45</span>
-                            </div>
-                        </li>-->
+
                     </ul>
                 </div>
 
@@ -769,13 +435,7 @@ Ingreso
                             <p class="fw-bold mb-1">Fecha de Alta en Inventario</p>
                             <p>2024-10-30 18:00</p>
                         </li>
-                        <!--<li class="list-item mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Stock Disponible</p>
-                            <div>
-                                <span>120</span>
-                                <span class="text-danger" style="text-decoration: line-through;">0</span>
-                            </div>
-                        </li>-->
+
                         <li class="list-item mb-2">
                             <p class="fw-bold mb-1">Stock Disponible</p>
                             <div>
@@ -788,13 +448,10 @@ Ingreso
             </div>
         </div>
 
-        <!--<div class="popup-footer text-end bg-light p-3 rounded-bottom">
-            <button type="button" class="btn btn-light me-2" id="popup-cancelar">Cancelar</button>
-            <button type="button" class="btn btn-primary" id="popup-aceptar">Aceptar</button>
-        </div>-->
-
         <div class="popup-footer text-center bg-light p-3 rounded-bottom">
-            <button type="button" class="btn btn-primary" id="popup-salir"><i class="bi bi-box-arrow-right me-2"></i> Salir</button>
+            <button type="button" class="btn btn-primary" id="cerrar-popup">
+                <i class="bi bi-box-arrow-right me-2"></i> Salir
+            </button>
         </div>
 
         <!-- Capa de overlay con el spinner -->
@@ -805,6 +462,8 @@ Ingreso
         </div>
     </div>
 </div>
+
+<button id="abrir-popup" class="btn btn-primary"> Abrir Ventana Popup</button>
 
 <!--<div id="mensaje-exito" class="show">Mensaje de prueba .</div>-->
 
