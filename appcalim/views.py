@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 from django.contrib import messages
 from datetime import datetime
+from django.utils.timezone import localtime
 import json
 
 # Create your views here.
@@ -716,20 +717,28 @@ def Inventario_ingreso(request, ingreso_id):
                 # Recuperar el ingreso o retornar un error 404 si no se encuentra
                 ingreso = get_object_or_404(Ingreso, ingreso_id=ingreso_id)
                 producto_id = ingreso.producto.producto_id
+                
+                ingreso_fecha = localtime(ingreso.ingreso_fecha)                
+                fecha_formateada = ingreso_fecha.strftime("%Y/%m/%d %H:%M")
+
                 #print('debug: producto_id-> ' ,producto_id)
                 
-                # PARA EL ANTES -> una opcion es recuperar los datos de la tabla ingreso filtrando el peoducto y estado=V   (antes de actualizar a C)
                 ingreso_ant = Ingreso.objects.filter(producto=producto_id, ingreso_estado='V').first()                                          
                 if ingreso_ant is None:                    
-                    datos_dic.update({'ingreso_costoU_ant': 0, 'ingreso_porcentajeG_ant': 0, 'ingreso_ganancia_ant': 0, 'ingreso_precioU_ant':0})  
+                    datos_dic.update({'ingreso_costoU_ant': 0, 'ingreso_porcentajeG_ant': 0, 'ingreso_ganancia_ant': 0, 'ingreso_precioU_ant':0,
+                                      #'ingreso_fecha':0
+                                      })  
                 else:
                     datos_dic.update({
                         'ingreso_costoU_ant': ingreso_ant.ingreso_costoUnitario,                           
                         'ingreso_porcentajeG_ant': ingreso_ant.ingreso_porcentajeGanancia,                           
                         'ingreso_ganancia_ant': ingreso_ant.ingreso_ganancia,                           
                         'ingreso_precioU_ant': ingreso_ant.ingreso_precioUnitario,   
-                        'ingreso_fecha' : ingreso_ant.ingreso_fecha,                     
-                    })              
+                        #'ingreso_fecha' : fecha_formateada,                     
+                    })     
+
+
+                datos_dic['ingreso_fecha'] = fecha_formateada       
 
                 # Actualizar a estado 'C' los ingresos del producto que están vigentes
                 Ingreso.objects.filter(producto=producto_id, ingreso_estado='V').update(
@@ -843,10 +852,14 @@ def Inventario_ingreso(request, ingreso_id):
                 ingreso_id_ok = data.get('ingreso_id') 
                 print(inventario_id_ok,ingreso_id_ok)                
                 
-                inventario = Inventario.objects.filter(inv_id=inventario_id_ok).first()                                          
+                inventario = Inventario.objects.filter(inv_id=inventario_id_ok).first()  
+                
+                inventario_fecha = localtime(inventario.inv_fecha)                
+                inventario_fecha_format = inventario_fecha.strftime("%Y/%m/%d %H:%M")                                                        
+                
                 datos_dic.update({
                     'inv_modo': inventario.inv_modo,                           
-                    'inv_fecha': inventario.inv_fecha,                           
+                    'inv_fecha': inventario_fecha_format,                           
                     'inv_cantidad': inventario.inv_cantidad,     
                     'inv_cantidad_anterior': inventario.inv_cantidadAnterior, 
                     'inv_cantidad_actual': inventario.inv_cantidadActual, 
@@ -1014,6 +1027,11 @@ def Obtiene_precioU_vigente_nuevo1(request, ingreso_id):
 def Obtiene_precioU_vigente_nuevo(request, ingreso_id):
     try:
         ingreso_nuevo = Ingreso.objects.filter(ingreso_id=ingreso_id, ingreso_estado='P').first() 
+        ingreso_fecha = localtime(ingreso_nuevo.ingreso_fecha)
+        #fecha_formateada = ingreso_fecha.strftime("%Y/%m/%d %H:%M:%S")
+        fecha_formateada = ingreso_fecha.strftime("%Y/%m/%d %H:%M")
+        print('--------------- ingreso_fecha: ',ingreso_fecha, '-> ',ingreso_nuevo.ingreso_id, 'format -> ',fecha_formateada)
+        
         producto_id = ingreso_nuevo.producto.producto_id
         ingreso_vigente = Ingreso.objects.filter(producto_id=producto_id, ingreso_estado='V').first() 
         
