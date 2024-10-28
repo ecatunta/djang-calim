@@ -1104,7 +1104,7 @@ header {
   z-index: 10; /* Asegura que el overlay esté sobre el contenido */
 }
 
-.loading-overlay {
+/*.loading-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -1115,6 +1115,23 @@ header {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+}*/
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  z-index: 1060; /* Asegura que esté sobre el contenido del popup */
+  color: #333; /* Color para el texto */
+  font-size: 1.2rem;
 }
 
 

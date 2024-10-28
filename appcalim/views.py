@@ -727,7 +727,8 @@ def Inventario_ingreso(request, ingreso_id):
                         'ingreso_costoU_ant': ingreso_ant.ingreso_costoUnitario,                           
                         'ingreso_porcentajeG_ant': ingreso_ant.ingreso_porcentajeGanancia,                           
                         'ingreso_ganancia_ant': ingreso_ant.ingreso_ganancia,                           
-                        'ingreso_precioU_ant': ingreso_ant.ingreso_precioUnitario,                        
+                        'ingreso_precioU_ant': ingreso_ant.ingreso_precioUnitario,   
+                        'ingreso_fecha' : ingreso_ant.ingreso_fecha,                     
                     })              
 
                 # Actualizar a estado 'C' los ingresos del producto que están vigentes

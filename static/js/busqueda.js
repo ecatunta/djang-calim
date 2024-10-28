@@ -784,9 +784,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (row.length == contador) {
-            mensaje = 'incluyen fecha de vencimiento';
+            //mensaje = 'incluyen fecha de vencimiento';
+            mensaje = 'cuentan con fecha de vencimiento';
+
         } else {
-            mensaje = 'no incluyen fecha de vencimiento';
+            //mensaje = 'no incluyen fecha de vencimiento';
+            mensaje = 'no cuentan con fecha de vencimiento';
         }
         //return;
 
@@ -863,30 +866,46 @@ document.addEventListener('DOMContentLoaded', function () {
         */
 
         popupDiv.innerHTML = `
+        <!-- Header del Popup -->        
         <div class="popup-header">
-            <h5><i class="bi bi-info-circle-fill text-info"></i> Aviso</h5>
-        </div> 
-        <div id="popup-body-inv" class="popup-body d-flex">
-            <i class="bi bi-info-circle text-primary me-3" style="font-size: 3rem;"></i>                
-            <div>
-                Se agregarán al inventario <strong>${input_pu_unidad.value}</strong> unidades del producto <strong>"${strong_producto_nombre.textContent}"</strong>. 
-                El nuevo precio por unidad será de <strong>Bs. ${span_n_precio_unidad.textContent}</strong>. 
-                Nota: Los artículos <strong>${mensaje}</strong>. ¿Desea continuar?
+            <div class="bg-info text-white p-2 rounded-top d-flex align-items-center">
+                <div class="d-flex justify-content-center me-2" style="font-size: 2.2rem;">
+                    <i class="bi bi-info-circle-fill"></i>
+                </div>
+                <h5 class="mb-0 text-center flex-grow-1">Aviso de Inventario</h5>
             </div>
         </div>
-        <div class="popup-footer text-end">
-            <button type="button" class="btn btn-light me-2" id="popup-cancelar">
-                Cancelar
-            </button>
-            <button type="button" class="btn btn-primary" id="popup-aceptar">
-                Aceptar
-            </button>
+
+        <!-- Cuerpo del Popup -->        
+        <div id="popup-body-i" class="popup-body p-3">
+            <p class="mb-3">
+                Se agregará un total de <strong>${input_pu_unidad.value} unidades</strong> al inventario del siguiente producto:
+            </p>
+            <p class="text-center">
+                <strong>“${strong_producto_nombre.textContent}”</strong>
+            </p>
+            <p class="mt-4">
+                El nuevo precio por unidad será de <strong>Bs. ${span_n_precio_unidad.textContent}</strong>.
+            </p>
+            <p class="text-warning mt-3">
+                <i class="bi bi-exclamation-triangle-fill me-1"></i> Atención: Los productos en esta selección <strong>${mensaje}</strong>.
+            </p>
+            <p class="mt-4 mb-0 text-center">
+                ¿Confirma que desea continuar?
+            </p>
         </div>
-        <!-- Capa de overlay con el spinner -->
+
+        <!-- Footer del Popup -->
+        <div class="popup-footer text-end p-3">
+            <button type="button" class="btn btn-outline-secondary me-2" id="popup-cancelar">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="popup-aceptar">Aceptar</button>
+        </div>
+
         <div id="loading-overlay" class="loading-overlay d-none">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
+            <div class="spinner-border text-primary mb-3" role="status">
+                <span class="visually-hidden">Cargando...</span>
             </div>
+            <span>Cargando...</span>
         </div>
         `;
 
@@ -935,81 +954,123 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     ocultarSpinner();
-
-                    if (data.success) {                        
-                        const popupHeader = document.querySelector('.popup-header');                        
+                    console.log('data: ',data);
+                    if (data.success) {
+                        const popupHeader = document.querySelector('.popup-header');
                         const popupBody = document.getElementById('popup-body-i');
                         const popupFooter = document.querySelector('.popup-footer');
 
-                        // Cambiar el encabezado para reflejar el éxito
                         popupHeader.innerHTML = `
-                            
+                        <div class="bg-success text-white p-2 rounded-top d-flex align-items-center">
+                            <div class="col-2 d-flex justify-content-center">
+                                <i class="bi bi-check-circle-fill me-2" style="font-size: 2.5rem;"></i>
+                            </div>
+                            <div class="col-10 text-center">
+                                <h5 class="mb-0">Ingreso exitoso. ¡Gracias por actualizar el inventario!</h5>
+                            </div>
+                        </div>                        
                         `;
 
                         popupBody.innerHTML = `
-                <div class="text-center mb-3">
-                    <strong style="font-size: 1.2rem;">${strong_producto_nombre.textContent}</strong>
+                        <div class="text-center mb-4">
+                            <h6 class="fw-bold" style="color: #636363;">Producto: ${strong_producto_nombre.textContent}</h6>
+                        </div>
+                         `;
+
+                        // Iterar sobre los datos de `data.lista` y agregar filas con el formato solicitado
+                        data.lista.map(obj => {
+                            popupBody.innerHTML += `                                           
+                <div class="row mb-2">
+                    <div class="col-4 text-secondary"><strong>Estado</strong></div>
+                    <div class="col-8">Disponible en Inventario</div>
                 </div>
-            `;
-                        /*
-                                                // Iterar sobre los datos de `data.lista` y agregar filas con el formato solicitado
-                                                data.lista.forEach(obj => {
-                                                    popupBody.innerHTML += `
-                                            <div class="mb-2">
-                                                <h6><strong>Estado</strong></h6>
-                                                <p>${obj.inv_estado}</p>
-                                            </div>
-                                            <div class="mb-2">
-                                                <h6><strong>Fecha en Inventario</strong></h6>
-                                                <p>${obj.inv_fecha}</p>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-6">
-                                                    <h6><strong>Unidades en Inventario</strong></h6>
-                                                    <p>${obj.inv_cantidad_actual}</p>
-                                                </div>
-                                                <div class="col-6 text-end">
-                                                    <p class="text-danger" style="text-decoration: line-through;">${obj.inv_cantidad_anterior}</p>
-                                                </div>
-                                            </div>
-                                            <div class="mb-2">
-                                                <h6><strong>Unidades de Ingreso</strong></h6>
-                                                <p>${obj.ingreso_unidad}</p>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-6">
-                                                    <h6><strong>Costo por Unidad</strong></h6>
-                                                    <p>${obj.ingreso_costoU_upd}</p>
-                                                </div>
-                                                <div class="col-6 text-end">
-                                                    <p class="text-danger" style="text-decoration: line-through;">${obj.ingreso_costoU_ant}</p>
-                                                </div>
-                                            </div>
-                                            <div class="mb-2">
-                                                <h6><strong>Costo Total del Ingreso</strong></h6>
-                                                <p>${obj.ingreso_costo_total}</p>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-6">
-                                                    <h6><strong>Porcentaje de Ganancia</strong></h6>
-                                                    <p>${obj.ingreso_porcentaje_upd}</p>
-                                                </div>
-                                                <div class="col-6 text-end">
-                                                    <p class="text-danger" style="text-decoration: line-through;">${obj.ingreso_porcentaje_ant}</p>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-2">
-                                                <div class="col-6">
-                                                    <h6><strong>Precio por Unidad</strong></h6>
-                                                    <p>${obj.ingreso_precioU_upd}</p>
-                                                </div>
-                                                <div class="col-6 text-end">
-                                                    <p class="text-danger" style="text-decoration: line-through;">${obj.ingreso_precioU_ant}</p>
-                                                </div>
-                                            </div>
-                                        `;
-                                                });
-                        */
+                <hr>
+                
+                <div class="row">
+                
+                <!-- Columna izquierda con los elementos de la lista alternados -->
+                <div class="col-6">
+                    <ul class="list-unstyled">
+
+                        <li class="list-item mb-2">
+                            <p class="fw-bold mb-1">Fecha de Registro</p>
+                            <p>${obj.ingreso_fecha}</p>
+                        </li>
+
+                        <li class="list-item mb-2">
+                            <p class="fw-bold mb-1">Unidades Entrantes</p>
+                            <p>${obj.ingreso_unidad}</p>
+                        </li>
+
+                        <li class="list-item mb-2">
+                            <p class="fw-bold mb-1">Costo por Unidad</p>
+                            <div>
+                                <span>$${obj.ingreso_costoU_upd}</span>
+                                <span class="text-danger" style="text-decoration: line-through;">${obj.ingreso_costoU_ant}</span>
+                            </div>
+                        </li>
+
+                        <li class="list-item mb-2">
+                            <p class="fw-bold mb-1">Costo Total</p>
+                            <p>$${obj.ingreso_costo_total}</p>
+                        </li>
+
+                        <li class="list-item mb-2">
+                            <p class="fw-bold mb-1">Rentabilidad </p>
+                            <div>
+                                <span>%${obj.ingreso_porcentajeG_upd}</span>
+                                <span class="text-danger" style="text-decoration: line-through;">%${obj.ingreso_porcentajeG_ant}</span>
+                            </div>
+                        </li>
+
+                        <li class="list-item mb-2 d-flex justify-content-between">
+                            <p class="fw-bold mb-1">Utilidad</p>
+                            <div>
+                                <span>$${obj.ingreso_ganancia_upd}</span>
+                                <span class="text-danger" style="text-decoration: line-through;">${obj.ingreso_ganancia_ant}</span>
+                            </div>
+                        </li>
+
+                        <li class="list-item mb-2">
+                            <p class="fw-bold mb-1">Precio Actual por Unidad</p>
+                            <div>
+                                <span>$${obj.ingreso_precioU_upd}</span>
+                                <span class="text-danger" style="text-decoration: line-through;">${obj.ingreso_precioU_ant}</span>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <!-- Línea vertical entre columnas -->
+                <div class="col-1 d-flex justify-content-center">
+                    <div class="vertical-line"></div>
+                </div>
+
+                <!-- Columna derecha con los elementos de la lista alternados -->
+                <div class="col-5">
+                    <ul class="list-unstyled">
+                        <li class="list-item mb-2">
+                            <p class="fw-bold mb-1">Modo de Operación</p>
+                            <p>${obj.inv_modo}</p>
+                        </li>
+                        <li class="list-item mb-2">
+                            <p class="fw-bold mb-1">Fecha de Alta en Inventario</p>
+                            <p>${obj.inv_fecha}</p>
+                        </li>
+
+                        <li class="list-item mb-2">
+                            <p class="fw-bold mb-1">Stock Disponible</p>
+                            <div>
+                                <span>${obj.inv_cantidad_actual}</span>
+                                <span class="text-danger" style="text-decoration: line-through;">${obj.inv_cantidad_anterior}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>`;
+                        });
+
                         /*                  
                         popupBody.innerHTML = `
                         <div>
@@ -1036,10 +1097,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                     `;*/
 
-
-                        // Modificar el pie de página con un solo botón de "Salir"
                         popupFooter.innerHTML = `
-                            <button type="button" class="btn btn-primary" id="popup-salir">Salir</button>
+                <div class="text-center rounded-bottom">
+                    <button type="button" class="btn btn-primary" id="popup-salir">
+                        <i class="bi bi-box-arrow-right me-2"></i> Salir
+                    </button>
+                </div>
                         `;
 
                         /*
@@ -1080,6 +1143,14 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <li>$ Precio unitario ${ingreso_precio_unitario_ant} - ${ingreso_precio_unitario_upd}</li>                                                        
                             </ul>
                             `;*/
+
+                        // Añadir evento de cerrar al botón "Salir"
+                        document.getElementById('popup-salir').addEventListener('click', function () {
+                            //overlayDiv.remove();  // Cerrar el popup
+                            //location.reload(true);
+                            location.reload();
+                        });
+
                     } else {
                         //alert(data.message);
                         alert(data.error);
@@ -1642,7 +1713,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Para abrir el popup y ocultar el scroll del body
     function openPopup() {
-        document.getElementById('popupOverlay').style.display = 'flex';
+        document.getElementById('popupOverlay3').style.display = 'flex';
         document.body.style.overflow = 'hidden'; // Evitar desplazamiento del body
         //mostrarSpinner();
     }
@@ -1652,9 +1723,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.getElementById('cerrar-popup').addEventListener('click', function () {
-        document.getElementById('popupOverlay').style.display = 'none'; // Cierra el popup
+        document.getElementById('popupOverlay3').style.display = 'none'; // Cierra el popup
         document.body.style.overflow = 'auto'; // Restaura el scroll del body
     });
-    openPopup();
+    //openPopup();
 
 });
