@@ -1260,5 +1260,6 @@ header {
 }
 
 .list-item:nth-child(even) {
-      background-color: #e9ecef;
+      /*background-color: #e9ecef;*/
+      background-color: #d5edf1;
 }
