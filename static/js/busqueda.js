@@ -967,13 +967,13 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                             <div class="col-10 text-center">
                                 <!--<h5 class="mb-0">Ingreso exitoso. ¡Gracias por actualizar el inventario!</h5>-->
-                                <h5 class="mb-0">Registro Completado</h5>                                
+                                <h5 class="mb-0">Registro finalizado correctamente</h5>                                
                             </div>
                         </div>                        
                         `;
 
                         popupBody.innerHTML = `
-                        <div class="text-center mb-4">
+                        <div class="text-center mb-2">
                             <h6 class="fw-bold" style="color: #636363;">Producto: ${strong_producto_nombre.textContent}</h6>
                         </div>
                          `;
@@ -1001,7 +1001,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         <li class="list-item mb-2">
                             <p class="fw-bold mb-1">Unidades Entrantes</p>
-                            <p>${obj.ingreso_unidad}</p>
+                            <span>${obj.ingreso_unidad}</span>
                         </li>
 
                         <li class="list-item mb-2">
@@ -1014,7 +1014,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         <li class="list-item mb-2">
                             <p class="fw-bold mb-1">Costo Total</p>
-                            <p>$${obj.ingreso_costo_total}</p>
+                            <span>$${obj.ingreso_costo_total}</span>
                         </li>
 
                         <li class="list-item mb-2">

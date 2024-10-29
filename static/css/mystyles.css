@@ -425,7 +425,7 @@ header {
 
 /* Para pantallas pequeñas */
 @media (max-width: 768px) {
-  
+
   /*.input-group-text {
     cursor: pointer;
     font-size: 1.1rem;
@@ -435,13 +435,14 @@ header {
   .input-group-text {
     border: none;
     background-color: transparent;
-    color: #6c757d; /* Color gris oscuro para los íconos */
+    color: #6c757d;
+    /* Color gris oscuro para los íconos */
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     font-size: 1.1rem;
-    /*border: 1px solid red !important;*/ 
+    /*border: 1px solid red !important;*/
   }
 
   /*.input-group-text {
@@ -449,10 +450,12 @@ header {
   }*/
 
   #producto {
-    padding-left: 10px;    /* Espacio para los íconos en el lado izquierdo */
-    width: calc(100% - 80px);    /* Reducir el ancho del input cuando hay íconos */   
+    padding-left: 10px;
+    /* Espacio para los íconos en el lado izquierdo */
+    width: calc(100% - 80px);
+    /* Reducir el ancho del input cuando hay íconos */
   }
-  
+
   /*#back-arrow {
     position: fixed;
     top: 0px;
@@ -484,7 +487,7 @@ header {
     padding-top: 5px;
     padding-bottom: 5px;
   }
-  
+
   /*.fixed-search-bar {
     position: fixed !important;
     top: 0;
@@ -502,21 +505,26 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1050;  /* Para estar sobre el header */
+    z-index: 1050;
+    /* Para estar sobre el header */
     background-color: #f5f6f8;
     padding-bottom: 4px;
-    transform: translateZ(0); /* Forzar renderización en GPU */
+    transform: translateZ(0);
+    /* Forzar renderización en GPU */
     transition: transform 0.3s ease, top 0.3s ease, opacity 0.3s ease;
-    will-change: transform, top; /* Optimización para la GPU */
-}
+    will-change: transform, top;
+    /* Optimización para la GPU */
+  }
 
 
   .fixed-suggestions {
     position: fixed !important;
-    top: 50px !important; /* Justo debajo de la barra de búsqueda fija */
+    top: 50px !important;
+    /* Justo debajo de la barra de búsqueda fija */
     left: 0 !important;
     right: 0 !important;
-    max-height: 400px !important; /* Ajustar el tamaño del panel de sugerencias */
+    max-height: 400px !important;
+    /* Ajustar el tamaño del panel de sugerencias */
     z-index: 1049 !important;
     background-color: white !important;
     overflow-y: auto !important;
@@ -533,7 +541,8 @@ header {
     font-size: 1.0rem;
   }
 
-  #ingreso_tabla, #tabla-items {
+  #ingreso_tabla,
+  #tabla-items {
     font-size: 0.9rem !important;
   }
 
@@ -541,7 +550,8 @@ header {
     font-size: 0.9rem !important;
   }
 
-  #ingreso_tabla, #tabla-items .form-control {  
+  #ingreso_tabla,
+  #tabla-items .form-control {
     font-size: 0.9rem !important;
     padding-top: 8px !important;
     padding-bottom: 8px !important;
@@ -552,7 +562,8 @@ header {
   #ingreso_tabla th::before {
     content: attr(data-text-xs);
     font-weight: bold;
-    color: white;     /* Asegúrate de que el color sea adecuado */
+    color: white;
+    /* Asegúrate de que el color sea adecuado */
   }
 
   /* Oculta el texto original en pantallas pequeñas */
@@ -562,10 +573,11 @@ header {
 
   /* Ajustar la visibilidad de las columnas si es necesario */
   #ingreso_tabla th::before {
-    font-size: 14px;     /* Tamaño de letra deseado para el contenido pequeño */
+    font-size: 14px;
+    /* Tamaño de letra deseado para el contenido pequeño */
   }
 
-  .container-ingreso{
+  .container-ingreso {
     margin-top: 15px !important;
   }
 
@@ -573,18 +585,20 @@ header {
     padding: 3px;
   }
 
-  .th-producto{
-    width : 80px;
+  .th-producto {
+    width: 80px;
   }
+
   .row-tabla-ventas .form-control {
     font-size: 0.7rem !important;
   }
 
 }
 
-.container-ingreso{
+.container-ingreso {
   margin-top: 80px;
 }
+
 /* fin media query*/
 
 .btn-pendiente {
@@ -637,12 +651,12 @@ header {
     /* Cambia el texto de "Costo Total ($)" a "Total ($)" */
   }
 
-  #capa-adicionar{
+  #capa-adicionar {
     margin-top: -10px;
   }
 }
 
-#ingreso_tabla .form-control{
+#ingreso_tabla .form-control {
   text-align: center;
 }
 
@@ -656,13 +670,20 @@ header {
 /* ticket */
 .ticket-display {
   display: inline-block;
-  background-color: #007bff;   /* Color de fondo azul de Bootstrap */
-  color: white;   /* Texto en blanco */
-  padding: 15px 30px;   /* Espaciado interno */
-  border-radius: 10px;   /* Bordes redondeados */
-  font-size: 2rem;   /* Tamaño de fuente grande */
-  font-weight: bold;   /* Texto en negrita */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);   /* Sombra suave */
+  background-color: #007bff;
+  /* Color de fondo azul de Bootstrap */
+  color: white;
+  /* Texto en blanco */
+  padding: 15px 30px;
+  /* Espaciado interno */
+  border-radius: 10px;
+  /* Bordes redondeados */
+  font-size: 2rem;
+  /* Tamaño de fuente grande */
+  font-weight: bold;
+  /* Texto en negrita */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  /* Sombra suave */
 }
 
 .row-tabla-ventas {
@@ -701,7 +722,8 @@ header {
 /* Añadir bordes redondeados completos y sombra a la barra de búsqueda */
 .search-bar-container {
   border-radius: 50px;
-  overflow: hidden; /* Asegura que los elementos dentro del contenedor respeten los bordes redondeados */
+  overflow: hidden;
+  /* Asegura que los elementos dentro del contenedor respeten los bordes redondeados */
   transition: box-shadow 0.3s ease-in-out;
   border: 1px solid blue;
 }
@@ -716,13 +738,17 @@ header {
 
 /* Efecto de enfoque mejorado para la barra de búsqueda */
 .search-bar-container {
-  transition: box-shadow 0.3s ease, border 0.3s ease; /* Transición suave */
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+  /* Transición suave */
 }
 
 .search-bar-container:focus-within {
-  box-shadow: 0 0 12px rgba(0, 123, 255, 0.5); /* Sombra más suave y color resaltado */
-  border: 1px solid rgba(0, 123, 255, 0.5); /* Borde con color azul claro */
-  border-radius: 50px; /* Asegura que el borde tenga esquinas redondeadas */
+  box-shadow: 0 0 12px rgba(0, 123, 255, 0.5);
+  /* Sombra más suave y color resaltado */
+  border: 1px solid rgba(0, 123, 255, 0.5);
+  /* Borde con color azul claro */
+  border-radius: 50px;
+  /* Asegura que el borde tenga esquinas redondeadas */
 }
 
 /* Ajustar los íconos para que no tengan borde y se mezclen con el fondo */
@@ -741,24 +767,29 @@ header {
 .input-group-text {
   border: none;
   background-color: transparent;
-  color: #6c757d; /* Color gris oscuro para los íconos */
+  color: #6c757d;
+  /* Color gris oscuro para los íconos */
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: opacity 0.3s ease; /* Suaviza la transición de opacidad */
+  transition: opacity 0.3s ease;
+  /* Suaviza la transición de opacidad */
 }
 
 
 /* Cambiar el color del ícono al pasar el cursor para una mejor UX */
 .input-group-text:hover {
-  color: #000; /* Cambia el color del ícono a negro al pasar el cursor */
+  color: #000;
+  /* Cambia el color del ícono a negro al pasar el cursor */
 }
 
 /* Estilo del input para que combine con el diseño general */
 .form-control:focus {
-  box-shadow: none; /* Eliminar el efecto de foco predeterminado de Bootstrap */
-  outline: none; /* Eliminar el borde del navegador en el enfoque */
+  box-shadow: none;
+  /* Eliminar el efecto de foco predeterminado de Bootstrap */
+  outline: none;
+  /* Eliminar el borde del navegador en el enfoque */
 }
 
 
@@ -777,18 +808,25 @@ header {
   max-height: 400px;
   overflow-y: auto;
   position: absolute;
-  top: 100%; /* Alinea el panel justo debajo de la barra de búsqueda */
+  top: 100%;
+  /* Alinea el panel justo debajo de la barra de búsqueda */
   left: 0;
-  width: 100%; /* Ajusta el ancho para que sea igual al de la barra de búsqueda */
+  width: 100%;
+  /* Ajusta el ancho para que sea igual al de la barra de búsqueda */
   z-index: 1000;
   background-color: white;
   border: 1px solid #ccc;
-  border-radius: 10px; /* Bordes redondeados */
+  border-radius: 10px;
+  /* Bordes redondeados */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 0; /* Sin relleno exterior */
-  opacity: 0; /* Inicialmente oculto para la animación */
-  transform: translateY(-10px); /* Posición inicial para animación */
-  transition: all 0.3s ease-in-out; /* Transición para la animación */
+  padding: 0;
+  /* Sin relleno exterior */
+  opacity: 0;
+  /* Inicialmente oculto para la animación */
+  transform: translateY(-10px);
+  /* Posición inicial para animación */
+  transition: all 0.3s ease-in-out;
+  /* Transición para la animación */
 }
 
 /* Estilo del panel de sugerencias */
@@ -796,109 +834,151 @@ header {
   max-height: 400px;
   overflow-y: auto;
   position: absolute;
-  top: 100%; /* Alinea el panel justo debajo de la barra de búsqueda */
+  top: 100%;
+  /* Alinea el panel justo debajo de la barra de búsqueda */
   left: 0;
-  width: 100%; /* Ajusta el ancho para que sea igual al de la barra de búsqueda */
+  width: 100%;
+  /* Ajusta el ancho para que sea igual al de la barra de búsqueda */
   z-index: 1000;
   background-color: white;
   border: 1px solid #ccc;
-  border-radius: 10px; /* Bordes redondeados */
+  border-radius: 10px;
+  /* Bordes redondeados */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 0; /* Sin relleno exterior */
-  opacity: 0; /* Inicialmente oculto para la animación */
-  transform: translateY(-10px); /* Posición inicial para animación */
-  transition: all 0.3s ease-in-out; /* Transición para la animación */
+  padding: 0;
+  /* Sin relleno exterior */
+  opacity: 0;
+  /* Inicialmente oculto para la animación */
+  transform: translateY(-10px);
+  /* Posición inicial para animación */
+  transition: all 0.3s ease-in-out;
+  /* Transición para la animación */
 }
+
 #suggestions.show {
-  opacity: 1; /* Visible cuando se muestra */
-  transform: translateY(0); /* Posición final para la animación */
+  opacity: 1;
+  /* Visible cuando se muestra */
+  transform: translateY(0);
+  /* Posición final para la animación */
 }
 
 #suggestions li {
-  padding: 10px; /* Relleno para mejorar la legibilidad */
+  padding: 10px;
+  /* Relleno para mejorar la legibilidad */
   cursor: pointer;
-  display: flex; /* Alineación del ícono y el texto */
-  align-items: center; /* Centra verticalmente el contenido */
-  border-bottom: none; /* Sin líneas entre los elementos */
+  display: flex;
+  /* Alineación del ícono y el texto */
+  align-items: center;
+  /* Centra verticalmente el contenido */
+  border-bottom: none;
+  /* Sin líneas entre los elementos */
 }
 
 #suggestions li i {
-  margin-right: 10px; /* Espacio entre el ícono y el texto */
-  color: #888; /* Color gris para el ícono */
+  margin-right: 10px;
+  /* Espacio entre el ícono y el texto */
+  color: #888;
+  /* Color gris para el ícono */
 }
 
 #suggestions li:hover {
-  background-color: #f1f1f1; /* Efecto hover */
+  background-color: #f1f1f1;
+  /* Efecto hover */
 }
 
 
 #capa-adicionar {
   position: relative;
-  background-color: #f9f9f9; /* Fondo claro por defecto */
-  border: 1px solid transparent; /* Borde invisible por defecto */
-  box-shadow: none; /* Sin sombra por defecto */
+  background-color: #f9f9f9;
+  /* Fondo claro por defecto */
+  border: 1px solid transparent;
+  /* Borde invisible por defecto */
+  box-shadow: none;
+  /* Sin sombra por defecto */
   transform: scale(1);
   transition: background-color 0.5s ease, border 0.5s ease, box-shadow 0.5s ease, transform 0.3s ease;
 }
 
 #capa-adicionar.locked {
-  position: relative; /* Necesario para que la capa de bloqueo se posicione correctamente */
-  opacity: 0.5; /* Dar una apariencia de deshabilitado */
-  pointer-events: none; /* Bloquear la interacción con todos los elementos hijos */
-  background-color: rgba(200, 200, 200, 0.5); /* Fondo gris claro semi-transparente al estar bloqueado */
+  position: relative;
+  /* Necesario para que la capa de bloqueo se posicione correctamente */
+  opacity: 0.5;
+  /* Dar una apariencia de deshabilitado */
+  pointer-events: none;
+  /* Bloquear la interacción con todos los elementos hijos */
+  background-color: rgba(200, 200, 200, 0.5);
+  /* Fondo gris claro semi-transparente al estar bloqueado */
   /*filter: blur(0px);  Efecto de desenfoque en el contenido */
-  transition: opacity 0.9s ease; /* Transición suave de la opacidad */
+  transition: opacity 0.9s ease;
+  /* Transición suave de la opacidad */
 }
 
 #capa-adicionar:not(.locked) {
-  background-color: #ffffff; /* Fondo blanco cuando está habilitado */
-  border: 1px solid #007bff; /* Borde azul claro cuando está habilitado */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave cuando está habilitado */
-  transform: scale(1.02); /* Aumento de escala ligero para hacer el elemento más atractivo */
-  cursor: pointer; /* Cambiar el cursor a mano cuando está habilitado */
+  background-color: #ffffff;
+  /* Fondo blanco cuando está habilitado */
+  border: 1px solid #007bff;
+  /* Borde azul claro cuando está habilitado */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Sombra suave cuando está habilitado */
+  transform: scale(1.02);
+  /* Aumento de escala ligero para hacer el elemento más atractivo */
+  cursor: pointer;
+  /* Cambiar el cursor a mano cuando está habilitado */
 }
 
 #capa-adicionar:not(.locked):hover {
-  background-color: #e8f0fe; /* Fondo azul claro cuando el mouse pasa sobre el elemento habilitado */
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Resplandor azul cuando está habilitado */
+  background-color: #e8f0fe;
+  /* Fondo azul claro cuando el mouse pasa sobre el elemento habilitado */
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  /* Resplandor azul cuando está habilitado */
 }
+
 /* Superposición con transición suave */
 #capa-adicionar.locked::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Color semi-transparente similar a un fondo modal */
-    transition: background-color 0.5s ease; /* Transición suave para el color de fondo */
-    z-index: 1; /* Asegurar que esté sobre todos los elementos hijos */
-    opacity: 1; /* Mostrar superposición cuando está bloqueado */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Color semi-transparente similar a un fondo modal */
+  transition: background-color 0.5s ease;
+  /* Transición suave para el color de fondo */
+  z-index: 1;
+  /* Asegurar que esté sobre todos los elementos hijos */
+  opacity: 1;
+  /* Mostrar superposición cuando está bloqueado */
 }
 
 #capa-adicionar:not(.locked)::before {
-    opacity: 0; /* Ocultar la superposición cuando está desbloqueado */
+  opacity: 0;
+  /* Ocultar la superposición cuando está desbloqueado */
 }
 
 #capa-adicionar.locked::after {
-    /*content: 'Bloqueado';*/
-    content: 'Deshabilitado';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1.2em;
-    z-index: 2; /* Asegura que esté sobre todo el contenido */
-    transition: opacity 0.5s ease; /* Transición suave para la opacidad del texto */
-    opacity: 1; /* Mostrar cuando esté bloqueado */
+  /*content: 'Bloqueado';*/
+  content: 'Deshabilitado';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1.2em;
+  z-index: 2;
+  /* Asegura que esté sobre todo el contenido */
+  transition: opacity 0.5s ease;
+  /* Transición suave para la opacidad del texto */
+  opacity: 1;
+  /* Mostrar cuando esté bloqueado */
 }
 
 #capa-adicionar:not(.locked)::after {
-    opacity: 0; /* Ocultar cuando no esté bloqueado */
+  opacity: 0;
+  /* Ocultar cuando no esté bloqueado */
 }
 
 /* Mejora del botón Adicionar */
@@ -906,7 +986,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px; /* Espacio entre el ícono y el texto */
+  gap: 5px;
+  /* Espacio entre el ícono y el texto */
   background-color: #007bff;
   border: none;
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -914,21 +995,27 @@ header {
 }
 
 .btn-custom-adicionar:hover {
-  background-color: #0056b3; /* Color al pasar el mouse */
-  transform: scale(1.05); /* Efecto de agrandamiento al pasar el mouse */
+  background-color: #0056b3;
+  /* Color al pasar el mouse */
+  transform: scale(1.05);
+  /* Efecto de agrandamiento al pasar el mouse */
 }
 
 .btn-custom-adicionar:disabled {
-  background-color: #c0c0c0; /* Color cuando está deshabilitado */
+  background-color: #c0c0c0;
+  /* Color cuando está deshabilitado */
   cursor: not-allowed;
 }
 
 /* Estilo del campo de entrada Costo Total */
 .resultado-calculo {
-  background-color: #e9ecef; /* Fondo más claro para resaltar */
-  /*border: 2px solid #007bff; */ /*Borde azul para distinguirlo */
+  background-color: #e9ecef;
+  /* Fondo más claro para resaltar */
+  /*border: 2px solid #007bff; */
+  /*Borde azul para distinguirlo */
   border: 2px solid #818181;
-  color: #343a40; /* Texto más oscuro */
+  color: #343a40;
+  /* Texto más oscuro */
   font-weight: bold;
 }
 
@@ -970,8 +1057,10 @@ header {
 /* Estilos para el popup */
 .custom-popup-overlay {
   /*position: absolute;*/
-  background: rgba(34, 45, 65, 0.85); /* Un tono azul oscuro translúcido */
-  position: fixed; /* Cambiar a 'fixed' para cubrir toda la página */
+  background: rgba(34, 45, 65, 0.85);
+  /* Un tono azul oscuro translúcido */
+  position: fixed;
+  /* Cambiar a 'fixed' para cubrir toda la página */
   top: 0;
   left: 0;
   width: 100%;
@@ -980,16 +1069,18 @@ header {
   /*display: none;*/
   align-items: center;
   justify-content: center;
-  z-index: 1050; /* Debe estar sobre otros elementos */
-  overflow: auto; /* Evita el desplazamiento en la página */
+  z-index: 1050;
+  /* Debe estar sobre otros elementos */
+  overflow: auto;
+  /* Evita el desplazamiento en la página */
 
-  /*background: rgba(0, 0, 0, 0.8); /* Fondo oscuro translúcido */  
+  /*background: rgba(0, 0, 0, 0.8); /* Fondo oscuro translúcido */
   /*background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(5px); /* Controla el nivel de desenfoque */
-  /*background: rgba(255, 255, 255, 0.8); /* Fondo blanco translúcido */    
+  /*background: rgba(255, 255, 255, 0.8); /* Fondo blanco translúcido */
   /*background: radial-gradient(circle, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));*/
-  /*background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(50, 50, 50, 0.8));*/  
-  /*background: rgba(0, 0, 0, 0.6); /* Negro translúcido menos intenso */        
+  /*background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(50, 50, 50, 0.8));*/
+  /*background: rgba(0, 0, 0, 0.6); /* Negro translúcido menos intenso */
 }
 
 
@@ -1009,18 +1100,21 @@ header {
 
 .custom-popup {
   position: relative;
-  background: white;  
+  background: white;
   /*background: #f5f5f5;  */
   /*padding: 5px;  Ajusta el padding según sea necesario */
   border-radius: 10px;
   /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);  */
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  max-width: 400px; /* Ancho máximo del popup */
-  width: 90%; /* Ancho del popup */
+  max-width: 400px;
+  /* Ancho máximo del popup */
+  width: 90%;
+  /* Ancho del popup */
   /*overflow: visible;  /* Asegúrate de que no haya desplazamiento interno */
   /*max-height: 90vh; /* Altura máxima del popup */
   /*overflow: hidden; /* Evita el scroll interno en el popup */
-  margin: auto; /* Centrar el popup */
+  margin: auto;
+  /* Centrar el popup */
 }
 
 /*.custom-popup {
@@ -1037,13 +1131,14 @@ header {
   overflow-y: auto;  Permitir scroll solo en el cuerpo si es necesario 
 }*/
 
-.popup-header{
+.popup-header {
   /*background-color: #514f4f;*/
   /*padding: 5px 7px 7px 5px;*/
   margin-bottom: 10px;
 }
+
 .popup-header h5 {
-  font-size: 1.25rem;  
+  font-size: 1.25rem;
   color: #f5f3f3;
   margin-bottom: 0px;
   /*margin-bottom: 10px; */
@@ -1057,7 +1152,7 @@ header {
   /*display: flex;
   align-items: center;
   justify-content: start;*/
-  
+
   /*padding: 15px 20px 15px 20px;
   background-color: white;*/
 }
@@ -1097,7 +1192,7 @@ header {
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0.7); /* Fondo semitransparente */
-  
+
   /*display: flex;
   justify-content: center;
   align-items: center;
@@ -1129,15 +1224,19 @@ header {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  z-index: 1060; /* Asegura que esté sobre el contenido del popup */
-  color: #333; /* Color para el texto */
+  z-index: 1060;
+  /* Asegura que esté sobre el contenido del popup */
+  color: #333;
+  /* Color para el texto */
   font-size: 1.2rem;
 }
 
 
 #tabla-registro-inventario thead th:first-child {
-  background-color: transparent; /* Fondo transparente para la primera columna */
+  background-color: transparent;
+  /* Fondo transparente para la primera columna */
 }
+
 /*
 #tabla-registro-inventario thead th {
   background-color: #343a40; 
@@ -1159,26 +1258,32 @@ header {
 
 /* Estilos para la columna 2 - Azul */
 #tabla-registro-inventario thead th:nth-child(2) {
-  background-color: #007bff; /* Azul oscuro para "Datos Nuevos" */
+  background-color: #007bff;
+  /* Azul oscuro para "Datos Nuevos" */
   color: white;
   font-size: 0.9rem;
 }
 
 #tabla-registro-inventario tbody td:nth-child(2) {
-  background-color: #cce5ff; /* Azul suave para el cuerpo "Datos Nuevos" */
-  border-right: 2px solid #99ccff; /* Borde derecho azul para separación */
+  background-color: #cce5ff;
+  /* Azul suave para el cuerpo "Datos Nuevos" */
+  border-right: 2px solid #99ccff;
+  /* Borde derecho azul para separación */
 }
 
 
 #tabla-registro-inventario thead th:nth-child(3) {
-  background-color: #fd7e14;  /*Naranja oscuro para "Datos Actuales" */
+  background-color: #fd7e14;
+  /*Naranja oscuro para "Datos Actuales" */
   color: white;
   font-size: 0.9rem;
 }
 
 #tabla-registro-inventario tbody td:nth-child(3) {
-  background-color: #ffe8d6; /*Naranja suave para el cuerpo "Datos Actuales" */
-  border-left: 2px solid #f5c6cb; /* Borde izquierdo para separación */
+  background-color: #ffe8d6;
+  /*Naranja suave para el cuerpo "Datos Actuales" */
+  border-left: 2px solid #f5c6cb;
+  /* Borde izquierdo para separación */
 }
 
 
@@ -1219,10 +1324,13 @@ header {
 
 /* Estilo para la primera columna del cuerpo de la tabla */
 #tabla-registro-inventario tbody td:first-child {
-  font-weight: bold; /* Texto en negrita */
-  text-align: right; /* Alineación a la derecha */
+  font-weight: bold;
+  /* Texto en negrita */
+  text-align: right;
+  /* Alineación a la derecha */
   color: #5a5858 !important;
 }
+
 /*
 @media (max-width: 768px) {
   .modal.fade .modal-dialog {
@@ -1233,7 +1341,8 @@ header {
 
 
 .modal.fade .modal-dialog {
-  transition: transform 0.5s ease-out !important; /* Cambia el tiempo de transición */
+  transition: transform 0.5s ease-out !important;
+  /* Cambia el tiempo de transición */
   transform: translateY(-25%);
 }
 
@@ -1243,7 +1352,8 @@ header {
 
 
 .modal-visible-back {
-  z-index: 1045 !important; /* Un nivel más bajo que el modal secundario */
+  z-index: 1045 !important;
+  /* Un nivel más bajo que el modal secundario */
   /*opacity: 0.8;  Puedes ajustar la opacidad para que se vea detrás del modal secundario */
   opacity: 1;
 }
@@ -1256,10 +1366,22 @@ header {
 
 /* Estilo para alternar el color de fondo de los elementos <li> */
 .list-item:nth-child(odd) {
-      background-color: #f8f9fa;
+  /*background-color: #f8f9fa;*/
+  background-color: #F2F2F2;
 }
 
 .list-item:nth-child(even) {
-      /*background-color: #e9ecef;*/
-      background-color: #d5edf1;
+  /*background-color: #e9ecef;*/
+  /*background-color: #d5edf1;*/
+  background-color: #E6E9EB;
+}
+
+.list-item {
+  color: #333333 !important;
+}
+
+.list-item {
+  border-bottom: 1px solid #CCCCCC; /* línea delgada y clara */
+  padding: 10px 15px;
+  font-family: 'Helvetica Neue', sans-serif;
 }
