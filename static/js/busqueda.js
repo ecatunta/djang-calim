@@ -965,7 +965,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <div class="col-2 d-flex justify-content-center">
                                 <i class="bi bi-check-circle-fill me-2" style="font-size: 2.0rem;"></i>
                             </div>
-                            <div class="col-10 text-center">
+                            <div class="col-10">
                                 <!--<h5 class="mb-0">Ingreso exitoso. ¡Gracias por actualizar el inventario!</h5>-->
                                 <h5 class="mb-0">¡Registro realizado con éxito!</h5>                                
                             </div>
@@ -1060,7 +1060,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <p>${obj.inv_modo}</p>
                         </li>
                         <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Fecha de Alta en Inventario</p>
+                            <p class="fw-bold mb-1">Fecha en Inventario</p>
                             <p>${obj.inv_fecha}</p>
                         </li>
 
@@ -1081,7 +1081,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                         </li>
 
-                        <li class="list-item mb-2 d-flex justify-content-between">
+                        <li class="list-item mb-2">
                             <p class="fw-bold mb-1">Utilidad</p>
                             <div>
                                 <span>$${obj.ingreso_ganancia_upd}</span>&nbsp;
@@ -1090,7 +1090,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </li>
 
                         <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Precio de Venta Unitario</p>
+                            <p class="fw-bold mb-1">Precio Unitario</p>
                             <div>
                                 <span>$${obj.ingreso_precioU_upd}</span>&nbsp;
                                 <span class="text-danger" style="text-decoration: line-through;">${obj.ingreso_precioU_ant}</span>
