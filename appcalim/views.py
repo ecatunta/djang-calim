@@ -1062,6 +1062,7 @@ def Obtiene_precioU_vigente_nuevo(request, ingreso_id):
                 'i_porcentaje_ganancia': ingreso_nuevo.ingreso_porcentajeGanancia,
                 'i_ganancia': ingreso_nuevo.ingreso_ganancia,
                 'i_precio_unitario': ingreso_nuevo.ingreso_precioUnitario,
+                'ingreso_fecha_test': ingreso_fecha,
             } if ingreso_nuevo else {}
         }
         print(ingreso_dic)
