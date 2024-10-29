@@ -963,10 +963,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         popupHeader.innerHTML = `
                         <div class="bg-success text-white p-2 rounded-top d-flex align-items-center">
                             <div class="col-2 d-flex justify-content-center">
-                                <i class="bi bi-check-circle-fill me-2" style="font-size: 2.5rem;"></i>
+                                <i class="bi bi-check-circle-fill me-2" style="font-size: 2.0rem;"></i>
                             </div>
                             <div class="col-10 text-center">
-                                <h5 class="mb-0">Ingreso exitoso. ¡Gracias por actualizar el inventario!</h5>
+                                <!--<h5 class="mb-0">Ingreso exitoso. ¡Gracias por actualizar el inventario!</h5>-->
+                                <h5 class="mb-0">Registro Completado</h5>                                
                             </div>
                         </div>                        
                         `;
@@ -981,8 +982,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         data.lista.map(obj => {
                             popupBody.innerHTML += `                                           
                 <div class="row mb-2">
-                    <div class="col-4 text-secondary"><strong>Estado</strong></div>
-                    <div class="col-8">Disponible en Inventario</div>
+                    <!--<div class="col-4 text-secondary"><strong>Estado</strong></div>
+                    <div class="col-8">Disponible en Inventario</div>-->
+                    <div class="col-12"><strong class="text-secondary">Estado:</strong> Disponible en Inventario</div>
                 </div>
                 <hr>
                 
