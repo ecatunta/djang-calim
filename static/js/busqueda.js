@@ -967,7 +967,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                             <div class="col-10 text-center">
                                 <!--<h5 class="mb-0">Ingreso exitoso. ¡Gracias por actualizar el inventario!</h5>-->
-                                <h5 class="mb-0">Registro finalizado correctamente</h5>                                
+                                <h5 class="mb-0">¡Registro realizado con éxito!</h5>                                
                             </div>
                         </div>                        
                         `;
@@ -1001,26 +1001,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         <li class="list-item mb-2">
                             <p class="fw-bold mb-1">Unidades Entrantes</p>
-                            <span>${obj.ingreso_unidad}</span>
+                            <p>${obj.ingreso_unidad}</p>
                         </li>
 
                         <li class="list-item mb-2">
                             <p class="fw-bold mb-1">Costo por Unidad</p>
                             <div>
-                                <span>$${obj.ingreso_costoU_upd}</span>
+                                <span>$${obj.ingreso_costoU_upd}</span>&nbsp;
                                 <span class="text-danger" style="text-decoration: line-through;">${obj.ingreso_costoU_ant}</span>
                             </div>
                         </li>
 
                         <li class="list-item mb-2">
                             <p class="fw-bold mb-1">Costo Total</p>
-                            <span>$${obj.ingreso_costo_total}</span>
+                            <p>$${obj.ingreso_costo_total}</p>
                         </li>
 
+                        <!--
                         <li class="list-item mb-2">
                             <p class="fw-bold mb-1">Rentabilidad </p>
                             <div>
-                                <span>%${obj.ingreso_porcentajeG_upd}</span>
+                                <span>%${obj.ingreso_porcentajeG_upd}</span>&nbsp;
                                 <span class="text-danger" style="text-decoration: line-through;">%${obj.ingreso_porcentajeG_ant}</span>
                             </div>
                         </li>
@@ -1028,7 +1029,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <li class="list-item mb-2 d-flex justify-content-between">
                             <p class="fw-bold mb-1">Utilidad</p>
                             <div>
-                                <span>$${obj.ingreso_ganancia_upd}</span>
+                                <span>$${obj.ingreso_ganancia_upd}</span>&nbsp;
                                 <span class="text-danger" style="text-decoration: line-through;">${obj.ingreso_ganancia_ant}</span>
                             </div>
                         </li>
@@ -1036,10 +1037,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         <li class="list-item mb-2">
                             <p class="fw-bold mb-1">Precio Actual por Unidad</p>
                             <div>
-                                <span>$${obj.ingreso_precioU_upd}</span>
+                                <span>$${obj.ingreso_precioU_upd}</span>&nbsp;
                                 <span class="text-danger" style="text-decoration: line-through;">${obj.ingreso_precioU_ant}</span>
                             </div>
                         </li>
+                        -->
 
                     </ul>
                 </div>
@@ -1065,10 +1067,37 @@ document.addEventListener('DOMContentLoaded', function () {
                         <li class="list-item mb-2">
                             <p class="fw-bold mb-1">Stock Disponible</p>
                             <div>
-                                <span>${obj.inv_cantidad_actual}</span>
+                                <span>${obj.inv_cantidad_actual}</span>&nbsp;
                                 <span class="text-danger" style="text-decoration: line-through;">${obj.inv_cantidad_anterior}</span>
                             </div>
                         </li>
+
+
+                        <li class="list-item mb-2">
+                            <p class="fw-bold mb-1">Rentabilidad </p>
+                            <div>
+                                <span>%${obj.ingreso_porcentajeG_upd}</span>&nbsp;
+                                <span class="text-danger" style="text-decoration: line-through;">%${obj.ingreso_porcentajeG_ant}</span>
+                            </div>
+                        </li>
+
+                        <li class="list-item mb-2 d-flex justify-content-between">
+                            <p class="fw-bold mb-1">Utilidad</p>
+                            <div>
+                                <span>$${obj.ingreso_ganancia_upd}</span>&nbsp;
+                                <span class="text-danger" style="text-decoration: line-through;">${obj.ingreso_ganancia_ant}</span>
+                            </div>
+                        </li>
+
+                        <li class="list-item mb-2">
+                            <p class="fw-bold mb-1">Precio de Venta Unitario</p>
+                            <div>
+                                <span>$${obj.ingreso_precioU_upd}</span>&nbsp;
+                                <span class="text-danger" style="text-decoration: line-through;">${obj.ingreso_precioU_ant}</span>
+                            </div>
+                        </li>
+                        
+
                     </ul>
                 </div>
             </div>`;

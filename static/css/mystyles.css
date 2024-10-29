@@ -1382,6 +1382,6 @@ header {
 
 .list-item {
   border-bottom: 1px solid #CCCCCC; /* línea delgada y clara */
-  padding: 10px 15px;
-  font-family: 'Helvetica Neue', sans-serif;
+  padding: 10px 10px 0px 10px;
+  /*font-family: 'Helvetica Neue', sans-serif;*/
 }
