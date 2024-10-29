@@ -1045,15 +1045,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
 
                 <!-- Línea vertical entre columnas -->
-                <div class="col-1 d-flex justify-content-center">
+                
+                <!--<div class="col-1 d-flex justify-content-center">
                     <div class="vertical-line"></div>
-                </div>
+                </div>-->
 
                 <!-- Columna derecha con los elementos de la lista alternados -->
-                <div class="col-5">
+                <div class="col-6">
                     <ul class="list-unstyled">
                         <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Modo de Operación</p>
+                            <p class="fw-bold mb-1">Transacción</p>
                             <p>${obj.inv_modo}</p>
                         </li>
                         <li class="list-item mb-2">
