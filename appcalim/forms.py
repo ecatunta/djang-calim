@@ -29,4 +29,6 @@ class VentaForm(forms.ModelForm):
 class IngresoForm(forms.ModelForm):
     class Meta:
         model = Ingreso
-        fields = ['ingreso_unidad', 'ingreso_costoUnitario', 'ingreso_costoTotal']  # Reemplaza con los nombres de los campos de tu modelo
+        # Reemplaza con los nombres de los campos de tu modelo
+        # fields = ['ingreso_unidad', 'ingreso_costoUnitario', 'ingreso_costoTotal'] 
+        fields = ['producto']

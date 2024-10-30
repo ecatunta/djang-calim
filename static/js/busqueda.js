@@ -11,12 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const capaAdicionar = document.getElementById('capa-adicionar');
     // Mostrar mensaje de éxito con animación
     const mensajeExito = document.getElementById('mensaje-exito');
-    // Selecciona la tabla ingreso
-    const tabla_ingreso = document.getElementById('ingreso_tabla');
-    // Selecciona la primera fila de la tabla ingreso
-    const filaIngreso = tabla_ingreso.querySelector('tbody tr:first-child');
-    // Columnas de la fila
-    const columnasFilaIngreso = filaIngreso.querySelectorAll('td');
+
     const btn_actualizarUnidad = document.getElementById('actualizar-unidad');
     const btn_generaItem = document.getElementById('genera-item');
     const input_pu_unidad = document.getElementById('pu_unidad');
@@ -34,30 +29,41 @@ document.addEventListener('DOMContentLoaded', function () {
     input_producto.value = '';
     capaAdicionar.classList.add('locked');
 
-    if (mensajeExito && mensajeExito.textContent.trim() !== '') {
-        // Aquí puedes realizar alguna acción adicional si el mensaje tiene valor.
-        mensajeExito.classList.remove('hide');
-        mensajeExito.classList.add('show');
+    // Selecciona la tabla ingreso
+    const tabla_ingreso = document.getElementById('ingreso_tabla');
 
-        // Añadir la clase de resaltado a cada columna
-        columnasFilaIngreso.forEach(columna => {
-            columna.classList.add('highlight-cell');
-        });
+    // Selecciona la primera fila de la tabla ingreso
+    const filaIngreso = tabla_ingreso.querySelector('tbody tr:first-child');
 
-        // Ocultar el mensaje después de 5 segundos
-        setTimeout(() => {
-            mensajeExito.classList.remove('show');
-            mensajeExito.classList.add('hide');
+    if (filaIngreso) {
+        // Columnas de la fila
+        const columnasFilaIngreso = filaIngreso.querySelectorAll('td');
 
+        if (mensajeExito && mensajeExito.textContent.trim() !== '') {
+            // Aquí puedes realizar alguna acción adicional si el mensaje tiene valor.
+            mensajeExito.classList.remove('hide');
+            mensajeExito.classList.add('show');
+
+            // Añadir la clase de resaltado a cada columna
             columnasFilaIngreso.forEach(columna => {
-                columna.classList.remove('highlight-cell');
-                //columna.classList.add('restore-cell');
+                columna.classList.add('highlight-cell');
             });
 
-        }, 5000); // 5 segundos
+            // Ocultar el mensaje después de 5 segundos
+            setTimeout(() => {
+                mensajeExito.classList.remove('show');
+                mensajeExito.classList.add('hide');
 
-    } else {
-        console.log('El elemento "mensaje-exito" no tiene un valor o no existe.');
+                columnasFilaIngreso.forEach(columna => {
+                    columna.classList.remove('highlight-cell');
+                    //columna.classList.add('restore-cell');
+                });
+
+            }, 5000); // 5 segundos
+
+        } else {
+            console.log('El elemento "mensaje-exito" no tiene un valor o no existe.');
+        }
     }
 
     //Barra de busqueda
@@ -392,6 +398,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Validación antes de enviar el formulario
     btnAdicionar.addEventListener('click', function (event) {
+        /*
         const costoUnitario = parseFloat(costoUnitarioInput.value);
 
         // Si el campo está vacío o el valor es 0, mostrar alerta y evitar el envío
@@ -400,6 +407,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Por favor, ingrese un valor válido mayor a 0 para el costo unitario.');
         }
         //capaAdicionar.classList.add('locked');
+        */
     });
 
     // Agregar evento a cada botón
@@ -954,7 +962,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     ocultarSpinner();
-                    console.log('data: ',data);
+                    console.log('data: ', data);
                     if (data.success) {
                         const popupHeader = document.querySelector('.popup-header');
                         const popupBody = document.getElementById('popup-body-i');
@@ -1284,26 +1292,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     document.getElementById('producto').addEventListener('focus', function () {
-        /*
-        //const searchBarContainer = document.getElementById('search-bar-container');
-        const searchBarContainerPadre = document.getElementById('search-bar-container-padre');
-        const suggestions = document.getElementById('suggestions');
-        const searchIcon = document.getElementById('search-icon');
-        const backArrow = document.getElementById('back-arrow');
-
-        // Solo ejecutar este código si estamos en pantallas pequeñas
-        if (window.innerWidth <= 768) {
-            // Ocultar ícono de búsqueda y mostrar la flecha de regreso
-            searchIcon.style.display = 'none';
-            //backArrow.style.display = 'inline-block';
-            backArrow.style.display = 'flex';
-
-            // Aplicar clases para fijar la barra de búsqueda y sugerencias en la parte superior
-            //searchBarContainer.classList.add('fixed-search-bar');
-            searchBarContainerPadre.classList.add('fixed-search-bar');
-            suggestions.classList.add('fixed-suggestions');
-        }
-        */
 
         const searchBarContainerPadre = document.getElementById('search-bar-container-padre');
         const suggestions = document.getElementById('suggestions');

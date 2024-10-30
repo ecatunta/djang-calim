@@ -133,7 +133,7 @@ class Ingreso(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     ingreso_unidad = models.BigIntegerField(null=True, blank=True)
     ingreso_costoUnitario = models.FloatField(null=True, blank=True)
-    ingreso_costoTotal = models.FloatField()
+    ingreso_costoTotal = models.FloatField(null=True, blank=True)
     ingreso_fecha = models.DateTimeField()
     ingreso_fechaInventario = models.DateTimeField(null=True, blank=True)
     ingreso_fechaEliminacion = models.DateTimeField(null=True, blank=True)    

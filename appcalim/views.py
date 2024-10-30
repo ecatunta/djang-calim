@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from django.contrib import messages
 from datetime import datetime
 from django.utils.timezone import localtime
+from django.utils.dateformat import DateFormat
 import json
 
 # Create your views here.
@@ -574,30 +575,52 @@ def Nuevo_ingreso(request):
     ingresos = Ingreso.objects.filter(ingreso_estado__in=['P']).order_by('-ingreso_fecha')   
     
     if request.method == 'GET':
-        print('Nuevo_ingreso método', request.method)
+        print('metodo (Nuevo_ingreso) -> método', request.method)
     if request.method == 'POST':  
-        print('Nuevo_ingreso método', request.method)      
+        print('metodo (Nuevo_ingreso) -> método', request.method)      
 
-        form = IngresoForm(request.POST)             
+        form = IngresoForm(request.POST)   
+
         if form.is_valid():
             print('form is valid')
-            producto_nombre = request.POST.get('producto')  
-            print(f'Producto enviado: {producto_nombre}')  # Depuración  
+            #producto_nombre = request.POST.get('producto')  
+            producto_id = request.POST.get('producto')  
+            #print(f'Producto enviado: {producto_nombre}')  # Depuración  
             
             # Obtener la instancia del producto
             try:
-                producto_instancia = Producto.objects.get(producto_nombre=producto_nombre)
+                #producto_instancia = Producto.objects.get(producto_nombre=producto_nombre)
+                producto_instancia = Producto.objects.get(producto_id=producto_id)
                 
                 # Continuar guardando el formulario si el producto se encuentra
+                #print ('antes form.save')
                 nuevo_ingreso = form.save(commit=False)
+                #print ('despues  form.save')
                 nuevo_ingreso.ingreso_fecha = timezone.now()
                 nuevo_ingreso.ingreso_estado = 'P'
                 nuevo_ingreso.producto = producto_instancia
+                nuevo_ingreso.ingreso_referencia = 'Pendiente'
+
+                try:
+                    nuevo_ingreso.save()
+                    messages.success(request, 'El producto ha sido agregado correctamente.')
+                    print('Ingreso guardado con éxito')
+                    return redirect('nuevo_ingreso')  # Redirige después de guardar
+
+                except Exception as e:
+                    # Error al guardar el ingreso
+                    print(f'Error al guardar el ingreso: {e}')
+                    messages.error(request, f'Error al guardar el ingreso, por favor intente nuevamente. {e}')
+
+                '''
+                print ('antes save')
                 nuevo_ingreso.save()
+                print ('despues save')
                 #mensaje = 'Ingreso guardado con éxito'
                 messages.success(request, 'El producto ha sido agregado correctamente.')
                 print('Ingreso guardado con éxito')
-                return redirect('nuevo_ingreso')         
+                return redirect('nuevo_ingreso')  
+                '''       
 
             except Producto.DoesNotExist:
                 print('Producto no encontrado')          
@@ -605,7 +628,11 @@ def Nuevo_ingreso(request):
             # Mostrar detalles de los errores del formulario
             print('form is not valid')
             print(form.errors)  # Imprimir los errores específicos del formulario
+    
+    for ingreso in ingresos:
+        ingreso.ingreso_fecha_formateada = DateFormat(localtime(ingreso.ingreso_fecha)).format('Y/m/d H:i:s')
 
+    print('ejecucion de render')
     return render(request, 'ingreso.html', {'ingresos': ingresos})
 
 def Quitar_ingreso(request, ingreso_id):   
@@ -1027,6 +1054,7 @@ def Obtiene_precioU_vigente_nuevo1(request, ingreso_id):
 def Obtiene_precioU_vigente_nuevo(request, ingreso_id):
     try:
         ingreso_nuevo = Ingreso.objects.filter(ingreso_id=ingreso_id, ingreso_estado='P').first() 
+         # Convertir la fecha a la zona horaria local
         ingreso_fecha = localtime(ingreso_nuevo.ingreso_fecha)
         #fecha_formateada = ingreso_fecha.strftime("%Y/%m/%d %H:%M:%S")
         fecha_formateada = ingreso_fecha.strftime("%Y/%m/%d %H:%M")
