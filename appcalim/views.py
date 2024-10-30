@@ -630,7 +630,7 @@ def Nuevo_ingreso(request):
             print(form.errors)  # Imprimir los errores específicos del formulario
     
     for ingreso in ingresos:
-        ingreso.ingreso_fecha_formateada = DateFormat(localtime(ingreso.ingreso_fecha)).format('Y/m/d H:i:s')
+        ingreso.ingreso_fecha_formateada = DateFormat(localtime(ingreso.ingreso_fecha)).format('Y/m/d H:i')
 
     print('ejecucion de render')
     return render(request, 'ingreso.html', {'ingresos': ingresos})
