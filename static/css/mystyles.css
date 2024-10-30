@@ -543,7 +543,7 @@ header {
 
   #ingreso_tabla,
   #tabla-items {
-    font-size: 0.9rem !important;
+   /* font-size: 0.9rem !important;*/
   }
 
   #ingreso_tabla .btn {
@@ -552,7 +552,7 @@ header {
 
   #ingreso_tabla,
   #tabla-items .form-control {
-    font-size: 0.9rem !important;
+    font-size: 0.8rem !important;
     padding-top: 8px !important;
     padding-bottom: 8px !important;
     padding-left: 0px !important;
