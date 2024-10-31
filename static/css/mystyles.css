@@ -1414,7 +1414,8 @@ header {
     */
 
   .container-custom {
-      padding: 20px;
+      /*padding: 20px;*/
+      padding: 15px;
       background-color: #f8f9fa;
       border-radius: 8px;
       max-width: 600px;
