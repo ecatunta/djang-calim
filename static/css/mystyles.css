@@ -1387,20 +1387,7 @@ header {
 }
 
 
-.current-value {
-  font-size: 0.9rem;
-  color: #6c757d; 
-}
-.new-value input {
-  max-width: 120px;
-  border: 2px solid #0d6efd; 
-}
-.value-label {
-  font-weight: bold;
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-}  
-
+/*
 .container-custom {
     padding: 20px;
     background-color: #f8f9fa;
@@ -1424,3 +1411,49 @@ header {
     font-size: 0.9rem;
     color: #6c757d;
 }
+    */
+
+  .container-custom {
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      max-width: 600px;
+      box-shadow: 0 4px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .value-label {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #495057;
+  }
+
+  .value-section {
+      background-color: #e9ecef;
+      border-radius: 8px;
+      padding: 10px;
+  }
+
+  .new-value-label {
+      color: #0d6efd;
+      font-size: 0.9rem;
+      font-weight: bold;
+  }
+
+  .current-value-label {
+      color: #6c757d;
+      font-size: 0.85rem;
+      text-align: right;
+  }
+
+  .input-container input {
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+      border: none;
+      box-shadow: 0 1px 4px rgba(0, 123, 255, 0.2);
+  }
+
+  .input-container input:focus {
+      outline: none;
+      box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+  }
