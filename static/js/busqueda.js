@@ -275,6 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('producto').addEventListener('input', function () {
         capaAdicionar.classList.add('locked');
         costoTotalInput.value = '';
+        btnAdicionar.disabled = true;
 
         const query = this.value.trim().toLowerCase();
         const suggestions = document.getElementById('suggestions');
@@ -327,6 +328,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             document.getElementById('btn_adicionar').disabled = false;
                             suggestions.style.display = 'none';
                             capaAdicionar.classList.remove('locked');
+                            btnAdicionar.disabled = false;
+
                         });
 
                         suggestions.appendChild(li);
@@ -474,6 +477,8 @@ document.addEventListener('DOMContentLoaded', function () {
             input_p_ganancia_nuevo.classList.remove('is-invalid');
 
             let unidad = 0;
+            
+            /*
             // Verifica si la pantalla es mediana o más grande
             if (window.matchMedia("(min-width: 768px)").matches) {
                 // Pantalla mediana o más grande, obtener el valor del input
@@ -486,6 +491,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('Valor del span (pantalla pequeña):', spanElement.textContent);
                 unidad = spanElement.textContent
             }
+                */
 
 
             fetch(`/obtiene_precioU_vigente_nuevo/${ingresoId}/`, {
@@ -496,7 +502,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('data: ', data)
+                    console.log('obtiene_precioU_vigente_nuevo: ', data)
                     if (data.status === 'success') {
                         // Ocultar el spinner cuando la solicitud Ajax es exitosa
                         loadingSpinner.style.display = 'none';
@@ -1281,7 +1287,7 @@ document.addEventListener('DOMContentLoaded', function () {
     */
 
     document.getElementById('producto').addEventListener('focus', function () {
-        document.getElementById('suggestions').classList.add('show');
+        document.getElementById('suggestions').classList.add('show');                
     });
 
     document.getElementById('producto').addEventListener('blur', function () {
