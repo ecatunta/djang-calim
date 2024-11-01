@@ -1469,12 +1469,32 @@ header {
         z-index: 1050; /* Asegura visibilidad */
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     }
+    
     .calculated-label {
         font-size: 0.9rem;
         font-weight: bold;
         color: #495057;
     }
-    .calculated-value {
+
+    .value-pair {
+      display: flex;
+      flex-direction: column;
+    }
+
+  .calculated-value, .actual-value {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #0d6efd;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+
+  .actual-value {
+      color: #6c757d;
+  }
+
+    /*.calculated-value {
         font-size: 1.2rem;
         color: #0d6efd;
         font-weight: bold;
@@ -1482,11 +1502,18 @@ header {
     .actual-value {
         font-size: 1rem;
         color: #6c757d;
-    }
+    }*/
 
 /* Adaptación para dispositivos móviles */
 @media (max-width: 576px) {
-  .calculated-value {
+  /*.calculated-value {
        font-size: 1rem;
-  }
+  }*/
+
+  .calculated-label {
+    font-size: 0.8rem;
+}
+.calculated-value, .actual-value {
+    font-size: 1rem;
+}
 }

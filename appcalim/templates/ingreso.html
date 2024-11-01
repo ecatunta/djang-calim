@@ -206,7 +206,8 @@ Ingreso
             </div>
 
             <!-- Valores Calculados en la Parte Superior -->
-            <div class="calculated-values-container">
+            
+            <!--<div class="calculated-values-container">
                 <div class="d-flex justify-content-between">
                     <div>
                         <p class="calculated-label mb-0">Ganancia</p>
@@ -221,6 +222,23 @@ Ingreso
                             Actual: <span id="pu_precioU_actual" class="actual-value">275.00</span> |
                             Nuevo: <span id="pu_precioU_nuevo" class="calculated-value">300.00</span>
                         </p>
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="calculated-values-container">
+                <div class="d-flex justify-content-between align-items-start">
+                    <!-- Ganancia -->
+                    <div class="value-pair me-2">
+                        <p class="calculated-label mb-1">Ganancia</p>
+                        <span class="actual-value">Actual: <span id="pu_ganancia_actual">200.00</span></span>
+                        <span class="calculated-value">Nuevo: <span id="pu_ganancia_nuevo">452882</span></span>
+                    </div>
+                    <!-- Precio Unitario -->
+                    <div class="value-pair ms-2">
+                        <p class="calculated-label mb-1">Precio Unitario</p>
+                        <span class="actual-value">Actual: <span id="pu_precioU_actual">275.00</span></span>
+                        <span class="calculated-value">Nuevo: <span id="pu_precioU_nuevo">452882</span></span>
                     </div>
                 </div>
             </div>
@@ -475,6 +493,7 @@ Ingreso
                                         </div>
                                     </div>
                                 </li>
+                                
 
                                 <!-- Porcentaje de Ganancia -->
                                 <li class="mb-2 value-section">
