@@ -467,9 +467,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
             document.getElementById('fecha-vencimiento').value = '';
             document.getElementById('select-fecha-vencimiento').value = "0";
-            input_pu_unidad.disabled = true;
+            //input_pu_unidad.disabled = true;
             input_fecha_vencimiento.disabled = true;
-            btn_actualizarUnidad.disabled = false;
+            
+            //btn_actualizarUnidad.disabled = false;
 
             input_pu_unidad.classList.remove('is-invalid');
             input_fecha_vencimiento.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido

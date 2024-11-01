@@ -209,51 +209,6 @@ Ingreso
                     </div>
                 </div>
 
-                <div class="row mb-0">
-
-                    <div class="col-5 d-flex align-items-center justify-content-end">
-                        <strong>Unidades:</strong>
-                    </div>
-
-                    <div class="col-7">
-                        <!-- Usamos d-flex para alinear los elementos en una misma línea -->
-                        <div class="d-flex align-items-center justify-content-between">
-                            <!-- Div para la primera fila -->
-                            <div class="d-flex align-items-center w-100 justify-content-between">
-                                <!--<input type="number" id="pu_unidad" class="form-control text-center me-2" disabled autocomplete="off">-->
-                                <input type="number" id="pu_unidad" class="form-control text-center me-2" disabled
-                                    autocomplete="off">
-                                <!-- Primer texto y botón -->
-                                <div class="me-1" style="text-align: center; margin-top:-10px;">
-                                    <!-- Espacio a la derecha -->
-                                    <span style="font-size: 11px;">Cambiar</span> <!-- Texto en la primera fila -->
-                                    <button id="actualizar-unidad" class="btn btn-outline-secondary ms-0">
-                                        <!-- Margen izquierdo para espacio -->
-                                        <i class="bi bi-arrow-clockwise"></i>
-                                    </button>
-                                </div>
-                                <!-- Segundo texto y botón -->
-                                <div class="me-1" style="text-align: center; margin-top:-10px;">
-                                    <span style="font-size: 11px;">Items</span> <!-- Texto en la segunda fila -->
-                                    <button id="genera-item" type="button" class="btn btn-primary ms-0">
-                                        <i class="bi bi-table"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-5 text-end">
-                        <strong>$Costo Total:</strong>
-                    </div>
-                    <div class="col-7">
-                        <span id="pu_costo_total"></span>
-                    </div>
-                </div>
-
                 <!--
                 <ul class="list-unstyled">
                     <li class="mb-3">
@@ -380,10 +335,91 @@ Ingreso
                 </div>
             -->
 
+                <!--
+                <div class="row mb-0">
+
+                    <div class="col-5 d-flex align-items-center justify-content-end">
+                        <strong>Unidades:</strong>
+                    </div>
+
+                    <div class="col-7">
+
+                        <div class="d-flex align-items-center justify-content-between">
+
+                            <div class="d-flex align-items-center w-100 justify-content-between">
+                                <input type="number" id="pu_unidad" class="form-control text-center me-2"
+                                    autocomplete="off">
+
+                                <div class="me-1" style="text-align: center; margin-top:-10px;">
+                                    <span style="font-size: 11px;">Cambiar</span>
+                                    <button id="actualizar-unidad" class="btn btn-outline-secondary ms-0">
+                                        <i class="bi bi-arrow-clockwise"></i>
+                                    </button>
+                                </div>
+
+                                <div class="me-1" style="text-align: center; margin-top:-10px;">
+                                    <span style="font-size: 11px;">Items</span>
+                                    <button id="genera-item" type="button" class="btn btn-primary ms-0">
+                                        <i class="bi bi-table"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+
+                    <div class="col-5 text-end">
+                        <strong>$Costo Total:</strong>
+                    </div>
+
+                    <div class="col-7">
+                        <span id="pu_costo_total"></span>
+                    </div>
+
+                </div>
+                -->
+
+                <div class="d-flex align-items-center w-100 justify-content-between">
+
+                    <div class="me-1" style="text-align: center; margin-top:-10px;">
+                        <span style="font-size: 11px;">Cambiar</span>
+                        <button id="actualizar-unidad" class="btn btn-outline-secondary ms-0">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+
+                    <div class="me-1" style="text-align: center; margin-top:-10px;">
+                        <span style="font-size: 11px;">Items</span>
+                        <button id="genera-item" type="button" class="btn btn-primary ms-0">
+                            <i class="bi bi-table"></i>
+                        </button>
+                    </div>
+                </div>
+
                 <div class="container-fluid mb-2">
+
                     <div class="row justify-content-center">
+
                         <div class="col-12 container-custom">
+
                             <ul class="list-unstyled" style="margin-bottom: 0;">
+
+                                <li class="mb-2 value-section" style="border: 1px solid green;">
+                                    <p class="value-label">Unidades</p>
+                                    <div class="d-flex justify-content-between align-items-center" style="border: 1px solid blue;">
+                                        <div class="input-container" style="border: 1px solid red;">
+                                            <input type="number" id="pu_unidad" class="form-control text-center me-2"
+                                                autocomplete="off">                                            
+                                        </div>
+                                        <div class="current-value-label" style="border: 1px solid cyan;">
+                                            Costo Total: <span id="pu_costo_total">0.0</span>
+                                        </div>
+                                    </div>
+                                </li>
+
+
                                 <!-- Costo Unitario -->
                                 <li class="mb-2 value-section">
                                     <p class="value-label">Costo Unitario</p>
