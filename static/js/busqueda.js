@@ -591,10 +591,19 @@ document.addEventListener('DOMContentLoaded', function () {
         }*/
 
         let [precio, ganancia] = calcular_precioU_ganancia(costoUnitario, porcentajeGanancia);
-        //precioUnitarioElement.value = precio.toFixed(2);
-        precioUnitarioElement.textContent = precio.toFixed(1);
-        //gananciaElement.value = ganancia.toFixed(2);
-        gananciaElement.textContent = ganancia.toFixed(1);
+
+
+        if (precio) {
+            precioUnitarioElement.textContent = precio.toFixed(1);
+        } else {
+            precioUnitarioElement.textContent = '0.0';
+        }
+
+        if (ganancia) {
+            gananciaElement.textContent = ganancia.toFixed(1);
+        } else {
+            gananciaElement.textContent = '0.0';
+        }
 
         let costo_total = unidad * costoUnitario
 
@@ -697,6 +706,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btn_generaItem.disabled = true;
             return;
         }
+
         let costo_total = unidad * costoUnitario
         costoTotalElement.textContent = costo_total.toFixed(1);
         btn_actualizarUnidad.disabled = false;

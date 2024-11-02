@@ -1471,18 +1471,18 @@ header {
     }
     
     .calculated-label {
-        font-size: 0.9rem;
+        font-size: 1rem;
         font-weight: bold;
         color: #495057;
     }
 
     .value-pair {
-      display: flex;
+      /*display: flex;*/
       flex-direction: column;
     }
 
   .calculated-value, .actual-value {
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: bold;
       color: #0d6efd;
       white-space: nowrap;
@@ -1510,11 +1510,11 @@ header {
        font-size: 1rem;
   }*/
 
-  .calculated-label {
+  /*.calculated-label {
       font-size: 0.8rem;
   }
   .calculated-value, .actual-value {
       font-size: 1rem;
-  }
+  }*/
   
 }
