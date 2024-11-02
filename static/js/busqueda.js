@@ -514,13 +514,16 @@ document.addEventListener('DOMContentLoaded', function () {
                         // Actualiza el nombre del producto en el modal
                         document.getElementById('pu_producto_nombre').textContent = data.producto_nombre;
                         document.getElementById('pu_unidad').value = data.unidad;
-                        document.getElementById('pu_costo_total').textContent = data.costo_total;
-                        document.getElementById('pu_costoU_actual').textContent = ingreso.vigente.i_costo_unitario || '';
-                        document.getElementById('pu_pGanancia_actual').textContent = ingreso.vigente.i_porcentaje_ganancia || '';
-                        document.getElementById('pu_ganancia_actual').textContent = ingreso.vigente.i_ganancia || '';
-                        document.getElementById('pu_precioU_actual').textContent = ingreso.vigente.i_precio_unitario || '';
+                        document.getElementById('pu_costo_total').textContent = data.costo_total || '0.0';
+                        document.getElementById('pu_costoU_actual').textContent = ingreso.vigente.i_costo_unitario || '0.0';
+                        document.getElementById('pu_pGanancia_actual').textContent = ingreso.vigente.i_porcentaje_ganancia || '0.0';
+                        document.getElementById('pu_ganancia_actual').textContent = ingreso.vigente.i_ganancia || '0.0';
+                        document.getElementById('pu_precioU_actual').textContent = ingreso.vigente.i_precio_unitario || '0.0';
                         document.getElementById('pu_costoU_nuevo').value = ingreso.nuevo.i_costo_unitario || '';
-                        document.getElementById('pu_pGanancia_nuevo').value = 5;
+                        //document.getElementById('pu_costoU_nuevo').value = ingreso.vigente.i_costo_unitario || '';
+
+                        document.getElementById('pu_pGanancia_nuevo').value = ingreso.vigente.i_porcentaje_ganancia;
+
                         let [precio, ganancia] = calcular_precioU_ganancia(ingreso.nuevo.i_costo_unitario, 5);
                         document.getElementById('pu_precioU_nuevo').textContent = precio.toFixed(1);
                         document.getElementById('pu_ganancia_nuevo').textContent = ganancia.toFixed(1);
@@ -576,7 +579,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (isNaN(costoUnitario) || costoUnitario < 0) {
             this.value = ''; // Limpiar el campo si la entrada es inválida                       
-            precioUnitarioElement.value = 0; // Limpiar el costo total
+            precioUnitarioElement.value = '0.0'; // Limpiar el costo total
+            costoTotalElement.textContent = '0.0';
             return;
         }
 
@@ -593,7 +597,13 @@ document.addEventListener('DOMContentLoaded', function () {
         gananciaElement.textContent = ganancia.toFixed(1);
 
         let costo_total = unidad * costoUnitario
-        costoTotalElement.textContent = costo_total.toFixed(1);
+        
+        //console.log('costo_total: ', costo_total);
+        if (costo_total) {
+            costoTotalElement.textContent = costo_total.toFixed(1);
+        } else {
+            costoTotalElement.textContent = '0.0';
+        }
 
     });
 
@@ -601,16 +611,18 @@ document.addEventListener('DOMContentLoaded', function () {
     // Evento input sobre el elemento html con id pu_pGanancia_nuevo
     document.getElementById('pu_pGanancia_nuevo').addEventListener('input', function () {
 
-        const pGanancia = parseFloat(this.value);
-        const precioUnitarioElement = document.getElementById('pu_precioU_nuevo');
+        const pGanancia = parseFloat(this.value);        
         const costoUnitario = parseFloat(document.getElementById('pu_costoU_nuevo').value); // Convertir a número
         const gananciaElement = document.getElementById('pu_ganancia_nuevo');
+        const precioUnitarioElement = document.getElementById('pu_precioU_nuevo');        
         //let precio_unitario_nuevo
 
         if (isNaN(pGanancia) || pGanancia < 0) {
             console.log("Por favor, ingrese un valor válido que no sea negativo.");
             this.value = ''; // Limpiar el campo si la entrada es inválida                       
-            precioUnitarioElement.value = 0; // Limpiar el costo total
+            //precioUnitarioElement.value = 0; // Limpiar el costo total
+            gananciaElement.textContent = '0.0';
+            precioUnitarioElement.textContent = '0.0';
             return;
         }
 
@@ -626,6 +638,7 @@ document.addEventListener('DOMContentLoaded', function () {
         gananciaElement.textContent = ganancia.toFixed(1);
 
     });
+
 
     /*
     // Función de debounce
@@ -672,7 +685,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (isNaN(unidad) || unidad <= 0 || unidad > 50) {
             this.value = ''; // Limpiar el campo si la entrada es inválida                                   
-            costoTotalElement.textContent = 0;
+            costoTotalElement.textContent = '0.0';
             btn_actualizarUnidad.disabled = true;
             btn_generaItem.disabled = true;
             return;
@@ -1754,19 +1767,5 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.style.overflow = 'auto'; // Restaura el scroll del body
     });
     //openPopup();
-
-    /*
-    const inputs = document.querySelectorAll('.modal-body input');
-    const calculatedValuesContainer = document.getElementById('calculatedValuesContainer');
-
-    // Función para activar `fixed-bottom` al aparecer el teclado
-    inputs.forEach(input => {
-        input.addEventListener('focus', () => {
-            calculatedValuesContainer.classList.add('fixed-bottom');
-        });
-        input.addEventListener('blur', () => {
-            calculatedValuesContainer.classList.remove('fixed-bottom');
-        });
-    });*/
 
 });
