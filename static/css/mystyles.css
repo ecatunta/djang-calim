@@ -1420,6 +1420,7 @@ header {
       border-radius: 8px;
       max-width: 600px;
       box-shadow: 0 4px -1px rgba(0, 0, 0, 0.1);
+      border: 0px solid blue;
   }
 
   .value-label {
@@ -1459,8 +1460,9 @@ header {
       box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
   }
 
-      /* Contenedor de valores calculados */
-  .calculated-values-container {
+  
+ /* Contenedor de valores calculados */
+.calculated-values-container {
         background-color: #e9ecef;
         padding: 10px;
         border-radius: 8px;
@@ -1468,32 +1470,38 @@ header {
         top: 0;
         z-index: 1050; /* Asegura visibilidad */
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    }
+}
     
-    .calculated-label {
+.calculated-label {
         font-size: 1rem;
         font-weight: bold;
         color: #495057;
-    }
+}
 
-    .value-pair {
+.value-pair {
       /*display: flex;*/
-      flex-direction: column;
-    }
+      /*flex-direction: column;*/
+}
 
-  .calculated-value, .actual-value {
+.calculated-value, .actual-value {
       font-size: 1rem;
       font-weight: bold;
       color: #0d6efd;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-  }
+}
 
-  .actual-value {
+.actual-value {
       color: #6c757d;
-  }
-
+}
+  
+.valor-calculado{
+  padding: 10px;;
+  background-color: #fff;
+  border: 1px solid #f8f8f8;
+  border-radius: 5px;
+}
     /*.calculated-value {
         font-size: 1.2rem;
         color: #0d6efd;

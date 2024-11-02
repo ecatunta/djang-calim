@@ -203,19 +203,22 @@ Ingreso
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div class="calculated-values-container">
-                <div class="d-flex justify-content-between align-items-start">
-                    <div class="value-pair me-2">
-                        <p class="calculated-label mb-1">Utilidad</p>
-                        <!--<span class="actual-value">Actual: Bs <span id="pu_ganancia_actual"></span></span>-->                        
-                        <span class="calculated-value">Nuevo: Bs <span id="pu_ganancia_nuevo"></span></span>&nbsp;|&nbsp;<span id="pu_ganancia_actual" class="actual-value"></span>
-                    </div>
 
-                    <div class="value-pair ms-2">
-                        <p class="calculated-label mb-1">Precio por Unidad</p>
-                        <!--<span class="actual-value">Actual: Bs <span id="pu_precioU_actual"></span></span>-->                        
-                        <span class="calculated-value">Nuevo: Bs <span id="pu_precioU_nuevo"></span></span>&nbsp;|&nbsp;<span id="pu_precioU_actual" class="actual-value"></span>
-                    </div>
+            <div class="calculated-values-container" style="display: none;">
+                <div class="d-flex justify-content-between align-items-start">
+                    <!--<div class="me-2">
+                        <p class="calculated-label mb-1">Utilidad</p>
+                        <span class="calculated-value">Nuevo: Bs <span
+                                id="pu_ganancia_nuevo"></span></span>&nbsp;|&nbsp;<span id="pu_ganancia_actual"
+                            class="actual-value"></span>
+                    </div>-->
+
+                    <!--<div class="ms-2">
+                        <p class="calculated-label mb-1">Precio Unitario</p>
+                        <span class="calculated-value">Nuevo: Bs <span
+                                id="pu_precioU_nuevo"></span></span>&nbsp;|&nbsp;<span id="pu_precioU_actual"
+                            class="actual-value"></span>
+                    </div>-->
                 </div>
             </div>
 
@@ -230,9 +233,25 @@ Ingreso
                 </div>
 
                 <div class="container-fluidwww mb-2">
-                    <div class="row justify-content-center">
+
+                    <div class="row justify-content-center" style="border: 0px solid red;">
+
                         <div class="col-12 container-custom">
-                            <ul class="list-unstyled" style="margin-bottom: 0;">
+
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <p class="mb-1">Utilidad</p>
+                                    <span id="pu_ganancia_nuevo" class="valor-calculado"></span>
+                                    <span id="pu_ganancia_actual"></span>
+                                </div>
+                                <div class="col-6">
+                                    <p class="mb-1">Precio Unitario</p>
+                                    <span id="pu_precioU_nuevo" class="valor-calculado"></span>
+                                    <span id="pu_precioU_actual"></span>
+                                </div>
+                            </div>
+                            
+                            <ul class="list-unstyled" style="margin-bottom: 0; border: 0px solid goldenrod;">
 
                                 <li class="mb-3 value-section" style="border: 0px solid green;">
 
@@ -256,31 +275,33 @@ Ingreso
                                             <input type="number" id="pu_unidad" class="form-control text-center"
                                                 autocomplete="off">
                                         </div>
-                                        <div class="current-value-label text-end" style="border: 0px solid cyan; width: 50%;">
+                                        <div class="current-value-label text-end"
+                                            style="border: 0px solid cyan; width: 50%;">
                                             Costo Total: Bs <span id="pu_costo_total">0.0</span>
                                         </div>
                                     </div>
                                 </li>
 
-                                <!-- Costo Unitario -->                                
+                                <!-- Costo Unitario -->
                                 <li class="mb-3 value-section" style="border: 0px solid green;">
-                                    <p class="value-label">Costo por Unidad</p>
-                                    
+                                    <p class="value-label">Costo Unitario</p>
+
                                     <div class="d-flex justify-content-between align-items-center"
-                                        style="border: 0px solid blue;">                                        
-                                        
+                                        style="border: 0px solid blue;">
+
                                         <div class="input-container" style="border: 0px solid red; width: 50%;">
                                             <label for="pu_costoU_nuevo" class="new-value-label mb-1">Nuevo
                                                 Valor</label>
                                             <input type="number" id="pu_costoU_nuevo" class="form-control text-center">
-                                        </div>                                        
-                                        
-                                        <div class="current-value-label text-end" style="border: 0px solid cyan; width: 50%;">
+                                        </div>
+
+                                        <div class="current-value-label text-end"
+                                            style="border: 0px solid cyan; width: 50%;">
                                             Valor Actual: Bs <span id="pu_costoU_actual">100.00</span>
                                         </div>
                                     </div>
-                                </li>             
-                                
+                                </li>
+
                                 <!-- Porcentaje de Ganancia -->
                                 <li class="mb-1 value-section">
                                     <p class="value-label">Rentabilidad</p>
