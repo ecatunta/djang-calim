@@ -597,7 +597,7 @@ document.addEventListener('DOMContentLoaded', function () {
         gananciaElement.textContent = ganancia.toFixed(1);
 
         let costo_total = unidad * costoUnitario
-        
+
         //console.log('costo_total: ', costo_total);
         if (costo_total) {
             costoTotalElement.textContent = costo_total.toFixed(1);
@@ -611,10 +611,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Evento input sobre el elemento html con id pu_pGanancia_nuevo
     document.getElementById('pu_pGanancia_nuevo').addEventListener('input', function () {
 
-        const pGanancia = parseFloat(this.value);        
+        const pGanancia = parseFloat(this.value);
         const costoUnitario = parseFloat(document.getElementById('pu_costoU_nuevo').value); // Convertir a número
         const gananciaElement = document.getElementById('pu_ganancia_nuevo');
-        const precioUnitarioElement = document.getElementById('pu_precioU_nuevo');        
+        const precioUnitarioElement = document.getElementById('pu_precioU_nuevo');
         //let precio_unitario_nuevo
 
         if (isNaN(pGanancia) || pGanancia < 0) {
@@ -632,11 +632,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         //precio_unitario_nuevo = calcular_precioU_ganancia(costoUnitario, pGanancia)
         let [precio, ganancia] = calcular_precioU_ganancia(costoUnitario, pGanancia);
-        //precioUnitarioElement.value = precio.toFixed(2); // Mostrar con dos decimales
-        precioUnitarioElement.textContent = precio.toFixed(1); // Mostrar con dos decimales
-        //gananciaElement.value = ganancia.toFixed(2);
-        gananciaElement.textContent = ganancia.toFixed(1);
 
+        if (precio) {
+            precioUnitarioElement.textContent = precio.toFixed(1); // Mostrar con dos decimales
+        } else {
+            precioUnitarioElement.textContent = '0.0';
+        }
+
+        if (ganancia) {
+            gananciaElement.textContent = ganancia.toFixed(1);
+        } else {
+            gananciaElement.textContent = '0.0';
+        }
     });
 
 
