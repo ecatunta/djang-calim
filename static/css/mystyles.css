@@ -1511,9 +1511,14 @@ header {
   }*/
 
   .calculated-label {
-    font-size: 0.8rem;
-}
-.calculated-value, .actual-value {
-    font-size: 1rem;
-}
+      font-size: 0.8rem;
+  }
+  .calculated-value, .actual-value {
+      font-size: 1rem;
+  }
+  
+  .modal-body-scrollable {
+    max-height: 50vh; /* Altura limitada para desplazamiento */
+    overflow-y: auto;
+  }
 }
