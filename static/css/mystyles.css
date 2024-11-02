@@ -1459,36 +1459,17 @@ header {
       box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
   }
 
-  /* Contenedor de valores calculados */
-    
+      /* Contenedor de valores calculados */
   .calculated-values-container {
         background-color: #e9ecef;
         padding: 10px;
         border-radius: 8px;
         position: sticky;
         top: 0;
-        z-index: 1050; 
+        z-index: 1050; /* Asegura visibilidad */
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     }
-
-    /*
-    .calculated-values-container {
-      position: sticky;
-      bottom: 0;
-      z-index: 1050;
-      background-color: #f8f9fa;
-      padding: 10px;
-      border-top: 1px solid #ddd;
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-      transition: position 0.3s ease;
-   }*/
-
-    /* Ajuste cuando está en posición fixed */
-      .fixed-bottom {
-        position: fixed !important;
-        width: 100%;
-    }
-
+    
     .calculated-label {
         font-size: 0.9rem;
         font-weight: bold;
@@ -1534,6 +1515,6 @@ header {
   }
   .calculated-value, .actual-value {
       font-size: 1rem;
-  } 
-
+  }
+  
 }

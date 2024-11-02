@@ -229,14 +229,15 @@ Ingreso
                     </div>
                 </div>
 
-                <div class="container-fluid mb-2">
+                <div class="container-fluidwww mb-2">
                     <div class="row justify-content-center">
                         <div class="col-12 container-custom">
                             <ul class="list-unstyled" style="margin-bottom: 0;">
-                                <li class="mb-2 value-section" style="border: 0px solid green;">
+
+                                <li class="mb-3 value-section" style="border: 0px solid green;">
 
                                     <!-- Contenedor flex con etiqueta "Unidades" y botones en la misma línea -->
-                                    <div class="d-flex justify-content-between align-items-center"
+                                    <div class="d-flex justify-content-between align-items-center mb-2"
                                         style="border: 0px solid blue;">
                                         <p class="value-label mb-0">Unidades</p>
 
@@ -251,43 +252,48 @@ Ingreso
 
                                     <div class="d-flex justify-content-between align-items-center"
                                         style="border: 0px solid blue;">
-                                        <div class="input-container" style="border: 0px solid red;">
+                                        <div class="input-container" style="border: 0px solid red; width: 50%;">
                                             <input type="number" id="pu_unidad" class="form-control text-center"
                                                 autocomplete="off">
                                         </div>
-                                        <div class="current-value-label" style="border: 0px solid cyan;">
+                                        <div class="current-value-label text-end" style="border: 0px solid cyan; width: 50%;">
                                             Costo Total: <span id="pu_costo_total">0.0</span>
                                         </div>
                                     </div>
                                 </li>
 
-                                <!-- Costo Unitario -->
-                                <li class="mb-2 value-section">
+                                <!-- Costo Unitario -->                                
+                                <li class="mb-3 value-section" style="border: 0px solid green;">
                                     <p class="value-label">Costo Unitario</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="input-container">
+                                    
+                                    <div class="d-flex justify-content-between align-items-center"
+                                        style="border: 0px solid blue;">                                        
+                                        
+                                        <div class="input-container" style="border: 0px solid red; width: 50%;">
                                             <label for="pu_costoU_nuevo" class="new-value-label mb-1">Nuevo
                                                 Valor</label>
                                             <input type="number" id="pu_costoU_nuevo" class="form-control text-center">
-                                        </div>
-                                        <div class="current-value-label">
-                                            Actual: <span id="pu_costoU_actual">100.00</span>
+                                        </div>                                        
+                                        
+                                        <div class="current-value-label text-end" style="border: 0px solid cyan; width: 50%;">
+                                            Actual: Bs <span id="pu_costoU_actual">100.00</span>
                                         </div>
                                     </div>
-                                </li>
-
+                                </li>             
+                                
                                 <!-- Porcentaje de Ganancia -->
-                                <li class="mb-2 value-section">
+                                <li class="mb-3 value-section">
                                     <p class="value-label">Porcentaje de Ganancia</p>
+
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <div class="input-container">
+                                        <div class="input-container" style="width: 50%;">
                                             <label for="pu_pGanancia_nuevo" class="new-value-label mb-1">Nuevo
                                                 Valor</label>
                                             <input type="number" id="pu_pGanancia_nuevo"
                                                 class="form-control text-center">
                                         </div>
-                                        <div class="current-value-label">
-                                            Actual: <span id="pu_pGanancia_actual">15</span>%
+                                        <div class="current-value-label text-end" style="width: 50%;">
+                                            Actual: % <span id="pu_pGanancia_actual">15</span>
                                         </div>
                                     </div>
                                 </li>
