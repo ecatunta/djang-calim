@@ -1459,17 +1459,28 @@ header {
       box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
   }
 
-      /* Contenedor de valores calculados */
-  .calculated-values-container {
+  /* Contenedor de valores calculados */
+    
+  /*.calculated-values-container {
         background-color: #e9ecef;
         padding: 10px;
         border-radius: 8px;
         position: sticky;
         top: 0;
-        z-index: 1050; /* Asegura visibilidad */
+        z-index: 1050; 
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
+    }*/
+
+    .calculated-values-container {
+      position: sticky;
+      bottom: 0;
+      z-index: 1050;
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-top: 1px solid #ddd;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
     .calculated-label {
         font-size: 0.9rem;
         font-weight: bold;
@@ -1515,10 +1526,6 @@ header {
   }
   .calculated-value, .actual-value {
       font-size: 1rem;
-  }
-  
-  .modal-body-scrollable {
-    max-height: 70vh; /* Altura limitada para desplazamiento */
-    overflow-y: auto;
-  }
+  } 
+
 }
