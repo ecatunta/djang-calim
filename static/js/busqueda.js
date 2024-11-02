@@ -469,7 +469,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('select-fecha-vencimiento').value = "0";
             //input_pu_unidad.disabled = true;
             input_fecha_vencimiento.disabled = true;
-            
+
             //btn_actualizarUnidad.disabled = false;
 
             input_pu_unidad.classList.remove('is-invalid');
@@ -478,7 +478,7 @@ document.addEventListener('DOMContentLoaded', function () {
             input_p_ganancia_nuevo.classList.remove('is-invalid');
 
             let unidad = 0;
-            
+
             /*
             // Verifica si la pantalla es mediana o más grande
             if (window.matchMedia("(min-width: 768px)").matches) {
@@ -1288,7 +1288,7 @@ document.addEventListener('DOMContentLoaded', function () {
     */
 
     document.getElementById('producto').addEventListener('focus', function () {
-        document.getElementById('suggestions').classList.add('show');                
+        document.getElementById('suggestions').classList.add('show');
     });
 
     document.getElementById('producto').addEventListener('blur', function () {
@@ -1754,5 +1754,18 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.style.overflow = 'auto'; // Restaura el scroll del body
     });
     //openPopup();
+
+    const inputs = document.querySelectorAll('.modal-body input');
+    const calculatedValuesContainer = document.getElementById('calculatedValuesContainer');
+
+    // Función para activar `fixed-bottom` al aparecer el teclado
+    inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            calculatedValuesContainer.classList.add('fixed-bottom');
+        });
+        input.addEventListener('blur', () => {
+            calculatedValuesContainer.classList.remove('fixed-bottom');
+        });
+    });
 
 });
