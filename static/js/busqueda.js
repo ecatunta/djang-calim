@@ -1755,6 +1755,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     //openPopup();
 
+    /*
     const inputs = document.querySelectorAll('.modal-body input');
     const calculatedValuesContainer = document.getElementById('calculatedValuesContainer');
 
@@ -1766,6 +1767,6 @@ document.addEventListener('DOMContentLoaded', function () {
         input.addEventListener('blur', () => {
             calculatedValuesContainer.classList.remove('fixed-bottom');
         });
-    });
+    });*/
 
 });
