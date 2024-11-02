@@ -1518,7 +1518,7 @@ header {
   }
   
   .modal-body-scrollable {
-    max-height: 50vh; /* Altura limitada para desplazamiento */
+    max-height: 70vh; /* Altura limitada para desplazamiento */
     overflow-y: auto;
   }
 }
