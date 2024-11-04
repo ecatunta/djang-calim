@@ -745,11 +745,11 @@ document.addEventListener('DOMContentLoaded', function () {
         btn_generaItem.disabled = false;
         */
 
-        /*
+
         // Configurar temporizador de 5 segundos
         // let typingTimer;
-
         clearTimeout(typingTimer);
+
 
         typingTimer = setTimeout(function () {
             // Desactivar el campo después de 5 segundos
@@ -765,7 +765,6 @@ document.addEventListener('DOMContentLoaded', function () {
             btn_actualizarUnidad.disabled = false;
             btn_aceptar_ingreso.disabled = false;
         }, 5000);
-        */
 
     });
 
