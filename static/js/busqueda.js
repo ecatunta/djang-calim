@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-
     const btnAdicionar = document.getElementById("btn_adicionar");
     const costoUnitarioInput = document.getElementById('id_ingreso_costoU');
     const costoTotalInput = document.getElementById('id_ingreso_costoT');
@@ -22,8 +21,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const input_p_ganancia_actual = document.getElementById('pu_pGanancia_actual');
     const input_fecha_vencimiento = document.getElementById('fecha-vencimiento');
     const select_fecha_vencimiento = document.getElementById('select-fecha-vencimiento');
+
     const modal_p_ingreso = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
     const modal_s_item = new bootstrap.Modal(document.getElementById('itemModal'));
+
     const modal_ingreso = document.getElementById('ingresoPrecioUModal');
     const span_n_precio_unidad = document.getElementById('pu_precioU_nuevo');
     const span_a_precio_unidad = document.getElementById('pu_precioU_actual');
@@ -32,13 +33,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const strong_producto_nombre = document.getElementById('pu_producto_nombre');
     const tabla_items_body = document.getElementById('item-table-body');
     const span_costo_total = document.getElementById('pu_costo_total');
+    const btn_salir_modal_ingreso = document.getElementById('btn-salir-modal-ingreso');
     let g_ingreso_id;
     input_producto.value = '';
-   
+
     // Selecciona el elemento por su ID
-   const header = document.getElementById("header");
-   // Obtiene la posición "top" relativa al viewport
-   const topPosition = header.getBoundingClientRect().top;
+    const header = document.getElementById("header");
+    // Obtiene la posición "top" relativa al viewport
+    const topPosition = header.getBoundingClientRect().top;
 
 
     capaAdicionar.classList.add('locked');
@@ -715,7 +717,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     console.log("Posición top del elemento header:", topPosition);
-    alert("Posición top del elemento header: " +topPosition)
+    alert("Posición top del elemento header: " + topPosition)
 
     // Declarar el temporizador fuera del evento para que sea accesible en cada ejecución del evento 'input'
     let typingTimer;
@@ -773,10 +775,10 @@ document.addEventListener('DOMContentLoaded', function () {
             btn_generaItem.disabled = false;
             btn_actualizarUnidad.disabled = false;
             btn_aceptar_ingreso.disabled = false;
-            
+
         }, 5000);
         console.log("focus: Posición top del elemento header:", topPosition);
-        alert("focus: Posición top del elemento header: " +topPosition);
+        alert("focus: Posición top del elemento header: " + topPosition);
     });
 
 
@@ -1877,5 +1879,18 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.style.overflow = 'auto'; // Restaura el scroll del body
     });
     //openPopup();  
+
+
+    // Agrega un evento al botón de Salir
+    btn_salir_modal_ingreso.addEventListener('click', (event) => {
+        // Evita el cierre automático
+        event.preventDefault();
+
+        // Realiza cualquier acción antes de cerrar
+        console.log('Realizando acciones antes de cerrar el modal');
+        alert("focus: Posición top del elemento header: " + topPosition);
+        // Cierra el modal manualmente
+        modal_p_ingreso.hide();
+    });
 
 });
