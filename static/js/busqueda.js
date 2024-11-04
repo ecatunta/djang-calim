@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const mensajeExito = document.getElementById('mensaje-exito');
     const btn_actualizarUnidad = document.getElementById('actualizar-unidad');
     const btn_generaItem = document.getElementById('genera-item');
-    const btn_aceptar_ingreso = document.getElementById('pu_aceptar');    
+    const btn_aceptar_ingreso = document.getElementById('pu_aceptar');
     const input_pu_unidad = document.getElementById('pu_unidad');
     const input_costo_nuevo = document.getElementById('pu_costoU_nuevo');
     const input_costo_actual = document.getElementById('pu_costoU_actual');
@@ -34,6 +34,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const span_costo_total = document.getElementById('pu_costo_total');
     let g_ingreso_id;
     input_producto.value = '';
+   
+    // Selecciona el elemento por su ID
+   const header = document.getElementById("header");
+   // Obtiene la posición "top" relativa al viewport
+   const topPosition = header.getBoundingClientRect().top;
+
+
     capaAdicionar.classList.add('locked');
     // Selecciona la tabla ingreso
     const tabla_ingreso = document.getElementById('ingreso_tabla');
@@ -707,6 +714,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    console.log("Posición top del elemento header:", topPosition);
+    alert("Posición top del elemento header: " +topPosition)
 
     // Declarar el temporizador fuera del evento para que sea accesible en cada ejecución del evento 'input'
     let typingTimer;
@@ -764,8 +773,10 @@ document.addEventListener('DOMContentLoaded', function () {
             btn_generaItem.disabled = false;
             btn_actualizarUnidad.disabled = false;
             btn_aceptar_ingreso.disabled = false;
+            
         }, 5000);
-
+        console.log("focus: Posición top del elemento header:", topPosition);
+        alert("focus: Posición top del elemento header: " +topPosition);
     });
 
 
@@ -1865,6 +1876,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('popupOverlay3').style.display = 'none'; // Cierra el popup
         document.body.style.overflow = 'auto'; // Restaura el scroll del body
     });
-    //openPopup();
+    //openPopup();  
 
 });
