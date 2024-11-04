@@ -1117,7 +1117,31 @@ def Actualizar_ingreso(request, ingreso_id):
 
             return JsonResponse({'success': True})
         except Exception as e:
-            return JsonResponse({'success': False, 'error': str(e)}, status=400)        
+            return JsonResponse({'success': False, 'error': str(e)}, status=400)    
+
+
+def Actualizar_ingreso2(request, ingreso_id):
+    if request.method == 'POST':
+        try:
+            # Recuperar los datos enviados desde Ajax via POST
+            data = json.loads(request.body)
+            costo_unitario = data.get('costo_unitario')
+            if data.get('costo_unitario')=='':
+                costo_unitario = None
+            ingreso = Ingreso.objects.get(pk=ingreso_id)
+            ingreso.ingreso_unidad = data.get('unidad_entrante')
+            ingreso.ingreso_costoUnitario = costo_unitario
+            ingreso.ingreso_porcentajeGanancia = data.get('rentabilidad')
+            ingreso.ingreso_ganancia = data.get('utilidad')
+            ingreso.ingreso_precioUnitario = data.get('precio_unitario')
+            ingreso.ingreso_costoTotal = data.get('costo_total')
+
+            ingreso.save()
+            return JsonResponse({'success': True})
+
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=400)    
+
 
 '''def Actualizar_producto(request):    
     #productos = Producto.objects.select_related('subcategoria').order_by('subcategoria__subcategoria_nombre')

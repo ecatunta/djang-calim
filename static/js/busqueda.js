@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const mensajeExito = document.getElementById('mensaje-exito');
     const btn_actualizarUnidad = document.getElementById('actualizar-unidad');
     const btn_generaItem = document.getElementById('genera-item');
+    const btn_aceptar_ingreso = document.getElementById('pu_aceptar');    
     const input_pu_unidad = document.getElementById('pu_unidad');
     const input_costo_nuevo = document.getElementById('pu_costoU_nuevo');
     const input_costo_actual = document.getElementById('pu_costoU_actual');
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const strong_producto_nombre = document.getElementById('pu_producto_nombre');
     const tabla_items_body = document.getElementById('item-table-body');
     const span_costo_total = document.getElementById('pu_costo_total');
+    let g_ingreso_id;
     input_producto.value = '';
     capaAdicionar.classList.add('locked');
     // Selecciona la tabla ingreso
@@ -467,6 +469,7 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
             const row = button.closest('tr');
             const ingresoId = row.getAttribute('data-ingreso-id');
+            g_ingreso_id = row.getAttribute('data-ingreso-id');
 
             // Mostrar el spinner antes de la solicitud Ajax
             loadingSpinner.style.display = 'block';
@@ -710,7 +713,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Evento input sobre el elemento html con id pu_costoU_nuevo
     document.getElementById('pu_unidad').addEventListener('input', function () {
-
+        btn_aceptar_ingreso.disabled = true;
         // Remover cualquier carácter no numérico
         this.value = this.value.replace(/[^0-9]/g, '');
 
@@ -747,9 +750,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // let typingTimer;
         clearTimeout(typingTimer);
 
+
         typingTimer = setTimeout(function () {
             // Desactivar el campo después de 5 segundos
             input_pu_unidad.disabled = true;
+
+            actualizar_ingreso(g_ingreso_id);
 
             // Ejecutar la función llena_tabla_items
             llena_tabla_items(unidad);
@@ -757,6 +763,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Habilitar el botón btn_generaItem después de ejecutar la función
             btn_generaItem.disabled = false;
             btn_actualizarUnidad.disabled = false;
+            btn_aceptar_ingreso.disabled = false;
         }, 5000);
 
     });
@@ -833,6 +840,33 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.error('Error al actualizar el ingreso:', error);
                 });
         }
+    }
+
+    function actualizar_ingreso(ingreso_id) {
+        fetch(`/actualizar_ingreso2/${ingreso_id}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken // Token CSRF por seguridad
+            },
+            body: JSON.stringify({
+                unidad_entrante: input_pu_unidad.value,
+                costo_unitario: input_costo_nuevo.value,
+                rentabilidad: input_p_ganancia_nuevo.value,
+                utilidad: span_n_ganancia_unidad.textContent,
+                precio_unitario: span_n_precio_unidad.textContent,
+                costo_total: span_costo_total.textContent
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log(data)
+                }
+            })
+            .catch(error => {
+                console.error('Error al actualizar el ingreso:', error);
+            });
     }
 
 
@@ -1749,6 +1783,7 @@ document.addEventListener('DOMContentLoaded', function () {
     */
 
     document.getElementById('actualizar-unidad').addEventListener('click', function () {
+        //alert(g_ingreso_id);
         const modalInv = document.getElementById('ingresoPrecioUModal');
         const puUnidadInput = document.getElementById('pu_unidad');
         const itemTableBody = document.getElementById('item-table-body');

@@ -97,9 +97,9 @@ Ingreso
                                 <th data-text-xs="Prod." class="th-producto">Producto</th>
                                 <!--<th data-text-xs="Uni." class="">Unidad</th>-->
                                 <!--<th data-text-xs="$C/U" class="">Bs. Costo Unitario</th>-->
-                                <th data-text-xs="Estado">Estado</th>
+                                <!--<th data-text-xs="Estado">Estado</th>-->
                                 <!--<th data-text-xs="$Total" class="text-end costo-total">Bs. Costo Total</th>-->
-                                <th data-text-xs="Est." class="text-center">Estado</th>
+                                <th data-text-xs="Acc." class="text-center">Acción</th>
                             </tr>
                         </thead>
 
@@ -129,7 +129,7 @@ Ingreso
                                 </td>
                                 -->
 
-                                <td style="vertical-align: middle;">{{ ingreso.ingreso_referencia }}</td>
+                                <!--<td style="vertical-align: middle;">{{ ingreso.ingreso_referencia }}</td>-->
 
                                 <!--
                                 <td class="text-end costo_total" style="vertical-align: middle;">
@@ -168,10 +168,33 @@ Ingreso
                                         <span class="d-md-inline">P</span>
                                     </button>
                                     -->
-                                    <button class="btn btn-warning inventario_ingreso">
-                                        <i class="bi bi-bag d-md-inline"></i>
-                                        <!--<span class="d-md-inline">Inventario</span>-->
+
+                                    <!--<button class="ingreso_quitar btn btn-danger">                                    
+                                        <i class="bi bi-trash d-inline d-md-none"></i>                                    
+                                        <i class="bi bi-trash d-none d-md-inline"></i>
+                                        <span class="d-none d-md-inline">Quitar</span>
                                     </button>
+
+                                    <button class="btn btn-warning inventario_ingreso">
+                                        <i class="bi bi-bag d-inline d-md-none"></i>
+                                        <i class="bi bi-bag d-none d-md-inline"></i>
+                                        <span class="d-none d-md-inline">Inventario</span>
+                                    </button>-->
+
+                                    <div class="d-inline-flex gap-2">
+                                        <button class="btn btn-danger ingreso_quitar">
+                                            <i class="bi bi-trash d-inline d-md-none"></i>
+                                            <i class="bi bi-trash d-none d-md-inline"></i>
+                                            <span class="d-none d-md-inline">Quitar</span>
+                                        </button>
+
+                                        <button class="btn btn-warning inventario_ingreso">
+                                            <i class="bi bi-bag d-inline d-md-none"></i>
+                                            <i class="bi bi-bag d-none d-md-inline"></i>
+                                            <span class="d-none d-md-inline">Inventario</span>
+                                        </button>
+                                    </div>
+
                                 </td>
                             </tr>
                             {% endfor %}
@@ -250,53 +273,45 @@ Ingreso
                                     <span id="pu_precioU_actual"></span>
                                 </div>
                             </div>
-                            
-                            <ul class="list-unstyled" style="margin-bottom: 0; border: 0px solid goldenrod;">
 
-                                <li class="mb-3 value-section" style="border: 0px solid green;">
-
+                            <ul class="list-unstyled" style="margin-bottom: 0;">
+                                <li class="mb-3 value-section">
                                     <!-- Contenedor flex con etiqueta "Unidades" y botones en la misma línea -->
-                                    <div class="d-flex justify-content-between align-items-center mb-2"
-                                        style="border: 0px solid blue;">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
                                         <p class="value-label mb-0">Unidades Entrantes</p>
 
                                         <!-- Botones alineados en la misma línea -->
                                         <div class="button-group">
-                                            <button id="actualizar-unidad" class="btn btn-outline-secondary me-2"><i
+                                            <button id="actualizar-unidad" class="btn btn-outline-secondary me-1"><i
                                                     class="bi bi-arrow-clockwise"></i></button>
                                             <button id="genera-item" type="button" class="btn btn-primary"><i
                                                     class="bi bi-table"></i></button>
                                         </div>
                                     </div>
 
-                                    <div class="d-flex justify-content-between align-items-center"
-                                        style="border: 0px solid blue;">
-                                        <div class="input-container" style="border: 0px solid red; width: 50%;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="input-container" style="width: 50%;">
                                             <input type="text" id="pu_unidad" class="form-control text-center"
                                                 autocomplete="off" inputmode="numeric">
                                         </div>
-                                        <div class="current-value-label text-end"
-                                            style="border: 0px solid cyan; width: 50%;">
-                                            Costo Total: Bs <span id="pu_costo_total">0.0</span>
+                                        <div class="current-value-label text-end" style="width: 50%;">
+                                            Costo Total: Bs <span id="pu_costo_total"></span>
                                         </div>
                                     </div>
                                 </li>
 
                                 <!-- Costo Unitario -->
-                                <li class="mb-3 value-section" style="border: 0px solid green;">
+                                <li class="mb-3 value-section">
                                     <p class="value-label">Costo Unitario</p>
-
-                                    <div class="d-flex justify-content-between align-items-center"
-                                        style="border: 0px solid blue;">
-
-                                        <div class="input-container" style="border: 0px solid red; width: 50%;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="input-container" style="width: 50%;">
                                             <label for="pu_costoU_nuevo" class="new-value-label mb-1">Nuevo
                                                 Valor</label>
-                                            <input type="text" id="pu_costoU_nuevo" class="form-control text-center" autocomplete="off" inputmode="numeric">
+                                            <input type="text" id="pu_costoU_nuevo" class="form-control text-center"
+                                                autocomplete="off" inputmode="numeric">
                                         </div>
 
-                                        <div class="current-value-label text-end"
-                                            style="border: 0px solid cyan; width: 50%;">
+                                        <div class="current-value-label text-end" style="width: 50%;">
                                             Valor Actual: Bs <span id="pu_costoU_actual">100.00</span>
                                         </div>
                                     </div>
@@ -310,15 +325,17 @@ Ingreso
                                         <div class="input-container" style="width: 50%;">
                                             <label for="pu_pGanancia_nuevo" class="new-value-label mb-1">Nuevo
                                                 Valor</label>
-                                            <input type="text" id="pu_pGanancia_nuevo"
-                                                class="form-control text-center" autocomplete="off" inputmode="numeric">
+                                            <input type="text" id="pu_pGanancia_nuevo" class="form-control text-center"
+                                                autocomplete="off" inputmode="numeric">
                                         </div>
                                         <div class="current-value-label text-end" style="width: 50%;">
                                             Valor Actual: % <span id="pu_pGanancia_actual">15</span>
                                         </div>
                                     </div>
                                 </li>
+
                             </ul>
+
                         </div>
                     </div>
                 </div>

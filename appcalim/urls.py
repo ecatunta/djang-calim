@@ -28,4 +28,5 @@ urlpatterns = [
     path('inventario_ingreso/<int:ingreso_id>/', views.Inventario_ingreso, name='inventario_ingresoo'),    
     path('listado_producto/', views.Listar_producto, name='listado_producto'),    
     path('actualizar_nombre_producto/', views.Actualizar_nombre_producto, name='actualizar_nombre_producto'),    
+    path('actualizar_ingreso2/<int:ingreso_id>/', views.Actualizar_ingreso2, name='actualizar_ingreso2'),    
 ]
