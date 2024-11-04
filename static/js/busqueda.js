@@ -755,10 +755,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // Desactivar el campo después de 5 segundos
             input_pu_unidad.disabled = true;
 
-            actualizar_ingreso(g_ingreso_id);
+            //actualizar_ingreso(g_ingreso_id);
 
             // Ejecutar la función llena_tabla_items
-            //llena_tabla_items(unidad);
+            llena_tabla_items(unidad);
 
             // Habilitar el botón btn_generaItem después de ejecutar la función
             btn_generaItem.disabled = false;
