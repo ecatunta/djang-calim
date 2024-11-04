@@ -717,7 +717,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     console.log("Posición top del elemento header:", topPosition);
-    alert("Posición top del elemento header: " + topPosition)
+    //alert("Posición top del elemento header: " + topPosition)
 
     // Declarar el temporizador fuera del evento para que sea accesible en cada ejecución del evento 'input'
     let typingTimer;
@@ -778,7 +778,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         }, 5000);
         console.log("focus: Posición top del elemento header:", topPosition);
-        alert("focus: Posición top del elemento header: " + topPosition);
+        //alert("focus: Posición top del elemento header: " + topPosition);
     });
 
 
@@ -1888,7 +1888,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Realiza cualquier acción antes de cerrar
         console.log('Realizando acciones antes de cerrar el modal');
-        alert("focus: Posición top del elemento header: " + topPosition);
+        //alert("focus: Posición top del elemento header: " + topPosition);
         // Cierra el modal manualmente
         modal_p_ingreso.hide();
     });
