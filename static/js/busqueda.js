@@ -1891,6 +1891,12 @@ document.addEventListener('DOMContentLoaded', function () {
         //alert("focus: Posición top del elemento header: " + topPosition);
         // Cierra el modal manualmente
         modal_p_ingreso.hide();
+
+        // Desplaza el scroll hacia arriba con una transición suave
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Transición suave
+        });
     });
 
 });
