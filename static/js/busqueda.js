@@ -1886,6 +1886,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // Evita el cierre automático
         event.preventDefault();
 
+        // Quita el foco del campo input activo (si lo hay)
+        document.activeElement.blur();
+
         // Realiza cualquier acción antes de cerrar
         console.log('Realizando acciones antes de cerrar el modal');
         //alert("focus: Posición top del elemento header: " + topPosition);
