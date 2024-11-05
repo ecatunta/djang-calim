@@ -495,9 +495,13 @@ document.addEventListener('DOMContentLoaded', function () {
             input_costo_nuevo.classList.remove('is-invalid');
             input_p_ganancia_nuevo.classList.remove('is-invalid');
 
+            input_pu_unidad.disabled = false;
+            input_costo_nuevo.disabled = false;
+            input_p_ganancia_nuevo.disabled = false;
+
             btn_actualizarUnidad.disabled = true;
             btn_generaItem.disabled = true;
-            input_pu_unidad.disabled = false;
+
 
             let unidad = 0;
 
@@ -544,7 +548,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.getElementById('pu_costoU_nuevo').value = ingreso.nuevo.i_costo_unitario || '';
                         //document.getElementById('pu_costoU_nuevo').value = ingreso.vigente.i_costo_unitario || '';
 
-                        document.getElementById('pu_pGanancia_nuevo').value = ingreso.vigente.i_porcentaje_ganancia;
+                        if (ingreso.vigente.i_porcentaje_ganancia) {
+                            input_p_ganancia_nuevo.value = ingreso.vigente.i_porcentaje_ganancia;
+                        } else {
+                            input_p_ganancia_nuevo.value = ingreso.nuevo.i_porcentaje_ganancia;
+                        }
+
 
                         let [precio, ganancia] = calcular_precioU_ganancia(ingreso.nuevo.i_costo_unitario, 5);
                         document.getElementById('pu_precioU_nuevo').textContent = precio.toFixed(1);
@@ -576,11 +585,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // Expresión regular para permitir solo un número con hasta un decimal
         //const decimalPattern = /^\d+(\.\d{0,1})?$/;
         const inputValue = this.value;
-        const costo_unitario_nuevo = parseFloat(inputValue);
+        let costo_unitario_nuevo = parseFloat(inputValue);
         const porcentaje_ganancia_nuevo = parseFloat(input_p_ganancia_nuevo.value);
         const unidad_entrante = input_pu_unidad.value;
 
-        validateSingleDecimalInput(this);
+        costo_unitario_nuevo = parseFloat(validateSingleDecimalInput(this));
+        console.log('calculate:: ', costo_unitario_nuevo);
 
         if (inputValue === '') {
             console.log("El campo está vacío");
@@ -598,6 +608,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }*/
 
         console.log('valor actualizado... ');
+
         let [precio, ganancia] = calcular_precioU_ganancia(costo_unitario_nuevo, porcentaje_ganancia_nuevo);
 
         if (precio) {
@@ -644,10 +655,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         input_p_ganancia_nuevo.classList.remove('is-invalid');
         const inputValue = this.value;
-        const porcentaje_ganancia_nuevo = parseFloat(inputValue); // Convertir a número
+        let porcentaje_ganancia_nuevo = parseFloat(inputValue); // Convertir a número
         const costo_unitario_nuevo = parseFloat(input_costo_nuevo.value); // Convertir a número         
 
-        validateSingleDecimalInput(this);
+        porcentaje_ganancia_nuevo = parseFloat(validateSingleDecimalInput(this));
 
         // Lógica para cuando el campo queda vacío
         if (inputValue === '') {
@@ -698,6 +709,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             inputElement.value = inputValue; // Actualizar el campo con el valor filtrado
         }
+        return inputValue;
     }
 
 
@@ -1886,8 +1898,13 @@ document.addEventListener('DOMContentLoaded', function () {
         // Evita el cierre automático
         event.preventDefault();
 
+
         // Quita el foco del campo input activo (si lo hay)
-        document.activeElement.blur();
+        //document.activeElement.blur();
+
+        input_pu_unidad.disabled = true;
+        input_costo_nuevo.disabled = true;
+        input_p_ganancia_nuevo.disabled = true;
 
         // Realiza cualquier acción antes de cerrar
         console.log('Realizando acciones antes de cerrar el modal');
@@ -1900,6 +1917,7 @@ document.addEventListener('DOMContentLoaded', function () {
             top: 0,
             behavior: 'smooth' // Transición suave
         });
+
     });
 
 });
