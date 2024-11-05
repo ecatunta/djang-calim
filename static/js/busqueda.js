@@ -533,7 +533,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (data.status === 'success') {
                         // Ocultar el spinner cuando la solicitud Ajax es exitosa
                         loadingSpinner.style.display = 'none';
-
+                        /*
                         llena_tabla_items(unidad);
                         const ingreso = data.ingreso;
                         const button = document.getElementById('pu_aceptar');
@@ -554,15 +554,13 @@ document.addEventListener('DOMContentLoaded', function () {
                             input_p_ganancia_nuevo.value = ingreso.nuevo.i_porcentaje_ganancia;
                         }
 
-
                         let [precio, ganancia] = calcular_precioU_ganancia(ingreso.nuevo.i_costo_unitario, 5);
                         document.getElementById('pu_precioU_nuevo').textContent = precio.toFixed(1);
                         document.getElementById('pu_ganancia_nuevo').textContent = ganancia.toFixed(1);
+                        */
+                        
                         // Agregar el atributo data-id con un valor específico
                         button.setAttribute('data-id', ingresoId);
-
-                        // mostrar la ventana modal 
-                        //modal.show();
                         modal_p_ingreso.show();
 
                     } else {
