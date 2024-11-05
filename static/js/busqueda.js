@@ -535,6 +535,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         loadingSpinner.style.display = 'none';
                         /*
                         llena_tabla_items(unidad);
+                        */
+
                         const ingreso = data.ingreso;
                         const button = document.getElementById('pu_aceptar');
                         // Actualiza el nombre del producto en el modal
@@ -557,7 +559,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         let [precio, ganancia] = calcular_precioU_ganancia(ingreso.nuevo.i_costo_unitario, 5);
                         document.getElementById('pu_precioU_nuevo').textContent = precio.toFixed(1);
                         document.getElementById('pu_ganancia_nuevo').textContent = ganancia.toFixed(1);
-                        */
+                        
                         
                         // Agregar el atributo data-id con un valor específico
                         button.setAttribute('data-id', ingresoId);
@@ -1904,18 +1906,23 @@ document.addEventListener('DOMContentLoaded', function () {
         input_costo_nuevo.disabled = true;
         input_p_ganancia_nuevo.disabled = true;
 
+        input_pu_unidad.value = '';
+        input_costo_nuevo.value = '';
+        input_p_ganancia_nuevo.value = '';
+
         // Realiza cualquier acción antes de cerrar
         console.log('Realizando acciones antes de cerrar el modal');
         //alert("focus: Posición top del elemento header: " + topPosition);
         // Cierra el modal manualmente
         modal_p_ingreso.hide();
 
+        /*
         // Desplaza el scroll hacia arriba con una transición suave
         window.scrollTo({
             top: 0,
             behavior: 'smooth' // Transición suave
         });
-
+        */
     });
 
 });
