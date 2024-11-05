@@ -1127,13 +1127,19 @@ def Actualizar_ingreso2(request, ingreso_id):
             data = json.loads(request.body)
             costo_unitario = data.get('costo_unitario')
             porcentaje_ganancia = data.get('rentabilidad')
+            unidad = data.get('unidad_entrante')
+
             if data.get('costo_unitario')=='':
                 costo_unitario = None
                 
             if data.get('rentabilidad')=='':
                 porcentaje_ganancia = None
+
+            if data.get('unidad_entrante')=='':
+                unidad = None
+
             ingreso = Ingreso.objects.get(pk=ingreso_id)
-            ingreso.ingreso_unidad = data.get('unidad_entrante')
+            ingreso.ingreso_unidad = unidad
             ingreso.ingreso_costoUnitario = costo_unitario
             ingreso.ingreso_porcentajeGanancia = porcentaje_ganancia
             ingreso.ingreso_ganancia = data.get('utilidad')

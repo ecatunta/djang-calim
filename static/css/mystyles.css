@@ -551,7 +551,8 @@ header {
   }
 
   #ingreso_tabla,
-  #tabla-items .form-control {
+  /*#tabla-items .form-control {*/
+  #tabla-items{
     font-size: 0.8rem !important;
     padding-top: 8px !important;
     padding-bottom: 8px !important;

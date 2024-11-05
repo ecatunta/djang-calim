@@ -533,9 +533,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (data.status === 'success') {
                         // Ocultar el spinner cuando la solicitud Ajax es exitosa
                         loadingSpinner.style.display = 'none';
-                        /*
-                        llena_tabla_items(unidad);
-                        */
+
+                        if (data.unidad > 0) {
+                            llena_tabla_items(data.unidad);
+                            input_pu_unidad.disabled = true;
+                            btn_actualizarUnidad.disabled = false;
+                        }
+
 
                         const ingreso = data.ingreso;
                         const button = document.getElementById('pu_aceptar');
@@ -550,17 +554,22 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.getElementById('pu_costoU_nuevo').value = ingreso.nuevo.i_costo_unitario || '';
                         //document.getElementById('pu_costoU_nuevo').value = ingreso.vigente.i_costo_unitario || '';
 
+                        span_n_ganancia_unidad.textContent = ingreso.nuevo.i_ganancia;
+                        span_n_precio_unidad.textContent = ingreso.nuevo.i_precio_unitario;
+                        
                         if (ingreso.vigente.i_porcentaje_ganancia) {
                             input_p_ganancia_nuevo.value = ingreso.vigente.i_porcentaje_ganancia;
                         } else {
                             input_p_ganancia_nuevo.value = ingreso.nuevo.i_porcentaje_ganancia;
                         }
 
-                        let [precio, ganancia] = calcular_precioU_ganancia(ingreso.nuevo.i_costo_unitario, 5);
+
+                        /*let [precio, ganancia] = calcular_precioU_ganancia(ingreso.nuevo.i_costo_unitario, 5);
                         document.getElementById('pu_precioU_nuevo').textContent = precio.toFixed(1);
                         document.getElementById('pu_ganancia_nuevo').textContent = ganancia.toFixed(1);
-                        
-                        
+                        */
+
+
                         // Agregar el atributo data-id con un valor específico
                         button.setAttribute('data-id', ingresoId);
                         modal_p_ingreso.show();
@@ -780,7 +789,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             actualizar_ingreso2(g_ingreso_id);
 
-            // Ejecutar la función llena_tabla_items
+            // Ejecutar la función 
             llena_tabla_items(unidad);
 
             // Habilitar el botón btn_generaItem después de ejecutar la función
@@ -788,7 +797,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btn_actualizarUnidad.disabled = false;
             btn_aceptar_ingreso.disabled = false;
 
-        }, 5000);
+        }, 3000);
         console.log("focus: Posición top del elemento header:", topPosition);
         //alert("focus: Posición top del elemento header: " + topPosition);
     });
@@ -1872,7 +1881,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const puUnidadInput = document.getElementById('pu_unidad');
     // Manejar el clic en el botón "genera-item"
     document.getElementById('genera-item').addEventListener('click', function () {
-        puUnidadInput.disabled = true; // Desactivar el input "pu_unidad"
+        //puUnidadInput.disabled = true; // Desactivar el input "pu_unidad"
     });
 
     // Para abrir el popup y ocultar el scroll del body
@@ -1906,9 +1915,10 @@ document.addEventListener('DOMContentLoaded', function () {
         input_costo_nuevo.disabled = true;
         input_p_ganancia_nuevo.disabled = true;
 
-        input_pu_unidad.value = '';
+        /*input_pu_unidad.value = '';
         input_costo_nuevo.value = '';
         input_p_ganancia_nuevo.value = '';
+        */
 
         // Realiza cualquier acción antes de cerrar
         console.log('Realizando acciones antes de cerrar el modal');
