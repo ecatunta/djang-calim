@@ -1126,12 +1126,16 @@ def Actualizar_ingreso2(request, ingreso_id):
             # Recuperar los datos enviados desde Ajax via POST
             data = json.loads(request.body)
             costo_unitario = data.get('costo_unitario')
+            porcentaje_ganancia = data.get('rentabilidad')
             if data.get('costo_unitario')=='':
                 costo_unitario = None
+                
+            if data.get('rentabilidad')=='':
+                porcentaje_ganancia = None
             ingreso = Ingreso.objects.get(pk=ingreso_id)
             ingreso.ingreso_unidad = data.get('unidad_entrante')
             ingreso.ingreso_costoUnitario = costo_unitario
-            ingreso.ingreso_porcentajeGanancia = data.get('rentabilidad')
+            ingreso.ingreso_porcentajeGanancia = porcentaje_ganancia
             ingreso.ingreso_ganancia = data.get('utilidad')
             ingreso.ingreso_precioUnitario = data.get('precio_unitario')
             ingreso.ingreso_costoTotal = data.get('costo_total')

@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const filaIngreso = tabla_ingreso.querySelector('tbody tr:first-child');
 
     btn_actualizarUnidad.disabled = true;
-    btn_generaItem.disabled = true;
+    //btn_generaItem.disabled = true;
 
     if (filaIngreso) {
         // Columnas de la fila
@@ -500,7 +500,7 @@ document.addEventListener('DOMContentLoaded', function () {
             input_p_ganancia_nuevo.disabled = false;
 
             btn_actualizarUnidad.disabled = true;
-            btn_generaItem.disabled = true;
+            //btn_generaItem.disabled = true;
 
 
             let unidad = 0;
@@ -778,7 +778,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Desactivar el campo después de 5 segundos
             input_pu_unidad.disabled = true;
 
-            actualizar_ingreso(g_ingreso_id);
+            actualizar_ingreso2(g_ingreso_id);
 
             // Ejecutar la función llena_tabla_items
             llena_tabla_items(unidad);
@@ -867,7 +867,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function actualizar_ingreso(ingreso_id) {
+    function actualizar_ingreso2(ingreso_id) {
         fetch(`/actualizar_ingreso2/${ingreso_id}/`, {
             method: 'POST',
             headers: {
