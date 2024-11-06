@@ -673,9 +673,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Evento input sobre el elemento html con id pu_pGanancia_nuevo
     document.getElementById('pu_pGanancia_nuevo').addEventListener('input', function () {
-        alturaNavegador = window.innerHeight;
-        console.log("Altura del navegador input:", alturaNavegador);
-        alert(alturaNavegador);
 
         contador_inputs++;
         input_p_ganancia_nuevo.classList.remove('is-invalid');
@@ -706,6 +703,14 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             span_n_ganancia_unidad.textContent = '0.0';
         }
+
+
+        setTimeout(function () {
+            alturaNavegador = window.innerHeight;
+            console.log("Altura del navegador input:", alturaNavegador);
+            alert(alturaNavegador);
+        }, 3000);
+
     });
 
     function validateSingleDecimalInput(inputElement) {
