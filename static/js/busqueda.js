@@ -1987,7 +1987,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.classList.add('fade-out');
         setTimeout(() => {
             location.reload();
-        }, 500);  // Tiempo suficiente para que se vea el efecto de desvanecimiento
+        }, 100);  // Tiempo suficiente para que se vea el efecto de desvanecimiento
     }
 
 
