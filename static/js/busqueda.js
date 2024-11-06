@@ -556,11 +556,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         span_n_ganancia_unidad.textContent = ingreso.nuevo.i_ganancia;
                         span_n_precio_unidad.textContent = ingreso.nuevo.i_precio_unitario;
-                        
-                        if (ingreso.vigente.i_porcentaje_ganancia) {
-                            input_p_ganancia_nuevo.value = ingreso.vigente.i_porcentaje_ganancia;
-                        } else {
+
+                        console.log('porcentanje_ganancia: ', ingreso.nuevo.i_porcentaje_ganancia);
+                        if (ingreso.nuevo.i_porcentaje_ganancia) {
+                            console.log('True');
                             input_p_ganancia_nuevo.value = ingreso.nuevo.i_porcentaje_ganancia;
+                        } else {
+                            console.log('False');
+                            if (ingreso.vigente.i_porcentaje_ganancia) {
+                                input_p_ganancia_nuevo.value = ingreso.vigente.i_porcentaje_ganancia;
+                            } else {
+                                input_p_ganancia_nuevo.value = '';
+                            }
                         }
 
 
@@ -787,7 +794,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Desactivar el campo después de 5 segundos
             input_pu_unidad.disabled = true;
 
-            actualizar_ingreso2(g_ingreso_id);
+            //actualizar_ingreso2(g_ingreso_id);
 
             // Ejecutar la función 
             llena_tabla_items(unidad);
@@ -1906,14 +1913,15 @@ document.addEventListener('DOMContentLoaded', function () {
     btn_salir_modal_ingreso.addEventListener('click', (event) => {
         // Evita el cierre automático
         event.preventDefault();
-
+        //alert(g_ingreso_id);
 
         // Quita el foco del campo input activo (si lo hay)
         //document.activeElement.blur();
 
-        input_pu_unidad.disabled = true;
+        /*input_pu_unidad.disabled = true;
         input_costo_nuevo.disabled = true;
         input_p_ganancia_nuevo.disabled = true;
+        */
 
         /*input_pu_unidad.value = '';
         input_costo_nuevo.value = '';
@@ -1924,7 +1932,8 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Realizando acciones antes de cerrar el modal');
         //alert("focus: Posición top del elemento header: " + topPosition);
         // Cierra el modal manualmente
-        modal_p_ingreso.hide();
+
+
 
         /*
         // Desplaza el scroll hacia arriba con una transición suave
@@ -1933,6 +1942,37 @@ document.addEventListener('DOMContentLoaded', function () {
             behavior: 'smooth' // Transición suave
         });
         */
+
+
+
+        // Obtén todos los input de tipo "text" dentro del contenedor
+        const inputsText = modal_ingreso.querySelectorAll('input[type="text"]');
+
+        console.log('global_ingreso_id: ', g_ingreso_id);
+
+        // Itera sobre cada input y verifica su valor
+        for (const input of inputsText) {
+            console.log(`ID: ${input.id}, Valor: ${input.value}`);
+            if (input.value != '') {
+                actualizar_ingreso2(g_ingreso_id);
+                //return;  // Salir de la función si se encuentra un input con valor
+                break;  // Salimos del bucle pero no de la función completa
+            }
+        }
+
+        /*
+        // Itera sobre cada input y obtén su valor
+        inputsText.forEach(input => {
+            console.log(`ID: ${input.id}, Valor: ${input.value}`);
+            if (input.value != '') {
+                actualizar_ingreso2(g_ingreso_id);
+                return;
+            }
+        });
+        */
+
+        modal_p_ingreso.hide();
+
     });
 
 });
