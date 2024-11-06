@@ -36,6 +36,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const btn_salir_modal_ingreso = document.getElementById('btn-salir-modal-ingreso');
     let g_ingreso_id;
     let contador_inputs = 0;
+    let alturaNavegador = window.innerHeight;
+    console.log("Altura del navegador:", alturaNavegador);
+    alert(alturaNavegador);
+
     input_producto.value = '';
 
     // Selecciona el elemento por su ID
@@ -669,6 +673,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Evento input sobre el elemento html con id pu_pGanancia_nuevo
     document.getElementById('pu_pGanancia_nuevo').addEventListener('input', function () {
+        alturaNavegador = window.innerHeight;
+        console.log("Altura del navegador input:", alturaNavegador);
+        alert(alturaNavegador);
+
         contador_inputs++;
         input_p_ganancia_nuevo.classList.remove('is-invalid');
         const inputValue = this.value;
@@ -1978,7 +1986,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         modal_p_ingreso.hide();
         // Llama a esta función cuando necesites recargar la página
-        
+
         //recargarSuavemente();
 
     });
@@ -1990,7 +1998,5 @@ document.addEventListener('DOMContentLoaded', function () {
             location.reload();
         }, 100);  // Tiempo suficiente para que se vea el efecto de desvanecimiento
     }
-
-
 
 });
