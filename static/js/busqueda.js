@@ -1978,7 +1978,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         modal_p_ingreso.hide();
         // Llama a esta función cuando necesites recargar la página
-        recargarSuavemente();
+        
+        //recargarSuavemente();
 
     });
 
