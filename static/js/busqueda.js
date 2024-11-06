@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const span_costo_total = document.getElementById('pu_costo_total');
     const btn_salir_modal_ingreso = document.getElementById('btn-salir-modal-ingreso');
     let g_ingreso_id;
+    let contador_inputs = 0;
     input_producto.value = '';
 
     // Selecciona el elemento por su ID
@@ -596,7 +597,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Evento input sobre el elemento html con id pu_costoU_nuevo
     document.getElementById('pu_costoU_nuevo').addEventListener('input', function () {
-
+        contador_inputs++;
         input_costo_nuevo.classList.remove('is-invalid');
         // Expresión regular para permitir solo un número con hasta un decimal
         //const decimalPattern = /^\d+(\.\d{0,1})?$/;
@@ -668,7 +669,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Evento input sobre el elemento html con id pu_pGanancia_nuevo
     document.getElementById('pu_pGanancia_nuevo').addEventListener('input', function () {
-
+        contador_inputs++;
         input_p_ganancia_nuevo.classList.remove('is-invalid');
         const inputValue = this.value;
         let porcentaje_ganancia_nuevo = parseFloat(inputValue); // Convertir a número
@@ -752,6 +753,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Evento input sobre el elemento html con id pu_costoU_nuevo
     document.getElementById('pu_unidad').addEventListener('input', function () {
+        contador_inputs++;
         btn_aceptar_ingreso.disabled = true;
         // Remover cualquier carácter no numérico
         this.value = this.value.replace(/[^0-9]/g, '');
@@ -1948,13 +1950,16 @@ document.addEventListener('DOMContentLoaded', function () {
         // Obtén todos los input de tipo "text" dentro del contenedor
         const inputsText = modal_ingreso.querySelectorAll('input[type="text"]');
 
-        console.log('global_ingreso_id: ', g_ingreso_id);
+        console.log('global ingreso id: ', g_ingreso_id);
+        console.log('contador inputs: ', contador_inputs);
 
         // Itera sobre cada input y verifica su valor
         for (const input of inputsText) {
             console.log(`ID: ${input.id}, Valor: ${input.value}`);
-            if (input.value != '') {
+            if (input.value != '' && contador_inputs > 0) {
                 actualizar_ingreso2(g_ingreso_id);
+                // resetear la variable global
+                contador_inputs = 0;
                 //return;  // Salir de la función si se encuentra un input con valor
                 break;  // Salimos del bucle pero no de la función completa
             }
@@ -1972,7 +1977,19 @@ document.addEventListener('DOMContentLoaded', function () {
         */
 
         modal_p_ingreso.hide();
+        // Llama a esta función cuando necesites recargar la página
+        recargarSuavemente();
 
     });
+
+    // Función para recargar suavemente la página
+    function recargarSuavemente() {
+        document.body.classList.add('fade-out');
+        setTimeout(() => {
+            location.reload();
+        }, 500);  // Tiempo suficiente para que se vea el efecto de desvanecimiento
+    }
+
+
 
 });
