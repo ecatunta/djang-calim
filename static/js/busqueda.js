@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let contador_inputs = 0;
     let alturaNavegador = window.innerHeight;
     console.log("Altura del navegador:", alturaNavegador);
-    alert(alturaNavegador);
+    //alert(alturaNavegador);
 
     input_producto.value = '';
 
@@ -704,12 +704,13 @@ document.addEventListener('DOMContentLoaded', function () {
             span_n_ganancia_unidad.textContent = '0.0';
         }
 
-
+        /*
         setTimeout(function () {
             alturaNavegador = window.innerHeight;
             console.log("Altura del navegador input:", alturaNavegador);
             alert(alturaNavegador);
         }, 3000);
+        */
 
     });
 
@@ -1927,38 +1928,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Agrega un evento al botón de Salir
     btn_salir_modal_ingreso.addEventListener('click', (event) => {
         // Evita el cierre automático
-        event.preventDefault();
-        //alert(g_ingreso_id);
-
-        // Quita el foco del campo input activo (si lo hay)
-        //document.activeElement.blur();
-
-        /*input_pu_unidad.disabled = true;
-        input_costo_nuevo.disabled = true;
-        input_p_ganancia_nuevo.disabled = true;
-        */
-
-        /*input_pu_unidad.value = '';
-        input_costo_nuevo.value = '';
-        input_p_ganancia_nuevo.value = '';
-        */
-
-        // Realiza cualquier acción antes de cerrar
-        console.log('Realizando acciones antes de cerrar el modal');
-        //alert("focus: Posición top del elemento header: " + topPosition);
-        // Cierra el modal manualmente
-
-
-
-        /*
-        // Desplaza el scroll hacia arriba con una transición suave
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // Transición suave
-        });
-        */
-
-
+        event.preventDefault();     
 
         // Obtén todos los input de tipo "text" dentro del contenedor
         const inputsText = modal_ingreso.querySelectorAll('input[type="text"]');
@@ -1978,23 +1948,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        /*
-        // Itera sobre cada input y obtén su valor
-        inputsText.forEach(input => {
-            console.log(`ID: ${input.id}, Valor: ${input.value}`);
-            if (input.value != '') {
-                actualizar_ingreso2(g_ingreso_id);
-                return;
-            }
-        });
-        */
-
         modal_p_ingreso.hide();
-        // Llama a esta función cuando necesites recargar la página
-
-        //recargarSuavemente();
-
     });
+
 
     // Función para recargar suavemente la página
     function recargarSuavemente() {

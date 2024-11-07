@@ -87,8 +87,7 @@ Ingreso
             </div>
         </form>
 
-        <!--tabla ingresos pendientes-->
-        <div class="row">
+        <div class="row row-tabla-ventas2" style="border: 1px solid black;">
             <div class="col-12">
                 <div class="table-responsive">
                     <table id="ingreso_tabla" class="table table-bordered table-hover table-striped">
@@ -96,6 +95,10 @@ Ingreso
                             <tr>
                                 <th data-text-xs="Fecha">Fecha Ingreso</th>
                                 <th data-text-xs="Producto" class="th-producto">Producto</th>
+                                <!--<th data-text-xs="Uni." class="">Unidad</th>-->
+                                <!--<th data-text-xs="$C/U" class="">Bs. Costo Unitario</th>-->
+                                <!--<th data-text-xs="Estado">Estado</th>-->
+                                <!--<th data-text-xs="$Total" class="text-end costo-total">Bs. Costo Total</th>-->
                                 <th data-text-xs="Acción" class="text-center">Acción</th>
                             </tr>
                         </thead>
@@ -106,7 +109,78 @@ Ingreso
                                 <td style="vertical-align: middle;">{{ ingreso.ingreso_fecha_formateada }}</td>
                                 <td style="vertical-align: middle; text-align:left;">{{ ingreso.producto }}</td>
 
+                                <!--
+                                <td style="vertical-align: middle;">
+                                    Mostrar solo en pantallas medianas y grandes
+                                    <input type="text" class="form-control d-none d-md-block"
+                                        value="{{ ingreso.ingreso_unidad }}" data-role="unidad_number">
+                                    Mostrar solo en pantallas pequeñas
+                                    <span class="d-md-none">{{ ingreso.ingreso_unidad }}</span>
+                                </td>
+                                -->
+
+                                <!--
+                                <td class="text-end" style="vertical-align: middle;">
+                                    Mostrar solo en pantallas medianas y grandes
+                                    <input type="text" class="form-control d-none d-md-block"
+                                        value="{{ ingreso.ingreso_costoUnitario }}" data-role="costo_unitario_number">
+                                    Mostrar solo en pantallas pequeñas
+                                    <span class="d-md-none">{{ ingreso.ingreso_costoUnitario }}</span>
+                                </td>
+                                -->
+
+                                <!--<td style="vertical-align: middle;">{{ ingreso.ingreso_referencia }}</td>-->
+
+                                <!--
+                                <td class="text-end costo_total" style="vertical-align: middle;">
+                                    <span>{{ ingreso.ingreso_costoTotal }}</span>
+                                </td>                             
+                                -->
+
+                                <!--<td class="text-center" style="vertical-align: middle;">
+                                    <button class="inventario_ingreso">Inventario</button>
+                                    <button class="ingreso_quitar">Quitar</button>
+                                </td>-->
+
                                 <td class="text-center" style="vertical-align: middle;">
+
+                                    <!--<button class="inventario_ingreso btn btn-primary">                                    
+                                        <i class="bi bi-box-seam d-inline d-md-none"></i>                                    
+                                        <i class="bi bi-box-seam d-none d-md-inline"></i> <span
+                                            class="d-none d-md-inline">Inventario</span>
+                                    </button>
+                                    
+                                    <button class="ingreso_quitar btn btn-danger">                                    
+                                        <i class="bi bi-trash d-inline d-md-none"></i>
+                                    
+                                        <i class="bi bi-trash d-none d-md-inline"></i> <span
+                                            class="d-none d-md-inline">Quitar</span>
+                                    </button>-->
+
+                                    <!--<button class="btn btn-warning">                                                                                                 
+                                        <i class="bi bi-box-seam d-md-inline"></i> <span
+                                            class="d-md-inline">Pendiente</span>
+                                    </button>-->
+
+                                    <!--
+                                    <button class="btn btn-warning btn-pendiente">
+                                        <i class="bi bi-exclamation-triangle d-md-inline"></i>
+                                        <span class="d-md-inline">P</span>
+                                    </button>
+                                    -->
+
+                                    <!--<button class="ingreso_quitar btn btn-danger">                                    
+                                        <i class="bi bi-trash d-inline d-md-none"></i>                                    
+                                        <i class="bi bi-trash d-none d-md-inline"></i>
+                                        <span class="d-none d-md-inline">Quitar</span>
+                                    </button>
+
+                                    <button class="btn btn-warning inventario_ingreso">
+                                        <i class="bi bi-bag d-inline d-md-none"></i>
+                                        <i class="bi bi-bag d-none d-md-inline"></i>
+                                        <span class="d-none d-md-inline">Inventario</span>
+                                    </button>-->
+
                                     <div class="d-inline-flex gap-2">
                                         <button class="btn btn-warning inventario_ingreso">
                                             <i class="bi bi-bag d-inline d-md-none"></i>
@@ -127,7 +201,6 @@ Ingreso
                 </div>
             </div>
         </div>
-        <!--fin tabla ingresos pendientes-->
     </div>
 </section>
 
@@ -151,7 +224,28 @@ Ingreso
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
+
+            <div class="calculated-values-container" style="display: none;">
+                <div class="d-flex justify-content-between align-items-start">
+                    <!--<div class="me-2">
+                        <p class="calculated-label mb-1">Utilidad</p>
+                        <span class="calculated-value">Nuevo: Bs <span
+                                id="pu_ganancia_nuevo"></span></span>&nbsp;|&nbsp;<span id="pu_ganancia_actual"
+                            class="actual-value"></span>
+                    </div>-->
+
+                    <!--<div class="ms-2">
+                        <p class="calculated-label mb-1">Precio Unitario</p>
+                        <span class="calculated-value">Nuevo: Bs <span
+                                id="pu_precioU_nuevo"></span></span>&nbsp;|&nbsp;<span id="pu_precioU_actual"
+                            class="actual-value"></span>
+                    </div>-->
+                </div>
+            </div>
+
+
             <div class="modal-body">
+
                 <div class="row mb-2">
                     <div class="col text-center">
                         <!--<strong class="h5">Producto</strong>-->
@@ -160,8 +254,11 @@ Ingreso
                 </div>
 
                 <div class="container-fluidwww mb-0">
+
                     <div class="row justify-content-center" style="border: 0px solid red;">
+
                         <div class="col-12 container-custom">
+
                             <div class="row mb-3">
                                 <div class="col-6">
                                     <p class="mb-1">Utilidad</p>
@@ -234,15 +331,76 @@ Ingreso
                                         </div>
                                     </div>
                                 </li>
+
                             </ul>
+
                         </div>
                     </div>
                 </div>
+
+                <!--
+                <div class="row mb-1">
+                    <div class="col-5 text-end">
+                        <strong>Fecha de Vencimiento:</strong>
+                    </div>
+                    <div class="col-7">
+                        <select id="select-fecha-vencimiento" class="form-select">
+                            <option value="0">Fecha No Requerida</option>
+                            <option value="1">Fecha Unificada</option>
+                        </select>
+                    </div>
+                </div>
+         
+
+                <div class="row">
+                    <div class="col-12">
+                        <input type="date" id="fecha-vencimiento" class="form-control text-center" disabled>
+                    </div>
+                </div>
+                   -->
             </div>
+
+
+            <!-- Contenedor de valores calculados fijado en la parte inferior -->
+            <!-- 
+            <div class="calculated-values-container d-flex justify-content-between align-items-center">
+                
+                <div class="value-pair me-3">
+                    <p class="calculated-label mb-1">Ganancia</p>
+                    <span class="actual-value">Actual: <span id="pu_ganancia_actual">200.00</span></span>
+                    <span class="calculated-value">Nuevo: <span id="pu_ganancia_nuevo">250.00</span></span>
+                </div>
+                
+                <div class="value-pair ms-3">
+                    <p class="calculated-label mb-1">Precio Unitario</p>
+                    <span class="actual-value">Actual: <span id="pu_precioU_actual">275.00</span></span>
+                    <span class="calculated-value">Nuevo: <span id="pu_precioU_nuevo">300.00</span></span>
+                </div>
+            </div>
+            -->
+
+            <!-- Calculated Values Container -->
+
+            <!--
+            <div class="calculated-values-container d-flex justify-content-between align-items-center"
+                id="calculatedValuesContainer">
+                <div class="value-pair me-3">
+                    <p class="calculated-label mb-1">Ganancia</p>
+                    <span class="actual-value">Actual: <span id="pu_ganancia_actual">200.00</span></span>
+                    <span class="calculated-value">Nuevo: <span id="pu_ganancia_nuevo">250.00</span></span>
+                </div>
+                <div class="value-pair ms-3">
+                    <p class="calculated-label mb-1">Precio Unitario</p>
+                    <span class="actual-value">Actual: <span id="pu_precioU_actual">275.00</span></span>
+                    <span class="calculated-value">Nuevo: <span id="pu_precioU_nuevo">300.00</span></span>
+                </div>
+            </div>
+            -->
 
             <div class="modal-footer justify-content-center">
                 <!--<button type="button" id="btn-salir-modal-ingreso" class="btn btn-light px-4 me-3" data-bs-dismiss="modal">-->
                 <button type="button" id="btn-salir-modal-ingreso" class="btn btn-light px-4 me-1">
+                    <!--<i class="bi bi-x-circle me-2"></i>Cancelar-->
                     <i class="bi bi-arrow-up-circle me-2"></i>Salir
                 </button>
                 <button type="button" class="btn btn-success px-4" id="pu_aceptar">
@@ -252,7 +410,6 @@ Ingreso
         </div>
     </div>
 </div>
-<!-- Fin Modal principal-->
 
 <!-- Modal secundario-->
 <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true">
