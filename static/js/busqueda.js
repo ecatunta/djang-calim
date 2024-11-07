@@ -1855,24 +1855,33 @@ document.addEventListener('DOMContentLoaded', function () {
             const popupDiv = document.createElement('div');
             popupDiv.classList.add('custom-popup');
             popupDiv.innerHTML = `
-                <div class="popup-header">
-                    <h5><i class="bi bi-exclamation-triangle-fill text-warning"></i> Advertencia</h5>
-                </div> 
-                <div class="popup-body d-flex">
-                    <i class="bi bi-exclamation-circle-fill text-danger me-3" style="font-size: 4rem;"></i>
-                    <div>                                             
-                        <!--Se detectaron <strong>${rowCount} items</strong> ya creados. Si continúa, se eliminarán los cambios previos y se crearán nuevos items. <strong>Confirme si desea proceder</strong>.-->
-                        Hay <strong>${rowCount} items</strong> creados. Si continúa, perderá los cambios y se generarán nuevos items. <strong>¿Desea continuar?</strong>
+            <div class="popup-header">
+                <div class="bg-secondary text-white p-2" style="">
+                    <h5><i class="bi bi-exclamation-circle-fill text-warning"></i> Advertencia</h5>
+                </div>
+            </div>
+
+            <div class="popup-body">
+                <div class="d-flex p-3 align-items-center">
+                    <i class="bi bi-exclamation-triangle-fill text-secondary me-3" style="font-size: 4rem;"></i>
+
+                    <div style="line-height: 1.6;">
+                        Actualmente <strong>hay ${rowCount} elementos creados</strong>. Si continúa, se perderán los cambios y se
+                        generarán nuevos elementos.
+                        <hr><span>¿Desea proceder?</span>
                     </div>
                 </div>
-                <div class="popup-footer text-end">
-                    <button type="button" class="btn btn-default me-2" id="popup-cancelar">
-                        <!--<i class="bi bi-x-circle"></i>--> Cancelar
-                    </button>
-                    <button type="button" class="btn btn-success" id="popup-aceptar">
-                        <!--<i class="bi bi-check-circle"></i>--> Aceptar
-                    </button>
-                </div>
+            </div>
+
+            <div class="popup-footer p-3 bg-light text-end">
+                <button type="button" class="btn btn-default me-2" id="popup-cancelar">
+                    <!--<i class="bi bi-x-circle"></i>--> Cancelar
+                </button>
+                <button type="button" class="btn btn-success" id="popup-aceptar">
+                    <!--<i class="bi bi-check-circle"></i>--> Aceptar
+                </button>
+            </div>
+
             `;
 
             // Agregar el popup al overlay y luego al cuerpo del modal
