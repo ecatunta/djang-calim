@@ -1368,22 +1368,22 @@ header {
 /* Estilo para alternar el color de fondo de los elementos <li> */
 .list-item:nth-child(odd) {
   /*background-color: #f8f9fa;*/
-  background-color: #F2F2F2;
+  /*background-color: #F2F2F2;*/
 }
 
 .list-item:nth-child(even) {
   /*background-color: #e9ecef;*/
   /*background-color: #d5edf1;*/
-  background-color: #E6E9EB;
+  /*background-color: #E6E9EB;*/
 }
 
 .list-item {
-  color: #333333 !important;
+  /*color: #333333 !important;*/
 }
 
 .list-item {
-  border-bottom: 1px solid #CCCCCC; /* línea delgada y clara */
-  padding: 10px 10px 0px 10px;
+  /*border-bottom: 1px solid #CCCCCC; 
+  padding: 10px 10px 0px 10px;*/
   /*font-family: 'Helvetica Neue', sans-serif;*/
 }
 
@@ -1500,13 +1500,37 @@ header {
       color: #6c757d;
 }
 */
-  
+
+/*
 .valor-calculado{
   padding: 10px;;
   background-color: #fff;
   border: 1px solid #f8f8f8;
   border-radius: 5px;
 }
+*/
+
+/* CSS */
+.value-new {
+  font-weight: bold;
+  color: #007bff; /* Color destacado */
+  background-color: #eaf4ff; /* Fondo sutil */
+  border: 1px solid #007bff; /* Borde para destacar */
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.value-current {
+  font-weight: normal;
+  color: #6c757d; /* Color más tenue */
+  padding: 2px 4px;
+  display: inline-block;
+  margin-right: 5px;
+  opacity: 0.8; /* Un poco más translúcido */
+}
+
     /*.calculated-value {
         font-size: 1.2rem;
         color: #0d6efd;
@@ -1535,4 +1559,39 @@ header {
 .fade-out {
   opacity: 0;
   transition: opacity 0.5s ease-out;
+}
+
+
+
+#popup-body-i {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa; /* Fondo suave */
+  border-radius: 0.5rem;
+}
+
+#popup-body-i h5 {
+  color: #343a40;
+}
+
+#popup-body-i .text-muted {
+  color: #6c757d !important;
+}
+
+#popup-body-i .badge {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+#popup-body-i ul {
+  margin: 0;
+  padding: 0;
+}
+
+#popup-body-i ul li {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+#popup-body-i hr {
+  border-color: #dee2e6;
 }

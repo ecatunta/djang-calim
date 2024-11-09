@@ -29,6 +29,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const span_n_precio_unidad = document.getElementById('pu_precioU_nuevo');
     const span_a_precio_unidad = document.getElementById('pu_precioU_actual');
     const span_n_ganancia_unidad = document.getElementById('pu_ganancia_nuevo');
+    let g_ganancia_unidad = 0;
+    let g_precio_unidad = 0;
+
     const span_a_ganancia_unidad = document.getElementById('pu_ganancia_actual');
     const strong_producto_nombre = document.getElementById('pu_producto_nombre');
     const tabla_items_body = document.getElementById('item-table-body');
@@ -351,7 +354,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             suggestions.style.display = 'none';
                             capaAdicionar.classList.remove('locked');
                             btnAdicionar.disabled = false;
-
                         });
 
                         suggestions.appendChild(li);
@@ -545,7 +547,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             btn_actualizarUnidad.disabled = false;
                         }
 
-
                         const ingreso = data.ingreso;
                         const button = document.getElementById('pu_aceptar');
                         // Actualiza el nombre del producto en el modal
@@ -559,10 +560,23 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.getElementById('pu_costoU_nuevo').value = ingreso.nuevo.i_costo_unitario || '';
                         //document.getElementById('pu_costoU_nuevo').value = ingreso.vigente.i_costo_unitario || '';
 
-                        span_n_ganancia_unidad.textContent = ingreso.nuevo.i_ganancia;
-                        span_n_precio_unidad.textContent = ingreso.nuevo.i_precio_unitario;
+                        span_n_ganancia_unidad.textContent = '$' + ingreso.nuevo.i_ganancia;
 
-                        console.log('porcentanje_ganancia: ', ingreso.nuevo.i_porcentaje_ganancia);
+                        span_n_precio_unidad.textContent = '$' + ingreso.nuevo.i_precio_unitario;
+
+                        if (!ingreso.nuevo.i_ganancia) {
+                            span_n_ganancia_unidad.textContent = '$0.0';
+                        }
+
+                        if (!ingreso.nuevo.i_precio_unitario) {
+                            span_n_precio_unidad.textContent = '$0.0';
+                        }
+
+                        g_ganancia_unidad = ingreso.nuevo.i_ganancia;
+                        g_precio_unidad = ingreso.nuevo.i_precio_unitario
+                        //console.log('ganancia unidad: ', g_ganancia_unidad);
+
+                        //console.log('porcentanje_ganancia: ', ingreso.nuevo.i_porcentaje_ganancia);
                         if (ingreso.nuevo.i_porcentaje_ganancia) {
                             console.log('True');
                             input_p_ganancia_nuevo.value = ingreso.nuevo.i_porcentaje_ganancia;
@@ -575,17 +589,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                         }
 
-
-                        /*let [precio, ganancia] = calcular_precioU_ganancia(ingreso.nuevo.i_costo_unitario, 5);
-                        document.getElementById('pu_precioU_nuevo').textContent = precio.toFixed(1);
-                        document.getElementById('pu_ganancia_nuevo').textContent = ganancia.toFixed(1);
-                        */
-
-
                         // Agregar el atributo data-id con un valor específico
                         button.setAttribute('data-id', ingresoId);
                         modal_p_ingreso.show();
-
                     } else {
                         alert('error en la respuesta Ajax.');
                     }
@@ -594,7 +600,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.error('Error:', error);
                     alert("error en la solicitud Ajax.");
                 });
-
         });
     });
 
@@ -603,12 +608,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('pu_costoU_nuevo').addEventListener('input', function () {
         contador_inputs++;
         input_costo_nuevo.classList.remove('is-invalid');
-        // Expresión regular para permitir solo un número con hasta un decimal
-        //const decimalPattern = /^\d+(\.\d{0,1})?$/;
         const inputValue = this.value;
-        let costo_unitario_nuevo = parseFloat(inputValue);
         const porcentaje_ganancia_nuevo = parseFloat(input_p_ganancia_nuevo.value);
         const unidad_entrante = input_pu_unidad.value;
+        let costo_unitario_nuevo = parseFloat(inputValue);
 
         costo_unitario_nuevo = parseFloat(validateSingleDecimalInput(this));
         console.log('calculate:: ', costo_unitario_nuevo);
@@ -621,25 +624,19 @@ document.addEventListener('DOMContentLoaded', function () {
             span_costo_total.textContent = '0.0';
         }
 
-        /*
-        if (isNaN(costo_unitario_nuevo) || costo_unitario_nuevo < 0 || !decimalPattern.test(inputValue)) {
-            // Si no coincide, revertir al último valor válido
-            this.value = inputValue.slice(0, -1);
-            return;
-        }*/
-
-        console.log('valor actualizado... ');
+        console.log('Calcular precioU y ganancia ...');
 
         let [precio, ganancia] = calcular_precioU_ganancia(costo_unitario_nuevo, porcentaje_ganancia_nuevo);
 
         if (precio) {
-            span_n_precio_unidad.textContent = precio.toFixed(1);
+            span_n_precio_unidad.textContent = '$' + precio.toFixed(1);
+            //span_n_precio_unidad.textContent = precio.toFixed(1);
         } else {
             span_n_precio_unidad.textContent = '0.0';
         }
 
         if (ganancia) {
-            span_n_ganancia_unidad.textContent = ganancia.toFixed(1);
+            span_n_ganancia_unidad.textContent = '$' + ganancia.toFixed(1);
         } else {
             span_n_ganancia_unidad.textContent = '0.0';
         }
@@ -648,10 +645,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         //console.log('costo_total: ', costo_total);
         if (costo_total) {
+            //span_costo_total.textContent = '$' + costo_total.toFixed(1);
             span_costo_total.textContent = costo_total.toFixed(1);
         } else {
+            //span_costo_total.textContent = '$0.0';
             span_costo_total.textContent = '0.0';
         }
+
+        g_ganancia_unidad = span_n_ganancia_unidad.textContent;
+        g_precio_unidad = span_n_precio_unidad.textContent;      
+        g_ganancia_unidad = parseFloat(g_ganancia_unidad.replace("$", ""));
+        g_precio_unidad = parseFloat(g_precio_unidad.replace("$", ""));
+
     });
 
     input_costo_nuevo.addEventListener('keydown', function (event) {
@@ -693,24 +698,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let [precio, ganancia] = calcular_precioU_ganancia(costo_unitario_nuevo, porcentaje_ganancia_nuevo);
         if (precio) {
-            span_n_precio_unidad.textContent = precio.toFixed(1);
+            span_n_precio_unidad.textContent = '$' + precio.toFixed(1);
         } else {
-            span_n_precio_unidad.textContent = '0.0';
+            span_n_precio_unidad.textContent = '$0.0';
         }
 
         if (ganancia) {
-            span_n_ganancia_unidad.textContent = ganancia.toFixed(1);
+            span_n_ganancia_unidad.textContent = '$' + ganancia.toFixed(1);
         } else {
-            span_n_ganancia_unidad.textContent = '0.0';
+            span_n_ganancia_unidad.textContent = '$0.0';
         }
-
-        /*
-        setTimeout(function () {
-            alturaNavegador = window.innerHeight;
-            console.log("Altura del navegador input:", alturaNavegador);
-            alert(alturaNavegador);
-        }, 3000);
-        */
+       
+        g_ganancia_unidad = span_n_ganancia_unidad.textContent;
+        g_precio_unidad = span_n_precio_unidad.textContent;
+        g_ganancia_unidad = parseFloat(g_ganancia_unidad.replace("$", ""));
+        g_precio_unidad = parseFloat(g_precio_unidad.replace("$", ""));
 
     });
 
@@ -910,8 +912,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 unidad_entrante: input_pu_unidad.value,
                 costo_unitario: input_costo_nuevo.value,
                 rentabilidad: input_p_ganancia_nuevo.value,
-                utilidad: span_n_ganancia_unidad.textContent,
-                precio_unitario: span_n_precio_unidad.textContent,
+                utilidad: g_ganancia_unidad,
+                //utilidad: span_n_ganancia_unidad.textContent,
+                precio_unitario: g_precio_unidad,
+                //precio_unitario: span_n_precio_unidad.textContent,
                 costo_total: span_costo_total.textContent
             })
         })
@@ -1051,11 +1055,13 @@ document.addEventListener('DOMContentLoaded', function () {
         popupDiv.innerHTML = `
         <!-- Header del Popup -->        
         <div class="popup-header">
-            <div class="bg-info text-white p-2 rounded-top d-flex align-items-center">
+            <!--<div class="bg-info text-white p-2 rounded-top d-flex align-items-center">-->
+            <div class="bg-secondary text-info p-2 rounded-top d-flex align-items-center">
                 <div class="d-flex justify-content-center me-2" style="font-size: 2.2rem;">
                     <i class="bi bi-info-circle-fill"></i>
                 </div>
-                <h5 class="mb-0 text-center flex-grow-1">Aviso de Inventario</h5>
+                <!--<h5 class="mb-0 text-center flex-grow-1">Aviso de Inventario</h5>-->
+                <h5 class="mb-0 flex-grow-1">Aviso de Inventario</h5>
             </div>
         </div>
 
@@ -1068,7 +1074,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 <strong>“${strong_producto_nombre.textContent}”</strong>
             </p>
             <p class="mt-4">
-                El nuevo precio por unidad será de <strong>Bs. ${span_n_precio_unidad.textContent}</strong>.
+                <!--El nuevo precio por unidad será de <strong>Bs. ${span_n_precio_unidad.textContent}</strong>.-->
+                El nuevo precio por unidad será de <strong>Bs. ${g_precio_unidad}</strong>.
             </p>
             <p class="text-warning mt-3">
                 <i class="bi bi-exclamation-triangle-fill me-1"></i> Atención: Los productos en esta selección <strong>${mensaje}</strong>.
@@ -1127,8 +1134,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: JSON.stringify({
                     costoUnitario: costoUnitario,
                     porGanancia: porGanancia,
-                    ganancia: ganancia,
-                    precioNuevo: precioNuevo,
+                    ganancia: g_ganancia_unidad,
+                    //ganancia: ganancia,
+                    //precioNuevo: precioNuevo,
+                    precioNuevo: g_precio_unidad,
                     unidad: unidad,
                     costoTotal: costoTotal,
                     items: datosTabla
@@ -1937,7 +1946,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Agrega un evento al botón de Salir
     btn_salir_modal_ingreso.addEventListener('click', (event) => {
         // Evita el cierre automático
-        event.preventDefault();     
+        event.preventDefault();
 
         // Obtén todos los input de tipo "text" dentro del contenedor
         const inputsText = modal_ingreso.querySelectorAll('input[type="text"]');
