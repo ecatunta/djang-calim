@@ -1,0 +1,1604 @@
+.header {
+  --background-color: #3d4d6a !important;
+}
+
+.section {
+  border: 0px solid green !important;
+}
+
+.container-breadcrumb {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  border: 0px solid red;
+  /*background-color: #ffffff;*/
+  /*background-color: #f5f6f8;*/
+}
+
+.container-breadcrumb ul {
+  margin-bottom: 0px;
+  border: 0px solid yellow;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+@media (max-width: 1024px) {
+  .container-breadcrumb {
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-breadcrumb {
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-breadcrumb {
+    margin-top: 2px;
+  }
+}
+
+/* css inicio*/
+.container-calim {
+  border: 0px solid green;
+  margin-top: 30px;
+}
+
+.container-calim ul {
+  margin-bottom: 0px;
+  padding: 0px;
+}
+
+@media (max-width: 1024px) {
+  .container-calim {
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-calim {
+    margin-top: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-calim {
+    margin-top: 6px;
+  }
+}
+
+/* css fin*/
+.precio {
+  border: 0px solid green;
+  background: white;
+  border-radius: 0px;
+}
+
+.buy-btn2 {
+  color: var(--accent-color);
+  display: inline-block;
+  padding: 8px 35px 10px 35px;
+  border-radius: 50px;
+  transition: none;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: var(--heading-font);
+  transition: 0.3s;
+  border: 1px solid var(--accent-color);
+}
+
+.my-section {
+  /*background-color: blue;*/
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 0px;
+  /*box-shadow: 0 4px 8px rgba(0,0,0,0.1);  */
+}
+
+.my-section .row:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.my-section .row:nth-child(even) {
+  background-color: #ffffff;
+}
+
+
+.my-section h4 {
+  color: black;
+}
+
+.product-description {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+
+.precio {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  position: relative;
+}
+
+.precio-paquete2,
+.precio-jaba2 {
+  font-size: 1.7em;
+  padding: 7px 7px 1px 7px;
+  border-radius: 1px;
+  position: relative;
+  display: inline-block;
+}
+
+.precio-paquete2 {
+  /*  color: #8C1408;*/
+
+  /*color: #3d4d6a;*/
+  color: black;
+  /*background-color: #FCB8B1;*/
+  background-color: #Fff;
+  border-bottom: 2px solid #757272;
+}
+
+.precio-jaba2 {
+  /*color: #494947;*/
+  color: black;
+  /*background-color: #A0F1F0;*/
+  background-color: #Fff;
+  border-bottom: 2px solid #757272;
+}
+
+.precio-descripcion2 {
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #757272;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 8px;
+  position: relative;
+}
+
+.linea-paquete::after {
+  content: '';
+  width: 2px;
+  height: 20px;
+  /*background-color: #FCB8B1; /* Color para la línea de paquete */
+  background-color: #757272;
+  /* Color para la línea de paquete */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 100%;
+}
+
+.linea-descripcion-paquete::before {
+  content: '';
+  width: 4px;
+  height: 8px;
+  /*background-color: #FCB8B1; /* Color para la línea de paquete */
+  background-color: #757272;
+  /* Color para la línea de paquete */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 100%;
+}
+
+.linea-jaba::after {
+  content: '';
+  width: 2px;
+  height: 20px;
+  /*background-color: #A0F1F0;  Color para la línea de jaba */
+  background-color: #757272;
+  /* Color para la línea de jaba */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 100%;
+}
+
+.linea-descripcion-jaba::before {
+  content: '';
+  width: 4px;
+  height: 8px;
+  /*background-color: #A0F1F0; /* Color para la línea de jaba */
+  background-color: #757272;
+  /* Color para la línea de jaba */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 100%;
+}
+
+/* Estilo base para todas las imágenes */
+.carousel-item img {
+  height: 700px;
+  /* Define una altura fija */
+  object-fit: cover;
+  /* Asegura que la imagen se ajuste sin distorsionarse */
+}
+
+/* Para dispositivos pequeños (por ejemplo, teléfonos móviles) */
+@media (max-width: 576px) {
+  .carousel-item img {
+    /*height: 400px; /* Ajusta la altura para dispositivos pequeños */
+    height: 380px;
+  }
+}
+
+/* Para dispositivos medianos (por ejemplo, tabletas) */
+@media (min-width: 577px) and (max-width: 768px) {
+  .carousel-item img {
+    height: 400px;
+    /* Ajusta la altura para dispositivos medianos */
+  }
+}
+
+/* Para dispositivos grandes (por ejemplo, pantallas de escritorio) */
+@media (min-width: 769px) {
+  .carousel-item img {
+    height: 700px;
+    /* Ajusta la altura para dispositivos grandes */
+  }
+}
+
+
+/* Ocultar controles del carrusel en dispositivos con pantallas pequeñas */
+@media (max-width: 768px) {
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    display: none;
+  }
+}
+
+/* Ajustar la duración de la transición del carrusel */
+.carousel-item {
+  transition: transform 0.2s ease-in-out;
+  /* Cambia 0.3s al tiempo que prefieras */
+}
+
+
+/* Imagen en pantalla completa */
+#fullScreenImage {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+}
+
+#fullScreenImage>div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+#fullScreenImg {
+  max-height: 90%;
+  max-width: 90%;
+}
+
+#closeFullScreen {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 100px;
+  cursor: pointer;
+}
+
+
+
+.breadcrumb-item+.breadcrumb-item::before {
+  content: ">";
+}
+
+
+/*.breadcrumb-item + .breadcrumb-item::before {
+  content: "\f415"; 
+  font-family: "Bootstrap Icons";
+  color: #000; 
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}*/
+
+.card {
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: #007bff;
+  /* Fondo azul */
+  color: white;
+  /* Texto blanco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Sombra ligera */
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+  /* Animación suave */
+}
+
+.card:hover .card-title {
+  color: white;
+  /* Cambia el color del título también */
+}
+
+.card:hover i {
+  color: white;
+  /* Cambia el color del ícono */
+}
+
+.card:active {
+  background-color: #0056b3;
+  /* Fondo más oscuro en clic */
+  color: white;
+}
+
+
+.scat-container-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 240px;
+  overflow: hidden;
+  /* Oculta cualquier desbordamiento */
+}
+
+.scat-container-img img {
+  width: 100%;
+  height: 100%;
+  /*  object-fit: cover; /* Hace que la imagen cubra todo el espacio sin distorsionarse */
+  object-fit: contain;
+  /* Cambia a 'contain' para evitar recortes */
+  object-position: center;
+  /* Centra la imagen */
+}
+
+.sb {
+  height: 320px;
+}
+
+
+/*formulario de ventas inicio*/
+
+/* Solo afectará a los elementos dentro de la clase .venta-form */
+.venta-form .form-control {
+  height: 60px;
+  /* Aumenta la altura de los campos */
+  font-size: 1.1rem;
+}
+
+.venta-form .row-producto {
+  background-color: #f8f9fa;
+  /* Color de fondo más claro para la primera fila */
+  /*padding: 20px;*/
+  border-radius: 5px;
+}
+
+.venta-form .row-campos {
+  /*margin-top: 20px;*/
+  padding: 20px;
+  background-color: #e9ecef;
+  /* Color de fondo diferente para la segunda fila */
+  border-radius: 5px;
+}
+
+.venta-form #id_producto::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  /* Color más transparente para el placeholder */
+}
+
+.venta-form .v-placeholder::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  /* Color más transparente para el placeholder */
+}
+
+
+/* Estilo para los campos bloqueados */
+.disabled-input {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+  /*color: #495057;*/
+  /*font-weight: bold;*/
+}
+
+header {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.header-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 768px) {
+
+  /*.input-group-text {
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #000;
+  }*/
+
+  .input-group-text {
+    border: none;
+    background-color: transparent;
+    color: #6c757d;
+    /* Color gris oscuro para los íconos */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    /*border: 1px solid red !important;*/
+  }
+
+  /*.input-group-text {
+    font-size: 1.1rem;
+  }*/
+
+  #producto {
+    padding-left: 10px;
+    /* Espacio para los íconos en el lado izquierdo */
+    width: calc(100% - 80px);
+    /* Reducir el ancho del input cuando hay íconos */
+  }
+
+  /*#back-arrow {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1060;
+    display: none;
+    padding: 15px 10px 15px 10px;
+  }*/
+
+  /*
+  .fixed-search-bar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050;  
+    background-color:#f5f6f8;
+    padding-bottom: 4px;
+  }*/
+
+
+  /*.fixed-search-bar #producto{
+    padding-left: 50px;
+  }
+  */
+  /* Estilo base del contenedor */
+  #search-bar-container-padre {
+    transition: all 0.3s ease;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  /*.fixed-search-bar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050; 
+    background-color: #f5f6f8;
+    padding-bottom: 4px;
+    transition: top 0.3s ease, background-color 0.3s ease, opacity 0.3s ease; 
+    transition: all 0.3s ease; 
+  }*/
+
+  .fixed-search-bar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050;
+    /* Para estar sobre el header */
+    background-color: #f5f6f8;
+    padding-bottom: 4px;
+    transform: translateZ(0);
+    /* Forzar renderización en GPU */
+    transition: transform 0.3s ease, top 0.3s ease, opacity 0.3s ease;
+    will-change: transform, top;
+    /* Optimización para la GPU */
+  }
+
+
+  .fixed-suggestions {
+    position: fixed !important;
+    top: 50px !important;
+    /* Justo debajo de la barra de búsqueda fija */
+    left: 0 !important;
+    right: 0 !important;
+    max-height: 400px !important;
+    /* Ajustar el tamaño del panel de sugerencias */
+    z-index: 1049 !important;
+    background-color: white !important;
+    overflow-y: auto !important;
+    border: 1px solid #ccc !important;
+    border-radius: 5px !important;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .row-campos {
+    font-size: 1.0rem;
+  }
+
+  .row-campos .form-control {
+    font-size: 1.0rem;
+  }
+
+  #ingreso_tabla,
+  #tabla-items {
+   /* font-size: 0.9rem !important;*/
+  }
+
+  #ingreso_tabla .btn {
+    font-size: 0.9rem !important;
+  }
+
+  #ingreso_tabla,
+  /*#tabla-items .form-control {*/
+  #tabla-items, #tabla-items .form-control {
+    font-size: 0.8rem !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  #ingreso_tabla th::before {
+    content: attr(data-text-xs);
+    font-weight: bold;
+    color: white;
+    /* Asegúrate de que el color sea adecuado */
+  }
+
+  /* Oculta el texto original en pantallas pequeñas */
+  #ingreso_tabla th {
+    font-size: 0;
+  }
+
+  /* Ajustar la visibilidad de las columnas si es necesario */
+  #ingreso_tabla th::before {
+    font-size: 14px;
+    /* Tamaño de letra deseado para el contenido pequeño */
+  }
+
+  .container-ingreso {
+    margin-top: 15px !important;
+  }
+
+  .btn-pendiente {
+    padding: 3px;
+  }
+
+  .th-producto {
+    /*width: 80px;*/
+  }
+
+  .row-tabla-ventas .form-control {
+    font-size: 0.7rem !important;
+  }
+
+}
+
+.container-ingreso {
+  margin-top: 80px;
+}
+
+/* fin media query*/
+
+.btn-pendiente {
+  border: 1px solid red;
+  /* Borde llamativo */
+  /*box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4);*/
+  /* Sombra roja */
+  animation: pulse 1.5s infinite;
+  /* Animación suave */
+  /*font-weight: bold;*/
+  transition: all 0.3s ease;
+}
+
+.btn-pendiente:hover {
+  background-color: #ffc107;
+  /* Fondo más brillante al pasar el mouse */
+  border-color: #d9534f;
+  /* Cambiar borde al pasar el mouse */
+  box-shadow: 0 6px 15px rgba(255, 0, 0, 0.6);
+  /* Incrementar la sombra */
+}
+
+/* Estilos para pantallas grandes, por defecto */
+.label-unidad::before {
+  content: "Unidades";
+}
+
+.label-costoU::before {
+  content: "Bs Costo Unitario";
+}
+
+.label-costoT::before {
+  content: "Bs Costo Total";
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+  .label-unidad::before {
+    content: "Unidad";
+    /* Cambia el texto de "Unidad" a "Uni" */
+  }
+
+  .label-costoU::before {
+    content: "Bs C/u";
+    /* Cambia el texto de "Costo Unidad" a "$ C/u" */
+  }
+
+  .label-costoT::before {
+    content: "Bs Total";
+    /* Cambia el texto de "Costo Total ($)" a "Total ($)" */
+  }
+
+  #capa-adicionar {
+    margin-top: -10px;
+  }
+}
+
+#ingreso_tabla .form-control {
+  text-align: center;
+}
+
+#btn_adicionar_sm i {
+  font-size: 2.8rem;
+  /* Ajusta el tamaño del ícono */
+  color: #fff;
+  /* Color del ícono */
+}
+
+/* ticket */
+.ticket-display {
+  display: inline-block;
+  background-color: #007bff;
+  /* Color de fondo azul de Bootstrap */
+  color: white;
+  /* Texto en blanco */
+  padding: 15px 30px;
+  /* Espaciado interno */
+  border-radius: 10px;
+  /* Bordes redondeados */
+  font-size: 2rem;
+  /* Tamaño de fuente grande */
+  font-weight: bold;
+  /* Texto en negrita */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  /* Sombra suave */
+}
+
+.row-tabla-ventas {
+  background-color: #fffefe;
+  border-radius: 0px;
+}
+
+/*modal para registrar el precio y ganancia del producto */
+.modal-custom {
+  max-width: 550px;
+  margin: auto;
+}
+
+.table-sm th,
+.table-sm td {
+  padding: 0.75rem;
+}
+
+.modal-footer .btn {
+  margin: 0 10px;
+}
+
+/* Resaltar columna "Valor Nuevo" */
+/*
+.highlight-column {
+  background-color: #f9f9f9;
+  font-weight: bold;
+  color: #2c3e50;
+  border-left: 3px solid #3498db;
+}*/
+
+.t-placeholder::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+/* Añadir bordes redondeados completos y sombra a la barra de búsqueda */
+.search-bar-container {
+  border-radius: 50px;
+  overflow: hidden;
+  /* Asegura que los elementos dentro del contenedor respeten los bordes redondeados */
+  transition: box-shadow 0.3s ease-in-out;
+  border: 1px solid blue;
+}
+
+/* Efecto de enfoque para la barra de búsqueda */
+/* Sombra más destacada al hacer clic */
+/*
+.search-bar-container:focus-within {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); 
+}
+  */
+
+/* Efecto de enfoque mejorado para la barra de búsqueda */
+.search-bar-container {
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+  /* Transición suave */
+}
+
+.search-bar-container:focus-within {
+  box-shadow: 0 0 12px rgba(0, 123, 255, 0.5);
+  /* Sombra más suave y color resaltado */
+  border: 1px solid rgba(0, 123, 255, 0.5);
+  /* Borde con color azul claro */
+  border-radius: 50px;
+  /* Asegura que el borde tenga esquinas redondeadas */
+}
+
+/* Ajustar los íconos para que no tengan borde y se mezclen con el fondo */
+/*
+.input-group-text {
+  border: none;
+  background-color: transparent;
+  color: #6c757d; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+*/
+
+.input-group-text {
+  border: none;
+  background-color: transparent;
+  color: #6c757d;
+  /* Color gris oscuro para los íconos */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  /* Suaviza la transición de opacidad */
+}
+
+
+/* Cambiar el color del ícono al pasar el cursor para una mejor UX */
+.input-group-text:hover {
+  color: #000;
+  /* Cambia el color del ícono a negro al pasar el cursor */
+}
+
+/* Estilo del input para que combine con el diseño general */
+.form-control:focus {
+  box-shadow: none;
+  /* Eliminar el efecto de foco predeterminado de Bootstrap */
+  outline: none;
+  /* Eliminar el borde del navegador en el enfoque */
+}
+
+
+/* Centrar el input para pantallas grandes 
+@media (min-width: 768px) {
+  .search-bar-container {
+      max-width: 700px; 
+      margin: auto; 
+  }
+}
+  */
+
+
+/* Ajustes para el panel de sugerencias */
+#suggestions {
+  max-height: 400px;
+  overflow-y: auto;
+  position: absolute;
+  top: 100%;
+  /* Alinea el panel justo debajo de la barra de búsqueda */
+  left: 0;
+  width: 100%;
+  /* Ajusta el ancho para que sea igual al de la barra de búsqueda */
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  /* Bordes redondeados */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  /* Sin relleno exterior */
+  opacity: 0;
+  /* Inicialmente oculto para la animación */
+  transform: translateY(-10px);
+  /* Posición inicial para animación */
+  transition: all 0.3s ease-in-out;
+  /* Transición para la animación */
+}
+
+/* Estilo del panel de sugerencias */
+#suggestions {
+  max-height: 400px;
+  overflow-y: auto;
+  position: absolute;
+  top: 100%;
+  /* Alinea el panel justo debajo de la barra de búsqueda */
+  left: 0;
+  width: 100%;
+  /* Ajusta el ancho para que sea igual al de la barra de búsqueda */
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  /* Bordes redondeados */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  /* Sin relleno exterior */
+  opacity: 0;
+  /* Inicialmente oculto para la animación */
+  transform: translateY(-10px);
+  /* Posición inicial para animación */
+  transition: all 0.3s ease-in-out;
+  /* Transición para la animación */
+}
+
+#suggestions.show {
+  opacity: 1;
+  /* Visible cuando se muestra */
+  transform: translateY(0);
+  /* Posición final para la animación */
+}
+
+#suggestions li {
+  padding: 10px;
+  /* Relleno para mejorar la legibilidad */
+  cursor: pointer;
+  display: flex;
+  /* Alineación del ícono y el texto */
+  align-items: center;
+  /* Centra verticalmente el contenido */
+  border-bottom: none;
+  /* Sin líneas entre los elementos */
+}
+
+#suggestions li i {
+  margin-right: 10px;
+  /* Espacio entre el ícono y el texto */
+  color: #888;
+  /* Color gris para el ícono */
+}
+
+#suggestions li:hover {
+  background-color: #f1f1f1;
+  /* Efecto hover */
+}
+
+
+#capa-adicionar {
+  position: relative;
+  background-color: #f9f9f9;
+  /* Fondo claro por defecto */
+  border: 1px solid transparent;
+  /* Borde invisible por defecto */
+  box-shadow: none;
+  /* Sin sombra por defecto */
+  transform: scale(1);
+  transition: background-color 0.5s ease, border 0.5s ease, box-shadow 0.5s ease, transform 0.3s ease;
+}
+
+#capa-adicionar.locked {
+  position: relative;
+  /* Necesario para que la capa de bloqueo se posicione correctamente */
+  opacity: 0.5;
+  /* Dar una apariencia de deshabilitado */
+  pointer-events: none;
+  /* Bloquear la interacción con todos los elementos hijos */
+  background-color: rgba(200, 200, 200, 0.5);
+  /* Fondo gris claro semi-transparente al estar bloqueado */
+  /*filter: blur(0px);  Efecto de desenfoque en el contenido */
+  transition: opacity 0.9s ease;
+  /* Transición suave de la opacidad */
+}
+
+#capa-adicionar:not(.locked) {
+  background-color: #ffffff;
+  /* Fondo blanco cuando está habilitado */
+  border: 1px solid #007bff;
+  /* Borde azul claro cuando está habilitado */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Sombra suave cuando está habilitado */
+  transform: scale(1.02);
+  /* Aumento de escala ligero para hacer el elemento más atractivo */
+  cursor: pointer;
+  /* Cambiar el cursor a mano cuando está habilitado */
+}
+
+#capa-adicionar:not(.locked):hover {
+  background-color: #e8f0fe;
+  /* Fondo azul claro cuando el mouse pasa sobre el elemento habilitado */
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  /* Resplandor azul cuando está habilitado */
+}
+
+/* Superposición con transición suave */
+#capa-adicionar.locked::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Color semi-transparente similar a un fondo modal */
+  transition: background-color 0.5s ease;
+  /* Transición suave para el color de fondo */
+  z-index: 1;
+  /* Asegurar que esté sobre todos los elementos hijos */
+  opacity: 1;
+  /* Mostrar superposición cuando está bloqueado */
+}
+
+#capa-adicionar:not(.locked)::before {
+  opacity: 0;
+  /* Ocultar la superposición cuando está desbloqueado */
+}
+
+#capa-adicionar.locked::after {
+  /*content: 'Bloqueado';*/
+  content: 'Deshabilitado';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1.2em;
+  z-index: 2;
+  /* Asegura que esté sobre todo el contenido */
+  transition: opacity 0.5s ease;
+  /* Transición suave para la opacidad del texto */
+  opacity: 1;
+  /* Mostrar cuando esté bloqueado */
+}
+
+#capa-adicionar:not(.locked)::after {
+  opacity: 0;
+  /* Ocultar cuando no esté bloqueado */
+}
+
+/* Mejora del botón Adicionar */
+.btn-custom-adicionar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  /* Espacio entre el ícono y el texto */
+  background-color: #007bff;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  height: 50px;
+}
+
+.btn-custom-adicionar:hover {
+  background-color: #0056b3;
+  /* Color al pasar el mouse */
+  transform: scale(1.05);
+  /* Efecto de agrandamiento al pasar el mouse */
+}
+
+.btn-custom-adicionar:disabled {
+  background-color: #c0c0c0;
+  /* Color cuando está deshabilitado */
+  cursor: not-allowed;
+}
+
+/* Estilo del campo de entrada Costo Total */
+.resultado-calculo {
+  background-color: #e9ecef;
+  /* Fondo más claro para resaltar */
+  /*border: 2px solid #007bff; */
+  /*Borde azul para distinguirlo */
+  border: 2px solid #818181;
+  color: #343a40;
+  /* Texto más oscuro */
+  font-weight: bold;
+}
+
+
+/* Estilos para el popup */
+/*
+.custom-popup-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050; 
+}
+
+.custom-popup {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.custom-popup .popup-buttons {
+  margin-top: 15px;
+}
+
+.custom-popup .popup-buttons button {
+  margin: 0 10px;
+}
+*/
+
+/* Estilos para el popup */
+.custom-popup-overlay {
+  /*position: absolute;*/
+  background: rgba(34, 45, 65, 0.85);
+  /* Un tono azul oscuro translúcido */
+  position: fixed;
+  /* Cambiar a 'fixed' para cubrir toda la página */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  /*display: none;*/
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  /* Debe estar sobre otros elementos */
+  overflow: auto;
+  /* Evita el desplazamiento en la página */
+
+  /*background: rgba(0, 0, 0, 0.8); /* Fondo oscuro translúcido */
+  /*background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px); /* Controla el nivel de desenfoque */
+  /*background: rgba(255, 255, 255, 0.8); /* Fondo blanco translúcido */
+  /*background: radial-gradient(circle, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));*/
+  /*background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(50, 50, 50, 0.8));*/
+  /*background: rgba(0, 0, 0, 0.6); /* Negro translúcido menos intenso */
+}
+
+
+/*.custom-popup-overlay {
+  background: rgba(34, 45, 65, 0.85); 
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050; 
+}
+  */
+
+.custom-popup {
+  position: relative;
+  background: white;
+  /*background: #f5f5f5;  */
+  /*padding: 5px;  Ajusta el padding según sea necesario */
+  border-radius: 10px;
+  /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);  */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  max-width: 420px;
+  /* Ancho máximo del popup */
+  width: 95%;
+  /* Ancho del popup */
+  /*overflow: visible;  /* Asegúrate de que no haya desplazamiento interno */
+  /*max-height: 90vh; /* Altura máxima del popup */
+  /*overflow: hidden; /* Evita el scroll interno en el popup */
+  margin: auto;
+  /* Centrar el popup */  
+}
+
+/*.custom-popup {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 90%;
+  overflow: hidden;
+}*/
+
+/*.popup-body2 {
+  max-height: 80vh;  Permitir un máximo del 80% de la altura del viewport 
+  overflow-y: auto;  Permitir scroll solo en el cuerpo si es necesario 
+}*/
+
+.popup-header {
+  /*background-color: #514f4f;*/
+  /*padding: 5px 7px 7px 5px;*/
+  /*margin-bottom: 10px;*/
+}
+
+.popup-header h5 {
+  font-size: 1.25rem;
+  color: #f5f3f3;
+  margin-bottom: 0px;
+  /*margin-bottom: 10px; */
+}
+
+.popup-header {
+  border-radius: 10px 10px 0 0;
+}
+
+.popup-body {
+  /*display: flex;
+  align-items: center;
+  justify-content: start;*/
+
+  /*padding: 15px 20px 15px 20px;
+  background-color: white;*/
+}
+
+.popup-body {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/*.popup-footer {
+  margin-top: 10px;
+  text-align: right;
+  border-top: 1px solid #f1efef;
+  padding: 10px;
+}*/
+
+.popup-footer {
+  border-top: 1px solid #ddd;  
+  border-radius: 0px 0px 10px 10px;
+}
+
+.custom-popup .popup-buttons {
+  margin-top: 15px;
+}
+
+.custom-popup .popup-buttons button {
+  margin: 0 10px;
+}
+
+.custom-popup i {
+  margin-right: 10px;
+}
+
+.loading-overlay {
+  /*position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7); /* Fondo semitransparente */
+
+  /*display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Asegura que el overlay esté sobre el contenido */
+}
+
+/*.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}*/
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  z-index: 1060;
+  /* Asegura que esté sobre el contenido del popup */
+  color: #333;
+  /* Color para el texto */
+  font-size: 1.2rem;
+}
+
+
+#tabla-registro-inventario thead th:first-child {
+  background-color: transparent;
+  /* Fondo transparente para la primera columna */
+}
+
+/*
+#tabla-registro-inventario thead th {
+  background-color: #343a40; 
+  color: white; 
+  font-size: 0.9rem;
+}
+*/
+
+#tabla-registro-inventario thead th:nth-child(2) {
+  /*background-color: #28a745;  Verde oscuro para "Datos Nuevos" */
+  /*color: white;
+  font-size: 0.9rem;*/
+}
+
+#tabla-registro-inventario tbody td:nth-child(2) {
+  /*background-color: #e9f7ef;  Verde suave para el cuerpo "Datos Nuevos" */
+  /*border-right: 2px solid #c3e6cb;  Borde derecho para separación */
+}
+
+/* Estilos para la columna 2 - Azul */
+#tabla-registro-inventario thead th:nth-child(2) {
+  background-color: #007bff;
+  /* Azul oscuro para "Datos Nuevos" */
+  color: white;
+  font-size: 0.9rem;
+}
+
+#tabla-registro-inventario tbody td:nth-child(2) {
+  background-color: #cce5ff;
+  /* Azul suave para el cuerpo "Datos Nuevos" */
+  border-right: 2px solid #99ccff;
+  /* Borde derecho azul para separación */
+}
+
+
+#tabla-registro-inventario thead th:nth-child(3) {
+  background-color: #fd7e14;
+  /*Naranja oscuro para "Datos Actuales" */
+  color: white;
+  font-size: 0.9rem;
+}
+
+#tabla-registro-inventario tbody td:nth-child(3) {
+  background-color: #ffe8d6;
+  /*Naranja suave para el cuerpo "Datos Actuales" */
+  border-left: 2px solid #f5c6cb;
+  /* Borde izquierdo para separación */
+}
+
+
+/* Estilos para la columna 3 - Plomo */
+#tabla-registro-inventario thead th:nth-child(3) {
+  /*background-color: #6c757d; Gris oscuro (plomo) para "Datos Actuales" */
+  /*color: white;
+  font-size: 0.9rem;*/
+}
+
+#tabla-registro-inventario tbody td:nth-child(3) {
+  /*background-color: #e2e3e5; Gris suave para el cuerpo "Datos Actuales" */
+  /*border-left: 2px solid #d6d8db;  Borde izquierdo gris suave para separación */
+}
+
+
+/* Estilos para las columnas del cuerpo de la tabla */
+/*
+#tabla-registro-inventario tbody td:nth-child(2) {
+  background-color: #e9f7ef; 
+  border-right: 2px solid #d4efdf; 
+}
+*/
+
+/*
+#tabla-registro-inventario tbody td:nth-child(3) {
+  background-color: #f4e8e8; 
+  border-left: 2px solid #f5c6cb;
+}
+*/
+
+/*
+#tabla-registro-inventario tbody td:nth-child(3)>span {
+  background-color: #f3f3f3;
+  padding:2px 7px 2px 7px;
+}
+*/
+
+/* Estilo para la primera columna del cuerpo de la tabla */
+#tabla-registro-inventario tbody td:first-child {
+  font-weight: bold;
+  /* Texto en negrita */
+  text-align: right;
+  /* Alineación a la derecha */
+  color: #5a5858 !important;
+}
+
+/*
+@media (max-width: 768px) {
+  .modal.fade .modal-dialog {
+      transition: none; 
+  }      
+}
+*/
+
+
+.modal.fade .modal-dialog {
+  transition: transform 0.5s ease-out !important;
+  /* Cambia el tiempo de transición */
+  transform: translateY(-25%);
+}
+
+.modal.show .modal-dialog {
+  transform: translateY(0);
+}
+
+
+.modal-visible-back {
+  z-index: 1045 !important;
+  /* Un nivel más bajo que el modal secundario */
+  /*opacity: 0.8;  Puedes ajustar la opacidad para que se vea detrás del modal secundario */
+  opacity: 1;
+}
+
+/* Estilo para la línea vertical entre las columnas */
+.vertical-line {
+  border-left: 2px solid #ccc;
+  height: 100%;
+}
+
+/* Estilo para alternar el color de fondo de los elementos <li> */
+.list-item:nth-child(odd) {
+  /*background-color: #f8f9fa;*/
+  /*background-color: #F2F2F2;*/
+}
+
+.list-item:nth-child(even) {
+  /*background-color: #e9ecef;*/
+  /*background-color: #d5edf1;*/
+  /*background-color: #E6E9EB;*/
+}
+
+.list-item {
+  /*color: #333333 !important;*/
+}
+
+.list-item {
+  /*border-bottom: 1px solid #CCCCCC; 
+  padding: 10px 10px 0px 10px;*/
+  /*font-family: 'Helvetica Neue', sans-serif;*/
+}
+
+
+/*
+.container-custom {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    max-width: 600px;
+}
+
+.value-label {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #343a40;
+}
+
+.new-value input, .new-value span {
+    font-size: 1rem;
+    color: #0d6efd;
+    font-weight: bold;
+}
+
+.current-value {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+    */
+
+  .container-custom {
+      /*padding: 20px;*/
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      max-width: 600px;
+      box-shadow: 0 4px -1px rgba(0, 0, 0, 0.1);
+      border: 0px solid blue;
+  }
+
+  .value-label {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #495057;
+  }
+
+  .value-section {
+      background-color: #e9ecef;
+      border-radius: 8px;
+      padding: 10px;
+  }
+
+  .new-value-label {
+      color: #0d6efd;
+      font-size: 0.9rem;
+      font-weight: bold;
+  }
+
+  .current-value-label {
+      color: #6c757d;
+      font-size: 0.85rem;
+      text-align: right;
+  }
+
+  .input-container input {
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+      border: none;
+      box-shadow: 0 1px 4px rgba(0, 123, 255, 0.2);
+  }
+
+  .input-container input:focus {
+      outline: none;
+      box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+  }
+
+  
+ /* Contenedor de valores calculados */
+/*
+ .calculated-values-container {
+        background-color: #e9ecef;
+        padding: 10px;
+        border-radius: 8px;
+        position: sticky;
+        top: 0;
+        z-index: 1050; 
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}*/
+    
+/*
+.calculated-label {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #495057;
+}*/
+
+.value-pair {
+      /*display: flex;*/
+      /*flex-direction: column;*/
+}
+
+/*.calculated-value, .actual-value {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #0d6efd;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+}*/
+
+/*
+.actual-value {
+      color: #6c757d;
+}
+*/
+
+/*
+.valor-calculado{
+  padding: 10px;;
+  background-color: #fff;
+  border: 1px solid #f8f8f8;
+  border-radius: 5px;
+}
+*/
+
+/* CSS */
+.value-new {
+  font-weight: bold;
+  color: #007bff; /* Color destacado */
+  background-color: #eaf4ff; /* Fondo sutil */
+  border: 1px solid #007bff; /* Borde para destacar */
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.value-current {
+  font-weight: normal;
+  color: #6c757d; /* Color más tenue */
+  padding: 2px 4px;
+  display: inline-block;
+  margin-right: 5px;
+  opacity: 0.8; /* Un poco más translúcido */
+}
+
+    /*.calculated-value {
+        font-size: 1.2rem;
+        color: #0d6efd;
+        font-weight: bold;
+    }
+    .actual-value {
+        font-size: 1rem;
+        color: #6c757d;
+    }*/
+
+/* Adaptación para dispositivos móviles */
+@media (max-width: 576px) {
+  /*.calculated-value {
+       font-size: 1rem;
+  }*/
+
+  /*.calculated-label {
+      font-size: 0.8rem;
+  }
+  .calculated-value, .actual-value {
+      font-size: 1rem;
+  }*/
+  
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+#popup-body-i {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa; 
+  border-radius: 0.5rem;
+}
+
+#popup-body-i h5 {
+  color: #343a40;
+  margin-bottom: 0px;
+}
+
+#popup-body-i .text-muted {
+  color: #6c757d !important;
+}
+
+#popup-body-i .badge {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+#popup-body-i ul {
+  margin: 0;
+  padding: 0;
+}
+
+#popup-body-i ul li {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+#popup-body-i hr {
+  /*border-color: #dee2e6; */  
+  margin-top: 7px;
+  margin-bottom: 10px;
+}
+
+#popup-body-i .col-result{
+  border: 0px solid red;
+  padding-left: 0;
+}
