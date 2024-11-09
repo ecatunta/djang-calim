@@ -1109,13 +1109,13 @@ header {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   max-width: 420px;
   /* Ancho máximo del popup */
-  width: 97%;
+  width: 95%;
   /* Ancho del popup */
   /*overflow: visible;  /* Asegúrate de que no haya desplazamiento interno */
   /*max-height: 90vh; /* Altura máxima del popup */
   /*overflow: hidden; /* Evita el scroll interno en el popup */
   margin: auto;
-  /* Centrar el popup */
+  /* Centrar el popup */  
 }
 
 /*.custom-popup {
