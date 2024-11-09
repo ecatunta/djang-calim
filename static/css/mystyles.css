@@ -1639,7 +1639,7 @@ header {
   height: 100%;
   
   stroke: #66BB6A; /* Verde más claro */
-  animation: circle-draw 1s ease-in-out forwards;
+  animation: circle-draw 2s ease-in-out forwards;
 }
 
 
