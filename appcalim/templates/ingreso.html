@@ -315,38 +315,32 @@ Ingreso
 </div>
 
 <div class="custom-popup-overlay" id="popupOverlay">
-    <div class="custom-popup">
+    <div class="custom-popup" style="border: 0px solid yellow;">
         <!-- Header del Popup -->
         <div class="popup-header">
             <div class="bg-secondary text-white p-2 rounded-top d-flex align-items-center">
                 <div class="col-1 d-flex justify-content-center" style="font-size: 1.0rem;">
-                    <!--<i class="bi bi-check-circle-fill me-1"></i>-->
                     <i class="bi bi-box-seam me-1"></i>
                 </div>
                 <div class="col-10">
                     <h5 class="mb-0" style="font-size: 1.0rem;">Inventario</h5>
                 </div>
             </div>
-
-            <!--<div class="bg-default text-success p-2 rounded-top d-flex align-items-center">
-                <div class="col-2 d-flex justify-content-center">
-                    <i class="bi bi-check-circle-fill me-2" style="font-size: 2.0rem;"></i>
-                </div>
-                <div class="col-10">
-                    <h5 class="mb-0 text-success">Registro realizado con éxito</h5>
-                </div>
-            </div>-->
         </div>
 
-        <div id="popup-body-i" class="popup-body p-2">
+       
+        <div id="popup-body-i" class="popup-body p-2" style="border: 0px solid green;">
+
             <div class="row mb-1">
                 <div class="col-12 text-center">
                     <i class="bi bi-check-circle-fill text-success" style="font-size: 4.0rem;"></i>
-                    <h5 class="">Ingreso registrado en el inventario correctamente.</h5>
+                    <h5>Ingreso registrado en el inventario correctamente.</h5>
                 </div>
             </div>
 
-            <div class="row mb-1">
+            <hr>
+
+            <div class="row mb-1" style="border: 0px solid blue;">
                 <div class="col-12">
                     <ul class="list-unstyled">
                         <li class="mb-3">
@@ -354,7 +348,7 @@ Ingreso
                                 <div class="col-6 text-end">
                                     <strong class="text-muted">Estado:</strong>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 col-result">
                                     <span class="d-block text-success">Disponible en Inventario</span>
                                 </div>
                             </div>
@@ -365,7 +359,7 @@ Ingreso
                                 <div class="col-6 text-end">
                                     <strong class="text-muted">Producto:</strong>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 col-result">
                                     <span class="d-block">PAÑALES BEBITUS DESECHABLES TALLA XXG</span>
                                 </div>
                             </div>
@@ -376,7 +370,7 @@ Ingreso
                                 <div class="col-6 text-end">
                                     <strong class="text-muted">Modo de Operación:</strong>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 col-result">
                                     <span class="d-block">INGRESO</span>
                                 </div>
                             </div>
@@ -387,7 +381,7 @@ Ingreso
                                 <div class="col-6 text-end">
                                     <strong class="text-muted">Fecha de Ingreso:</strong>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 col-result">
                                     <span class="d-block">2024-10-26 17:05</span>
                                 </div>
                             </div>
@@ -398,7 +392,7 @@ Ingreso
                                 <div class="col-6 text-end">
                                     <strong class="text-muted">Fecha en Inventario:</strong>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 col-result">
                                     <span class="d-block">2024-10-30 18:00</span>
                                 </div>
                             </div>
@@ -409,7 +403,7 @@ Ingreso
                                 <div class="col-6 text-end">
                                     <strong class="text-muted">Unidades Entrantes:</strong>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 col-result">
                                     <span class="d-block">120</span>
                                 </div>
                             </div>
@@ -420,7 +414,7 @@ Ingreso
                                 <div class="col-6 text-end">
                                     <strong class="text-muted">Stock Disponible:</strong>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 col-result">
                                     <span class="d-block">120
                                         <span class="text-danger text-decoration-line-through ms-2">0</span>
                                     </span>
@@ -433,7 +427,7 @@ Ingreso
                                 <div class="col-6 text-end">
                                     <strong class="text-muted">Costo por Unidad:</strong>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 col-result">
                                     <span class="d-block">$85.5
                                         <span class="text-danger text-decoration-line-through ms-2">$70</span>
                                     </span>
@@ -446,7 +440,7 @@ Ingreso
                                 <div class="col-6 text-end">
                                     <strong class="text-muted">Costo Total:</strong>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 col-result">
                                     <span class="d-block">$123</span>
                                 </div>
                             </div>
@@ -457,7 +451,7 @@ Ingreso
                                 <div class="col-6 text-end">
                                     <strong class="text-muted">Rentabilidad:</strong>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 col-result">
                                     <span class="d-block">%13
                                         <span class="text-danger text-decoration-line-through ms-2">%12</span>
                                     </span>
@@ -470,7 +464,7 @@ Ingreso
                                 <div class="col-6 text-end">
                                     <strong class="text-muted">Utilidad:</strong>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 col-result">
                                     <span class="d-block">$12
                                         <span class="text-danger text-decoration-line-through ms-2">8</span>
                                     </span>
@@ -478,12 +472,12 @@ Ingreso
                             </div>
                         </li>
 
-                        <li class="mb-3">
+                        <li class="mb-0">
                             <div class="row">
                                 <div class="col-6 text-end">
                                     <strong class="text-muted">Precio por Unidad:</strong>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-6 col-result">
                                     <span class="d-block">$50
                                         <span class="text-danger text-decoration-line-through ms-2">45</span>
                                     </span>
@@ -493,12 +487,11 @@ Ingreso
                     </ul>
                 </div>
             </div>
-        </div>
+        </div>  
 
         <div class="popup-footer p-3 bg-light">
             <div class="text-center rounded-bottom">
-                <button type="button" class="btn btn-default" id="cerrar-popup">
-                    <i class="bi bi-box-home me-2"></i> Inicio
+                <button type="button" class="btn btn-default" id="cerrar-popup">Inicio
                 </button>
             </div>
         </div>
