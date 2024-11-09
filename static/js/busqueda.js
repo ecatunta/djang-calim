@@ -653,7 +653,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         g_ganancia_unidad = span_n_ganancia_unidad.textContent;
-        g_precio_unidad = span_n_precio_unidad.textContent;      
+        g_precio_unidad = span_n_precio_unidad.textContent;
         g_ganancia_unidad = parseFloat(g_ganancia_unidad.replace("$", ""));
         g_precio_unidad = parseFloat(g_precio_unidad.replace("$", ""));
 
@@ -708,7 +708,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             span_n_ganancia_unidad.textContent = '$0.0';
         }
-       
+
         g_ganancia_unidad = span_n_ganancia_unidad.textContent;
         g_precio_unidad = span_n_precio_unidad.textContent;
         g_ganancia_unidad = parseFloat(g_ganancia_unidad.replace("$", ""));
@@ -1028,29 +1028,6 @@ document.addEventListener('DOMContentLoaded', function () {
         overlayDiv.classList.add('custom-popup-overlay');
 
         popupDiv.classList.add('custom-popup');
-        /*
-        popupDiv.innerHTML = `
-        <div class="popup-header">
-            <h5><i class="bi bi-info-circle-fill text-info"></i> Aviso</h5>
-        </div> 
-        <div class="popup-body d-flex">
-            <i class="bi bi-info-circle text-primary me-3" style="font-size: 3rem;"></i>                
-            <div>
-                Se agregarán al inventario <strong>${input_pu_unidad.value}</strong> unidades del producto <strong>"${strong_producto_nombre.textContent}"</strong>. 
-                El nuevo precio por unidad será de <strong>Bs. ${span_n_precio_unidad.textContent}</strong>. 
-                Nota: Los artículos <strong>${mensaje}</strong>. ¿Desea continuar?
-            </div>
-        </div>
-        <div class="popup-footer text-end">
-            <button type="button" class="btn btn-light me-2" id="popup-cancelar">
-                Cancelar
-            </button>
-            <button type="button" class="btn btn-primary" id="popup-aceptar">
-                Aceptar
-            </button>
-        </div>
-        `;
-        */
 
         popupDiv.innerHTML = `
         <!-- Header del Popup -->        
@@ -1146,153 +1123,196 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     ocultarSpinner();
-                    console.log('data: ', data);
+                    console.log('data-> inventario_ingreso: ', data);
                     if (data.success) {
                         const popupHeader = document.querySelector('.popup-header');
                         const popupBody = document.getElementById('popup-body-i');
                         const popupFooter = document.querySelector('.popup-footer');
 
                         popupHeader.innerHTML = `
-                        <div class="bg-success text-white p-2 rounded-top d-flex align-items-center">
-                            <div class="col-2 d-flex justify-content-center">
-                                <i class="bi bi-check-circle-fill me-2" style="font-size: 2.0rem;"></i>
+                        <div class="bg-secondary text-white p-2 rounded-top333 d-flex align-items-center">
+                            <div class="col-1 d-flex justify-content-center" style="font-size: 1.0rem;">
+                                <i class="bi bi-box-seam me-1"></i>
                             </div>
                             <div class="col-10">
-                                <!--<h5 class="mb-0">Ingreso exitoso. ¡Gracias por actualizar el inventario!</h5>-->
-                                <h5 class="mb-0">¡Registro realizado con éxito!</h5>                                
+                                <h5 class="mb-0" style="font-size: 1.0rem;">Inventario</h5>
                             </div>
-                        </div>                        
+                        </div>              
                         `;
 
-                        popupBody.innerHTML = `
-                        <div class="text-center mb-2">
-                            <h6 class="fw-bold" style="color: #636363;">Producto: ${strong_producto_nombre.textContent}</h6>
-                        </div>
-                         `;
+                        popupBody.innerHTML = ``;
 
                         // Iterar sobre los datos de `data.lista` y agregar filas con el formato solicitado
                         data.lista.map(obj => {
                             popupBody.innerHTML += `                                           
-                <div class="row mb-2">
-                    <!--<div class="col-4 text-secondary"><strong>Estado</strong></div>
-                    <div class="col-8">Disponible en Inventario</div>-->
-                    <div class="col-12"><strong class="text-secondary">Estado:</strong> Disponible en Inventario</div>
-                </div>
-                <hr>
-                
-                <div class="row">
-                
-                <!-- Columna izquierda con los elementos de la lista alternados -->
-                <div class="col-6">
-                    <ul class="list-unstyled">
+            <div class="row mb-1">
+                <div class="col-12 text-center">
+                    <div class="position-relative2 d-inline-block">
 
-                        <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Fecha de Registro</p>
-                            <p>${obj.ingreso_fecha}</p>
-                        </li>
-
-                        <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Unidades Entrantes</p>
-                            <p>${obj.ingreso_unidad}</p>
-                        </li>
-
-                        <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Costo por Unidad</p>
-                            <div>
-                                <span>$${obj.ingreso_costoU_upd}</span>&nbsp;
-                                <span class="text-danger" style="text-decoration: line-through;">${obj.ingreso_costoU_ant}</span>
-                            </div>
-                        </li>
-
-                        <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Costo Total</p>
-                            <p>$${obj.ingreso_costo_total}</p>
-                        </li>
-
-                        <!--
-                        <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Rentabilidad </p>
-                            <div>
-                                <span>%${obj.ingreso_porcentajeG_upd}</span>&nbsp;
-                                <span class="text-danger" style="text-decoration: line-through;">%${obj.ingreso_porcentajeG_ant}</span>
-                            </div>
-                        </li>
-
-                        <li class="list-item mb-2 d-flex justify-content-between">
-                            <p class="fw-bold mb-1">Utilidad</p>
-                            <div>
-                                <span>$${obj.ingreso_ganancia_upd}</span>&nbsp;
-                                <span class="text-danger" style="text-decoration: line-through;">${obj.ingreso_ganancia_ant}</span>
-                            </div>
-                        </li>
-
-                        <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Precio Actual por Unidad</p>
-                            <div>
-                                <span>$${obj.ingreso_precioU_upd}</span>&nbsp;
-                                <span class="text-danger" style="text-decoration: line-through;">${obj.ingreso_precioU_ant}</span>
-                            </div>
-                        </li>
-                        -->
-
-                    </ul>
-                </div>
-
-                <!-- Línea vertical entre columnas -->
-                
-                <!--<div class="col-1 d-flex justify-content-center">
-                    <div class="vertical-line"></div>
-                </div>-->
-
-                <!-- Columna derecha con los elementos de la lista alternados -->
-                <div class="col-6">
-                    <ul class="list-unstyled">
-                        <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Transacción</p>
-                            <p>${obj.inv_modo}</p>
-                        </li>
-                        <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Fecha en Inventario</p>
-                            <p>${obj.inv_fecha}</p>
-                        </li>
-
-                        <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Stock Disponible</p>
-                            <div>
-                                <span>${obj.inv_cantidad_actual}</span>&nbsp;
-                                <span class="text-danger" style="text-decoration: line-through;">${obj.inv_cantidad_anterior}</span>
-                            </div>
-                        </li>
-
-
-                        <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Rentabilidad </p>
-                            <div>
-                                <span>%${obj.ingreso_porcentajeG_upd}</span>&nbsp;
-                                <span class="text-danger" style="text-decoration: line-through;">%${obj.ingreso_porcentajeG_ant}</span>
-                            </div>
-                        </li>
-
-                        <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Utilidad</p>
-                            <div>
-                                <span>$${obj.ingreso_ganancia_upd}</span>&nbsp;
-                                <span class="text-danger" style="text-decoration: line-through;">${obj.ingreso_ganancia_ant}</span>
-                            </div>
-                        </li>
-
-                        <li class="list-item mb-2">
-                            <p class="fw-bold mb-1">Precio Unitario</p>
-                            <div>
-                                <span>$${obj.ingreso_precioU_upd}</span>&nbsp;
-                                <span class="text-danger" style="text-decoration: line-through;">${obj.ingreso_precioU_ant}</span>
-                            </div>
-                        </li>
+                        <!-- SVG animado como borde de círculo -->                 
+                        <svg class="circle-border" width="80" height="80" viewBox="0 0 65 63">
+                            <circle cx="32" cy="32" r="30" stroke="#66BB6A" stroke-width="2" fill="none" />
+                        </svg>                       
                         
+                        <!-- Ícono centrado sobre el SVG -->
+                        <i class="bi bi-check-circle-fill icon-centered"></i>
+                    </div>
 
+                    <!-- Texto debajo del ícono y animación -->
+                    <h5 class="mt-1">Ingreso registrado en el inventario correctamente</h5>
+                </div>
+            </div>
+            
+            <hr>
+
+            <div class="row mb-1">
+                <div class="col-12">
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <div class="row">
+                                <div class="col-6 text-end">
+                                    <strong class="text-muted">Estado:</strong>
+                                </div>
+                                <div class="col-6 col-result">
+                                    <span class="d-block text-success">Disponible en Inventario</span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mb-3">
+                            <div class="row">
+                                <div class="col-6 text-end">
+                                    <strong class="text-muted">Producto:</strong>
+                                </div>
+                                <div class="col-6 col-result">
+                                    <span class="d-block">${strong_producto_nombre.textContent}</span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mb-3">
+                            <div class="row">
+                                <div class="col-6 text-end">
+                                    <strong class="text-muted">Modo de Operación:</strong>
+                                </div>
+                                <div class="col-6 col-result">
+                                    <span class="d-block">INGRESO</span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mb-3">
+                            <div class="row">
+                                <div class="col-6 text-end">
+                                    <strong class="text-muted">Fecha de Ingreso:</strong>
+                                </div>
+                                <div class="col-6 col-result">
+                                    <span class="d-block">${obj.ingreso_fecha}</span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mb-3">
+                            <div class="row">
+                                <div class="col-6 text-end">
+                                    <strong class="text-muted">Fecha en Inventario:</strong>
+                                </div>
+                                <div class="col-6 col-result">
+                                    <span class="d-block">${obj.inv_fecha}</span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mb-3">
+                            <div class="row">
+                                <div class="col-6 text-end">
+                                    <strong class="text-muted">Unidades Entrantes:</strong>
+                                </div>
+                                <div class="col-6 col-result">
+                                    <span class="d-block">${obj.ingreso_unidad}</span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mb-3">
+                            <div class="row">
+                                <div class="col-6 text-end">
+                                    <strong class="text-muted">Stock Disponible:</strong>
+                                </div>
+                                <div class="col-6 col-result">
+                                    <span class="d-block">${obj.inv_cantidad_actual}
+                                        <span class="text-danger text-decoration-line-through ms-2">${obj.inv_cantidad_anterior}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mb-3">
+                            <div class="row">
+                                <div class="col-6 text-end">
+                                    <strong class="text-muted">Costo unitario del proveedor:</strong>
+                                </div>
+                                <div class="col-6 col-result">
+                                    <span class="d-block">$${obj.ingreso_costoU_upd}
+                                        <span class="text-danger text-decoration-line-through ms-2">$${obj.ingreso_costoU_ant}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mb-3">
+                            <div class="row">
+                                <div class="col-6 text-end">
+                                    <strong class="text-muted">Costo Total: (${obj.ingreso_unidad} uni)</strong>
+                                </div>
+                                <div class="col-6 col-result">
+                                    <span class="d-block">$${obj.ingreso_costo_total}</span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mb-3">
+                            <div class="row">
+                                <div class="col-6 text-end">                                    
+                                    <strong class="text-muted">Margen de Ganancia:</strong>
+                                </div>
+                                <div class="col-6 col-result">
+                                    <span class="d-block">%${obj.ingreso_porcentajeG_upd}
+                                        <span class="text-danger text-decoration-line-through ms-2">%${obj.ingreso_porcentajeG_ant}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mb-3">
+                            <div class="row">
+                                <div class="col-6 text-end">                                    
+                                    <strong class="text-muted">Ganancia por unidad:</strong>
+                                </div>
+                                <div class="col-6 col-result">
+                                    <span class="d-block">$${obj.ingreso_ganancia_upd}
+                                        <span class="text-danger text-decoration-line-through ms-2">$${obj.ingreso_ganancia_ant}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mb-3">
+                            <div class="row">
+                                <div class="col-6 text-end">
+                                    <strong class="text-muted">Precio unitario de venta:</strong>
+                                </div>
+                                <div class="col-6 col-result">
+                                    <span class="d-block">$${obj.ingreso_precioU_upd}
+                                        <span class="text-danger text-decoration-line-through ms-2">$${obj.ingreso_precioU_ant}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
-            </div>`;
+            </div>                       
+             `;
                         });
 
                         /*                  
@@ -1322,11 +1342,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     `;*/
 
                         popupFooter.innerHTML = `
-                <div class="text-center rounded-bottom">
-                    <button type="button" class="btn btn-primary" id="popup-salir">
-                        <i class="bi bi-box-arrow-right me-2"></i> Salir
-                    </button>
-                </div>
+            <div class="text-center rounded-bottom">                              
+                <button type="button" class="btn btn-default" id="popup-salir">
+                    <i class="bi bi-house-door me-2"></i>Inicio
+                </button>
+                <button type="button" class="btn btn-default" id="lista">
+                    <i class="bi bi-table me-2"></i>Pendientes
+                </button>                
+            </div>
                         `;
 
                         /*
@@ -1860,6 +1883,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Crear la superposición y el popup
             const overlayDiv = document.createElement('div');
             overlayDiv.classList.add('custom-popup-overlay');
+            overlayDiv.id = 'popupOverlay'; // Asigna un ID al elemento
 
             const popupDiv = document.createElement('div');
             popupDiv.classList.add('custom-popup');
@@ -1897,6 +1921,8 @@ document.addEventListener('DOMContentLoaded', function () {
             overlayDiv.appendChild(popupDiv);
             modalInv.appendChild(overlayDiv);
 
+            openPopup();
+
             // Manejar el clic en el botón "Cancelar" dentro del popup
             document.getElementById('popup-cancelar').addEventListener('click', function () {
                 overlayDiv.remove(); // Eliminar la alerta si el usuario cancela
@@ -1926,9 +1952,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Para abrir el popup y ocultar el scroll del body
-    function openPopup() {
+    function openPopup() {        
         document.getElementById('popupOverlay').style.display = 'flex';
-        
         document.body.style.overflow = 'hidden'; // Evitar desplazamiento del body
         //mostrarSpinner();
     }
@@ -1938,10 +1963,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.getElementById('cerrar-popup').addEventListener('click', function () {
-        document.getElementById('popupOverlay3').style.display = 'none'; // Cierra el popup
+        document.getElementById('popupOverlay').style.display = 'none'; // Cierra el popup
         document.body.style.overflow = 'auto'; // Restaura el scroll del body
     });
-    openPopup();  
+    //openPopup();
 
 
     // Agrega un evento al botón de Salir
