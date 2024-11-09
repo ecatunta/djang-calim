@@ -1432,9 +1432,11 @@ header {
   }
 
   .value-label {
-      font-weight: bold;
+      /*font-weight: bold;*/
       /*font-size: 1rem;*/
-      color: #495057;
+      /*color: #495057;*/
+      color: black;
+      font-weight: 500;
   }
 
   .value-section {
