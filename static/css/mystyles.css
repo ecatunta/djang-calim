@@ -1117,9 +1117,9 @@ header {
   /*max-height: 90vh; /* Altura máxima del popup */
   /*overflow: hidden; /* Evita el scroll interno en el popup */
   
-  /*margin: auto;*/
+  margin: auto;
   
-  margin-top:5%;  
+  /*margin-top:5%;  */
   margin-bottom:3%;
   /* Centrar el popup */  
 }
