@@ -1110,7 +1110,7 @@ header {
   max-width: 420px;
   /* Ancho máximo del popup */
   
-  width: 100%;
+  width: 95%;
   /*width: 95%;*/
   /* Ancho del popup */
   /*overflow: visible;  /* Asegúrate de que no haya desplazamiento interno */
@@ -1615,7 +1615,7 @@ header {
 
 .position-relative {
   width: 80px;
-  height: 80px;
+  height: 87px;
 }
 
 /*.circle-border {
