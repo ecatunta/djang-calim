@@ -1927,7 +1927,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Para abrir el popup y ocultar el scroll del body
     function openPopup() {
-        document.getElementById('popupOverlay3').style.display = 'flex';
+        document.getElementById('popupOverlay').style.display = 'flex';
+        
         document.body.style.overflow = 'hidden'; // Evitar desplazamiento del body
         //mostrarSpinner();
     }
@@ -1940,7 +1941,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('popupOverlay3').style.display = 'none'; // Cierra el popup
         document.body.style.overflow = 'auto'; // Restaura el scroll del body
     });
-    //openPopup();  
+    openPopup();  
 
 
     // Agrega un evento al botón de Salir
