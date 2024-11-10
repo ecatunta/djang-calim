@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const span_n_ganancia_unidad = document.getElementById('pu_ganancia_nuevo');
     let g_ganancia_unidad = 0;
     let g_precio_unidad = 0;
-
+    let g_unidad_entrante = 0;
     const span_a_ganancia_unidad = document.getElementById('pu_ganancia_actual');
     const strong_producto_nombre = document.getElementById('pu_producto_nombre');
     const tabla_items_body = document.getElementById('item-table-body');
@@ -770,6 +770,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Evento input sobre el elemento html con id pu_costoU_nuevo
     document.getElementById('pu_unidad').addEventListener('input', function () {
         contador_inputs++;
+        g_unidad_entrante = this.value;
         btn_aceptar_ingreso.disabled = true;
         // Remover cualquier carácter no numérico
         this.value = this.value.replace(/[^0-9]/g, '');
@@ -782,7 +783,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const unidad = parseFloat(this.value);
         const costoTotalElement = document.getElementById('pu_costo_total');
         const costoUnitario = document.getElementById('pu_costoU_nuevo').value;
-
 
         if (isNaN(unidad) || unidad <= 0 || unidad > 50) {
             this.value = ''; // Limpiar el campo si la entrada es inválida                                   
@@ -805,24 +805,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Configurar temporizador de 5 segundos
         // let typingTimer;
+
+
         clearTimeout(typingTimer);
 
-
         typingTimer = setTimeout(function () {
-            // Desactivar el campo después de 5 segundos
-            input_pu_unidad.disabled = true;
-
-            //actualizar_ingreso2(g_ingreso_id);
-
-            // Ejecutar la función 
-            llena_tabla_items(unidad);
-
-            // Habilitar el botón btn_generaItem después de ejecutar la función
-            btn_generaItem.disabled = false;
-            btn_actualizarUnidad.disabled = false;
-            btn_aceptar_ingreso.disabled = false;
-
+            if (g_unidad_entrante) {
+                console.log('pu_unidad: ', g_unidad_entrante);
+                // Desactivar el campo después de 5 segundos
+                input_pu_unidad.disabled = true;            
+                // Ejecutar la función 
+                llena_tabla_items(unidad);
+                // Habilitar el botón btn_generaItem después de ejecutar la función
+                btn_generaItem.disabled = false;
+                btn_actualizarUnidad.disabled = false;
+                btn_aceptar_ingreso.disabled = false;
+            }else{
+                llena_tabla_items(0);
+            }
         }, 3000);
+
         console.log("focus: Posición top del elemento header:", topPosition);
         //alert("focus: Posición top del elemento header: " + topPosition);
     });
@@ -1952,7 +1954,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Para abrir el popup y ocultar el scroll del body
-    function openPopup() {        
+    function openPopup() {
         document.getElementById('popupOverlay').style.display = 'flex';
         document.body.style.overflow = 'hidden'; // Evitar desplazamiento del body
         //mostrarSpinner();

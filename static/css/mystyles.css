@@ -1672,7 +1672,7 @@ header {
 
 .container2 {
   background-color: #1e1e2d; /* Fondo oscuro sutil */
-  border-radius: 10px;
+  border-radius: 0px;
   padding: 20px;
   margin-left: -20px;
   margin-right: -20px;
