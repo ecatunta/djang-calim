@@ -555,21 +555,22 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.getElementById('pu_costo_total').textContent = data.costo_total || '0.0';
                         document.getElementById('pu_costoU_actual').textContent = ingreso.vigente.i_costo_unitario || '0.0';
                         document.getElementById('pu_pGanancia_actual').textContent = ingreso.vigente.i_porcentaje_ganancia || '0.0';
-                        document.getElementById('pu_ganancia_actual').textContent = ingreso.vigente.i_ganancia || '0.0';
-                        document.getElementById('pu_precioU_actual').textContent = ingreso.vigente.i_precio_unitario || '0.0';
+                        document.getElementById('pu_ganancia_actual').textContent = '$ '+ ingreso.vigente.i_ganancia || '0.0';
+                        document.getElementById('pu_precioU_actual').textContent = '$ ' + ingreso.vigente.i_precio_unitario || '0.0';
+                        
                         document.getElementById('pu_costoU_nuevo').value = ingreso.nuevo.i_costo_unitario || '';
                         //document.getElementById('pu_costoU_nuevo').value = ingreso.vigente.i_costo_unitario || '';
 
-                        span_n_ganancia_unidad.textContent = '$' + ingreso.nuevo.i_ganancia;
+                        span_n_ganancia_unidad.textContent = '$ ' + ingreso.nuevo.i_ganancia;
 
-                        span_n_precio_unidad.textContent = '$' + ingreso.nuevo.i_precio_unitario;
+                        span_n_precio_unidad.textContent = '$ ' + ingreso.nuevo.i_precio_unitario;
 
                         if (!ingreso.nuevo.i_ganancia) {
-                            span_n_ganancia_unidad.textContent = '$0.0';
+                            span_n_ganancia_unidad.textContent = '$ 0.0';
                         }
 
                         if (!ingreso.nuevo.i_precio_unitario) {
-                            span_n_precio_unidad.textContent = '$0.0';
+                            span_n_precio_unidad.textContent = '$ 0.0';
                         }
 
                         g_ganancia_unidad = ingreso.nuevo.i_ganancia;
@@ -629,14 +630,14 @@ document.addEventListener('DOMContentLoaded', function () {
         let [precio, ganancia] = calcular_precioU_ganancia(costo_unitario_nuevo, porcentaje_ganancia_nuevo);
 
         if (precio) {
-            span_n_precio_unidad.textContent = '$' + precio.toFixed(1);
+            span_n_precio_unidad.textContent = '$ ' + precio.toFixed(1);
             //span_n_precio_unidad.textContent = precio.toFixed(1);
         } else {
             span_n_precio_unidad.textContent = '0.0';
         }
 
         if (ganancia) {
-            span_n_ganancia_unidad.textContent = '$' + ganancia.toFixed(1);
+            span_n_ganancia_unidad.textContent = '$ ' + ganancia.toFixed(1);
         } else {
             span_n_ganancia_unidad.textContent = '0.0';
         }
@@ -698,15 +699,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let [precio, ganancia] = calcular_precioU_ganancia(costo_unitario_nuevo, porcentaje_ganancia_nuevo);
         if (precio) {
-            span_n_precio_unidad.textContent = '$' + precio.toFixed(1);
+            span_n_precio_unidad.textContent = '$ ' + precio.toFixed(1);
         } else {
-            span_n_precio_unidad.textContent = '$0.0';
+            span_n_precio_unidad.textContent = '0.0';
         }
 
         if (ganancia) {
-            span_n_ganancia_unidad.textContent = '$' + ganancia.toFixed(1);
+            span_n_ganancia_unidad.textContent = '$ ' + ganancia.toFixed(1);
         } else {
-            span_n_ganancia_unidad.textContent = '$0.0';
+            span_n_ganancia_unidad.textContent = '0.0';
         }
 
         g_ganancia_unidad = span_n_ganancia_unidad.textContent;
@@ -813,14 +814,14 @@ document.addEventListener('DOMContentLoaded', function () {
             if (g_unidad_entrante) {
                 console.log('pu_unidad: ', g_unidad_entrante);
                 // Desactivar el campo después de 5 segundos
-                input_pu_unidad.disabled = true;            
+                input_pu_unidad.disabled = true;
                 // Ejecutar la función 
                 llena_tabla_items(unidad);
                 // Habilitar el botón btn_generaItem después de ejecutar la función
                 btn_generaItem.disabled = false;
                 btn_actualizarUnidad.disabled = false;
                 btn_aceptar_ingreso.disabled = false;
-            }else{
+            } else {
                 llena_tabla_items(0);
             }
         }, 3000);

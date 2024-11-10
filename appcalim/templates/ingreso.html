@@ -227,10 +227,10 @@ Ingreso
                             </div>
                         </div>-->
 
-                        <div class="container2 bg-dark roundedxx p-2 shadow-sm">
-                            <div class="row text-center mb-0">
+                        <div class="container2 bg-darkxx roundedxx p-2 shadow-sm">
+                            <div class="row text-center mb-1">
                                 <!-- Ganancia por Unidad -->
-                                <div class="col-6">
+                                <div class="col-6" style="border: 0px solid blue;">
                                     <div class="info-box">
                                         <p class="section-title2 mb-1">$ Ganancia/U</p>
                                         <div class="row align-items-center">
@@ -250,7 +250,7 @@ Ingreso
                                 </div>
 
                                 <!-- Precio por Unidad -->
-                                <div class="col-6">
+                                <div class="col-6" style="border: 0px solid green;">
                                     <div class="info-box">
                                         <p class="section-title2 mb-1">$ Precio/U</p>
                                         <div class="row align-items-center">
@@ -289,7 +289,7 @@ Ingreso
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     <div class="input-container" style="width: 100%;">
                                         <input type="text" id="pu_unidad" class="form-control text-center"
-                                            autocomplete="off" inputmode="numeric">
+                                            autocomplete="off" inputmode="numeric" placeholder="Cantidad de unidades entrantes">
                                     </div>
                                     <!--<div class="current-value-label text-end" style="width: 50%;">
                                             Costo Total: Bs <span id="pu_costo_total"></span>
@@ -305,14 +305,14 @@ Ingreso
                             <!-- Costo Unitario -->
                             <li class="mb-3 value-section">
                                 <!--<p class="value-label">$ Costo Unitario</p>-->
-                                <p class="value-label mb-1">$ Costo Unitario del Proveedor</p>
+                                <p class="value-label mb-3">$ Costo Unitario del Proveedor</p>
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     <div class="input-container text-center" style="width: 100%;">
-                                        <label for="pu_costoU_nuevo" class="new-value-label mb-1">
+                                        <!--<label for="pu_costoU_nuevo" class="new-value-label mb-1">
                                             Nuevo Valor
-                                        </label>
+                                        </label>-->
                                         <input type="text" id="pu_costoU_nuevo" class="form-control text-center"
-                                            autocomplete="off" inputmode="numeric">
+                                            autocomplete="off" inputmode="numeric" placeholder="Nuevo costo unitario">
                                     </div>
 
                                     <!--<div class="current-value-label text-end" style="width: 50%;">                                            
@@ -328,15 +328,15 @@ Ingreso
                             <!-- Porcentaje de Ganancia -->
                             <li class="mb-0 value-section">
                                 <!--<p class="value-label">% Rentabilidad</p>-->
-                                <p class="value-label mb-1">% Margen de Ganancia</p>
+                                <p class="value-label mb-3">% Margen de Ganancia</p>
 
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     <div class="input-container text-center" style="width: 100%;">
-                                        <label for="pu_pGanancia_nuevo" class="new-value-label mb-1">
+                                        <!--<label for="pu_pGanancia_nuevo" class="new-value-label mb-1">
                                             Nuevo Valor
-                                        </label>
+                                        </label>-->
                                         <input type="text" id="pu_pGanancia_nuevo" class="form-control text-center"
-                                            autocomplete="off" inputmode="numeric">
+                                            autocomplete="off" inputmode="numeric" placeholder="Nuevo porcentaje de margen">
                                     </div>
                                     <!--<div class="current-value-label text-end" style="width: 50%;">                                            
                                             Actual % <span id="pu_pGanancia_actual">15</span>

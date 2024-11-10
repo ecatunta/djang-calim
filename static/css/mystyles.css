@@ -1462,7 +1462,7 @@ header {
   .input-container input {
       width: 100%;
       text-align: center;
-      font-weight: bold;
+      /*font-weight: bold;*/
       border: none;
       box-shadow: 0 1px 4px rgba(0, 123, 255, 0.2);
   }
@@ -1642,8 +1642,11 @@ header {
 }
 
 @media (max-width: 480px) {
-  #ingresoPrecioUModal, #itemModal{
+  #ingresoPrecioUModal, #itemModal, .form-control{
     font-size: 0.9rem;
+  }
+  .text-small {
+    font-size: 0.8rem;
   }
 }
 
@@ -1671,18 +1674,23 @@ header {
 
 
 .container2 {
-  background-color: #1e1e2d; /* Fondo oscuro sutil */
+  /*background-color: #1e1e2d; Fondo oscuro sutil */
   border-radius: 0px;
   padding: 20px;
+  /*
   margin-left: -20px;
   margin-right: -20px;
+  */
 }
 
 .info-box {
   background-color: #292b3a; /* Fondo para cada cuadro de información */
   border-radius: 8px;
-  padding: 0px;
+  padding: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ligera para resaltar */
+  border: 0px solid red;
+  margin-left: -10px;
+  margin-right: -10px;
 }
 
 .section-title2 {
@@ -1714,5 +1722,5 @@ header {
 }
 
 .text-small {
-  font-size: 0.9rem;
+  /*font-size: 0.9rem;*/
 }
