@@ -152,7 +152,7 @@ Ingreso
             </div>
 
             <div class="modal-body">
-                <div class="row mb-0">
+                <div class="row mb-2">
                     <div class="col-12 text-center">
                         <!--<strong class="h5">Producto</strong>-->
                         <strong class="" id="pu_producto_nombre"></strong>
@@ -227,9 +227,11 @@ Ingreso
                             </div>
                         </div>-->
 
+
+                        <!--
                         <div class="container2 bg-darkxx roundedxx p-2 shadow-sm">
                             <div class="row text-center mb-1">
-                                <!-- Ganancia por Unidad -->
+                                
                                 <div class="col-6" style="border: 0px solid blue;">
                                     <div class="info-box">
                                         <p class="section-title2 mb-1">$ Ganancia/U</p>
@@ -248,8 +250,7 @@ Ingreso
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Precio por Unidad -->
+                                
                                 <div class="col-6" style="border: 0px solid green;">
                                     <div class="info-box">
                                         <p class="section-title2 mb-1">$ Precio/U</p>
@@ -270,6 +271,85 @@ Ingreso
                                 </div>
                             </div>
                         </div>
+                        -->
+
+                        <!-- <div class="row text-center mb-1">
+                            <div class="col-4">
+                                <p class="mb-1">&nbsp;</p>
+                            </div>
+                            <div class="col-4">
+                                <span>Nuevo</span>
+                            </div>
+                            <div class="col-4">
+                                <span>Actual</span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-1">
+                            <div class="col-4">
+                                <p class="mb-1">$ Ganancia/U</p>
+                            </div>
+                            <div class="col-4 text-center">
+                                <span id="pu_ganancia_nuevo" class=""></span>
+                            </div>
+                            <div class="col-4 text-center">
+                                <span id="pu_ganancia_actual" class=""></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-4">
+                                <p class="mb-1">$ Precio/U</p>
+                            </div>
+                            <div class="col-4 text-center">
+                                <span id="pu_precioU_nuevo" class=""></span>
+                            </div>
+                            <div class="col-4 text-center">
+                                <span id="pu_precioU_actual" class=""></span>
+                            </div>
+                        </div>-->
+
+                        <div class="row justify-content-center mb-2">
+                            <div class="col-12 container-customyy">
+                                <!-- Encabezado con Títulos -->
+                                <div class="row text-center header-row">
+                                    <div class="col-4">&nbsp;</div>
+                                    <div class="col-4">
+                                        <span class="label-header">Nuevo</span>
+                                    </div>
+                                    <div class="col-4">
+                                        <span class="label-header">Actual</span>
+                                    </div>
+                                </div>
+
+                                <!-- Fila de Ganancia -->
+                                <div class="row mb-2">
+                                    <div class="col-4 label-title">
+                                        $ Ganancia/U
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <span id="pu_ganancia_nuevo" class="value-cell value-new">130</span>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <span id="pu_ganancia_actual" class="value-cell value-current">120</span>
+                                    </div>
+                                </div>
+
+                                <!-- Fila de Precio -->
+                                <div class="row">
+                                    <div class="col-4 label-title">
+                                        $ Precio/U
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <span id="pu_precioU_nuevo" class="value-cell value-new">150</span>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <span id="pu_precioU_actual" class="value-cell value-current">140</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <ul class="list-unstyled" style="margin-bottom: 0;">
                             <li class="mb-3 value-section">
@@ -289,7 +369,8 @@ Ingreso
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     <div class="input-container" style="width: 100%;">
                                         <input type="text" id="pu_unidad" class="form-control text-center"
-                                            autocomplete="off" inputmode="numeric" placeholder="Cantidad de unidades entrantes">
+                                            autocomplete="off" inputmode="numeric"
+                                            placeholder="Cantidad de unidades entrantes">
                                     </div>
                                     <!--<div class="current-value-label text-end" style="width: 50%;">
                                             Costo Total: Bs <span id="pu_costo_total"></span>
@@ -336,7 +417,8 @@ Ingreso
                                             Nuevo Valor
                                         </label>-->
                                         <input type="text" id="pu_pGanancia_nuevo" class="form-control text-center"
-                                            autocomplete="off" inputmode="numeric" placeholder="Nuevo porcentaje de margen">
+                                            autocomplete="off" inputmode="numeric"
+                                            placeholder="Nuevo porcentaje de margen">
                                     </div>
                                     <!--<div class="current-value-label text-end" style="width: 50%;">                                            
                                             Actual % <span id="pu_pGanancia_actual">15</span>

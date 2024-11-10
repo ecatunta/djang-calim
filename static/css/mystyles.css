@@ -1673,35 +1673,31 @@ header {
 */
 
 
+/*
 .container2 {
-  /*background-color: #1e1e2d; Fondo oscuro sutil */
   border-radius: 0px;
   padding: 20px;
-  /*
-  margin-left: -20px;
-  margin-right: -20px;
-  */
 }
 
 .info-box {
-  background-color: #292b3a; /* Fondo para cada cuadro de información */
+  background-color: #292b3a; 
   border-radius: 8px;
   padding: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ligera para resaltar */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   border: 0px solid red;
   margin-left: -10px;
   margin-right: -10px;
 }
 
 .section-title2 {
-  color: #b8c1ec; /* Color de título suave y claro */
+  color: #b8c1ec; 
   font-weight: 600;
 }
 
 .value-new {
   font-weight: bold;
-  color: #00b3ff; /* Color de texto destacado */
-  background-color: rgba(0, 179, 255, 0.1); /* Fondo semi-transparente */
+  color: #00b3ff; 
+  background-color: rgba(0, 179, 255, 0.1);
   padding: 6px 12px;
   border-radius: 5px;
   display: inline-block;
@@ -1709,18 +1705,80 @@ header {
 
 .value-current {
   font-weight: normal;
-  color: #c7c9d3; /* Texto tenue */
-  background-color: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
+  color: #c7c9d3; 
+  background-color: rgba(255, 255, 255, 0.1); 
   padding: 6px 12px;
   border-radius: 5px;
   display: inline-block;
 }
 
 .text-muted {
-  color: #868e96!important;
-   /* Texto tenue */
-}
+  color: #868e96!important;   
+}*/
+
+
 
 .text-small {
   /*font-size: 0.9rem;*/
+}
+
+.container-customyy {
+  background-color: #ffffff; /* Fondo claro */
+  padding: 20px;
+  border-radius: 8px;
+  /*max-width: 600px;*/
+  /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  
+  /*border: 1px solid #dee2e6;*/
+}
+
+.header-row {
+  background-color: #f1f3f5;
+  padding: 10px 0;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.label-header {
+  /*font-size: 1.1rem;*/
+  font-weight: 600;
+  color: #495057;
+}
+
+.label-title {
+  /*font-size: 1rem;*/
+  color: #343a40;
+  font-weight: 500;
+  padding: 6px 0;
+}
+
+.value-cell {
+  padding: 8px 12px;
+  border-radius: 4px;
+  /*font-size: 1rem;*/
+  font-weight: 600;
+  display: inline-block;
+  min-width: 80px;
+  text-align: center;
+}
+
+.value-new {
+  background-color: #e3fcec; /* Fondo suave para "Nuevo" */
+  color: #2c7a7b; /* Color de texto para Nuevo */
+  border: 1px solid #2c7a7b;
+}
+
+.value-current {
+  background-color: #fef9c3; /* Fondo suave para "Actual" */
+  color: #92400e; /* Color de texto para Actual */
+  border: 1px solid #92400e;
+}
+
+/* Estilos específicos para Ganancia y Precio */
+#pu_ganancia_nuevo, #pu_ganancia_actual {
+  /*font-size: 1.1rem;*/
+}
+
+#pu_precioU_nuevo, #pu_precioU_actual {
+  /*font-size: 1.1rem;*/
 }
