@@ -1722,63 +1722,66 @@ header {
   /*font-size: 0.9rem;*/
 }
 
-.container-customyy {
-  background-color: #ffffff; /* Fondo claro */
+/* Contenedor general de estilo factura */
+.container-custom-factura {
+  background-color: #ffffff;
   padding: 20px;
-  border-radius: 8px;
-  /*max-width: 600px;*/
-  /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  
-  /*border: 1px solid #dee2e6;*/
+  border-radius: 6px;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  border: 1px solid #e0e0e0; /* Borde exterior */
 }
 
-.header-row {
-  background-color: #f1f3f5;
-  padding: 10px 0;
-  border-radius: 8px;
-  margin-bottom: 15px;
+/* Encabezado de la factura */
+.header-row-factura {
+  background-color: #f8f9fa; /* Fondo gris suave */
+  padding: 5px 0;
+  font-weight: bold;
+  color: #495057;
+  border-bottom: 2px solid #dee2e6; /* Línea de separación */
+  /*margin-bottom: 15px;*/
 }
 
 .label-header {
-  /*font-size: 1.1rem;*/
+  font-size: inherit;
   font-weight: 600;
   color: #495057;
 }
 
-.label-title {
-  /*font-size: 1rem;*/
-  color: #343a40;
-  font-weight: 500;
-  padding: 6px 0;
+/* Estilo de las filas de items */
+.item-row {
+  border-bottom: 1px solid #e0e0e0; /* Línea divisoria */
+  padding: 2px 0;
 }
 
-.value-cell {
-  padding: 8px 12px;
-  border-radius: 4px;
-  /*font-size: 1rem;*/
-  font-weight: 600;
+/* Estilo de títulos (Ganancia y Precio) */
+.label-title {
+  font-weight: 500;
+  color: #343a40;
+  font-size: inherit;
+  padding-left: 10px;
+}
+
+/* Celdas de valores (Nuevo y Actual) */
+.value-cell-factura {
   display: inline-block;
+  padding: 2px 2px;
+  border-radius: 4px;
+  font-weight: 600;
   min-width: 80px;
   text-align: center;
 }
 
+/* Estilo para el valor de Nuevo */
 .value-new {
-  background-color: #e3fcec; /* Fondo suave para "Nuevo" */
-  color: #2c7a7b; /* Color de texto para Nuevo */
-  border: 1px solid #2c7a7b;
+  /*background-color: #d4edda;  Verde claro */
+  color: #155724; /* Texto verde oscuro */
+  border: 1px solid #c3e6cb; /* Borde verde */
 }
 
+/* Estilo para el valor de Actual */
 .value-current {
-  background-color: #fef9c3; /* Fondo suave para "Actual" */
-  color: #92400e; /* Color de texto para Actual */
-  border: 1px solid #92400e;
-}
-
-/* Estilos específicos para Ganancia y Precio */
-#pu_ganancia_nuevo, #pu_ganancia_actual {
-  /*font-size: 1.1rem;*/
-}
-
-#pu_precioU_nuevo, #pu_precioU_actual {
-  /*font-size: 1.1rem;*/
+  /*background-color: #fff3cd; /* Amarillo claro */
+  color: #856404; /* Texto amarillo oscuro */
+  border: 1px solid #ffeeba; /* Borde amarillo */
 }
