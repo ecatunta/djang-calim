@@ -555,9 +555,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.getElementById('pu_costo_total').textContent = data.costo_total || '0.0';
                         document.getElementById('pu_costoU_actual').textContent = ingreso.vigente.i_costo_unitario || '0.0';
                         document.getElementById('pu_pGanancia_actual').textContent = ingreso.vigente.i_porcentaje_ganancia || '0.0';
-                        document.getElementById('pu_ganancia_actual').textContent = '$ '+ ingreso.vigente.i_ganancia || '0.0';
+                        document.getElementById('pu_ganancia_actual').textContent = '$ ' + ingreso.vigente.i_ganancia || '0.0';
                         document.getElementById('pu_precioU_actual').textContent = '$ ' + ingreso.vigente.i_precio_unitario || '0.0';
-                        
+
                         document.getElementById('pu_costoU_nuevo').value = ingreso.nuevo.i_costo_unitario || '';
                         //document.getElementById('pu_costoU_nuevo').value = ingreso.vigente.i_costo_unitario || '';
 
@@ -615,7 +615,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let costo_unitario_nuevo = parseFloat(inputValue);
 
         costo_unitario_nuevo = parseFloat(validateSingleDecimalInput(this));
-        console.log('calculate:: ', costo_unitario_nuevo);
+        console.log('result: ', costo_unitario_nuevo);
 
         if (inputValue === '') {
             console.log("El campo está vacío");
@@ -718,30 +718,53 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function validateSingleDecimalInput(inputElement) {
+        console.log('*********************  validateSingleDecimalInput');
         // Expresión regular que permite solo números y hasta un decimal
-        const decimalPattern = /^\d*\.?\d{0,1}$/;
+        //const decimalPattern = /^\d*\.?\d{0,1}$/;
+        const decimalPattern = /^\d*\.?\d{0,2}$/;
         let inputValue = inputElement.value;
 
         // Validar el valor actual y filtrar cualquier carácter no numérico o letras
         if (!decimalPattern.test(inputValue)) {
+            console.log('*** no cumple con la expresión regular ***');
+            console.log('--- inputValue: ', inputValue);
+
             // Remover caracteres no permitidos y mantener solo el primer punto decimal y un dígito después de este
             inputValue = inputValue.replace(/[^0-9.]/g, '');  // Eliminar letras y caracteres especiales
+            console.log('--- inputValue.replace: ', inputValue);
+
+            // Remover caracteres no permitidos pero conservar hasta dos decimales
+            inputValue = inputValue.match(/^\d*\.?\d{0,2}/)[0];
+            console.log('--- inputValue.match: ', inputValue);
+
 
             // Limitar a un solo punto decimal en toda la entrada
-            const firstDecimalIndex = inputValue.indexOf('.');
+            const firstDecimalIndex = inputValue.indexOf('.');            
+            console.log('--- firstDecimalIndex: ', firstDecimalIndex);
+
             if (firstDecimalIndex !== -1) {
+                console.log('--- firstDecimalIndex IF: ', firstDecimalIndex);
                 // Eliminar cualquier punto adicional después del primero
                 inputValue = inputValue.slice(0, firstDecimalIndex + 1) + inputValue.slice(firstDecimalIndex + 1).replace(/\./g, '');
             }
 
+
             // Limitar a un solo dígito decimal
             const parts = inputValue.split('.');
-            if (parts[1] && parts[1].length > 1) {
-                parts[1] = parts[1].substring(0, 1);
+            console.log('--- parts[0]: ', parts[0]);
+            console.log('--- parts[1]: ', parts[1]);
+            console.log('--- parts[1].length: ', parts[1].length);
+
+            if (parts[1] && parts[1].length > 2) {
+                parts[1] = parts[1].substring(0, 2);
                 inputValue = parts.join('.');
             }
+            console.log('--- inputValue before parts: ', inputValue);
+
 
             inputElement.value = inputValue; // Actualizar el campo con el valor filtrado
+        } else {
+            console.log('*** cumple con la expresión regular ***');
         }
         return inputValue;
     }
