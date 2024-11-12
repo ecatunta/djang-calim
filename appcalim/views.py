@@ -787,6 +787,8 @@ def Inventario_ingreso(request, ingreso_id):
                 precio_nuevo = data.get('precioNuevo')
                 unidad = data.get('unidad')
                 costo_total = data.get('costoTotal')
+                fecha_compra = data.get('fechaCompra')
+                print('fecha de compra: ' ,data.get('fechaCompra'))
 
                 # Validar que los campos obligatorios estén presentes y no sean nulos
                 required_fields = [costo_unitario, porcentaje_ganancia, ganancia, precio_nuevo, unidad, costo_total]
@@ -802,6 +804,9 @@ def Inventario_ingreso(request, ingreso_id):
                 ingreso.ingreso_precioUnitario = precio_nuevo
                 ingreso.ingreso_unidad = unidad
                 ingreso.ingreso_costoTotal = costo_total
+                ingreso_comprador = 'Comprador_' + str(ingreso_id)
+                ingreso.ingreso_comprador = ingreso_comprador
+                ingreso.ingreso_fechaCompra = fecha_compra                                
                 ingreso.save()
                 #print('debug: update ingreso-> Ok')
                 
@@ -811,7 +816,9 @@ def Inventario_ingreso(request, ingreso_id):
                     'ingreso_ganancia_upd': ganancia,                 
                     'ingreso_precioU_upd': precio_nuevo,                         
                     'ingreso_unidad': unidad, 
-                    'ingreso_costo_total': costo_total                 
+                    'ingreso_costo_total': costo_total,
+                    'ingreso_comprador': ingreso_comprador,
+                    'ingreso_fecha_compra': fecha_compra.replace("-", "/")
                 }) 
 
                 # Actualizar el nuevo precio del producto 
@@ -1091,8 +1098,12 @@ def Obtiene_precioU_vigente_nuevo(request, ingreso_id):
                 'i_ganancia': ingreso_nuevo.ingreso_ganancia,
                 'i_precio_unitario': ingreso_nuevo.ingreso_precioUnitario,
                 'ingreso_fecha_test': ingreso_fecha,
+                #'ingreso_fecha_compra': localtime(timezone.now()).strftime("%Y/%m/%d")
+                'ingreso_fecha_compra': localtime(timezone.now()).strftime("%Y-%m-%d")
+                
             } if ingreso_nuevo else {}
         }
+            
         print(ingreso_dic)
         return JsonResponse({'status': 'success', 'ingreso': ingreso_dic, 'producto_nombre': producto_nombre, 'unidad': ingreso_unidad, 'costo_total': ingreso_costo_unidad})
     

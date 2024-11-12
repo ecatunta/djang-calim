@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-Ingreso
+Compras
 {% endblock %}
 
 {% block content %}
@@ -310,6 +310,16 @@ Ingreso
                         </div>-->
 
                         <ul class="list-unstyled" style="margin-bottom: 0;">
+                            <!-- Costo Unitario -->
+                            <li class="mb-3 value-section">                                
+                                <p class="value-label mb-3">Fecha de Compra</p>
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <div class="input-container text-center" style="width: 100%;">                                         
+                                        <input type="date" id="fecha-compra" class="form-control text-center" autocomplete="off" placeholder="">
+                                    </div>
+                                </div>
+                            </li>
+
                             <li class="mb-3 value-section">
                                 <!-- Contenedor flex con etiqueta "Unidades" y botones en la misma línea -->
                                 <div class="d-flex justify-content-between align-items-center mb-2">

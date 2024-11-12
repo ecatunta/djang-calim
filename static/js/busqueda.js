@@ -557,7 +557,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.getElementById('pu_pGanancia_actual').textContent = ingreso.vigente.i_porcentaje_ganancia || '0.0';
                         document.getElementById('pu_ganancia_actual').textContent = '$ ' + ingreso.vigente.i_ganancia || '0.0';
                         document.getElementById('pu_precioU_actual').textContent = '$ ' + ingreso.vigente.i_precio_unitario || '0.0';
-
+                        console.log('ingreso.nuevo.ingreso_fecha_compra: ', ingreso.nuevo.ingreso_fecha_compra);
+                        document.getElementById('fecha-compra').value = ingreso.nuevo.ingreso_fecha_compra;
+                        //document.getElementById('fecha-compra').value = "2024-11-12";
                         document.getElementById('pu_costoU_nuevo').value = ingreso.nuevo.i_costo_unitario || '';
                         //document.getElementById('pu_costoU_nuevo').value = ingreso.vigente.i_costo_unitario || '';
 
@@ -717,7 +719,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
-    function validateSingleDecimalInput(inputElement) {
+    function validateSingleDecimalInput2(inputElement) {
         console.log('*********************  validateSingleDecimalInput');
         // Expresión regular que permite solo números y hasta un decimal
         //const decimalPattern = /^\d*\.?\d{0,1}$/;
@@ -731,13 +733,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Remover caracteres no permitidos y mantener solo el primer punto decimal y un dígito después de este
             inputValue = inputValue.replace(/[^0-9.]/g, '');  // Eliminar letras y caracteres especiales
+
             console.log('--- inputValue.replace: ', inputValue);
 
             // Remover caracteres no permitidos pero conservar hasta dos decimales
-            inputValue = inputValue.match(/^\d*\.?\d{0,2}/)[0];
-            console.log('--- inputValue.match: ', inputValue);
+            //inputValue = inputValue.match(/^\d*\.?\d{0,2}/)[0];
+            //console.log('--- inputValue.match: ', inputValue);
 
 
+            /*
             // Limitar a un solo punto decimal en toda la entrada
             const firstDecimalIndex = inputValue.indexOf('.');            
             console.log('--- firstDecimalIndex: ', firstDecimalIndex);
@@ -746,6 +750,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('--- firstDecimalIndex IF: ', firstDecimalIndex);
                 // Eliminar cualquier punto adicional después del primero
                 inputValue = inputValue.slice(0, firstDecimalIndex + 1) + inputValue.slice(firstDecimalIndex + 1).replace(/\./g, '');
+            }
+            */
+
+
+            // Limitar a un solo punto decimal
+            const firstDecimalIndex = inputValue.indexOf('.');
+            if (firstDecimalIndex !== -1) {
+                // Eliminar cualquier punto adicional después del primero
+                inputValue =
+                    inputValue.slice(0, firstDecimalIndex + 1) +
+                    inputValue.slice(firstDecimalIndex + 1).replace(/\./g, '');
             }
 
 
@@ -767,6 +782,37 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('*** cumple con la expresión regular ***');
         }
         return inputValue;
+    }
+
+
+    function validateSingleDecimalInput(inputElement) {
+        console.log('********** validateSingleDecimalInput');
+        console.log('---- inputElement.dataset.previousValue: ', inputElement.dataset.previousValue);
+        // Expresión regular que permite solo números y hasta dos decimales
+        const decimalPattern = /^\d*\.?\d{0,2}$/;
+        let inputValue = inputElement.value;
+        const previousValue = inputElement.dataset.previousValue || ''; // Guardar el valor anterior para referencia
+        console.log('previousValue: ', previousValue);
+
+        // Verificar si hay más de un punto decimal en el valor actual
+        const decimalCount = (inputValue.match(/\./g) || []).length;
+        console.log('decimalCount: ', decimalCount);
+
+        // Si el valor no cumple con el patrón o hay más de un punto decimal
+        if (!decimalPattern.test(inputValue) || decimalCount > 1) {
+            console.log('*** Entrada inválida o segundo punto detectado ***');
+
+            // Restaurar el valor al último valor válido (ignorar el segundo punto decimal)
+            inputElement.value = previousValue;
+        } else {
+            console.log('*** Entrada válida ***');
+            console.log('---- inputValue: ', inputValue);
+
+            // Almacenar el valor actual como el último valor válido
+            inputElement.dataset.previousValue = inputValue;
+        }
+
+        return inputElement.value;
     }
 
 
@@ -1143,7 +1189,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     precioNuevo: g_precio_unidad,
                     unidad: unidad,
                     costoTotal: costoTotal,
-                    items: datosTabla
+                    items: datosTabla,
+                    fechaCompra: document.getElementById('fecha-compra').value
                 })
             })
                 .then(response => response.json())
@@ -1223,6 +1270,28 @@ document.addEventListener('DOMContentLoaded', function () {
                                 </div>
                                 <div class="col-6 col-result">
                                     <span class="d-block">INGRESO</span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mb-3">
+                            <div class="row">
+                                <div class="col-6 text-end">
+                                    <strong class="text-muted">Comprador:</strong>
+                                </div>
+                                <div class="col-6 col-result">
+                                    <span class="d-block">${obj.ingreso_comprador}</span>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mb-3">
+                            <div class="row">
+                                <div class="col-6 text-end">
+                                    <strong class="text-muted">Fecha de Compra:</strong>
+                                </div>
+                                <div class="col-6 col-result">
+                                    <span class="d-block">${obj.ingreso_fecha_compra}</span>
                                 </div>
                             </div>
                         </li>
@@ -1369,11 +1438,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         popupFooter.innerHTML = `
             <div class="text-center rounded-bottom">                              
-                <button type="button" class="btn btn-default" id="popup-salir">
+                <button type="button" class="btn btn-default" id="compras-inicio" data-url="/">
                     <i class="bi bi-house-door me-2"></i>Inicio
                 </button>
-                <button type="button" class="btn btn-default" id="lista">
-                    <i class="bi bi-table me-2"></i>Pendientes
+                <button type="button" class="btn btn-default" id="compras-pendientes" data-url="/ingreso/">                                        
+                    <i class="bi bi-bag me-2"></i>Compras
                 </button>                
             </div>
                         `;
@@ -1417,11 +1486,19 @@ document.addEventListener('DOMContentLoaded', function () {
                             </ul>
                             `;*/
 
-                        // Añadir evento de cerrar al botón "Salir"
-                        document.getElementById('popup-salir').addEventListener('click', function () {
-                            //overlayDiv.remove();  // Cerrar el popup
-                            //location.reload(true);
-                            location.reload();
+                        // Añadir evento click 
+                        document.getElementById('compras-inicio').addEventListener('click', function () {
+                            // ir a la pagina de inicio
+
+                            const inicioUrl = this.getAttribute('data-url'); // Obtener la URL de 'inicio'                            
+                            window.location.href = inicioUrl; // Redirigir a la URL de inicio
+                        });
+
+                        // Añadir evento click 
+                        document.getElementById('compras-pendientes').addEventListener('click', function () {
+                            // ir a la pagina de compras pendientes
+                            const comprasUrl = this.getAttribute('data-url'); // Obtener la URL de 'nuevo_ingreso'
+                            window.location.href = comprasUrl; // Redirigir a la URL de compras pendientes
                         });
 
                     } else {
