@@ -804,7 +804,7 @@ def Inventario_ingreso(request, ingreso_id):
                 ingreso.ingreso_precioUnitario = precio_nuevo
                 ingreso.ingreso_unidad = unidad
                 ingreso.ingreso_costoTotal = costo_total
-                ingreso_comprador = 'Comprador_' + str(ingreso_id)
+                ingreso_comprador = 'Comprador-' + str(ingreso_id)
                 ingreso.ingreso_comprador = ingreso_comprador
                 ingreso.ingreso_fechaCompra = fecha_compra                                
                 ingreso.save()
