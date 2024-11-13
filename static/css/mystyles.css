@@ -1440,7 +1440,7 @@ header {
       /*font-size: 1rem;*/
       /*color: #495057;*/
       color: black;
-      font-weight: 500;
+      font-weight: 400;
   }
 
   .value-section {
@@ -1729,7 +1729,7 @@ header {
 /* Contenedor general de estilo factura */
 .container-custom-factura {
   background-color: #ffffff;
-  padding: 20px;
+  /*padding: 20px;*/
   border-radius: 6px;
   max-width: 600px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
@@ -1740,7 +1740,7 @@ header {
 .header-row-factura {
   background-color: #f8f9fa; /* Fondo gris suave */
   padding: 5px 0;
-  font-weight: bold;
+  font-weight: 400;
   color: #495057;
   border-bottom: 2px solid #dee2e6; /* Línea de separación */
   /*margin-bottom: 15px;*/
@@ -1748,7 +1748,7 @@ header {
 
 .label-header {
   font-size: inherit;
-  font-weight: 600;
+  font-weight: 400;
   color: #495057;
 }
 
@@ -1758,12 +1758,16 @@ header {
   padding: 2px 0;
 }
 
+.item-columna{
+  border-right: 1px solid #e0e0e0;
+}
+
 /* Estilo de títulos (Ganancia y Precio) */
 .label-title {
-  font-weight: 500;
+  font-weight: 400;
   color: #343a40;
-  font-size: inherit;
-  padding-left: 10px;
+  /*font-size: inherit;*/
+  /*padding-left: 10px;*/
 }
 
 /* Celdas de valores (Nuevo y Actual) */

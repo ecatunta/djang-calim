@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const span_n_precio_unidad = document.getElementById('pu_precioU_nuevo');
     const span_a_precio_unidad = document.getElementById('pu_precioU_actual');
     const span_n_ganancia_unidad = document.getElementById('pu_ganancia_nuevo');
+    const span_n_costo_unidad = document.getElementById('pu_costo_nuevo');
+
     let g_ganancia_unidad = 0;
     let g_precio_unidad = 0;
     let g_unidad_entrante = 0;
@@ -555,24 +557,37 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.getElementById('pu_costo_total').textContent = data.costo_total || '0.0';
                         document.getElementById('pu_costoU_actual').textContent = ingreso.vigente.i_costo_unitario || '0.0';
                         document.getElementById('pu_pGanancia_actual').textContent = ingreso.vigente.i_porcentaje_ganancia || '0.0';
-                        document.getElementById('pu_ganancia_actual').textContent = '$ ' + ingreso.vigente.i_ganancia || '0.0';
-                        document.getElementById('pu_precioU_actual').textContent = '$ ' + ingreso.vigente.i_precio_unitario || '0.0';
+
+                        //document.getElementById('pu_ganancia_actual').textContent = '$ ' + ingreso.vigente.i_ganancia || '0.0';
+
+                        //document.getElementById('pu_ganancia_actual').textContent = '$ ' + ingreso.vigente.i_ganancia || '0.0';
+                        document.getElementById('pu_ganancia_actual').textContent = ingreso.vigente.i_ganancia || '0.0';
+
+                        //document.getElementById('pu_precioU_actual').textContent = '$ ' + ingreso.vigente.i_precio_unitario || '0.0';
+                        document.getElementById('pu_precioU_actual').textContent = ingreso.vigente.i_precio_unitario || '0.0';
+
                         console.log('ingreso.nuevo.ingreso_fecha_compra: ', ingreso.nuevo.ingreso_fecha_compra);
                         document.getElementById('fecha-compra').value = ingreso.nuevo.ingreso_fecha_compra;
                         //document.getElementById('fecha-compra').value = "2024-11-12";
                         document.getElementById('pu_costoU_nuevo').value = ingreso.nuevo.i_costo_unitario || '';
+                        document.getElementById('pu_costo_actual').textContent = ingreso.vigente.i_costo_unitario || '';
+                        document.getElementById('pu_costo_nuevo').textContent = ingreso.nuevo.i_costo_unitario || '';
+
                         //document.getElementById('pu_costoU_nuevo').value = ingreso.vigente.i_costo_unitario || '';
 
-                        span_n_ganancia_unidad.textContent = '$ ' + ingreso.nuevo.i_ganancia;
-
-                        span_n_precio_unidad.textContent = '$ ' + ingreso.nuevo.i_precio_unitario;
+                        //span_n_ganancia_unidad.textContent = '$ ' + ingreso.nuevo.i_ganancia;
+                        span_n_ganancia_unidad.textContent = ingreso.nuevo.i_ganancia;
+                        //span_n_precio_unidad.textContent = '$ ' + ingreso.nuevo.i_precio_unitario;
+                        span_n_precio_unidad.textContent = ingreso.nuevo.i_precio_unitario;
 
                         if (!ingreso.nuevo.i_ganancia) {
-                            span_n_ganancia_unidad.textContent = '$ 0.0';
+                            //span_n_ganancia_unidad.textContent = '$ 0.0';
+                            span_n_ganancia_unidad.textContent = '0.0';
                         }
 
                         if (!ingreso.nuevo.i_precio_unitario) {
-                            span_n_precio_unidad.textContent = '$ 0.0';
+                            //span_n_precio_unidad.textContent = '$ 0.0';
+                            span_n_precio_unidad.textContent = '0.0';
                         }
 
                         g_ganancia_unidad = ingreso.nuevo.i_ganancia;
@@ -615,6 +630,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const porcentaje_ganancia_nuevo = parseFloat(input_p_ganancia_nuevo.value);
         const unidad_entrante = input_pu_unidad.value;
         let costo_unitario_nuevo = parseFloat(inputValue);
+        span_n_costo_unidad.textContent = inputValue;
 
         costo_unitario_nuevo = parseFloat(validateSingleDecimalInput(this));
         console.log('result: ', costo_unitario_nuevo);
@@ -632,14 +648,15 @@ document.addEventListener('DOMContentLoaded', function () {
         let [precio, ganancia] = calcular_precioU_ganancia(costo_unitario_nuevo, porcentaje_ganancia_nuevo);
 
         if (precio) {
-            span_n_precio_unidad.textContent = '$ ' + precio.toFixed(1);
-            //span_n_precio_unidad.textContent = precio.toFixed(1);
+            //span_n_precio_unidad.textContent = '$ ' + precio.toFixed(1);
+            span_n_precio_unidad.textContent = precio.toFixed(1);
         } else {
             span_n_precio_unidad.textContent = '0.0';
         }
 
         if (ganancia) {
-            span_n_ganancia_unidad.textContent = '$ ' + ganancia.toFixed(1);
+            //span_n_ganancia_unidad.textContent = '$ ' + ganancia.toFixed(1);
+            span_n_ganancia_unidad.textContent = ganancia.toFixed(1);
         } else {
             span_n_ganancia_unidad.textContent = '0.0';
         }
@@ -701,13 +718,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let [precio, ganancia] = calcular_precioU_ganancia(costo_unitario_nuevo, porcentaje_ganancia_nuevo);
         if (precio) {
-            span_n_precio_unidad.textContent = '$ ' + precio.toFixed(1);
+            //span_n_precio_unidad.textContent = '$ ' + precio.toFixed(1);
+            span_n_precio_unidad.textContent = precio.toFixed(1);
         } else {
             span_n_precio_unidad.textContent = '0.0';
         }
 
         if (ganancia) {
-            span_n_ganancia_unidad.textContent = '$ ' + ganancia.toFixed(1);
+            //span_n_ganancia_unidad.textContent = '$ ' + ganancia.toFixed(1);
+            span_n_ganancia_unidad.textContent = ganancia.toFixed(1);
         } else {
             span_n_ganancia_unidad.textContent = '0.0';
         }

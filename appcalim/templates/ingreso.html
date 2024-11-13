@@ -147,7 +147,9 @@ Compras
 
             <div class="modal-header bg-secondary text-white" style="height:35px;">
                 <h5 class="modal-title" id="ingresoPrecioUModalLabel" style="color: #fff; font-size: 1.10rem;">
-                    Inventario</h5>
+                    <!--Inventario</h5>-->
+                    Compras
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -311,11 +313,12 @@ Compras
 
                         <ul class="list-unstyled" style="margin-bottom: 0;">
                             <!-- Costo Unitario -->
-                            <li class="mb-3 value-section">                                
+                            <li class="mb-3 value-section">
                                 <p class="value-label mb-3">Fecha de Compra</p>
                                 <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <div class="input-container text-center" style="width: 100%;">                                         
-                                        <input type="date" id="fecha-compra" class="form-control text-center" autocomplete="off" placeholder="">
+                                    <div class="input-container text-center" style="width: 100%;">
+                                        <input type="date" id="fecha-compra" class="form-control text-center"
+                                            autocomplete="off" placeholder="">
                                     </div>
                                 </div>
                             </li>
@@ -334,7 +337,7 @@ Compras
                                     </div>
                                 </div>
 
-                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
                                     <div class="input-container" style="width: 100%;">
                                         <input type="text" id="pu_unidad" class="form-control text-center"
                                             autocomplete="off" inputmode="numeric"
@@ -345,8 +348,8 @@ Compras
                                         </div>-->
                                 </div>
 
-                                <div class="current-value-label" style="text-align: left;">
-                                    Costo Total $ <span id="pu_costo_total"></span>
+                                <div class="current-value-label" style="text-align: center;">
+                                    Costo total &nbsp;$ <span id="pu_costo_total"></span>
                                 </div>
 
                             </li>
@@ -355,7 +358,7 @@ Compras
                             <li class="mb-3 value-section">
                                 <!--<p class="value-label">$ Costo Unitario</p>-->
                                 <p class="value-label mb-3">$ Costo Unitario del Proveedor</p>
-                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
                                     <div class="input-container text-center" style="width: 100%;">
                                         <!--<label for="pu_costoU_nuevo" class="new-value-label mb-1">
                                             Nuevo Valor
@@ -368,9 +371,9 @@ Compras
                                             Actual $ <span id="pu_costoU_actual">100.00</span>
                                         </div>-->
                                 </div>
-                                <div class="current-value-label" style="text-align: left;">
+                                <div class="current-value-label" style="text-align: center;">
                                     <!--Actual: Bs <span id="pu_costoU_actual">100.00</span>-->
-                                    Costo unitario actual $ <span id="pu_costoU_actual">100.00</span>
+                                    Costo unitario actual &nbsp;$ <span id="pu_costoU_actual">100.00</span>
                                 </div>
                             </li>
 
@@ -379,7 +382,7 @@ Compras
                                 <!--<p class="value-label">% Rentabilidad</p>-->
                                 <p class="value-label mb-3">% Margen de Ganancia</p>
 
-                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
                                     <div class="input-container text-center" style="width: 100%;">
                                         <!--<label for="pu_pGanancia_nuevo" class="new-value-label mb-1">
                                             Nuevo Valor
@@ -392,8 +395,8 @@ Compras
                                             Actual % <span id="pu_pGanancia_actual">15</span>
                                         </div>-->
                                 </div>
-                                <div class="current-value-label" style="text-align:left;">
-                                    Margen de ganancia actual % <span id="pu_pGanancia_actual">15</span>
+                                <div class="current-value-label" style="text-align:center;">
+                                    Margen de ganancia actual &nbsp;% <span id="pu_pGanancia_actual">15</span>
                                 </div>
                             </li>
                         </ul>
@@ -402,7 +405,9 @@ Compras
                             <div class="col-12 col-md-12 container-custom-factura">
                                 <!-- Encabezado de Factura -->
                                 <div class="row header-row-factura text-center">
-                                    <div class="col-4">&nbsp;</div>
+                                    <div class="col-4">
+                                        <span class="label-header">Unidad</span>                                        
+                                    </div>
                                     <div class="col-4">
                                         <span class="label-header">Nuevo</span>
                                     </div>
@@ -411,26 +416,38 @@ Compras
                                     </div>
                                 </div>
 
-                                <!-- Fila de Ganancia -->
+                                <!-- Fila de Costo -->
                                 <div class="row item-row">
-                                    <div class="col-4 label-title">
-                                        Ganancia/U
+                                    <div class="col-4 label-title text-center item-columna" style="background-color: #e9ecef;">
+                                        $ Costo
+                                    </div>
+                                    <div class="col-4 text-center item-columna">
+                                        <span id="pu_costo_nuevo" class="value-cell-factura value-new">130</span>
                                     </div>
                                     <div class="col-4 text-center">
+                                        <span id="pu_costo_actual" class="value-cell-factura value-current">120</span>
+                                    </div>
+                                </div>
+
+                                <!-- Fila de Ganancia -->
+                                <div class="row item-row">
+                                    <div class="col-4 label-title text-center item-columna" style="background-color: #e9ecef;">
+                                        $ Ganancia
+                                    </div>
+                                    <div class="col-4 text-center item-columna">
                                         <span id="pu_ganancia_nuevo" class="value-cell-factura value-new">130</span>
                                     </div>
                                     <div class="col-4 text-center">
-                                        <span id="pu_ganancia_actual"
-                                            class="value-cell-factura value-current">120</span>
+                                        <span id="pu_ganancia_actual" class="value-cell-factura value-current">120</span>
                                     </div>
                                 </div>
 
                                 <!-- Fila de Precio -->
                                 <div class="row item-row">
-                                    <div class="col-4 label-title">
-                                        Precio/U
+                                    <div class="col-4 label-title text-center item-columna" style="background-color: #e9ecef;">
+                                        $ Precio
                                     </div>
-                                    <div class="col-4 text-center">
+                                    <div class="col-4 text-center item-columna">
                                         <span id="pu_precioU_nuevo" class="value-cell-factura value-new">150</span>
                                     </div>
                                     <div class="col-4 text-center">
