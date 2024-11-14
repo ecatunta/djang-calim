@@ -1347,16 +1347,16 @@ header {
 }
 */
 
-
+/*
 .modal.fade .modal-dialog {
-  transition: transform 0.5s ease-out !important;
-  /* Cambia el tiempo de transición */
+  transition: transform 0.5s ease-out !important;  
   transform: translateY(-25%);
 }
-
+  
 .modal.show .modal-dialog {
   transform: translateY(0);
 }
+/*
 
 
 .modal-visible-back {
@@ -1440,7 +1440,8 @@ header {
       /*font-size: 1rem;*/
       /*color: #495057;*/
       color: black;
-      font-weight: 400;
+      /*font-weight: 500;*/
+      font-weight: 700;
   }
 
   .value-section {
