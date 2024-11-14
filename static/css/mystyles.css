@@ -1356,7 +1356,7 @@ header {
 .modal.show .modal-dialog {
   transform: translateY(0);
 }
-/*
+*/
 
 
 .modal-visible-back {
@@ -1560,7 +1560,8 @@ header {
 
 #popup-body-i {
   /*font-family: 'Arial', sans-serif;*/
-  background-color: #f8f9fa; 
+  
+  /*background-color: #f8f9fa; */
   border-radius: 0.5rem;
 }
 
