@@ -1146,7 +1146,7 @@ header {
 
 .popup-header h5 {
   font-size: 1.25rem;
-  color: #f5f3f3;
+  /*color: #f5f3f3;*/
   margin-bottom: 0px;
   /*margin-bottom: 10px; */
 }
@@ -1190,7 +1190,7 @@ header {
 }
 
 .custom-popup i {
-  margin-right: 10px;
+  margin-right: 7px;
 }
 
 .loading-overlay {

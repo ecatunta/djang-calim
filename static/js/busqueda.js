@@ -1116,6 +1116,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+
         overlayDiv.classList.add('custom-popup-overlay');
 
         popupDiv.classList.add('custom-popup');
@@ -2002,6 +2003,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Verificar si la tabla tiene más de 1 fila
         if (rowCount > 0) {
+
+            /*mensaje_alerta = `
+                <p>Los <strong>${input_pu_unidad.value} items</strong> creados previamente se eliminarán.</p>
+                <p>¿Deseas crear nuevos items?</p>   
+                `;*/
+            mensaje_alerta = `
+                <p class="mb-3"><strong>Los ${input_pu_unidad.value} items creados previamente se eliminarán</strong></p>
+            `;
+
+            if (input_pu_unidad.value == 1) {
+                mensaje_alerta = `                
+                <p class="mb-3"><strong>El item creado previamente será eliminado</strong></p>
+                `;
+            }
+
             // Crear la superposición y el popup
             const overlayDiv = document.createElement('div');
             overlayDiv.classList.add('custom-popup-overlay');
@@ -2011,32 +2027,27 @@ document.addEventListener('DOMContentLoaded', function () {
             popupDiv.classList.add('custom-popup');
             popupDiv.innerHTML = `
             <div class="popup-header">
-                <div class="bg-secondary text-white p-2" style="">
-                    <h5><i class="bi bi-exclamation-circle-fill text-warning"></i> Advertencia</h5>
+                <div class="bg-light text-dark p-2">
+                    <h5><i class="bi bi-exclamation-circle-fill"></i> Aviso</h5>
                 </div>
             </div>
 
             <div class="popup-body">
-                <div class="d-flex p-3 align-items-center">
-                    <i class="bi bi-exclamation-triangle-fill text-secondary me-3" style="font-size: 4rem;"></i>
-
-                    <div style="line-height: 1.6;">
-                        Actualmente <strong>hay ${rowCount} elementos creados</strong>. Si continúa, se perderán los cambios y se
-                        generarán nuevos elementos.
-                        <hr><span>¿Desea proceder?</span>
+                <div class="d-flex1 p-4 align-items-center">                    
+                    <div>
+                        ${mensaje_alerta}
                     </div>
+                    
+                    <div class="text-end">
+                        <p class="mb-1">¿Deseas crear nuevos items?</p>
+                    </div>  
                 </div>
             </div>
 
             <div class="popup-footer p-3 bg-light text-end">
-                <button type="button" class="btn btn-default me-2" id="popup-cancelar">
-                    <!--<i class="bi bi-x-circle"></i>--> Cancelar
-                </button>
-                <button type="button" class="btn btn-success" id="popup-aceptar">
-                    <!--<i class="bi bi-check-circle"></i>--> Aceptar
-                </button>
+                <button type="button" class="btn btn-outline-secondary me-2" id="popup-cancelar">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="popup-aceptar">Si, Acepto</button>
             </div>
-
             `;
 
             // Agregar el popup al overlay y luego al cuerpo del modal
