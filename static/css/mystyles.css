@@ -1535,13 +1535,30 @@ header {
 }
 
 .value-new {  
-  color: #155724; /* Texto verde oscuro */  
+  color: #155724; 
 }
+
+/*.value-new {  
+  color: #155724;
+  font-weight: bold;
+  font-size: 1rem;
+}*/
 
 .value-current {
   color: #868e96;
 }
 
+/*.value-current {
+  color: #868e96;
+  font-size: 0.85rem;
+}*/
+
+.highlighted-row {
+  background-color: #e9f7ef;
+  padding: 2px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.1);
+}
 
 
 /* Adaptación para dispositivos móviles */
