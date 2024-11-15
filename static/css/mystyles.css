@@ -1523,6 +1523,12 @@ header {
   box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
 }
 
+.button-group {
+  flex-shrink: 0; /* Evita que el grupo de botones se reduzca de tamaño */
+  display: flex;
+  gap: 0.2rem; /* Espacio entre los botones */
+}
+
 .button-group .btn {
   font-size: 1.1rem;
   padding: 8px 12px;
