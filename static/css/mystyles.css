@@ -1016,28 +1016,8 @@ header {
 
 /* Estilos para el popup */
 /*
-.custom-popup-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1050; 
-}
 
-.custom-popup {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-}
+
 
 .custom-popup .popup-buttons {
   margin-top: 15px;
@@ -1051,22 +1031,17 @@ header {
 /* Estilos para el popup */
 .custom-popup-overlay {
   /*position: absolute;*/
-  background: rgba(34, 45, 65, 0.85);
-  /* Un tono azul oscuro translúcido */
-  position: fixed;
-  /* Cambiar a 'fixed' para cubrir toda la página */
+  background: rgba(34, 45, 65, 0.85);  /* Un tono azul oscuro translúcido */
+  position: fixed;  /* Cambiar a 'fixed' para cubrir toda la página */
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  /*display: flex;*/
+  height: 100%;  /*display: flex;*/
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1050;
-  /* Debe estar sobre otros elementos */
-  overflow: auto;
-  /* Evita el desplazamiento en la página */
+  z-index: 1050;  /* Debe estar sobre otros elementos */
+  overflow: auto;  /* Evita el desplazamiento en la página */
 
   /*background: rgba(0, 0, 0, 0.8); /* Fondo oscuro translúcido */
   /*background: rgba(0, 0, 0, 0.5);
@@ -1077,20 +1052,6 @@ header {
   /*background: rgba(0, 0, 0, 0.6); /* Negro translúcido menos intenso */
 }
 
-
-/*.custom-popup-overlay {
-  background: rgba(34, 45, 65, 0.85); 
-  position: fixed; 
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1050; 
-}
-  */
 
 .custom-popup {
   position: relative;
@@ -1117,44 +1078,9 @@ header {
   /* Centrar el popup */  
 }
 
-/*.custom-popup {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  max-width: 400px;
-  width: 90%;
-  overflow: hidden;
-}*/
-
-/*.popup-body2 {
-  max-height: 80vh;  Permitir un máximo del 80% de la altura del viewport 
-  overflow-y: auto;  Permitir scroll solo en el cuerpo si es necesario 
-}*/
-
-.popup-header {
-  /*background-color: #514f4f;*/
-  /*padding: 5px 7px 7px 5px;*/
-  /*margin-bottom: 10px;*/
-}
-
-.popup-header h5 {
+/*.popup-header h5 {
   font-size: 1.25rem;
-  /*color: #f5f3f3;*/
   margin-bottom: 0px;
-  /*margin-bottom: 10px; */
-}
-
-.popup-header {
-  /*border-radius: 10px 10px 0 0;*/
-}
-
-.popup-body {
-  /*display: flex;
-  align-items: center;
-  justify-content: start;*/
-
-  /*padding: 15px 20px 15px 20px;
-  background-color: white;*/
 }
 
 .popup-body {
@@ -1162,45 +1088,89 @@ header {
   line-height: 1.5;
 }
 
-/*.popup-footer {
-  margin-top: 10px;
-  text-align: right;
-  border-top: 1px solid #f1efef;
-  padding: 10px;
+.popup-footer {
+  border-top: 1px solid #ddd;    
 }*/
 
-.popup-footer {
-  border-top: 1px solid #ddd;  
-  /*border-radius: 0px 0px 10px 10px;*/
+
+.custom-popup-header {
+  border-bottom: 1px solid #ddd;
 }
 
-.custom-popup .popup-buttons {
-  margin-top: 15px;
+.custom-popup-header-bg {
+  background-color: #f8f9fa;
 }
 
-.custom-popup .popup-buttons button {
-  margin: 0 10px;
+.custom-icon-container i {
+  font-size: 1.5rem;
+  color: #007bff;
 }
 
-.custom-popup i {
-  margin-right: 7px;
+.custom-popup-title {
+  font-size: 1.25rem;
+  font-weight: bold;
 }
 
-.loading-overlay {
-  /*position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.7); /* Fondo semitransparente */
-
-  /*display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10; /* Asegura que el overlay esté sobre el contenido */
+.custom-popup-body {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #333;
 }
 
-/*.loading-overlay {
+/*.custom-alert-info {
+  font-size: 1.0rem;
+  color: #333;
+  margin-bottom: 1rem;
+}*/
+
+/*.custom-product-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #343a40;
+}*/
+
+/*.custom-field-label {
+  font-size: 1rem;
+  color: #6c757d;
+}
+*/
+
+/*.custom-field-value {
+  font-size: 1rem;
+  color: #343a40;
+}*/
+
+.custom-confirmation-message {
+  font-size: 1.1rem;
+  color: #495057;
+  font-weight: 600;
+}
+
+.custom-popup-footer {
+  border-top: 1px solid #ddd;
+}
+
+/*.custom-popup-footer .btn {
+  font-size: 1rem;
+  padding: 10px 20px;
+}*/
+
+/*.custom-popup-footer .btn-outline-secondary {
+  border: 1px solid #ddd;
+  color: #495057;
+}*/
+
+/*.custom-popup-footer .btn-primary {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+}*/
+
+/*.custom-popup-footer .btn:hover {
+  background-color: #0056b3;
+}*/
+
+.custom-loading-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -1208,12 +1178,23 @@ header {
   bottom: 0;
   background: rgba(255, 255, 255, 0.8);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-}*/
+  color: #333;
+  font-size: 1.2rem;
+  z-index: 1060;
+}
 
-.loading-overlay {
+.custom-spinner {
+  width: 3rem;
+  height: 3rem;
+  border-width: 4px;
+}
+
+
+/*.loading-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -1225,12 +1206,10 @@ header {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  z-index: 1060;
-  /* Asegura que esté sobre el contenido del popup */
-  color: #333;
-  /* Color para el texto */
+  z-index: 1060; 
+  color: #333;  
   font-size: 1.2rem;
-}
+}*/
 
 
 #tabla-registro-inventario thead th:first-child {

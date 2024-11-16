@@ -300,7 +300,8 @@ Compras
 
                             <li class="mb-4 value-section">
                                 <div class="d-flex justify-content-between align-items-center mb-2 flex-nowrap">
-                                    <p class="value-label mb-0 text-container"><i class="bi bi-box-seam"></i> Unidades entrantes</p>
+                                    <p class="value-label mb-0 text-container"><i class="bi bi-box-seam"></i> Unidades
+                                        entrantes</p>
                                     <div class="button-group">
                                         <button id="actualizar-unidad" class="btn btn-outline-secondary me-1">
                                             <i class="bi bi-arrow-clockwise"></i>
@@ -450,14 +451,14 @@ Compras
 <div class="custom-popup-overlay2" id="popupOverlay2" style="display: none;">
 
     <div class="custom-popup">
-        <!-- Header del Popup -->
+
         <div class="popup-header">
-            <div class="bg-secondary text-white p-2 rounded-top333 d-flex align-items-center">
+            <div class="bg-secondary text-white p-2 d-flex align-items-center">
                 <div class="col-1 d-flex justify-content-center" style="font-size: 1.0rem;">
                     <i class="bi bi-box-seam me-1"></i>
                 </div>
                 <div class="col-10">
-                    <h5 class="mb-0" style="font-size: 1.0rem;">Inventario</h5>
+                    <h5 class="mb-0">Inventario</h5>
                 </div>
             </div>
         </div>
@@ -655,92 +656,40 @@ Compras
 </div>
 
 
-<div class="custom-popup-overlay2" id="popupOverlay2" style="display: none;">
 
-    <div class="custom-popup">
+<div class="custom-popup-overlay-zzz" id="popupOverlay-zzz" style="display: none;">
+    <div class="custom-popup-zzz">
 
-        <div class="popup-header">
-            <div class="bg-info text-white p-2 rounded-top2 d-flex align-items-center">
-                <div class="d-flex2 justify-content-center me-2" style="font-size: 1.5rem;">
+        <div id="popup-header-i" class="custom-popup-header">
+            <div class="custom-popup-header-bg p-2 d-flex align-items-center">
+                <div class="custom-icon-container me-3">
                     <i class="bi bi-info-circle-fill"></i>
                 </div>
-                <h5 class="mb-0 flex-grow-1">Aviso de Inventario</h5>
+                <h5 class="custom-popup-title mb-0 flex-grow-1">Aviso de Inventario</h5>
             </div>
         </div>
 
-        <div id="popup-body-i" class="popup-body p-3">
-
-            <!--   <p class="mb-3">
-                Se agregará un total de <strong>120 unidades</strong> al inventario del siguiente producto:
-            </p>
-
-         
-            <p class="text-center">
-                <strong>“PAÑALES BEBITUS DESECHABLE TALLA XXG”</strong>
-            </p>
-
-            <p class="mt-4">
-                El nuevo precio por unidad será de <strong>Bs. 54</strong>.
-            </p>
-            <p class="text-warning mt-3">
-                <i class="bi bi-exclamation-triangle-fill me-1"></i> Atención: Los productos en esta selección <strong>
-                    cuentan con fecha de vencimiento</strong>.
-            </p>
-
-            <p class="mt-4 mb-0 text-center">
-                ¿Confirma que desea continuar?
-            </p>
-        -->
-
-            <p class="mb-3">
-                Se ingresa nuevos productos al inventario:
-            </p>
-
-            <div class="row">
-                <div class="col-4">Cantidad</div>
-                <div class="col-8">120 Unidades</div>
+        <div id="popup-body-i" class="custom-popup-body p-3">
+            <p><b>400 unidades</b> del producto <b>“PAÑALES BEBITUS DESECHABLE TALLA XXG”</b> se añadirán al inventario. El precio unitario será <b>Bs. 54</b></p>
+            <p>Los productos no tienen fecha de vencimiento.</p>
+            <div class="custom-confirmation-message text-end mt-1">
+                ¿Desea continuar?
             </div>
-
-            <div class="row">
-                <div class="col-4">Producto</div>
-                <div class="col-8">“PAÑALES BEBITUS DESECHABLE TALLA XXG”</div>
-            </div>
-
-            <div class="row">
-                <div class="col-4">Precio Unitario</div>
-                <div class="col-8">Bs. 54</div>
-            </div>
-
-            <div class="row">
-                <div class="col-4">Fecha de Venc.</div>
-                <div class="col-8">SI</div>
-            </div>
-
-            <div class="row">
-                <div class="col-4">Fecha de Compra</div>
-                <div class="col-8">2024/11/20</div>
-            </div>
-
-            <p class="mt-4 mb-0 text-end">
-                ¿Confirma que desea continuar?
-            </p>
-
         </div>
 
-        <div class="popup-footer text-end p-3">
+        <div id="popup-footer-i" class="custom-popup-footer text-end p-2">
             <button type="button" class="btn btn-outline-secondary me-2" id="popup-cancelar">Cancelar</button>
             <button type="button" class="btn btn-primary" id="popup-aceptar">Si, Acepto</button>
         </div>
 
-        <div id="loading-overlay" class="loading-overlay d-none">
-            <div class="spinner-border text-primary mb-3" role="status">
+        <div id="loading-overlay" class="custom-loading-overlay d-none">
+            <div class="spinner-border custom-spinner mb-3" role="status">
                 <span class="visually-hidden">Cargando...</span>
             </div>
             <span>Cargando...</span>
         </div>
 
     </div>
-
 </div>
 
 

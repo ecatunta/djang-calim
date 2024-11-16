@@ -1063,11 +1063,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (row.length == contador) {
             //mensaje = 'incluyen fecha de vencimiento';
-            mensaje = 'cuentan con fecha de vencimiento';
+            //mensaje = 'cuentan con fecha de vencimiento';
+            mensaje = 'tienen fecha de vencimiento';
 
         } else {
             //mensaje = 'no incluyen fecha de vencimiento';
-            mensaje = 'no cuentan con fecha de vencimiento';
+            //mensaje = 'no cuentan con fecha de vencimiento';
+            mensaje = 'no tienen fecha de vencimiento';
         }
         //return;
 
@@ -1122,46 +1124,37 @@ document.addEventListener('DOMContentLoaded', function () {
         popupDiv.classList.add('custom-popup');
 
         popupDiv.innerHTML = `
-        <!-- Header del Popup -->        
-        <div class="popup-header">
-            <!--<div class="bg-info text-white p-2 rounded-top d-flex align-items-center">-->
-            <div class="bg-secondary text-info p-2 rounded-top d-flex align-items-center">
-                <div class="d-flex justify-content-center me-2" style="font-size: 2.2rem;">
+        <!-- Header del Popup -->  
+
+        <div id="popup-header-i" class="custom-popup-header">
+            <div class="custom-popup-header-bg p-2 d-flex align-items-center">
+                <div class="custom-icon-container me-3">
                     <i class="bi bi-info-circle-fill"></i>
                 </div>
-                <!--<h5 class="mb-0 text-center flex-grow-1">Aviso de Inventario</h5>-->
-                <h5 class="mb-0 flex-grow-1">Aviso de Inventario</h5>
+                <h5 class="custom-popup-title mb-0 flex-grow-1">Aviso de Inventario</h5>
             </div>
         </div>
 
-        <!-- Cuerpo del Popup -->        
-        <div id="popup-body-i" class="popup-body p-3">
-            <p class="mb-3">
-                Se agregará un total de <strong>${input_pu_unidad.value} unidades</strong> al inventario del siguiente producto:
-            </p>
-            <p class="text-center">
-                <strong>“${strong_producto_nombre.textContent}”</strong>
-            </p>
-            <p class="mt-4">
-                <!--El nuevo precio por unidad será de <strong>Bs. ${span_n_precio_unidad.textContent}</strong>.-->
-                El nuevo precio por unidad será de <strong>Bs. ${g_precio_unidad}</strong>.
-            </p>
-            <p class="text-warning mt-3">
-                <i class="bi bi-exclamation-triangle-fill me-1"></i> Atención: Los productos en esta selección <strong>${mensaje}</strong>.
-            </p>
-            <p class="mt-4 mb-0 text-center">
-                ¿Confirma que desea continuar?
-            </p>
-        </div>
+        <!-- Cuerpo del Popup -->
 
-        <!-- Footer del Popup -->
-        <div class="popup-footer text-end p-3">
+        <div id="popup-body-i" class="custom-popup-body p-3">
+            <p><b>${input_pu_unidad.value} unidades</b> del producto <b>“${strong_producto_nombre.textContent}”</b> se añadirán al inventario. El precio unitario será <b>Bs. ${span_n_precio_unidad.textContent}</b></p>
+            <p>Los productos ${mensaje}.</p>
+            <div class="custom-confirmation-message text-end mt-1">
+                ¿Desea continuar?
+            </div>
+        </div>          
+ 
+
+        <!-- Footer del Popup --> 
+
+        <div id="popup-footer-i" class="custom-popup-footer text-end p-2">
             <button type="button" class="btn btn-outline-secondary me-2" id="popup-cancelar">Cancelar</button>
-            <button type="button" class="btn btn-primary" id="popup-aceptar">Aceptar</button>
+            <button type="button" class="btn btn-primary" id="popup-aceptar">Si, Acepto</button>
         </div>
 
-        <div id="loading-overlay" class="loading-overlay d-none">
-            <div class="spinner-border text-primary mb-3" role="status">
+        <div id="loading-overlay" class="custom-loading-overlay d-none">
+            <div class="spinner-border custom-spinner mb-3" role="status">
                 <span class="visually-hidden">Cargando...</span>
             </div>
             <span>Cargando...</span>
@@ -1218,9 +1211,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     ocultarSpinner();
                     console.log('data-> inventario_ingreso: ', data);
                     if (data.success) {
-                        const popupHeader = document.querySelector('.popup-header');
+                        //const popupHeader = document.querySelector('.popup-header');
+                        const popupHeader = document.getElementById('popup-header-i');
                         const popupBody = document.getElementById('popup-body-i');
-                        const popupFooter = document.querySelector('.popup-footer');
+                        const popupFooter = document.getElementById('popup-footer-i');
+                        //const popupFooter = document.querySelector('.popup-footer');
 
                         popupHeader.innerHTML = `
                         <div class="bg-secondary text-white p-2 rounded-top333 d-flex align-items-center">
