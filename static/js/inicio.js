@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
- //   const btnGenerarItem = document.getElementById('generar-sigla');
+    const btnGenerarItem = document.getElementById('generar-sigla');
     //alert ('inicio');
     const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
 
@@ -21,24 +21,29 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    /*
+
     btnGenerarItem.addEventListener('click', function (event) {
         console.log('evento click al elemento html de ID generar-sigla');
-        
+
         // Enviar la solicitud Ajax al backend        
         fetch(`/genera-sigla-producto/`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             }
-        }).then(response => {
-            console.log('Response: ', response)
-            if (response.ok) {
-            }
-        }).catch(error => {
-            console.error('Error en la solicitud ajax:', error);
-        });
+        })
+            .then(response => response.json())
+            .then(data => {
+                //.then(response => {
+                console.log('Response: ', data)
+                if (data.success) {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud ajax:', error);
+            });
     });
-    */
+
 
 });
