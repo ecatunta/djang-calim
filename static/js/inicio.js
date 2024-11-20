@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const btnGenerarItem = document.getElementById('generar-sigla');
+//    const btnGenerarItem = document.getElementById('generar-sigla');
     //alert ('inicio');
     const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
 
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-
+/*
     btnGenerarItem.addEventListener('click', function (event) {
         console.log('evento click al elemento html de ID generar-sigla');
 
@@ -44,6 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error('Error en la solicitud ajax:', error);
             });
     });
-
+    */
 
 });
