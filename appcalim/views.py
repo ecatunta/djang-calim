@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse
 from django.apps import apps
-from django.db import connection, models, transaction
+from django.db import connection, models, transaction, DatabaseError
 from django.utils import timezone
-from django.db.models import ForeignKey, OneToOneField, ManyToManyField, Sum
-from .models import Categoria, Subcategoria, Producto, Higiene, ParametroAtributo, Venta, Ticket, Ingreso, Inventario, InventarioIngreso, InventarioVenta, IngresoProducto
+from django.db.models import ForeignKey, OneToOneField, ManyToManyField, Sum, Max
+from .models import Categoria, Subcategoria, Producto, Higiene, ParametroAtributo, Venta, Ticket, Ingreso, Inventario, InventarioIngreso, InventarioVenta, Item
 from .forms import ParametroAtributoForm, VentaForm, IngresoForm
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
@@ -839,20 +839,24 @@ def Inventario_ingreso(request, ingreso_id):
                     #print('item-> ', item['item'], 'fecha->', item['fecha'], 'codigo->', item['codigo'])                    
                      # Manejar el valor vacío para la fecha
                     fecha_vencimiento = None
+
                     if item['fecha']:                        
                         # Convertir la fecha a un objeto datetime "naive" y establecer la hora a mediodía para evitar cambios de fecha
                         fecha_naive = datetime.strptime(item['fecha'], '%Y-%m-%d')
                         fecha_naive = fecha_naive.replace(hour=12, minute=0, second=0)  # Configurar hora a mediodía
                         fecha_vencimiento = timezone.make_aware(fecha_naive, timezone.get_current_timezone())
-                    #print(fecha_naive, ' - ',fecha_vencimiento)
-                    nuevo_item = IngresoProducto(
-                        ingreso_id=ingreso_id,
-                        iproducto_codigo=item['item'],
-                        iproducto_fechaVencimiento=fecha_vencimiento,
-                        iproducto_estado='D',
-                        iproducto_descripcion='Disponible'
-                    )
-                    nuevo_item.save()                     
+                    #print(fecha_naive, ' - ',fecha_vencimiento)          
+
+
+                    try:        
+                        updated_rows = Item.objects.filter(item_id=item['item']).update(item_fechaVencimiento=fecha_vencimiento, item_estado='A', item_descripcion='Alta')
+                        if updated_rows == 0:
+                            print ('error: no se encontro el item')     
+                        else:
+                            print ('item ',item['item'],' actualizado')
+                    except DatabaseError as e:            
+                        return JsonResponse({'error': 'Error al actualizar el item', 'detalle': str(e)}, status=500)                                   
+                
                 '''
                 try:
                     # Verificar si 'items' está vacío
@@ -1392,3 +1396,155 @@ def Actualizar_nombre_producto(request):
             return JsonResponse({'success': False, 'error': str(e)}, status=400)
     
     return JsonResponse({'success': False, 'error': 'Método no permitido'}, status=405)
+
+def Crear_items (request, ingreso_id, unidades):
+    #ingreso_id = 128
+    print ('Debug: codigo de ingreso ',ingreso_id)
+    
+    #items_existentes = Item.objects.filter(ingreso=ingreso_id).count()  
+    items_existentes = Item.objects.filter(ingreso=ingreso_id).exclude(item_estado='B').count()
+
+    print ('Debug: cantidad de items existentes ',items_existentes)    
+    
+    ingreso = Ingreso.objects.filter(ingreso_id=ingreso_id).first()     
+    producto_id = ingreso.producto_id
+    print ('Debug: codigo del producto ',producto_id)   
+
+    producto = Producto.objects.filter(producto_id=producto_id).first()
+    producto_sigla = producto.producto_sigla
+    print ('Debug: sigla del producto ',producto_sigla)
+
+    if (items_existentes == 0):
+        print ('Debug: items ',items_existentes)      
+        print ('Debug: Creacion de ',unidades,' items en la base de datos')        
+        if (unidades != 0):
+            # Recorrer la cantidad de unidades            
+            for item in range(unidades):        
+                max_correlativo = Item.objects.filter(producto_id=producto_id).aggregate(max_correlativo=Max('item_correlativo'))['max_correlativo']                               
+                if max_correlativo is None:
+                    max_correlativo = 1
+                else:
+                    max_correlativo = max_correlativo + 1
+                    #max_correlativo += 1 # incrementa en 1                    
+
+                item_codigo_valor = producto_sigla + '-' + str(max_correlativo)
+                nuevo_item = Item(
+                    ingreso_id = ingreso_id,
+                    producto_id = producto_id,                  
+                    item_codigo = item_codigo_valor,
+                    item_fechaVencimiento = None,
+                    item_estado = 'N',
+                    item_descripcion = 'Nuevo',
+                    item_correlativo = max_correlativo,
+                    item_fechaRegistro = timezone.now(),
+                    item_fechaBaja = None
+                    )
+                nuevo_item.save()
+                print('insert-> ',item)                
+        else:
+            print ('Debug: el valor de unidades es cero')    
+    else:
+        print ('Debug: no se crean items nuevos porque ya existen items existentes')
+        if (unidades != items_existentes):
+            print ('Debug: unidades entrantes es distinto a items existentes')
+            if (unidades > items_existentes):
+                print ('Debug: unidades entrantes es mayor a items existentes')
+                unidades_faltantes = unidades - items_existentes                
+                print ('Debug: Creacion de ',unidades_faltantes,' faltantes')
+                for item in range(unidades_faltantes):                            
+                    max_correlativo = Item.objects.filter(producto_id=producto_id).aggregate(max_correlativo=Max('item_correlativo'))['max_correlativo']                               
+                    if max_correlativo is None:
+                        max_correlativo = 1
+                    else:
+                        max_correlativo = max_correlativo + 1
+                        #max_correlativo += 1 # incrementa en 1      
+                    
+                    item_codigo_valor = producto_sigla + '-' + str(max_correlativo)
+                    nuevo_item = Item(
+                        ingreso_id = ingreso_id,
+                        producto_id = producto_id,
+                        item_codigo = item_codigo_valor,
+                        item_fechaVencimiento = None,
+                        item_estado = 'N', 
+                        item_descripcion = 'Nuevo',
+                        item_correlativo = max_correlativo,
+                        item_fechaRegistro = timezone.now(),
+                        item_fechaBaja = None
+                    )
+                    nuevo_item.save()
+                    print('insert-> ',item)
+
+            else:
+                print ('Debug: unidades entrantes es menor a items existentes')
+                unidades_sobrantes = items_existentes - unidades
+                #items_order_desc = Item.objects.filter(ingreso=ingreso_id).order_by('-item_id')
+                items_existentes_order_desc = Item.objects.filter(ingreso=ingreso_id).exclude(item_estado='B').order_by('-item_id')
+                for item in items_existentes_order_desc:
+                    id = item.item_id
+                    try: 
+                        updated_rows = Item.objects.filter(item_id=id).update(item_estado='B', item_descripcion='Baja', item_fechaBaja=timezone.now())
+                        if updated_rows == 0:
+                            print ('error: no se encontro el item')
+                        else:
+                            print ('correcto: item actualizado')
+                    except DatabaseError as e:            
+                        return JsonResponse({'error': 'error al actualizar el item', 'detalle': str(e)}, status=500) 
+                    
+                    unidades_sobrantes = unidades_sobrantes - 1
+                    #unidades_sobrantes -= 1  # Decrementa unidades sobrantes                    
+                    if (unidades_sobrantes == 0):                        
+                         break  # Termina el bucle for
+        else:
+            print ('Debug: unidades entrantes es igual a items existentes')
+    
+    item_out_list = []
+    item_out_list2 = []
+    
+    items_out = Item.objects.filter(ingreso=ingreso_id).exclude(item_estado='B')
+    for item in items_out:
+        item_out_list.append(item.item_codigo)
+        item_list = []
+        item_list.append(item.item_id)
+        item_list.append(item.item_codigo)
+        item_out_list2.append(item_list)
+
+    return JsonResponse({
+        'message': 'proceso realizado correctamente.', 
+        'item_out_list': item_out_list,
+        'item_out_list2': item_out_list2,
+        'success': True        
+    }, status=200)
+
+
+def Actualiza_sigla_producto(request):    
+    productos = Producto.objects.filter().order_by('producto_id')   
+    print ('cantidad de productos: ',productos.count())    
+    for producto in productos:
+        producto_id = producto.producto_id        
+        producto_nombre = producto.producto_nombre
+        # print ('producto id: ',producto_id, '- producto nombre: ', producto_nombre)       
+
+        if producto_nombre:
+            palabras_producto = producto_nombre.split(' ')
+            # Extrae la primera letra de cada palabra
+            primeras_letras = [palabra[0] for palabra in palabras_producto if palabra]
+            # print ('primeras_letras: ',primeras_letras)
+            # print ('tamaño primeras_letras ', len(primeras_letras))           
+            
+            if len(primeras_letras) == 1:
+                sigla = primeras_letras[0] + str(producto_id)                              
+            else:
+                sigla = primeras_letras[0] + primeras_letras[1] + str(producto_id)
+        # print ('sigla: ',sigla)        
+        try:        
+            updated_rows = Producto.objects.filter(producto_id = producto_id).update(producto_sigla = sigla)
+            if updated_rows == 0:
+                print ('error: no se encontro el producto')     
+            else:
+                print ('producto id -> ',producto_id, ' actualizado')
+        except DatabaseError as e:            
+            return JsonResponse({'error': 'Error al actualizar el producto', 'detalle': str(e)}, status=500)             
+
+    return JsonResponse({'message': 'proceso realizado correctamente.', 
+        'success': True        
+    }, status=200)

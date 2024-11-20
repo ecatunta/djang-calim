@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-
+ //   const btnGenerarItem = document.getElementById('generar-sigla');
     //alert ('inicio');
     const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
 
@@ -20,5 +20,25 @@ document.addEventListener("DOMContentLoaded", function () {
             e.stopImmediatePropagation();
         });
     });
+
+    /*
+    btnGenerarItem.addEventListener('click', function (event) {
+        console.log('evento click al elemento html de ID generar-sigla');
+        
+        // Enviar la solicitud Ajax al backend        
+        fetch(`/genera-sigla-producto/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(response => {
+            console.log('Response: ', response)
+            if (response.ok) {
+            }
+        }).catch(error => {
+            console.error('Error en la solicitud ajax:', error);
+        });
+    });
+    */
 
 });

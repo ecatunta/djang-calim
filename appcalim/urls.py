@@ -29,4 +29,6 @@ urlpatterns = [
     path('listado_producto/', views.Listar_producto, name='listado_producto'),    
     path('actualizar_nombre_producto/', views.Actualizar_nombre_producto, name='actualizar_nombre_producto'),    
     path('actualizar_ingreso2/<int:ingreso_id>/', views.Actualizar_ingreso2, name='actualizar_ingreso2'),    
+    path('crea-items/<int:ingreso_id>/<int:unidades>/', views.Crear_items, name='crea_items_producto'),    
+    path('genera-sigla-producto/', views.Actualiza_sigla_producto, name='genera_sigla'),    
 ]

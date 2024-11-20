@@ -21,30 +21,31 @@ document.addEventListener('DOMContentLoaded', function () {
     const input_p_ganancia_actual = document.getElementById('pu_pGanancia_actual');
     const input_fecha_vencimiento = document.getElementById('fecha-vencimiento');
     const select_fecha_vencimiento = document.getElementById('select-fecha-vencimiento');
-
     const modal_p_ingreso = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
     const modal_s_item = new bootstrap.Modal(document.getElementById('itemModal'));
-
     const modal_ingreso = document.getElementById('ingresoPrecioUModal');
     const span_n_precio_unidad = document.getElementById('pu_precioU_nuevo');
     const span_a_precio_unidad = document.getElementById('pu_precioU_actual');
     const span_n_ganancia_unidad = document.getElementById('pu_ganancia_nuevo');
     const span_n_costo_unidad = document.getElementById('pu_costo_nuevo');
-
-    let g_ganancia_unidad = 0;
-    let g_precio_unidad = 0;
-    let g_unidad_entrante = 0;
     const span_a_ganancia_unidad = document.getElementById('pu_ganancia_actual');
     const strong_producto_nombre = document.getElementById('pu_producto_nombre');
     const tabla_items_body = document.getElementById('item-table-body');
     const span_costo_total = document.getElementById('pu_costo_total');
     const btn_salir_modal_ingreso = document.getElementById('btn-salir-modal-ingreso');
+    let alturaNavegador = window.innerHeight;
+    const capa_spinner_items = document.getElementById('loading-overlay-items');
+    const thead_total_items = document.getElementById('thead-total-items');
+    const itemModal = new bootstrap.Modal(document.getElementById('itemModal'));
+    const modal_item_cerrar = document.getElementById('modal-items-cerrar');
+    const notificacion_items = document.getElementById('notificacion-items');
+
+    let g_ganancia_unidad = 0;
+    let g_precio_unidad = 0;
+    let g_unidad_entrante = 0;
     let g_ingreso_id;
     let contador_inputs = 0;
-    let alturaNavegador = window.innerHeight;
-    console.log("Altura del navegador:", alturaNavegador);
-    //alert(alturaNavegador);
-
+    let g_nombre_producto = '';
     input_producto.value = '';
 
     // Selecciona el elemento por su ID
@@ -507,29 +508,9 @@ document.addEventListener('DOMContentLoaded', function () {
             input_pu_unidad.disabled = false;
             input_costo_nuevo.disabled = false;
             input_p_ganancia_nuevo.disabled = false;
-
             btn_actualizarUnidad.disabled = true;
-            //btn_generaItem.disabled = true;
-
 
             let unidad = 0;
-
-            /*
-            // Verifica si la pantalla es mediana o más grande
-            if (window.matchMedia("(min-width: 768px)").matches) {
-                // Pantalla mediana o más grande, obtener el valor del input
-                const inputElement = row.querySelector('input[data-role="unidad_number"]');
-                unidad = inputElement.value
-                console.log('Valor del input (pantalla mediana o grande):', inputElement.value);
-            } else {
-                // Pantalla pequeña, obtener el valor del span
-                const spanElement = row.querySelector('span');
-                console.log('Valor del span (pantalla pequeña):', spanElement.textContent);
-                unidad = spanElement.textContent
-            }
-                */
-
-
             fetch(`/obtiene_precioU_vigente_nuevo/${ingresoId}/`, {
                 method: 'GET',
                 headers: {
@@ -544,16 +525,23 @@ document.addEventListener('DOMContentLoaded', function () {
                         loadingSpinner.style.display = 'none';
 
                         if (data.unidad > 0) {
-                            llena_tabla_items(data.unidad);
+                            //llena_tabla_items(data.unidad);
                             input_pu_unidad.disabled = true;
                             btn_actualizarUnidad.disabled = false;
+                        } else {
+                            if (!data.unidad) {
+                                btn_generaItem.disabled = true;
+                            }
                         }
 
                         const ingreso = data.ingreso;
                         const button = document.getElementById('pu_aceptar');
-                        // Actualiza el nombre del producto en el modal
+                        g_nombre_producto = data.producto_nombre;
                         document.getElementById('pu_producto_nombre').textContent = data.producto_nombre;
+                        document.getElementById('producto_nombre_items').textContent = g_nombre_producto;
+
                         document.getElementById('pu_unidad').value = data.unidad;
+                        g_unidad_entrante = data.unidad;
                         document.getElementById('pu_costo_total').textContent = data.costo_total || '0.0';
                         document.getElementById('pu_costoU_actual').textContent = ingreso.vigente.i_costo_unitario || '0.0';
                         document.getElementById('pu_pGanancia_actual').textContent = ingreso.vigente.i_porcentaje_ganancia || '0.0';
@@ -571,7 +559,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         //document.getElementById('fecha-compra').value = "2024-11-12";
                         document.getElementById('pu_costoU_nuevo').value = ingreso.nuevo.i_costo_unitario || '';
                         document.getElementById('pu_costo_actual').textContent = ingreso.vigente.i_costo_unitario || '';
-                        document.getElementById('pu_costo_nuevo').textContent = ingreso.nuevo.i_costo_unitario || '';
+                        document.getElementById('pu_costo_nuevo').textContent = ingreso.nuevo.i_costo_unitario || '0.00';
 
                         //document.getElementById('pu_costoU_nuevo').value = ingreso.vigente.i_costo_unitario || '';
 
@@ -861,6 +849,8 @@ document.addEventListener('DOMContentLoaded', function () {
         contador_inputs++;
         g_unidad_entrante = this.value;
         btn_aceptar_ingreso.disabled = true;
+        btn_generaItem.classList.remove('btn-danger');
+        btn_generaItem.classList.add('btn-primary');
         // Remover cualquier carácter no numérico
         this.value = this.value.replace(/[^0-9]/g, '');
 
@@ -895,7 +885,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Configurar temporizador de 5 segundos
         // let typingTimer;
 
-
+        btn_generaItem.disabled = false;
         clearTimeout(typingTimer);
 
         typingTimer = setTimeout(function () {
@@ -904,13 +894,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Desactivar el campo después de 5 segundos
                 input_pu_unidad.disabled = true;
                 // Ejecutar la función 
-                llena_tabla_items(unidad);
+
+                //llena_tabla_items(unidad);
+
                 // Habilitar el botón btn_generaItem después de ejecutar la función
-                btn_generaItem.disabled = false;
+                //btn_generaItem.disabled = false;
                 btn_actualizarUnidad.disabled = false;
                 btn_aceptar_ingreso.disabled = false;
             } else {
-                llena_tabla_items(0);
+                //llena_tabla_items(0);
             }
         }, 3000);
 
@@ -1035,12 +1027,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const precioNuevo = parseFloat(document.getElementById('pu_precioU_nuevo').textContent);
         const unidad = parseFloat(document.getElementById('pu_unidad').value);
         const costoTotal = parseFloat(document.getElementById('pu_costo_total').textContent);
-        const tablaItems = document.getElementById('tabla-items');
-        const filas = tablaItems.getElementsByTagName('tr');
+
+        //const tablaItems = document.getElementById('tabla-items');
+        //const filas = tablaItems.getElementsByTagName('tr');
+
+        const tbody = document.getElementById('item-table-body'); // Seleccionar solo el tbody
+        const filas = tbody.getElementsByTagName('tr'); // Obtener filas del tbody
+
         // Crear la superposición y el popup       
         const overlayDiv = document.createElement('div');
         const popupDiv = document.createElement('div');
-
 
         const tabla_items_body2 = document.getElementById('item-table-body');
         //const rowCount = tabla_items_body2.getElementsByTagName('tr').length;
@@ -1062,18 +1058,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (row.length == contador) {
-            //mensaje = 'incluyen fecha de vencimiento';
-            //mensaje = 'cuentan con fecha de vencimiento';
             mensaje = 'tienen fecha de vencimiento';
 
         } else {
-            //mensaje = 'no incluyen fecha de vencimiento';
-            //mensaje = 'no cuentan con fecha de vencimiento';
             mensaje = 'no tienen fecha de vencimiento';
         }
-        //return;
-
-        let datosTabla = [];
+        //return;        
 
         function validar_input_vacios(input, selectFechaV) {
             //alert(selectFechaV);
@@ -1099,12 +1089,23 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
+        function valida_items() {
+            console.log('cantidad de filas: ', filas.length);
+            if (filas.length == 0) {
+                btn_generaItem.classList.remove('btn-primary');
+                btn_generaItem.classList.add('btn-danger');
+                return false;
+            }
+            return true;
+        }
+
         const i_unidad = validar_input_vacios(input_pu_unidad, null);
-        const i_fechaV = validar_input_vacios(input_fecha_vencimiento, select_fecha_vencimiento.value);
         const i_costoN = validar_input_vacios(input_costo_nuevo, null);
         const i_porcentajeG = validar_input_vacios(input_p_ganancia_nuevo, null);
+        const i_fechaV = validar_input_vacios(input_fecha_vencimiento, select_fecha_vencimiento.value);
+        const i_items = valida_items();
 
-        if (!i_unidad || !i_fechaV || !i_costoN || !i_porcentajeG) {
+        if (!i_unidad || !i_fechaV || !i_costoN || !i_porcentajeG || !i_items) {
             // Mostrar mensaje de éxito con animación
             const mensajeError = document.getElementById('mensaje-error');
             mensajeError.classList.remove('hide');
@@ -1118,36 +1119,31 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-
         overlayDiv.classList.add('custom-popup-overlay');
-
         popupDiv.classList.add('custom-popup');
-
         popupDiv.innerHTML = `
-        <!-- Header del Popup -->  
-
+        
+        <!-- Header del Popup --> 
         <div id="popup-header-i" class="custom-popup-header">
             <div class="custom-popup-header-bg p-2 d-flex align-items-center">
                 <div class="custom-icon-container me-3">
                     <i class="bi bi-info-circle-fill"></i>
                 </div>
-                <h5 class="custom-popup-title mb-0 flex-grow-1">Aviso de Inventario</h5>
+                <!--<h5 class="custom-popup-title mb-0 flex-grow-1">Aviso de Inventario</h5>-->
+                <h5 class="custom-popup-title mb-0 flex-grow-1">Aviso</h5>
             </div>
         </div>
 
         <!-- Cuerpo del Popup -->
-
         <div id="popup-body-i" class="custom-popup-body p-3">
             <p><b>${input_pu_unidad.value} unidades</b> del producto <b>“${strong_producto_nombre.textContent}”</b> se añadirán al inventario. El precio unitario será <b>Bs. ${span_n_precio_unidad.textContent}</b></p>
             <p>Los productos ${mensaje}.</p>
             <div class="custom-confirmation-message text-end mt-1">
                 ¿Desea continuar?
             </div>
-        </div>          
- 
+        </div> 
 
         <!-- Footer del Popup --> 
-
         <div id="popup-footer-i" class="custom-popup-footer text-end p-2">
             <button type="button" class="btn btn-outline-secondary me-2" id="popup-cancelar">Cancelar</button>
             <button type="button" class="btn btn-primary" id="popup-aceptar">Si, Acepto</button>
@@ -1173,18 +1169,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Manejar el clic en el botón "Aceptar" dentro del popup
         document.getElementById('popup-aceptar').addEventListener('click', function () {
-            mostrarSpinner();
+            //mostrarSpinner();
+
+            let datosTabla = [];
+
+            console.log('filas: ', filas);
+            console.log('filas length: ', filas.length);
 
             // Iterar sobre cada fila de la tabla
-            for (let i = 1; i < filas.length; i++) { // Comenzar desde 1 para evitar la fila de encabezado
+            for (let i = 0; i < filas.length; i++) { // Comenzar desde 1 para evitar la fila de encabezado
                 const celdas = filas[i].getElementsByTagName('td');
+
+                console.log('posicion ' + i + ': -> ', filas[i]);
+                console.log('celdas: ', celdas);
+
+                //const celdas = filas[i].getElementsByTagName('td');
+                //console.log('celdas: ', celdas);
+                const item_id = filas[i].getAttribute('data-item-id');
+
                 let filaDatos = {
-                    item: celdas[0].textContent.trim(),
+                    //item: celdas[0].textContent.trim(),
+                    item: item_id,
                     fecha: celdas[1].querySelector('input').value,
-                    codigo: celdas[2].querySelector('input').value
+                    //codigo: celdas[2].querySelector('input').value
+                    codigo: celdas[2].textContent
                 };
+
                 datosTabla.push(filaDatos);
             }
+
+            console.log('datosTabla: ', datosTabla);
+            console.log('ingreso_id: ', ingresoId);
+            //return;
+
 
             // Envia la solicitud AJAX al backend        
             fetch(`/inventario_ingreso/${ingresoId}/`, {
@@ -1626,7 +1643,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Solo ejecutar este código si estamos en pantallas pequeñas
         if (window.innerWidth <= 768) {
-
             // Reducir la opacidad para suavizar el cambio antes de hacer la transición
             searchBarContainerPadre.style.transition = 'opacity 0.2s ease';
             searchBarContainerPadre.style.opacity = '0';
@@ -1738,73 +1754,139 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
-    document.getElementById('genera-item').addEventListener('click', function () {
-        // Obtener el valor del campo 'pu_unidad'
-        //const puUnidad = parseInt(document.getElementById('pu_unidad').value, 10);
-        //llena_tabla_items(puUnidad);
-        // Ocultar la ventana modal principal
-        /*var ingresoPrecioUModal = document.getElementById('ingresoPrecioUModal');        
-        var bootstrapModal = bootstrap.Modal.getInstance(ingresoPrecioUModal);
-        bootstrapModal.hide();*/
-        // Mostrar la nueva ventana modal
-        //const itemModal = new bootstrap.Modal(document.getElementById('itemModal'));
-        //itemModal.show();
-        //modal_s_item.show();
-
-        /*
-        // Mostrar el modal secundario
-        modal_s_item.show();
-        // Modificar el z-index del modal secundario para que esté sobre el principal
-        const modalElement = document.getElementById('itemModal');
-        modalElement.style.zIndex = parseInt(window.getComputedStyle(document.querySelector('.modal')).zIndex) + 10;
-        // Asegurar que el backdrop del modal secundario esté correctamente encima del backdrop del modal principal
-        const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-            backdrop.style.zIndex = parseInt(window.getComputedStyle(document.querySelector('.modal')).zIndex) + 5;
-        }
-        */
-    });
-
-    /*
-    // Al abrir el modal secundario
-    document.getElementById('genera-item').addEventListener('click', function () {
-        // Mostrar el modal secundario
-        modal_s_item.show();
-
-        // Ajustar el z-index del modal secundario para que esté sobre el principal
-        const modalSecundario = document.getElementById('itemModal');
-        const modalPrincipal = document.getElementById('ingresoPrecioUModal');
-        modalSecundario.style.zIndex = parseInt(window.getComputedStyle(modalPrincipal).zIndex) + 10;
-
-        // Ajustar el z-index del backdrop del modal secundario para que esté entre ambos modales
-        const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-            backdrop.style.zIndex = parseInt(window.getComputedStyle(modalPrincipal).zIndex) + 5;
-        }
-    });
-
-    // Manejar el cierre del modal secundario para eliminar el backdrop y restablecer el z-index
-    document.getElementById('itemModal').addEventListener('hidden.bs.modal', function () {
-        const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-            backdrop.remove(); // Elimina el backdrop cuando se cierra el modal secundario
-        }
-
-        // Restablecer el z-index del modal principal
-        const modalElement = document.getElementById('ingresoPrecioUModal');
-        modalElement.style.zIndex = '';
-    });*/
-
 
     // Abrir modal secundario y mantener principal abierto
     document.getElementById('genera-item').addEventListener('click', function () {
-        // Mostrar el modal secundario (itemModal)
-        var itemModal = new bootstrap.Modal(document.getElementById('itemModal'));
-        itemModal.show();
+        // restaurar la clase css 
+        btn_generaItem.classList.remove('btn-danger');
+        btn_generaItem.classList.add('btn-primary');
 
+        capa_spinner_items.classList.remove('d-none');
+        // Mostrar el modal secundario (itemModal)        
+        itemModal.show();
         // Hacer que la ventana modal principal quede visible pero detrás de la secundaria
         document.querySelector('#ingresoPrecioUModal').classList.add('modal-visible-back');
+        console.log('g_ingreso_id: ', g_ingreso_id);
+        console.log('g_unidad_entrante: ', g_unidad_entrante);
+
+        // Limpiar la tabla antes de agregar nuevas filas
+        tabla_items_body.innerHTML = '';
+
+        // Enviar la solicitud Ajax al backend        
+        fetch(`/crea-items/${g_ingreso_id}/${g_unidad_entrante}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response: ', data)
+                thead_total_items.textContent = data.item_out_list.length;
+                console.log('item_out_list2: ', data.item_out_list2.length);
+                console.log('item_out_list2[0]: ', data.item_out_list2[0]);
+
+                if (data.success && data.item_out_list.length > 0) {
+                    console.log('generar html dinamico');
+                    //llena_tabla_items2(data.item_out_list);
+                    llena_tabla_items2(data.item_out_list2);
+                }
+                capa_spinner_items.classList.add('d-none');
+            }).catch(error => {
+                console.error('Error en la solicitud ajax:', error);
+                capa_spinner_items.classList.add('d-none');
+            });
     });
+
+    /*modal_item_cerrar.addEventListener('click', function () {        
+        itemModal.hide();
+    });
+    */
+
+    // Agrega un evento al botón de Salir
+    modal_item_cerrar.addEventListener('click', (event) => {
+        // Evita el cierre automático
+        event.preventDefault();
+
+        if (select_fecha_vencimiento.value == 1) { // es fecha unificada?
+            if (input_fecha_vencimiento.value.trim() === '') { // el input de fecha de venciemiento esta vacio?                
+                var texto = 'Favor ingrese la fecha';
+                notificacion_items.textContent = texto;
+                input_fecha_vencimiento.classList.add('is-invalid');
+                //console.log('debe introducir una fecha valida');                   
+                notificacion_items.classList.remove('hide');
+                notificacion_items.classList.add('show');
+
+                /*
+                // Ocultar el mensaje después de 5 segundos
+                setTimeout(() => {
+                    notificacion_items.classList.remove('show');
+                    notificacion_items.classList.add('hide');
+                }, 3000); // 3 segundos
+                */
+
+                return;
+            }
+        }
+        //console.log('select_fecha_vencimiento: ',select_fecha_vencimiento.value);
+        //console.log('input_fecha_vencimiento: ', input_fecha_vencimiento.value);
+        itemModal.hide();
+    });
+
+    function llena_tabla_items2(items_list) {
+
+        //const itemTableBody = document.getElementById('item-table-body');
+        //tabla_items_body
+        // Obtener el valor del select y el campo de fecha
+        const selectFechaVencimiento = document.getElementById('select-fecha-vencimiento');
+        const fechaVencimientoValue = document.getElementById('fecha-vencimiento').value;
+
+        // Limpiar la tabla antes de agregar nuevas filas
+        tabla_items_body.innerHTML = '';
+
+        // Generar las filas de la tabla 
+        for (let i = 0; i <= items_list.length - 1; i++) {
+            console.log('lista_items: ', items_list[i])
+            //lista_interna = items_list[i];
+            item_list_internal = items_list[i];
+
+            const row = document.createElement('tr');
+            row.setAttribute('data-item-id', item_list_internal[0]);
+
+            // Columna de item secuencial
+            const itemCell = document.createElement('td');
+            itemCell.textContent = i + 1;
+            //itemCell.textContent = item_list_internal[0];            
+            //itemCell.setAttribute('data-item-id', item_list_internal[0]);
+            row.appendChild(itemCell);
+
+            // Columna de fecha con un widget para seleccionar la fecha
+            const dateCell = document.createElement('td');
+            const dateInput = document.createElement('input');
+            dateInput.type = 'date';
+            dateInput.className = 'form-control item-fecha-vencimiento';
+            dateInput.setAttribute('data-fecha', '1');
+
+            // Asignar el valor de la fecha unificada si el select tiene el valor "1"
+            if (selectFechaVencimiento.value === '1') {
+                dateInput.value = fechaVencimientoValue;
+            }
+
+            dateCell.appendChild(dateInput);
+            row.appendChild(dateCell);
+
+
+            // Columna de codigo de item 
+            const codigoItemCell = document.createElement('td');
+            //codigoItemCell.textContent = items_list[i];
+            codigoItemCell.textContent = item_list_internal[1];
+            row.appendChild(codigoItemCell);
+
+            // Agregar la fila a la tabla
+            tabla_items_body.appendChild(row);
+        }
+    }
+
 
     // Evento para cuando se cierre el modal secundario
     document.getElementById('itemModal').addEventListener('hidden.bs.modal', function () {
@@ -1816,24 +1898,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('ingresoPrecioUModal').addEventListener('hidden.bs.modal', function () {
         document.querySelector('#ingresoPrecioUModal').classList.remove('modal-visible-back');
     });
-
-
-
-    /*
-    // Manejar el cierre del modal secundario para eliminar el backdrop y restablecer el z-index
-    document.getElementById('itemModal').addEventListener('hidden.bs.modal', function () {
-        const backdrop = document.querySelector('.modal-backdrop');
-
-        if (backdrop) {
-            //alert ('backdrop existe');
-            backdrop.remove(); // Elimina el backdrop cuando se cierra el modal secundario
-        }
-
-        // Restablecer el z-index del modal principal
-        const modalElement = document.getElementById('ingresoPrecioUModal');
-        modalElement.style.zIndex = '';
-    });
-    */
 
     function llena_tabla_items(puUnidad) {
         const itemTableBody = document.getElementById('item-table-body');
@@ -1882,17 +1946,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    /*
-    // Al cerrar la segunda ventana modal, volver a mostrar la ventana modal principal
-    document.getElementById('itemModal').addEventListener('hidden.bs.modal', function () {
-        //alert('cerrar ventana secundaria');
-        //const ingresoModal = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
-        //ingresoModal.show();
-
-        //modal_p_ingreso.show();
-    });
-    */
-
     // Seleccionamos el campo select y el campo de fecha
     const selectFechaVencimiento = document.getElementById('select-fecha-vencimiento');
     const fechaVencimientoInput = document.getElementById('fecha-vencimiento');
@@ -1927,6 +1980,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Añadimos un evento 'change' al campo de fecha para capturar el cambio de valor
     fechaVencimientoInput.addEventListener('change', function () {
         input_fecha_vencimiento.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
+        notificacion_items.classList.remove('show');
+        notificacion_items.classList.add('hide');
         const nuevaFecha = this.value; // Obtener el valor del input de fecha
 
         // Recorremos todas las filas del tbody
@@ -1944,50 +1999,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    /*
-    document.getElementById('actualizar-unidad').addEventListener('click', function () {       
-        const modalInv = document.getElementById('ingresoPrecioUModal');             
-        const puUnidadInput = document.getElementById('pu_unidad');
-        const itemTableBody = document.getElementById('item-table-body');
-        const rowCount = itemTableBody.getElementsByTagName('tr').length;        
-
-        // Verificar si la tabla tiene más de 1 fila
-        if (rowCount > 0) {
-            // Crear la superposición y el popup
-            const overlayDiv = document.createElement('div');
-            overlayDiv.classList.add('custom-popup-overlay');
-
-            const popupDiv = document.createElement('div');
-            popupDiv.classList.add('custom-popup');
-            popupDiv.innerHTML = `
-                            <p><strong>Hay ${rowCount} items creados.</strong><br>Si acepta, perderá los cambios pero creará nuevos items ¿desea continuar?</p>
-                            <div class="popup-buttons">
-                                <button type="button" class="btn btn-danger" id="popup-cancelar">Cancelar</button>
-                                <button type="button" class="btn btn-success" id="popup-aceptar">Aceptar</button>
-                            </div>
-                        `;
-            // Agregar el popup al overlay y luego al cuerpo del modal
-            overlayDiv.appendChild(popupDiv);
-            modalInv.appendChild(overlayDiv);
-
-            // Manejar el clic en el botón "Cancelar" dentro del popup
-            document.getElementById('popup-cancelar').addEventListener('click', function () {
-                overlayDiv.remove(); // Eliminar la alerta si el usuario cancela
-                puUnidadInput.disabled = true;
-            });
-
-            // Manejar el clic en el botón "Aceptar" dentro del popup
-            document.getElementById('popup-aceptar').addEventListener('click', function () {
-                puUnidadInput.disabled = false; // Habilitar el input "pu_unidad"
-                overlayDiv.remove(); // Eliminar la alerta
-                puUnidadInput.focus();
-            });
-        } else {
-            // Si solo hay una fila, habilitar directamente el input "pu_unidad"
-            puUnidadInput.disabled = false;
-        }
-    });
-    */
 
     document.getElementById('actualizar-unidad').addEventListener('click', function () {
         //alert(g_ingreso_id);
@@ -1998,18 +2009,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Verificar si la tabla tiene más de 1 fila
         if (rowCount > 0) {
-
-            /*mensaje_alerta = `
-                <p>Los <strong>${input_pu_unidad.value} items</strong> creados previamente se eliminarán.</p>
-                <p>¿Deseas crear nuevos items?</p>   
-                `;*/
+            console.log('rowCount es mayor que cero: ', rowCount);
             mensaje_alerta = `
-                <p class="mb-3"><strong>Los ${input_pu_unidad.value} items creados previamente se eliminarán</strong></p>
+            <p class="mb-3">
+                <strong>Los ${input_pu_unidad.value} items creados previamente se eliminarán</strong>
+            </p>                
             `;
 
             if (input_pu_unidad.value == 1) {
                 mensaje_alerta = `                
-                <p class="mb-3"><strong>El item creado previamente será eliminado</strong></p>
+                <p class="mb-3">                    
+                    <strong>El item creado previamente será eliminado</strong>
+                </p> 
                 `;
             }
 
@@ -2021,21 +2032,21 @@ document.addEventListener('DOMContentLoaded', function () {
             const popupDiv = document.createElement('div');
             popupDiv.classList.add('custom-popup');
             popupDiv.innerHTML = `
-            <div class="popup-header">
-                <div class="bg-light text-dark p-2">
-                    <h5><i class="bi bi-exclamation-circle-fill"></i> Aviso</h5>
+            <div id="popup-header-i" class="custom-popup-header">
+                <div class="custom-popup-header-bg p-2 d-flex align-items-center">
+                    <div class="custom-icon-container me-3">
+                        <i class="bi bi-info-circle-fill"></i>
+                    </div>
+                    <h5 class="custom-popup-title mb-0 flex-grow-1">Aviso</h5>
                 </div>
             </div>
 
-            <div class="popup-body">
-                <div class="d-flex1 p-4 align-items-center">                    
-                    <div>
-                        ${mensaje_alerta}
+            <div class="popup-body custom-popup-body">
+                <div class="d-flex1 p-4 align-items-center">
+                    ${mensaje_alerta}
+                    <div class="custom-confirmation-message text-end mt-1">
+                        ¿Deseas crear nuevos items?
                     </div>
-                    
-                    <div class="text-end">
-                        <p class="mb-1">¿Deseas crear nuevos items?</p>
-                    </div>  
                 </div>
             </div>
 
@@ -2070,6 +2081,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             // Si solo hay una fila, habilitar directamente el input "pu_unidad"
             puUnidadInput.disabled = false;
+            console.log('rowCount NO es mayor que cero: ', rowCount);
         }
     });
 

@@ -35,6 +35,7 @@ class Producto(models.Model):
     producto_nombreMarca = models.CharField(max_length=100, null=True, blank=True)
     producto_nombreDesc = models.CharField(max_length=150, null=True, blank=True)
     producto_nombreMedida = models.CharField(max_length=100, null=True, blank=True)
+    producto_sigla = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return self.producto_nombre
@@ -153,10 +154,11 @@ class Ingreso(models.Model):
         return f"Venta {self.ingreso_id}"
     class Meta:
         db_table = 'ingreso'  # Nombre de la tabla en la base de datos
-
+'''
 class IngresoProducto(models.Model):
     iproducto_id = models.BigAutoField(primary_key=True)
-    ingreso = models.ForeignKey(Ingreso, on_delete=models.CASCADE)
+    ingreso = models.ForeignKey(Ingreso, on_delete=models.CASCADE)    
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, default=2)  # Suponiendo que el producto con ID 1 existe
     iproducto_codigo = models.CharField(max_length=100, null=True, blank=True)
     iproducto_fechaVencimiento = models.DateTimeField(null=True, blank=True)
     iproducto_estado = models.CharField(max_length=1)
@@ -166,6 +168,26 @@ class IngresoProducto(models.Model):
 
     class Meta:
         db_table = 'ingreso_producto'  # Nombre exacto de la tabla en la base de datos
+'''
+
+class Item(models.Model):
+    item_id = models.BigAutoField(primary_key=True)
+    ingreso = models.ForeignKey(Ingreso, on_delete=models.CASCADE)    
+    #producto = models.ForeignKey(Producto, on_delete=models.CASCADE, default=2)  # Suponiendo que el producto con ID 1 existe
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    item_codigo = models.CharField(max_length=100, null=True, blank=True)
+    item_fechaVencimiento = models.DateTimeField(null=True, blank=True)
+    item_estado = models.CharField(max_length=1)
+    item_descripcion = models.CharField(max_length=100, null=True, blank=True)
+    item_correlativo = models.BigIntegerField(null=True, blank=True)
+    item_fechaRegistro = models.DateTimeField(null=True, blank=True)
+    item_fechaBaja = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.item_id} - {self.item_codigo or "Sin código"}'
+
+    class Meta:
+        db_table = 'item'  # Nombre exacto de la tabla en la base de datos
 
 
 class InventarioVenta(models.Model):
