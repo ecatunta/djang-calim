@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const span_a_ganancia_unidad = document.getElementById('pu_ganancia_actual');
     const strong_producto_nombre = document.getElementById('pu_producto_nombre');
     const tabla_items_body = document.getElementById('item-table-body');
+    const tabla_items_body_rows = tabla_items_body.getElementsByTagName('tr'); // Obtener todas las filas
+
     const span_costo_total = document.getElementById('pu_costo_total');
     const btn_salir_modal_ingreso = document.getElementById('btn-salir-modal-ingreso');
     let alturaNavegador = window.innerHeight;
@@ -524,6 +526,21 @@ document.addEventListener('DOMContentLoaded', function () {
                         // Ocultar el spinner cuando la solicitud Ajax es exitosa
                         loadingSpinner.style.display = 'none';
 
+                        console.log('tabla_items_body.length: ', tabla_items_body_rows.length);
+                        console.log('data.unidad: ', data.unidad);
+                        
+                        if(!data.unidad){
+                            btn_actualizarUnidad.disabled = true;
+                            btn_generaItem.disabled = true;
+                        }
+                        if (data.unidad > 0 && tabla_items_body_rows.length > 0) {
+                            input_pu_unidad.disabled = true;
+                            btn_actualizarUnidad.disabled = false;
+                            btn_generaItem.disabled = false;
+                        }
+
+
+                        /*
                         if (data.unidad > 0) {
                             //llena_tabla_items(data.unidad);
                             input_pu_unidad.disabled = true;
@@ -532,7 +549,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (!data.unidad) {
                                 btn_generaItem.disabled = true;
                             }
-                        }
+                        }*/
 
                         const ingreso = data.ingreso;
                         const button = document.getElementById('pu_aceptar');
@@ -848,7 +865,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('pu_unidad').addEventListener('input', function () {
         contador_inputs++;
         g_unidad_entrante = this.value;
-        btn_aceptar_ingreso.disabled = true;
+        //btn_aceptar_ingreso.disabled = true;
+
         btn_generaItem.classList.remove('btn-danger');
         btn_generaItem.classList.add('btn-primary');
         // Remover cualquier carácter no numérico
@@ -886,8 +904,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // let typingTimer;
 
         btn_generaItem.disabled = false;
-        clearTimeout(typingTimer);
 
+        /*
+        clearTimeout(typingTimer);
         typingTimer = setTimeout(function () {
             if (g_unidad_entrante) {
                 console.log('pu_unidad: ', g_unidad_entrante);
@@ -905,6 +924,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 //llena_tabla_items(0);
             }
         }, 3000);
+        */
 
         console.log("focus: Posición top del elemento header:", topPosition);
         //alert("focus: Posición top del elemento header: " + topPosition);
@@ -1789,6 +1809,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.success && data.item_out_list.length > 0) {
                     console.log('generar html dinamico');
                     //llena_tabla_items2(data.item_out_list);
+                    input_pu_unidad.disabled = true;
+                    btn_actualizarUnidad.disabled = false;
                     llena_tabla_items2(data.item_out_list2);
                 }
                 capa_spinner_items.classList.add('d-none');
@@ -2073,6 +2095,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 puUnidadInput.disabled = false; // Habilitar el input "pu_unidad"
                 overlayDiv.remove(); // Eliminar la alerta
                 puUnidadInput.value = '';
+                // limpia las filas de la tabla 
                 itemTableBody.innerHTML = '';
                 puUnidadInput.focus();
                 btn_actualizarUnidad.disabled = true;
