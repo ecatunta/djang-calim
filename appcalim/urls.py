@@ -31,4 +31,6 @@ urlpatterns = [
     path('actualizar_ingreso2/<int:ingreso_id>/', views.Actualizar_ingreso2, name='actualizar_ingreso2'),    
     path('crea-items/<int:ingreso_id>/<int:unidades>/', views.Crear_items, name='crea_items_producto'),    
     path('genera-sigla-producto/', views.Actualiza_sigla_producto, name='genera_sigla'),    
+    path('actualiza-fecha-vtos/<int:ingreso_id>/', views.Actualiza_fecha_vencimientos, name='fecha_vtos'),    
+    path('limpia-fecha-vtos/<int:ingreso_id>/', views.limpia_fecha_vencimientos, name='limpia_fecha_vtos'),    
 ]

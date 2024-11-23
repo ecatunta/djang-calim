@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const input_p_ganancia_actual = document.getElementById('pu_pGanancia_actual');
     const input_fecha_vencimiento = document.getElementById('fecha-vencimiento');
     const select_fecha_vencimiento = document.getElementById('select-fecha-vencimiento');
+    const selectFechaVencimiento = document.getElementById('select-fecha-vencimiento');
     const modal_p_ingreso = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
     const modal_s_item = new bootstrap.Modal(document.getElementById('itemModal'));
     const modal_ingreso = document.getElementById('ingresoPrecioUModal');
@@ -495,11 +496,13 @@ document.addEventListener('DOMContentLoaded', function () {
             // Mostrar el spinner antes de la solicitud Ajax
             loadingSpinner.style.display = 'block';
 
+            /*
             document.getElementById('fecha-vencimiento').value = '';
             document.getElementById('select-fecha-vencimiento').value = "0";
-            //input_pu_unidad.disabled = true;
             input_fecha_vencimiento.disabled = true;
+            */
 
+            //input_pu_unidad.disabled = true;          
             //btn_actualizarUnidad.disabled = false;
 
             input_pu_unidad.classList.remove('is-invalid');
@@ -528,8 +531,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         console.log('tabla_items_body.length: ', tabla_items_body_rows.length);
                         console.log('data.unidad: ', data.unidad);
-                        
-                        if(!data.unidad){
+
+                        if (!data.unidad) {
                             btn_actualizarUnidad.disabled = true;
                             btn_generaItem.disabled = true;
                         }
@@ -1780,8 +1783,13 @@ document.addEventListener('DOMContentLoaded', function () {
         // restaurar la clase css 
         btn_generaItem.classList.remove('btn-danger');
         btn_generaItem.classList.add('btn-primary');
-
         capa_spinner_items.classList.remove('d-none');
+
+        if (select_fecha_vencimiento.value == 1) {
+            console.log('el select es fecha unificada');
+            input_fecha_vencimiento.disabled = false;
+        }
+
         // Mostrar el modal secundario (itemModal)        
         itemModal.show();
         // Hacer que la ventana modal principal quede visible pero detrás de la secundaria
@@ -1803,8 +1811,9 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 console.log('Response: ', data)
                 thead_total_items.textContent = data.item_out_list.length;
-                console.log('item_out_list2: ', data.item_out_list2.length);
+                console.log('item_out_list2_length: ', data.item_out_list2.length);
                 console.log('item_out_list2[0]: ', data.item_out_list2[0]);
+                console.log('item_out_list2: ', data.item_out_list2)
 
                 if (data.success && data.item_out_list.length > 0) {
                     console.log('generar html dinamico');
@@ -1888,11 +1897,14 @@ document.addEventListener('DOMContentLoaded', function () {
             dateInput.type = 'date';
             dateInput.className = 'form-control item-fecha-vencimiento';
             dateInput.setAttribute('data-fecha', '1');
-
-            // Asignar el valor de la fecha unificada si el select tiene el valor "1"
+            console.log('item_list_internal[2]: ', item_list_internal[2]);
+            dateInput.value = item_list_internal[2];
+            // si es fecha unificada, actualizar el valor del input date
+            /*
             if (selectFechaVencimiento.value === '1') {
                 dateInput.value = fechaVencimientoValue;
             }
+            */
 
             dateCell.appendChild(dateInput);
             row.appendChild(dateCell);
@@ -1969,24 +1981,28 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Seleccionamos el campo select y el campo de fecha
-    const selectFechaVencimiento = document.getElementById('select-fecha-vencimiento');
+
     const fechaVencimientoInput = document.getElementById('fecha-vencimiento');
     const tablaItemsBody = document.getElementById('item-table-body');
 
     // Añadimos un evento 'change' al campo select
     selectFechaVencimiento.addEventListener('change', function () {
+        console.log('evento change al elemento selectFechaVencimiento');
         if (this.value === '1') { // Misma fecha en todos los Items            
             fechaVencimientoInput.disabled = false; // Habilita el campo de fecha
             fechaVencimientoInput.focus(); // Enfocar el campo de fecha              
-        } else if (this.value === '0') { // No Aplica
+        } else if (this.value === '0') { // Fecha no requerida
+            console.log('fecha no requerida');
+            // ocultamos la notificacion de items
+            notificacion_items.classList.remove('show');
+            notificacion_items.classList.add('hide');
+
             fechaVencimientoInput.disabled = true;  // Deshabilita el campo de fecha
             fechaVencimientoInput.value = ''; // Resetea el campo de fecha
-
             input_fecha_vencimiento.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
-
             // Recorremos las filas del tbody para restablecer la segunda columna (Fecha)
             const rows = tablaItemsBody.getElementsByTagName('tr'); // Obtener todas las filas
-
+            /*
             for (let i = 0; i < rows.length; i++) {
                 const fechaCell = rows[i].getElementsByTagName('td')[1]; // Obtener la segunda celda (índice 1)
                 if (fechaCell) {
@@ -1996,8 +2012,42 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             }
+            */
+            //limpia_columna_fecha_vencimiento(rows);
+
+            // Enviar la solicitud Ajax al backend        
+            fetch(`/limpia-fecha-vtos/${g_ingreso_id}/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log(data);
+                        limpia_columna_fecha_vencimiento(rows);
+                    }
+                    //capa_spinner_items.classList.add('d-none');
+                }).catch(error => {
+                    console.error('Error en la solicitud ajax:', error);
+                    //capa_spinner_items.classList.add('d-none');
+                });
         }
     });
+
+    function limpia_columna_fecha_vencimiento(rows) {
+        console.log('funcion limpia_columna_fecha_vencimiento');
+        for (let i = 0; i < rows.length; i++) {
+            const fechaCell = rows[i].getElementsByTagName('td')[1]; // Obtener la segunda celda (índice 1)
+            if (fechaCell) {
+                const inputFecha = fechaCell.querySelector('.item-fecha-vencimiento'); // Obtener el input dentro de la celda
+                if (inputFecha) {
+                    inputFecha.value = ''; // Restablecer el valor del input de tipo date
+                }
+            }
+        }
+    }
 
     // Añadimos un evento 'change' al campo de fecha para capturar el cambio de valor
     fechaVencimientoInput.addEventListener('change', function () {
@@ -2008,10 +2058,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Recorremos todas las filas del tbody
         const rows = tablaItemsBody.getElementsByTagName('tr');
-
+        /*
         for (let i = 0; i < rows.length; i++) {
             const fechaCell = rows[i].getElementsByTagName('td')[1]; // Obtener la segunda celda (índice 1)
-
             if (fechaCell) {
                 const inputFecha = fechaCell.querySelector('.item-fecha-vencimiento'); // Obtener el input de fecha en la celda
                 if (inputFecha) {
@@ -2019,6 +2068,44 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         }
+        */
+        console.log('***** actualiza-fecha-vtos - g_ingreso_id: ', g_ingreso_id);
+        // Enviar la solicitud Ajax al backend        
+        fetch(`/actualiza-fecha-vtos/${g_ingreso_id}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken // Token CSRF para seguridad
+            },
+            body: JSON.stringify({
+                nueva_fecha_vencimiento: nuevaFecha
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response: ', data)
+                if (data.success) {
+                    console.log('items ', data.items);
+                    console.log('fecha_vtos: ', data.fecha_vtos.length);
+                    if (rows.length && data.fecha_vtos.length) {
+                        for (let i = 0; i < rows.length; i++) {
+                            console.log('valor: ', data.fecha_vtos[i]);
+                            const inputFecha = rows[i].getElementsByTagName('td')[1].querySelector('.item-fecha-vencimiento');
+                            inputFecha.value = data.fecha_vtos[i];
+                        }
+                    } else {
+                        console.log('las filas html no coinciden con la lista que retorna el backend');
+                    }
+                }
+
+            }).catch(error => {
+                console.error('Error en la solicitud ajax:', error);
+            });
     });
 
 

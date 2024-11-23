@@ -1413,8 +1413,9 @@ def Crear_items (request, ingreso_id, unidades):
     producto = Producto.objects.filter(producto_id=producto_id).first()
     producto_sigla = producto.producto_sigla
     print ('Debug: sigla del producto ',producto_sigla)
-
+    # no existen items
     if (items_existentes == 0):
+        # crea nuevos items
         print ('Debug: items ',items_existentes)      
         print ('Debug: Creacion de ',unidades,' items en la base de datos')        
         if (unidades != 0):
@@ -1500,12 +1501,17 @@ def Crear_items (request, ingreso_id, unidades):
     item_out_list = []
     item_out_list2 = []
     
-    items_out = Item.objects.filter(ingreso=ingreso_id).exclude(item_estado='B')
+    items_out = Item.objects.filter(ingreso=ingreso_id).exclude(item_estado='B').order_by('item_id')
     for item in items_out:
         item_out_list.append(item.item_codigo)
         item_list = []
         item_list.append(item.item_id)
         item_list.append(item.item_codigo)
+        
+        fecha_formateada = None
+        if item.item_fechaVencimiento is not None:
+            fecha_formateada = item.item_fechaVencimiento.strftime("%Y-%m-%d")
+        item_list.append(fecha_formateada)
         item_out_list2.append(item_list)
 
     return JsonResponse({
@@ -1548,3 +1554,68 @@ def Actualiza_sigla_producto(request):
     return JsonResponse({'message': 'proceso realizado correctamente.', 
         'success': True        
     }, status=200)
+
+
+def Actualiza_fecha_vencimientos (request, ingreso_id):
+    print ('***** operacion Actualiza_fecha_vencimientos ')
+    if request.method == 'POST':
+        print ('metodo ', request.method)
+        data = json.loads(request.body)
+        nueva_fecha = data.get('nueva_fecha_vencimiento')
+        print ('nueva_fecha ' , nueva_fecha)
+        # QuerySet
+        items = Item.objects.filter(ingreso=ingreso_id).exclude(item_estado='B')        
+        # Serializar los datos del QuerySet
+        items_serialized = list(items.values('item_id', 'item_fechaVencimiento', 'item_codigo', 'item_estado'))
+        lista_fecha_vtos = []
+        for item in items:
+            updated_rows = Item.objects.filter(ingreso=ingreso_id).update(item_fechaVencimiento=nueva_fecha)            
+            try:
+                if updated_rows != 0:                    
+                    print ('item ', item.item_id , ': actualizado')
+                    # Obtener el campo `item_fechaVencimiento` para el registro con item_id=411
+                    fecha_vencimiento = Item.objects.filter(item_id=item.item_id).values_list('item_fechaVencimiento', flat=True).first()
+                    fecha_vtos_format = fecha_vencimiento.strftime("%Y-%m-%d")
+                    lista_fecha_vtos.append(fecha_vtos_format)
+                else:
+                    print ('error: no se encontro el item')     
+            except DatabaseError as e:            
+                return JsonResponse({'error': 'Error al actualizar el item', 'detalle': str(e)}, status=500) 
+    
+        return JsonResponse({
+            'message': 'Proceso realizado correctamente.', 
+            'success': True,
+            'items' : items_serialized, 
+            'fecha_vtos' : lista_fecha_vtos
+        }, status=200)
+    
+    return JsonResponse({'error': 'Método no permitido.'}, status=405)
+
+def limpia_fecha_vencimientos (request, ingreso_id):
+    # Si el método es GET
+    if request.method == 'GET':
+        # Filtrar los items por ingreso_id y estado nuevo 
+        item_nuevos = Item.objects.filter(ingreso=ingreso_id, item_estado='N').count()
+
+        updated_rows = Item.objects.filter(ingreso=ingreso_id, item_estado='N').update(item_fechaVencimiento=None)
+        try:
+            if updated_rows == 0:    
+                print ('error: no se encontro algun item')  
+        except DatabaseError as e:            
+            return JsonResponse({'error': 'Error al actualizar el item', 'detalle': str(e)}, status=500) 
+        
+        if updated_rows == item_nuevos:
+            return JsonResponse({
+                'message': 'Actualizacion correcta de todos los items.', 
+                'success': True,
+                'item': item_nuevos,                            
+                'item_update': updated_rows
+            }, status=200)
+        else:
+            return JsonResponse({
+                'message': 'Actualizacion incorrecta de todos los items.', 
+                'success': False,
+                'item': item_nuevos,                            
+                'item_update': updated_rows
+            }, status=200) 
+    return JsonResponse({'error': 'Método no permitido.'}, status=405)
