@@ -169,7 +169,7 @@ Compras
                                     <input type="date" id="fecha-compra" class="form-control" autocomplete="off"
                                         placeholder="">
                                 </div>
-                            </li>                      
+                            </li>
 
                             <li class="mb-4 value-section">
                                 <div class="d-flex justify-content-between align-items-center mb-2 flex-nowrap">
@@ -180,7 +180,7 @@ Compras
                                             <i class="bi bi-arrow-clockwise"></i>
                                         </button>
                                         <button id="genera-item" type="button" class="btn btn-primary">
-                                        <!--<button id="genera-item" type="button" class="btn btn-danger">-->
+                                            <!--<button id="genera-item" type="button" class="btn btn-danger">-->
                                             <i class="bi bi-table"></i>
                                         </button>
                                     </div>
@@ -263,17 +263,12 @@ Compras
 </div>
 
 <!-- inicio Modal items-->
-<div class="modal fade"
-     id="itemModal"
-     tabindex="-1"
-     aria-labelledby="itemModalLabel"
-     aria-hidden="true"
-     data-bs-backdrop="static" 
-     data-bs-keyboard="false">
+<div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
 
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">       
-           
+        <div class="modal-content">
+
             <!--header-->
             <div class="modal-header bg-secondary text-white" style="height:40px;">
                 <h5 class="modal-title" id="itemModalLabel" style="color: #fff;">Genera Items</h5>
@@ -299,19 +294,19 @@ Compras
                         </select>
                     </div>
                 </div>
-                
-                <div class="row mb-3"  style="position: relative;">
+
+                <div class="row mb-3" style="position: relative;">
                     <div class="col-12 mb-1">
                         <input type="date" id="fecha-vencimiento" class="form-control text-center" disabled>
-                    </div>                    
+                    </div>
                     <div class="col-12">
                         <div id="notificacion-items" class="notificacion">
                             Favor ingrese la fecha
                         </div>
-                    </div>                    
+                    </div>
                 </div>
 
-                <div class="row mb-1">
+                <div class="row mb-1" style="position: relative;">
                     <div class="col-12">
                         <table id="tabla-items" class="table table-bordered table-sm mb-0">
                             <thead class="table-light text-center">
@@ -332,13 +327,19 @@ Compras
                             </tbody>
                         </table>
                     </div>
+                    <div id="loading-overlay-tabla-items" class="custom-loading-overlay d-none">
+                        <div class="spinner-border custom-spinner mb-3" role="status"></div>
+                        <span>Cargando...</span>
+                    </div>
                 </div>
+
             </div>
 
             <!--footer-->
             <div class="modal-footer justify-content-center">
                 <!--<button type="button" class="btn btn-light px-4 me-3" data-bs-dismiss="modal">Cerrar</button>-->
-                <button type="button" id='modal-items-cerrar' class="btn btn-light px-4 me-3">Aceptar</button>
+                <!--<button type="button" id='modal-items-cerrar' class="btn btn-light px-4 me-3">Aceptar</button>-->
+                <button type="button" id='modal-items-aceptar' class="btn btn-light px-4 me-3">Aceptar</button>
             </div>
 
             <div id="loading-overlay-items" class="custom-loading-overlay d-none">
@@ -347,7 +348,7 @@ Compras
                 </div>
                 <span>Cargando...</span>
             </div>
-            
+
         </div>
     </div>
 </div>

@@ -40,8 +40,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const capa_spinner_items = document.getElementById('loading-overlay-items');
     const thead_total_items = document.getElementById('thead-total-items');
     const itemModal = new bootstrap.Modal(document.getElementById('itemModal'));
-    const modal_item_cerrar = document.getElementById('modal-items-cerrar');
+    //const modal_item_cerrar = document.getElementById('modal-items-cerrar');
     const notificacion_items = document.getElementById('notificacion-items');
+    const modal_item_aceptar = document.getElementById('modal-items-aceptar');
+    const loadingSpinner = document.getElementById('loading-spinner');
+    const loadingTablaItems = document.getElementById('loading-overlay-tabla-items');
+    const fechaVencimientoInput = document.getElementById('fecha-vencimiento');
+    const tablaItemsBody = document.getElementById('item-table-body');
 
     let g_ganancia_unidad = 0;
     let g_precio_unidad = 0;
@@ -482,7 +487,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    const loadingSpinner = document.getElementById('loading-spinner');
+
     //const modal = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
 
     // Agregar evento a cada botón
@@ -1821,12 +1826,59 @@ document.addEventListener('DOMContentLoaded', function () {
                     input_pu_unidad.disabled = true;
                     btn_actualizarUnidad.disabled = false;
                     llena_tabla_items2(data.item_out_list2);
+
+
                 }
                 capa_spinner_items.classList.add('d-none');
             }).catch(error => {
                 console.error('Error en la solicitud ajax:', error);
                 capa_spinner_items.classList.add('d-none');
             });
+
+    });
+
+    /*
+    tabla_items_body_rows.forEach((fila, index) => {
+        // Seleccionar el input de tipo date en la segunda columna
+        const inputDate = fila.querySelector('td:nth-child(2) input[type="date"]');
+        if (inputDate) {
+            // Capturar el valor del input date
+            const valorFecha = inputDate.value;
+            console.log(`Fila ${index + 1}, Fecha: ${valorFecha}`);
+        }
+    });
+    */
+
+    // Escuchar eventos en el tbody (delegación de eventos)
+    tabla_items_body.addEventListener('change', (event) => {
+        // Verificar si el evento se originó en un input[type="date"]
+        if (event.target && event.target.matches('input[type="date"]')) {
+            // Obtener el valor del campo de entrada
+            const valorFecha = event.target.value;
+
+            // Opcional: Obtener información adicional de la fila actual
+            const fila = event.target.closest('tr'); // Selecciona la fila donde está el input
+            const itemId = fila.getAttribute('data-item-id'); // Ejemplo de obtener un atributo
+
+            console.log(`Fecha seleccionada: ${valorFecha}, Item ID: ${itemId}`);
+
+            // Enviar la solicitud Ajax al backend        
+            fetch(`/actualiza-fecha-vto/${itemId}/${valorFecha}/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response: ', data)
+                    if (data.success) {
+
+                    }
+                }).catch(error => {
+                    console.error('Error en la solicitud ajax:', error);
+                });
+        }
     });
 
     /*modal_item_cerrar.addEventListener('click', function () {        
@@ -1835,7 +1887,7 @@ document.addEventListener('DOMContentLoaded', function () {
     */
 
     // Agrega un evento al botón de Salir
-    modal_item_cerrar.addEventListener('click', (event) => {
+    modal_item_aceptar.addEventListener('click', (event) => {
         // Evita el cierre automático
         event.preventDefault();
 
@@ -1982,8 +2034,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Seleccionamos el campo select y el campo de fecha
 
-    const fechaVencimientoInput = document.getElementById('fecha-vencimiento');
-    const tablaItemsBody = document.getElementById('item-table-body');
+
 
     // Añadimos un evento 'change' al campo select
     selectFechaVencimiento.addEventListener('change', function () {
@@ -2015,6 +2066,7 @@ document.addEventListener('DOMContentLoaded', function () {
             */
             //limpia_columna_fecha_vencimiento(rows);
 
+            loadingTablaItems.classList.remove('d-none');
             // Enviar la solicitud Ajax al backend        
             fetch(`/limpia-fecha-vtos/${g_ingreso_id}/`, {
                 method: 'GET',
@@ -2028,10 +2080,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         console.log(data);
                         limpia_columna_fecha_vencimiento(rows);
                     }
-                    //capa_spinner_items.classList.add('d-none');
+                    loadingTablaItems.classList.add('d-none');
                 }).catch(error => {
                     console.error('Error en la solicitud ajax:', error);
-                    //capa_spinner_items.classList.add('d-none');
+                    loadingTablaItems.classList.add('d-none');
                 });
         }
     });
@@ -2051,25 +2103,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Añadimos un evento 'change' al campo de fecha para capturar el cambio de valor
     fechaVencimientoInput.addEventListener('change', function () {
+        const nuevaFecha = this.value; // Obtener el valor del input de fecha       
+        const rows = tablaItemsBody.getElementsByTagName('tr');
+
         input_fecha_vencimiento.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
         notificacion_items.classList.remove('show');
         notificacion_items.classList.add('hide');
-        const nuevaFecha = this.value; // Obtener el valor del input de fecha
-
-        // Recorremos todas las filas del tbody
-        const rows = tablaItemsBody.getElementsByTagName('tr');
-        /*
-        for (let i = 0; i < rows.length; i++) {
-            const fechaCell = rows[i].getElementsByTagName('td')[1]; // Obtener la segunda celda (índice 1)
-            if (fechaCell) {
-                const inputFecha = fechaCell.querySelector('.item-fecha-vencimiento'); // Obtener el input de fecha en la celda
-                if (inputFecha) {
-                    inputFecha.value = nuevaFecha; // Actualizar el valor del input
-                }
-            }
-        }
-        */
-        console.log('***** actualiza-fecha-vtos - g_ingreso_id: ', g_ingreso_id);
+        // Mostramos el spinner
+        loadingTablaItems.classList.remove('d-none');
         // Enviar la solicitud Ajax al backend        
         fetch(`/actualiza-fecha-vtos/${g_ingreso_id}/`, {
             method: 'POST',
@@ -2088,23 +2129,39 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.json();
             })
             .then(data => {
-                console.log('Response: ', data)
+                //console.log('Response: ', data)
                 if (data.success) {
-                    console.log('items ', data.items);
-                    console.log('fecha_vtos: ', data.fecha_vtos.length);
-                    if (rows.length && data.fecha_vtos.length) {
+                    console.log('Estado de la solicitud ** actualiza-fecha-vtos **:', data.success);
+                    //console.log('Items serialized: ',data.items);
+                    console.log('Items serialized: ', data.items.length);
+                    //console.log('Items serialized: ',data.items[0]);
+                    // si los items actualizados coinciden con la cantidad de filas html <tr> existentes
+                    if (rows.length && data.items.length) {
+                        // recorremos todas las filas y las actualizamos con el resultado de la solicitud
                         for (let i = 0; i < rows.length; i++) {
-                            console.log('valor: ', data.fecha_vtos[i]);
+                            console.log('Valor', i, ':', data.items[i]);
                             const inputFecha = rows[i].getElementsByTagName('td')[1].querySelector('.item-fecha-vencimiento');
-                            inputFecha.value = data.fecha_vtos[i];
+                            inputFecha.value = data.items[i];
                         }
                     } else {
-                        console.log('las filas html no coinciden con la lista que retorna el backend');
+                        console.log('Las filas html <tr> no coinciden con los items actualizados');
                     }
+                    loadingTablaItems.classList.add('d-none');
                 }
 
             }).catch(error => {
                 console.error('Error en la solicitud ajax:', error);
+                // Recorremos todas las filas del tbody
+                for (let i = 0; i < rows.length; i++) {
+                    const fechaCell = rows[i].getElementsByTagName('td')[1]; // Obtener la segunda celda (índice 1)
+                    if (fechaCell) {
+                        const inputFecha = fechaCell.querySelector('.item-fecha-vencimiento'); // Obtener el input de fecha en la celda
+                        if (inputFecha) {
+                            inputFecha.value = nuevaFecha; // Actualizar el valor del input
+                        }
+                    }
+                }
+                loadingTablaItems.classList.add('d-none');
             });
     });
 
