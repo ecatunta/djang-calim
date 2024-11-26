@@ -100,9 +100,9 @@ Compras
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="table-ingreso-body">
                             {% for ingreso in ingresos %}
-                            <tr data-ingreso-id="{{ ingreso.ingreso_id }}">
+                            <tr data-ingreso-id="{{ ingreso.ingreso_id }}" categoriaFechaVto="{{ingreso.ingreso_categoriaFechaVto}}">
                                 <td style="vertical-align: middle;">{{ ingreso.ingreso_fecha_formateada }}</td>
                                 <td style="vertical-align: middle; text-align:left;">{{ ingreso.producto }}</td>
 
@@ -289,8 +289,10 @@ Compras
                     </div>
                     <div class="col-6">
                         <select id="select-fecha-vencimiento" class="form-select">
+                            <!--<option value="">-- Seleccione opcion--</option>-->
                             <option value="0">Fecha No Requerida</option>
                             <option value="1">Fecha Unificada</option>
+                            <option value="2">Fecha Distinta</option>
                         </select>
                     </div>
                 </div>
@@ -642,3 +644,31 @@ Compras
 <script src="{% static 'js/busqueda.js' %}"></script>
 
 {% endblock %}
+
+<!--
+<table id="tabla-items" class="table table-bordered table-sm mb-0">
+    <thead class="table-light text-center">
+        <tr>
+            <td colspan="3">Total items <span id="thead-total-items">2</span></td>
+        </tr>
+        <tr>
+            <th style="width: 20%;">Item</th>
+            <th style="width: 40%;">Fecha de Vencimiento</th>
+            <th style="width: 40%;">Código</th>
+            </tr>
+    </thead>
+    <tbody id="item-table-body">
+        <tr data-item-id="698">
+            <td>1</td>
+            <td><input type="date" class="form-control item-fecha-vencimiento" data-fecha="1"></td>
+            <td>PS201-49</td>
+        </tr>
+        <tr data-item-id="699">
+            <td>2</td>
+            <td><input type="date" class="form-control item-fecha-vencimiento" data-fecha="1"></td>
+            <td>PS201-50</td>
+        </tr>
+    </tbody>
+</table>
+-->
+

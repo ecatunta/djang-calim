@@ -1658,4 +1658,24 @@ def Actualiza_fecha_vencimiento (request, item_id, fecha_vto):
         'success': True        
     }, status=200)
 
+def Actualiza_categoria_fechaVto (request, ingreso_id, cat_fechaVto):    
+    if request.method == 'GET':
+        try:
+            updated_row = Ingreso.objects.filter(ingreso_id=ingreso_id).update(ingreso_categoriaFechaVto=cat_fechaVto)
+            if updated_row == 0:
+                print ('Actualización no realizada.')  
+                return JsonResponse({
+                    'error': 'No se encontró el registro',
+                    'success': False
+                }, status=404)
+        except DatabaseError as e:            
+            return JsonResponse({
+                'error': 'Error al actualizar',
+                'detalle': str(e)
+                }, status=500) 
+    
+    return JsonResponse({'message': 'Actualización correcta', 
+        'success': True        
+    }, status=200)
+
 

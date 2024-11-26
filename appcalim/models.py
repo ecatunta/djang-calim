@@ -148,7 +148,8 @@ class Ingreso(models.Model):
     ingreso_referencia = models.CharField(max_length=200, null=True, blank=True)  
     #ingreso_fechaCompra = models.DateTimeField()
     ingreso_fechaCompra = models.DateTimeField(default=timezone.now)
-    ingreso_comprador = models.CharField(max_length=100, default='comprador01')
+    ingreso_comprador = models.CharField(max_length=100, default='comprador01')    
+    ingreso_categoriaFechaVto = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return f"Venta {self.ingreso_id}"
