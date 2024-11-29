@@ -558,12 +558,19 @@ document.addEventListener('DOMContentLoaded', function () {
                             btn_actualizarUnidad.disabled = true;
                             btn_generaItem.disabled = true;
                         }
+
+                        if (data.unidad) {
+                            btn_actualizarUnidad.disabled = false;
+                            btn_generaItem.disabled = false;
+                            input_pu_unidad.disabled = true;
+                        }
+                        /*
                         if (data.unidad > 0 && tabla_items_body_rows.length > 0) {
                             input_pu_unidad.disabled = true;
                             btn_actualizarUnidad.disabled = false;
                             btn_generaItem.disabled = false;
                         }
-
+                        */
 
                         /*
                         if (data.unidad > 0) {
@@ -579,6 +586,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         const ingreso = data.ingreso;
                         const button = document.getElementById('pu_aceptar');
                         g_nombre_producto = data.producto_nombre;
+                        
+                        document.getElementById('item-vc').textContent = ingreso.nuevo.item;
                         document.getElementById('pu_producto_nombre').textContent = data.producto_nombre;
                         document.getElementById('producto_nombre_items').textContent = g_nombre_producto;
 
@@ -636,6 +645,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                 input_p_ganancia_nuevo.value = '';
                             }
                         }
+
+                        
 
                         // Agregar el atributo data-id con un valor específico
                         button.setAttribute('data-id', ingresoId);

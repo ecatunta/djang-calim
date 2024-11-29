@@ -1074,6 +1074,8 @@ def Obtiene_precioU_vigente_nuevo(request, ingreso_id):
         producto_id = ingreso_nuevo.producto.producto_id
         ingreso_vigente = Ingreso.objects.filter(producto_id=producto_id, ingreso_estado='V').first() 
         
+        items_nuevos = Item.objects.filter(ingreso=ingreso_id).exclude(item_estado='B').count()
+        
         #ingreso_vigente = Ingreso.objects.filter(ingreso_id=ingreso_id, ingreso_estado='V').first()        
         #ingreso_nuevo = Ingreso.objects.filter(ingreso_id=ingreso_id, ingreso_estado='P').first()
 
@@ -1103,7 +1105,8 @@ def Obtiene_precioU_vigente_nuevo(request, ingreso_id):
                 'i_precio_unitario': ingreso_nuevo.ingreso_precioUnitario,
                 'ingreso_fecha_test': ingreso_fecha,
                 #'ingreso_fecha_compra': localtime(timezone.now()).strftime("%Y/%m/%d")
-                'ingreso_fecha_compra': localtime(timezone.now()).strftime("%Y-%m-%d")
+                'ingreso_fecha_compra': localtime(timezone.now()).strftime("%Y-%m-%d"),
+                'item': items_nuevos
                 
             } if ingreso_nuevo else {}
         }
