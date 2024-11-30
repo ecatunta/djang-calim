@@ -827,12 +827,15 @@ def Inventario_ingreso(request, ingreso_id):
                 )
                 #print('debug: update precio producto-> Ok')                
 
+                item_nuevos = Item.objects.filter(ingreso=ingreso_id, item_estado='N').count()                 
                 # Registrar los items en la tabla ingreso_producto
                 items = data.get('items', [])
                 
                 # Verificar si 'items' está vacío
-                if not items:
-                    raise Exception('La lista de items está vacía')                  
+                if not items and item_nuevos == 0:
+                    raise Exception('La lista de items está vacía')     
+                
+                
                 
                 # Recorrer la lista items
                 for item in items:
@@ -1155,7 +1158,11 @@ def Actualizar_ingreso2(request, ingreso_id):
 
             if data.get('unidad_entrante')=='':
                 unidad = None
-
+            
+            item_nuevos = Item.objects.filter(ingreso=ingreso_id, item_estado='N').count()
+            if (item_nuevos > 0):
+                unidad = item_nuevos
+            
             ingreso = Ingreso.objects.get(pk=ingreso_id)
             ingreso.ingreso_unidad = unidad
             ingreso.ingreso_costoUnitario = costo_unitario

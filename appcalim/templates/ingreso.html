@@ -102,7 +102,8 @@ Compras
 
                         <tbody id="table-ingreso-body">
                             {% for ingreso in ingresos %}
-                            <tr data-ingreso-id="{{ ingreso.ingreso_id }}" categoriaFechaVto="{{ingreso.ingreso_categoriaFechaVto}}">
+                            <tr data-ingreso-id="{{ ingreso.ingreso_id }}"
+                                categoriaFechaVto="{{ingreso.ingreso_categoriaFechaVto}}">
                                 <td style="vertical-align: middle;">{{ ingreso.ingreso_fecha_formateada }}</td>
                                 <td style="vertical-align: middle; text-align:left;">{{ ingreso.producto }}</td>
 
@@ -181,7 +182,8 @@ Compras
                                         </button>
                                         <button id="genera-item" type="button" class="btn btn-primary">
                                             <!--<button id="genera-item" type="button" class="btn btn-danger">-->
-                                            <span id="item-vc"></span>
+                                            <span id="item-fv" data-total-item="0"></span>
+                                            <!--<span id="item-vc"></span>-->
                                             <i class="bi bi-table"></i>
                                         </button>
                                     </div>
@@ -264,40 +266,32 @@ Compras
 </div>
 
 <!-- inicio Modal items-->
+<!--
 <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true"
     data-bs-backdrop="static" data-bs-keyboard="false">
-
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
-            <!--header-->
             <div class="modal-header bg-secondary text-white" style="height:40px;">
                 <h5 class="modal-title" id="itemModalLabel" style="color: #fff;">Genera Items</h5>
-                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
             </div>
-
-            <!--body-->
             <div class="modal-body">
                 <div class="row mb-4">
                     <div class="col-12 text-center">
                         <strong id="producto_nombre_items" class="product-title"></strong>
                     </div>
                 </div>
-
                 <div class="row align-items-center mb-2">
                     <div class="col-6 text-end">
                         <strong>Fecha de Vencimiento:</strong>
                     </div>
                     <div class="col-6">
                         <select id="select-fecha-vencimiento" class="form-select">
-                            <!--<option value="">-- Seleccione opcion--</option>-->
-                            <option value="0">Fecha No Requerida</option>
-                            <option value="1">Fecha Unificada</option>
-                            <option value="2">Fecha Distinta</option>
+                            <option value="0">No Requerida</option>
+                            <option value="1">Unificada</option>
+                            <option value="2">Distinta</option>
                         </select>
                     </div>
                 </div>
-
                 <div class="row mb-3" style="position: relative;">
                     <div class="col-12 mb-1">
                         <input type="date" id="fecha-vencimiento" class="form-control text-center" disabled>
@@ -308,7 +302,6 @@ Compras
                         </div>
                     </div>
                 </div>
-
                 <div class="row mb-1" style="position: relative;">
                     <div class="col-12">
                         <table id="tabla-items" class="table table-bordered table-sm mb-0">
@@ -317,16 +310,12 @@ Compras
                                     <td colspan="3">Total items <span id="thead-total-items"></span></td>
                                 </tr>
                                 <tr>
-                                    <th style="width: 20%;">Item</th>
-                                    <th style="width: 40%;">Fecha de Vencimiento</th>
-                                    <th style="width: 40%;">Código</th>
-                                    <!--<th>Item</th>
-                                    <th>Fecha de Vencimiento</th>
-                                    <th>Código</th>-->
+                                    <th style="width: 10%;">Item</th>
+                                    <th style="width: 60%;">Fecha Vto.</th>
+                                    <th style="width: 30%;">Código</th>
                                 </tr>
                             </thead>
-                            <tbody id="item-table-body">
-                                <!-- Filas dinámicas -->
+                            <tbody id="item-table-body">                                
                             </tbody>
                         </table>
                     </div>
@@ -335,27 +324,110 @@ Compras
                         <span>Cargando...</span>
                     </div>
                 </div>
-
             </div>
-
-            <!--footer-->
             <div class="modal-footer justify-content-center">
-                <!--<button type="button" class="btn btn-light px-4 me-3" data-bs-dismiss="modal">Cerrar</button>-->
-                <!--<button type="button" id='modal-items-cerrar' class="btn btn-light px-4 me-3">Aceptar</button>-->
                 <button type="button" id='modal-items-aceptar' class="btn btn-light px-4 me-3">Aceptar</button>
             </div>
-
             <div id="loading-overlay-items" class="custom-loading-overlay d-none">
                 <div class="spinner-border custom-spinner mb-3" role="status">
-                    <!--<span class="visually-hidden">Cargando...www</span>-->
                 </div>
                 <span>Cargando...</span>
             </div>
-
         </div>
     </div>
 </div>
+-->
 <!-- fin Modal items-->
+
+<!-- Modal Items -->
+<div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header bg-secondary text-white" style="height:40px;">
+                <h5 class="modal-title" id="itemModalLabel" style="color: #fff;">Items</h5>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <div class="row mb-3 text-center">
+                    <div class="col">
+                        <strong id="producto_nombre_items" class="product-title"></strong>
+                    </div>
+                </div>
+
+                <div class="row align-items-center mb-3">
+                    <div class="col-12 col-md-6 text-md-end mb-2 mb-md-0">
+                        <strong>Fecha de Vencimiento:</strong>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <select id="select-fecha-vencimiento" class="form-select">
+                            <option value="0">No Requerida</option>
+                            <option value="1">Unificada</option>
+                            <option value="2">Distinta</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <input type="date" id="fecha-vencimiento" class="form-control text-center" disabled>
+                    </div>
+                    <div class="col-12">
+                        <div id="notificacion-items" class="notificacion text-center">
+                            Favor ingrese la fecha
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        Total items: <span id="thead-total-items"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <table id="tabla-items" class="table table-bordered table-sm table-hover">
+                            <thead class="table-light text-center">
+                                <!--<tr>
+                                    <td colspan="3">Total items <span id="thead-total-items"></span></td>
+                                </tr>-->
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Fecha Vto.</th>
+                                    <th>Código</th>
+                                </tr>
+                            </thead>
+                            <tbody id="item-table-body">
+                                <!-- Filas dinámicas -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="loading-overlay-tabla-items" class="custom-loading-overlay d-none text-center">
+                    <div class="spinner-border custom-spinner mb-3" role="status"></div>
+                    <span>Cargando...</span>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer justify-content-center">
+                <button type="button" id="modal-items-aceptar" class="btn btn-secondary px-4">Aceptar</button>
+            </div>
+
+            <div id="loading-overlay-items" class="custom-loading-overlay d-none text-center">
+                <div class="spinner-border custom-spinner mb-3" role="status"></div>
+                <span>Cargando...</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin Modal Items -->
+
 
 <div class="custom-popup-overlay2" id="popupOverlay2" style="display: none;">
     <div class="custom-popup">
@@ -672,4 +744,3 @@ Compras
     </tbody>
 </table>
 -->
-

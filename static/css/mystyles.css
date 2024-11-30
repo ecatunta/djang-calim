@@ -551,9 +551,11 @@ header {
     font-size: 0.9rem !important;
   }
 
-  #ingreso_tabla,
+  #ingreso_tabla /*,*/
   /*#tabla-items .form-control {*/
-  #tabla-items, #tabla-items .form-control {
+  /*#tabla-items .form-control,*/
+  /*#tabla-items  */
+  {
     font-size: 0.8rem !important;
     padding-top: 8px !important;
     padding-bottom: 8px !important;
@@ -1615,6 +1617,49 @@ header {
   /*padding-left: 10px;*/
 }
 
+
+#notificacion-items {
+  position: relative;
+  background-color: #ec3a0f;
+  color: white;  
+  padding: 10px;
+  transition: top 0.5s ease;
+  display: none;
+}
+
+#notificacion-items.show {
+  display: block;
+}
+
+#notificacion-items.hide {
+  display: none;
+}
+
+
+/* Estilo para la tabla */
+.table {
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  vertical-align: middle; /* Alineación vertical */
+  text-align: center; /* Alineación horizontal */
+}
+
+.table th {
+  background-color: #343a40; /* Encabezado oscuro */
+  color: #fff;
+  font-weight: bold;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f8f9fa; /* Color alterno para las filas */
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e9ecef; /* Cambio de color al pasar el mouse */
+}
+
 #tabla-items {
   border-collapse: collapse;
   width: 100%;
@@ -1640,20 +1685,13 @@ header {
   background: #f8f9fa; /* Color de fondo del encabezado */
 }
 
-
-#notificacion-items {
-  position: relative;
-  background-color: #ec3a0f;
-  color: white;  
-  padding: 10px;
-  transition: top 0.5s ease;
-  display: none;
+/* Ajustes de Ancho */
+#tabla-items th:nth-child(2),
+#tabla-items td:nth-child(2) {
+    width: 55%;
 }
 
-#notificacion-items.show {
-  display: block;
-}
-
-#notificacion-items.hide {
-  display: none;
+#tabla-items th:nth-child(3),
+#tabla-items td:nth-child(3) {
+    width: 35%;
 }

@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const tableIngresoBody = document.getElementById('table-ingreso-body');
     const tableIngresoBody_row = tableIngresoBody.getElementsByTagName('tr');
+    const itemFechaVto = document.getElementById('item-fv');
 
     let g_ganancia_unidad = 0;
     let g_precio_unidad = 0;
@@ -493,51 +494,29 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    //const modal = new bootstrap.Modal(document.getElementById('ingresoPrecioUModal'));
-
-    // Agregar evento a cada botón
+    // Agregar el evento click a cada botón
     inventarioIngreso.forEach(button => {
         button.addEventListener('click', function (event) {
             event.preventDefault();
-            const row = button.closest('tr');
             selectedRow_ingreso = button.closest('tr');
+            const row = button.closest('tr');
             const ingresoId = row.getAttribute('data-ingreso-id');
+            //alert('ingreso_id: ' + ingresoId);
+
             g_ingreso_id = row.getAttribute('data-ingreso-id');
-            // Actualiza el valor del select con el atricuto de la fila 
-            selectFechaVencimiento.value = row.getAttribute('categoriafechavto');
-
-            /*
-            const selectFechaVto = row.getAttribute('select-fechaVto-value');
-            // actualiza el select fecha de vencimiento que esta en la ventana modal
-            if (selectFechaVto) {
-                selectFechaVencimiento.value = selectFechaVto;
-            }
-            */
-
-
-            // Mostrar el spinner antes de la solicitud Ajax
-            loadingSpinner.style.display = 'block';
-
-            /*
-            document.getElementById('fecha-vencimiento').value = '';
-            document.getElementById('select-fecha-vencimiento').value = "0";
-            input_fecha_vencimiento.disabled = true;
-            */
-
-            //input_pu_unidad.disabled = true;          
-            //btn_actualizarUnidad.disabled = false;
-
+            selectFechaVencimiento.value = row.getAttribute('categoriafechavto');  // Actualiza el valor del select con el atricuto de la fila 
+            loadingSpinner.style.display = 'block'; // Mostrar el spinner antes de la solicitud Ajax
             input_pu_unidad.classList.remove('is-invalid');
             input_fecha_vencimiento.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
             input_costo_nuevo.classList.remove('is-invalid');
             input_p_ganancia_nuevo.classList.remove('is-invalid');
-
             input_pu_unidad.disabled = false;
             input_costo_nuevo.disabled = false;
             input_p_ganancia_nuevo.disabled = false;
             btn_actualizarUnidad.disabled = true;
 
-            let unidad = 0;
+
+            //let unidad = 0;
             fetch(`/obtiene_precioU_vigente_nuevo/${ingresoId}/`, {
                 method: 'GET',
                 headers: {
@@ -548,51 +527,45 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(data => {
                     console.log('obtiene_precioU_vigente_nuevo: ', data)
                     if (data.status === 'success') {
-                        // Ocultar el spinner cuando la solicitud Ajax es exitosa
-                        loadingSpinner.style.display = 'none';
+                        const ingreso = data.ingreso;
+                        const button = document.getElementById('pu_aceptar');
+
+                        loadingSpinner.style.display = 'none'; // Ocultar el spinner cuando la solicitud Ajax es exitosa
 
                         console.log('tabla_items_body.length: ', tabla_items_body_rows.length);
                         console.log('data.unidad: ', data.unidad);
+                        //alert('items: ' + ingreso.nuevo.item);
 
-                        if (!data.unidad) {
+                        //if (!data.unidad) {
+                        if (!ingreso.nuevo.item) {
                             btn_actualizarUnidad.disabled = true;
                             btn_generaItem.disabled = true;
                         }
 
-                        if (data.unidad) {
+                        //if (data.unidad) {
+                        if (ingreso.nuevo.item > 0) {
                             btn_actualizarUnidad.disabled = false;
                             btn_generaItem.disabled = false;
                             input_pu_unidad.disabled = true;
-                        }
-                        /*
-                        if (data.unidad > 0 && tabla_items_body_rows.length > 0) {
-                            input_pu_unidad.disabled = true;
-                            btn_actualizarUnidad.disabled = false;
-                            btn_generaItem.disabled = false;
-                        }
-                        */
-
-                        /*
-                        if (data.unidad > 0) {
-                            //llena_tabla_items(data.unidad);
-                            input_pu_unidad.disabled = true;
-                            btn_actualizarUnidad.disabled = false;
+                            document.getElementById('pu_unidad').value = ingreso.nuevo.item;
                         } else {
-                            if (!data.unidad) {
-                                btn_generaItem.disabled = true;
-                            }
-                        }*/
+                            document.getElementById('pu_unidad').value = '';
+                        }
 
-                        const ingreso = data.ingreso;
-                        const button = document.getElementById('pu_aceptar');
                         g_nombre_producto = data.producto_nombre;
-                        
-                        document.getElementById('item-vc').textContent = ingreso.nuevo.item;
+                        //document.getElementById('item-vc').textContent = ingreso.nuevo.item;
+                        // Actualiza el valor del elemento id item-fv
+                        itemFechaVto.textContent = ingreso.nuevo.item;
+                        itemFechaVto.setAttribute('data-total-item', ingreso.nuevo.item);
+
                         document.getElementById('pu_producto_nombre').textContent = data.producto_nombre;
                         document.getElementById('producto_nombre_items').textContent = g_nombre_producto;
 
-                        document.getElementById('pu_unidad').value = data.unidad;
-                        g_unidad_entrante = data.unidad;
+                        //document.getElementById('pu_unidad').value = data.unidad;
+
+                        //g_unidad_entrante = data.unidad;
+                        g_unidad_entrante = ingreso.nuevo.item;
+
                         document.getElementById('pu_costo_total').textContent = data.costo_total || '0.0';
                         document.getElementById('pu_costoU_actual').textContent = ingreso.vigente.i_costo_unitario || '0.0';
                         document.getElementById('pu_pGanancia_actual').textContent = ingreso.vigente.i_porcentaje_ganancia || '0.0';
@@ -646,8 +619,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                         }
 
-                        
-
                         // Agregar el atributo data-id con un valor específico
                         button.setAttribute('data-id', ingresoId);
                         modal_p_ingreso.show();
@@ -671,9 +642,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const porcentaje_ganancia_nuevo = parseFloat(input_p_ganancia_nuevo.value);
         const unidad_entrante = input_pu_unidad.value;
         let costo_unitario_nuevo = parseFloat(inputValue);
-        span_n_costo_unidad.textContent = inputValue;
+
+        //span_n_costo_unidad.textContent = inputValue;
 
         costo_unitario_nuevo = parseFloat(validateSingleDecimalInput(this));
+        span_n_costo_unidad.textContent = costo_unitario_nuevo;
+
         console.log('result: ', costo_unitario_nuevo);
 
         if (inputValue === '') {
@@ -908,6 +882,18 @@ document.addEventListener('DOMContentLoaded', function () {
         // Remover cualquier carácter no numérico
         this.value = this.value.replace(/[^0-9]/g, '');
 
+
+
+        if (this.value != itemFechaVto.getAttribute('data-total-item')) { // si el valor ingresado en el input es diferente al atributo data-id del elemento span con id item-fv
+            console.log('es diferente');
+            itemFechaVto.textContent = 0; // es diferente el valor es 0, debe actualizar la tabla de items
+        } else {
+            if (this.value === itemFechaVto.getAttribute('data-total-item')) { // es igual, mantenemos el valor del item para no ser obligatorio la generación de items
+                console.log('es igual');
+                itemFechaVto.textContent = itemFechaVto.getAttribute('data-total-item')
+            }
+        }
+
         // Validar que el número sea mayor a 0
         if (parseInt(this.value, 10) <= 0) {
             this.value = ''; // Limpiar el campo si es 0 o menor
@@ -962,7 +948,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 3000);
         */
 
-        console.log("focus: Posición top del elemento header:", topPosition);
+        //console.log("focus: Posición top del elemento header:", topPosition);
         //alert("focus: Posición top del elemento header: " + topPosition);
     });
 
@@ -1040,6 +1026,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // operacion para actualizar el ingreso 
     function actualizar_ingreso2(ingreso_id) {
         fetch(`/actualizar_ingreso2/${ingreso_id}/`, {
             method: 'POST',
@@ -1070,10 +1057,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-
     // Evento click sobre el elemento html con id pu_aceptar
     document.getElementById('pu_aceptar').addEventListener('click', function () {
-        //alert('pu_aceptar');
+
         const ingresoId = this.getAttribute('data-id');
         const costoUnitario = parseFloat(document.getElementById('pu_costoU_nuevo').value); // Convertir a número
         const porGanancia = parseFloat(document.getElementById('pu_pGanancia_nuevo').value);
@@ -1122,6 +1108,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //return;        
 
         function validar_input_vacios(input, selectFechaV) {
+            /*
             //alert(selectFechaV);
             if (selectFechaV == 0) {
                 input.classList.remove('is-invalid');
@@ -1143,11 +1130,30 @@ document.addEventListener('DOMContentLoaded', function () {
                     return true;
                 }
             }
+            */
+
+            if (input.value.trim() === '') {
+                input.classList.add('is-invalid'); // Agrega borde rojo si está vacío
+                return false;
+            } else {
+                input.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
+                return true;
+            }
         }
 
         function valida_items() {
+            /*
             console.log('cantidad de filas: ', filas.length);
             if (filas.length == 0) {
+                btn_generaItem.classList.remove('btn-primary');
+                btn_generaItem.classList.add('btn-danger');
+                return false;
+            }
+            return true;
+            */
+
+            //if (input_pu_unidad.value != itemFechaVto.getAttribute('data-total-item')) {
+            if (input_pu_unidad.value != itemFechaVto.textContent) {
                 btn_generaItem.classList.remove('btn-primary');
                 btn_generaItem.classList.add('btn-danger');
                 return false;
@@ -1158,10 +1164,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const i_unidad = validar_input_vacios(input_pu_unidad, null);
         const i_costoN = validar_input_vacios(input_costo_nuevo, null);
         const i_porcentajeG = validar_input_vacios(input_p_ganancia_nuevo, null);
-        const i_fechaV = validar_input_vacios(input_fecha_vencimiento, select_fecha_vencimiento.value);
+        //const i_fechaV = validar_input_vacios(input_fecha_vencimiento, select_fecha_vencimiento.value);
         const i_items = valida_items();
 
-        if (!i_unidad || !i_fechaV || !i_costoN || !i_porcentajeG || !i_items) {
+        //if (!i_unidad || !i_fechaV || !i_costoN || !i_porcentajeG || !i_items) {
+        if (!i_unidad || !i_costoN || !i_porcentajeG || !i_items) {
             // Mostrar mensaje de éxito con animación
             const mensajeError = document.getElementById('mensaje-error');
             mensajeError.classList.remove('hide');
@@ -1225,10 +1232,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Manejar el clic en el botón "Aceptar" dentro del popup
         document.getElementById('popup-aceptar').addEventListener('click', function () {
-            //mostrarSpinner();
-
+            //alert('popup-aceptar2');
+            mostrarSpinner();
             let datosTabla = [];
-
             console.log('filas: ', filas);
             console.log('filas length: ', filas.length);
 
@@ -1498,31 +1504,7 @@ document.addEventListener('DOMContentLoaded', function () {
              `;
                         });
 
-                        /*                  
-                        popupBody.innerHTML = `
-                        <div>
-                            <p>El ingreso se ha actualizado con éxito. Aquí están los detalles:</p>
-                            <ul>
-                                ${data.lista.map(obj => `
-                                    <li>Costo Unitario Anterior: ${obj.ingreso_costoU_ant}</li>
-                                    <li>Costo Unitario Actualizado: ${obj.ingreso_costoU_upd}</li>
-                                    <li>Costo Total: ${obj.ingreso_costo_total}</li>
-                                    <li>Ganancia Anterior: ${obj.ingreso_ganancia_ant}</li>
-                                    <li>Ganancia Actualizada: ${obj.ingreso_ganancia_upd}</li>
-                                    <li>Porcentaje Ganancia Anterior: ${obj.ingreso_porcentaje_ant}</li>
-                                    <li>Porcentaje Ganancia Actualizado: ${obj.ingreso_porcentaje_upd}</li>
-                                    <li>Precio Unitario Anterior: ${obj.ingreso_precioU_ant}</li>
-                                    <li>Precio Unitario Actualizado: ${obj.ingreso_precioU_upd}</li>
-                                    <li>Unidades: ${obj.ingreso_unidad}</li>
-                                    <li>Cantidad Anterior en Inventario: ${obj.inv_cantidad_anterior}</li>
-                                    <li>Cantidad Actual en Inventario: ${obj.inv_cantidad_actual}</li>
-                                    <li>Estado de Inventario: ${obj.inv_estado}</li>
-                                    <li>Fecha de Inventario: ${obj.inv_fecha}</li>
-                                    <li>Modo de Inventario: ${obj.inv_modo}</li>
-                                `).join('')}
-                            </ul>
-                        </div>
-                    `;*/
+
 
                         popupFooter.innerHTML = `
             <div class="text-center rounded-bottom">                              
@@ -1534,45 +1516,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 </button>                
             </div>
                         `;
-
-                        /*
-                        ocultarSpinner();
-    
-                        if (data.success) {
-                            // Recorre los valores de la respuesta json 
-                            data.lista.forEach(obj => {
-                                ingreso_costo_unitario_ant = obj.ingreso_costoU_ant;
-                                ingreso_costo_unitario_upd = obj.ingreso_costoU_upd;
-                                ingreso_costo_total = obj.ingreso_costo_total;
-                                ingreso_ganancia_ant = obj.ingreso_ganancia_ant;
-                                ingreso_ganancia_upd = obj.ingreso_ganancia_upd;
-                                ingreso_porcentaje_ant = obj.ingreso_porcentajeG_ant;
-                                ingreso_porcentaje_upd = obj.ingreso_porcentajeG_upd;
-                                ingreso_precio_unitario_ant = obj.ingreso_precioU_ant;
-                                ingreso_precio_unitario_upd = obj.ingreso_precioU_upd;
-                                ingreso_unidad = obj.ingreso_unidad;
-                                inv_cantidad = obj.inv_cantidad;
-                                inv_cantidad_actual = obj.inv_cantidadActual;
-                                inv_cantidad_anterior = obj.inv_cantidadAnterior;
-                                inv_estado = obj.inv_estado;
-                                inv_fecha = obj.inv_fecha;
-                                inv_modo = obj.inv_modo;
-                            });
-    
-                            document.querySelector('.popup-body').innerHTML = `<p>Actualización exitosa.</p>`;                        
-                            const popupContent = document.getElementById('popup-content');               
-                            popupContent.innerHTML = `<p>${strong_producto_nombre.textcontent}</p>
-                            <ul>
-                                <li>Estado ${inv_estado}</li>                                                            
-                                <li>Total unidades en inventario ${inv_cantidad_actual} - ${inv_cantidad_anterior}</li>
-                                <li>Unidades ${inv_cantidad}</li>                                                                                
-                                <li>$ Costo unitario ${ingreso_costo_unitario_upd} - ${ingreso_costo_unitario_ant}</li>                             
-                                <li>$ Costo Total ${ingreso_costo_total}</li>
-                                <li>% Porcentaje de Ganancia ${ingreso_porcentaje_upd} - ${ingreso_porcentaje_ant}</li>
-                                <li>$ Ganancia ${ingreso_ganancia_upd} - ${ingreso_ganancia_ant}</li>                                                       
-                                <li>$ Precio unitario ${ingreso_precio_unitario_ant} - ${ingreso_precio_unitario_upd}</li>                                                        
-                            </ul>
-                            `;*/
 
                         // Añadir evento click 
                         document.getElementById('compras-inicio').addEventListener('click', function () {
@@ -1846,6 +1789,9 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 console.log('Response: ', data)
                 thead_total_items.textContent = data.item_out_list.length;
+                itemFechaVto.textContent = data.item_out_list.length;
+                itemFechaVto.setAttribute('data-total-item', data.item_out_list.length);
+
                 console.log('item_out_list2_length: ', data.item_out_list2.length);
                 console.log('item_out_list2[0]: ', data.item_out_list2[0]);
                 console.log('item_out_list2: ', data.item_out_list2)
@@ -2222,10 +2168,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Itera sobre los inputs y desactívalos
                 dateInputs.forEach(input => {
                     input.disabled = true; // Desactiva el input
-                    if (input.value && sw1 == 0){
+                    if (input.value && sw1 == 0) {
                         fechaVencimientoInput.value = input.value;
                         sw1 = 1;
-                    }                    
+                    }
                 });
 
                 break;
@@ -2330,8 +2276,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const rowCount = itemTableBody.getElementsByTagName('tr').length;
 
         // Verificar si la tabla tiene más de 1 fila
-        if (rowCount > 0) {
-            console.log('rowCount es mayor que cero: ', rowCount);
+        // Hay items generados
+
+        if (itemFechaVto.textContent > 0) {
+            //if (rowCount > 0) {
+            
+            
             mensaje_alerta = `
             <p class="mb-3">
                 <strong>Los ${input_pu_unidad.value} items creados previamente se eliminarán</strong>
@@ -2345,6 +2295,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </p> 
                 `;
             }
+            
 
             // Crear la superposición y el popup
             const overlayDiv = document.createElement('div');
@@ -2365,9 +2316,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
             <div class="popup-body custom-popup-body">
                 <div class="d-flex1 p-4 align-items-center">
-                    ${mensaje_alerta}
+                    <!--${mensaje_alerta}-->
                     <div class="custom-confirmation-message text-end mt-1">
-                        ¿Deseas crear nuevos items?
+                        <!--¿Deseas crear nuevos items?-->
+                        ¿Deseas activar para actualizar los items?
                     </div>
                 </div>
             </div>
@@ -2392,19 +2344,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Manejar el clic en el botón "Aceptar" dentro del popup
             document.getElementById('popup-aceptar').addEventListener('click', function () {
-                puUnidadInput.disabled = false; // Habilitar el input "pu_unidad"
-                overlayDiv.remove(); // Eliminar la alerta
-                puUnidadInput.value = '';
-                // limpia las filas de la tabla 
-                itemTableBody.innerHTML = '';
-                puUnidadInput.focus();
+                //alert('popup-aceptar1');                
+                puUnidadInput.disabled = false; // Habilitar el input "pu_unidad"                
+                //puUnidadInput.value = '';                
+                //itemTableBody.innerHTML = '';   // limpia las filas de la tabla                 
                 btn_actualizarUnidad.disabled = true;
-                btn_generaItem.disabled = true;
+                btn_generaItem.disabled = false;
+                puUnidadInput.focus();
+                overlayDiv.remove();    // Eliminar la alerta
             });
         } else {
-            // Si solo hay una fila, habilitar directamente el input "pu_unidad"
             puUnidadInput.disabled = false;
-            console.log('rowCount NO es mayor que cero: ', rowCount);
+            puUnidadInput.focus();
         }
     });
 
@@ -2431,7 +2382,8 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('popupOverlay').style.display = 'none'; // Cierra el popup
         document.body.style.overflow = 'auto'; // Restaura el scroll del body
     });
-    //openPopup();
+
+    // openPopup();
 
 
     // Agrega un evento al botón de Salir
