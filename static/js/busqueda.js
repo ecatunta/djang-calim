@@ -2325,8 +2325,8 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
 
             <div class="popup-footer p-3 bg-light text-end">
-                <button type="button" class="btn btn-outline-secondary me-2" id="popup-cancelar">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="popup-aceptar">Si, Acepto</button>
+                <button type="button" class="btn btn-outline-secondary me-2" id="popup-cancelar">No</button>
+                <button type="button" class="btn btn-primary" id="popup-aceptar">Si, Ahora</button>
             </div>
             `;
 
