@@ -1695,3 +1695,16 @@ header {
 #tabla-items td:nth-child(3) {
     width: 35%;
 }
+
+/* Ajuste para el span circular */
+#item-fv {
+  top: 0%; /* Ajusta según sea necesario */
+  right: -45%; /* Ajusta según sea necesario */
+  width: 25px;
+  height: 25px;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; /* Asegura que no interfiera con los clics */
+}

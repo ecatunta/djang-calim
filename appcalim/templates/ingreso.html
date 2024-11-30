@@ -142,7 +142,8 @@ Compras
 <div class="modal fade" id="ingresoPrecioUModal" tabindex="-1" aria-labelledby="ingresoPrecioUModalLabel"
     aria-hidden="true">
 
-    <div id="mensaje-error" class="hide">Por favor, complete todos los campos requeridos.</div>
+    <!--<div id="mensaje-error" class="hide">Por favor, complete todos los campos requeridos.</div>-->
+    <div id="mensaje-error" class="hide">Debe completar los campos requeridos.</div>
 
     <div class="modal-dialog">
         <div class="modal-content">
@@ -180,12 +181,19 @@ Compras
                                         <button id="actualizar-unidad" class="btn btn-outline-secondary me-1">
                                             <i class="bi bi-arrow-clockwise"></i>
                                         </button>
-                                        <button id="genera-item" type="button" class="btn btn-primary">
-                                            <!--<button id="genera-item" type="button" class="btn btn-danger">-->
-                                            <span id="item-fv" data-total-item="0"></span>
-                                            <!--<span id="item-vc"></span>-->
+                                        
+                                        <!--<button id="genera-item" type="button" class="btn btn-primary">                                            
+                                            <span id="item-fv" data-total-item="0"></span>                                            
+                                            <i class="bi bi-table"></i>
+                                        </button>-->
+
+                                        <button id="genera-item" type="button" class="btn btn-primary position-relative">                                            
+                                            <span id="item-fv" class="position-absolute translate-middle badge rounded-circle bg-danger text-white" 
+                                                  data-total-item="0">                                        
+                                            </span>                                            
                                             <i class="bi bi-table"></i>
                                         </button>
+                                        
                                     </div>
                                 </div>
                                 <div class="input-container mb-2">
@@ -391,12 +399,10 @@ Compras
                 <div class="row">
                     <div class="col">
                         <table id="tabla-items" class="table table-bordered table-sm table-hover">
-                            <thead class="table-light text-center">
-                                <!--<tr>
-                                    <td colspan="3">Total items <span id="thead-total-items"></span></td>
-                                </tr>-->
+                            <thead class="table-light text-center">                             
                                 <tr>
-                                    <th>Item</th>
+                                    <!--<th>Item</th>-->
+                                    <th>N°</th>
                                     <th>Fecha Vto.</th>
                                     <th>Código</th>
                                 </tr>
