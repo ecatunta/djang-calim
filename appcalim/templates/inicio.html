@@ -21,7 +21,8 @@
     -->
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
     <link href="{% static 'css/mystyles.css' %}" rel="stylesheet">
-
+    <link href="{% static 'css/toastify.min.css' %}" rel="stylesheet" type="text/css">
+    
 </head>
 
 <body class="index-page" style="border: 0px solid red;">
@@ -38,7 +39,7 @@
                     <!-- pagina inicio -->
                     <li><a href="{% url 'inicio' %}" class="active">Inicio</a></li>
                     <!--<li><a href="#about">Nosotros</a></li>-->
-                    
+
                     <!-- pagina compras pendientes-->
                     <li><a href="{% url 'listado_producto' %}">Actualizar Producto</a></li>
                     <li><a href="{% url 'nuevo_ingreso' %}">Compras</a></li>
@@ -116,7 +117,7 @@
     <!--<script src="{% static 'js/main.js' %}"></script>-->
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/inicio.js' %}"></script>
-
+    <script type="text/javascript" src="{% static 'js/toastify-js.js' %}"></script>
 </body>
 
 </html>

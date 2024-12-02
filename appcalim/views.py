@@ -644,6 +644,42 @@ def Quitar_ingreso(request, ingreso_id):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)    
 
+def Nuevo_ingreso2(request, producto_id):
+    if request.method == 'GET':
+        try:
+            # Obtener la instancia del producto
+            producto_instancia = Producto.objects.get(producto_id=producto_id)
+
+            # Crear un nuevo registro en la tabla ingreso
+            nuevo_ingreso = Ingreso.objects.create(
+                ingreso_fecha=timezone.now(),  # Fecha actual
+                ingreso_estado='P',  # Estado por defecto
+                producto=producto_instancia,
+                ingreso_referencia='Pendiente',  # Referencia predeterminada
+                ingreso_fechaCompra=timezone.now(), # Valor predeterminado explícito              
+                ingreso_comprador='comprador01', # Valor predeterminado explícito              
+                ingreso_categoriaFechaVto=0,  # Valor predeterminado explícito              
+            )
+
+            # Retornar la respuesta exitosa con el ID del ingreso
+            return JsonResponse({
+                'message': 'Ingreso registrado correctamente.',
+                'ingreso_id': nuevo_ingreso.ingreso_id,
+                'ingreso_fecha' : DateFormat(localtime(nuevo_ingreso.ingreso_fecha)).format('Y/m/d H:i'),                
+                'ingreso_producto': nuevo_ingreso.producto.producto_nombre,
+                'ingreso_categoriaFechaVto': nuevo_ingreso.ingreso_categoriaFechaVto,
+                'success': True
+            }, status=200)
+
+        except Producto.DoesNotExist:
+            return JsonResponse({'error': 'Producto no encontrado.'}, status=404)
+        except DatabaseError as e:
+            return JsonResponse({'error': 'Error al registrar ingreso.', 'detalle': str(e)}, status=500)
+        except Exception as e:
+            return JsonResponse({'error': 'Error desconocido.', 'detalle': str(e)}, status=400)
+    else:
+        return JsonResponse({'error': 'Método no permitido.'}, status=405)
+
 '''
 def Incluir_inventario(request, ingreso_id):
     try:
@@ -884,7 +920,7 @@ def Inventario_ingreso(request, ingreso_id):
                         return JsonResponse({'message': str(e), 'success': False})    
                 '''
                 # Llamar a la función Registra_inventario bajo la misma transacción
-                response = Registra_inventario('INGRESO', ingreso_id, '',unidad)                
+                response = Registra_inventario('INGRESO', ingreso_id, '', unidad)                
                 #print('response: ',response.content)
                 data = json.loads(response.content.decode('utf-8'))  # Decodificar la respuesta a JSON                
                 #print('data: ',data)

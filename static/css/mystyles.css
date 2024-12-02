@@ -1708,3 +1708,29 @@ header {
   align-items: center;
   pointer-events: none; /* Asegura que no interfiera con los clics */
 }
+
+.new-row {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+/* Clase para resaltar las celdas con un color de fondo */
+.highlight-cell {
+  /*background-color: #d4edda !important;  /* Verde claro */
+  background-color: #95f513 !important;
+  transition: background-color 1s ease; /* Transición suave al aplicar */
+}
+
+/* Clase para restaurar el fondo original */
+.restore-cell {
+  background-color: transparent !important; /* Fondo original */
+  transition: background-color 2s ease; /* Transición suave al restaurar */
+}

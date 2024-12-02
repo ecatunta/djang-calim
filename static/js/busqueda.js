@@ -371,6 +371,118 @@ document.addEventListener('DOMContentLoaded', function () {
                             suggestions.style.display = 'none';
                             capaAdicionar.classList.remove('locked');
                             btnAdicionar.disabled = false;
+                            //alert('producto: ' + product.producto_id);
+
+
+                            // Enviar la solicitud Ajax al backend        
+                            fetch(`/nuevo-ingreso2/${product.producto_id}/`, {
+                                method: 'GET',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                }
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    console.log('response: ', data)
+                                    if (data.success) {
+
+                                        // Crear una nueva fila en el tbody table-ingreso-body
+                                        const tableBody = document.getElementById('table-ingreso-body');
+
+                                        // Crear una nueva fila (tr)
+                                        const newRow = document.createElement('tr');
+                                        newRow.setAttribute('data-ingreso-id', data.ingreso_id);
+                                        newRow.setAttribute('categoriaFechaVto', data.ingreso_categoriaFechaVto);
+
+                                        // Crear las celdas (td) de la fila
+                                        newRow.innerHTML = `
+                                            <td style="vertical-align: middle;">${data.ingreso_fecha}</td>
+                                            <td style="vertical-align: middle; text-align:left;">${data.ingreso_producto}</td>
+                                            <td class="text-center" style="vertical-align: middle;">
+                                                <div class="d-inline-flex gap-2">
+                                                    <button class="btn btn-warning inventario_ingreso">
+                                                        <i class="bi bi-bag d-inline d-md-none"></i>
+                                                        <i class="bi bi-bag d-none d-md-inline"></i>
+                                                        <span class="d-none d-md-inline">Inventario</span>
+                                                    </button>
+                                                    <button class="btn btn-danger ingreso_quitar">
+                                                        <i class="bi bi-trash d-inline d-md-none"></i>
+                                                        <i class="bi bi-trash d-none d-md-inline"></i>
+                                                        <span class="d-none d-md-inline">Quitar</span>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        `;
+
+                                        newRow.classList.add('new-row');
+
+                                        // Agregar la nueva fila al inicio del cuerpo de la tabla
+                                        tableBody.insertBefore(newRow, tableBody.firstChild);
+
+                                        input_producto.value = '';
+
+                                        const columns = newRow.querySelectorAll('td');
+                                        // Añadir la clase de resaltado a cada columna
+                                        columns.forEach(column => {
+                                            column.classList.add('highlight-cell');
+                                        });
+
+                                        setTimeout(() => {
+                                            columns.forEach(column => {
+                                                column.classList.remove('highlight-cell');
+                                                //column.classList.add('restore-cell');
+                                            });
+                                        }, 5000); // 5 segundos
+
+                                        // Mostrar notificación de éxito
+                                        Toastify({
+                                            text: "Compra registrado exitosamente",
+                                            duration: 5000,
+                                            close: true,
+                                            gravity: "top",
+                                            position: "right",
+                                            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                                        }).showToast();
+
+                                        // Agregar eventos `click` a los botones de la nueva fila
+                                        newRow.querySelector('.inventario_ingreso').addEventListener('click', () => {
+                                            console.log(`Inventario para ingreso ID: ${data.ingreso_id}`);
+                                            g_ingreso_id = data.ingreso_id;
+                                            // Lógica para el botón "Inventario"
+                                            abrir_modal_compras(newRow, data.ingreso_id);
+                                        });
+
+                                        newRow.querySelector('.ingreso_quitar').addEventListener('click', () => {
+                                            console.log(`Eliminar ingreso ID: ${data.ingreso_id}`);
+                                            // Lógica para el botón "Quitar"
+                                            quitar_ingreso(newRow, data.ingreso_id);
+                                        });
+
+                                    } else {
+                                        // Mostrar notificación de error
+                                        Toastify({
+                                            text: "Error al registrar el ingreso.",
+                                            duration: 3000,
+                                            close: true,
+                                            gravity: "top",
+                                            position: "right",
+                                            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                                        }).showToast();
+                                    }
+
+                                }).catch(error => {
+                                    console.error('error en la solicitud ajax:', error);
+                                    // Mostrar notificación de error
+                                    Toastify({
+                                        text: "Error en la solicitud Ajax.",
+                                        duration: 3000,
+                                        close: true,
+                                        gravity: "top",
+                                        position: "right",
+                                        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                                    }).showToast();
+                                });
+
                         });
 
                         suggestions.appendChild(li);
@@ -396,7 +508,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
     });
-
 
     // Evento input sobre el elemento html con id=id_ingreso_unidad
     document.getElementById('id_ingreso_unidad').addEventListener('input', function () {
@@ -440,198 +551,161 @@ document.addEventListener('DOMContentLoaded', function () {
         costoTotalElement.value = costoTotal.toFixed(1); // Redondear a 2 decimales*/
     });
 
-    // Validación antes de enviar el formulario
-    btnAdicionar.addEventListener('click', function (event) {
-        /*
-        const costoUnitario = parseFloat(costoUnitarioInput.value);
-
-        // Si el campo está vacío o el valor es 0, mostrar alerta y evitar el envío
-        if (isNaN(costoUnitario) || costoUnitario <= 0) {
-            event.preventDefault();  // Evitar que se envíe el formulario
-            alert('Por favor, ingrese un valor válido mayor a 0 para el costo unitario.');
-        }
-        //capaAdicionar.classList.add('locked');
-        */
-    });
-
     // Agregar evento a cada botón
     quitarIngreso.forEach(button => {
         button.addEventListener('click', function (event) {
             event.preventDefault();
 
-            // Confirmar antes de eliminar
+            /*// Confirmar antes de eliminar
             if (!confirm("¿Estás seguro de que deseas eliminar este ingreso?")) {
                 return;
-            }
+            }*/
 
             // Obtener el id del ingreso de la fila correspondiente
             const row = button.closest('tr');
             const ingresoId = row.getAttribute('data-ingreso-id');
+            quitar_ingreso(row, ingresoId);
 
-            // Enviar la solicitud Ajax para actualizar 
-            fetch(`/quitar_ingreso/${ingresoId}/`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            }).then(response => {
-                console.log(response)
-                if (response.ok) {
-                    // Si se elimina correctamente, eliminar la fila de la tabla
-                    //row.remove();
-                    row.style.transition = 'opacity 0.5s';
-                    row.style.opacity = '0'; // Fading out the row
-                    setTimeout(() => row.remove(), 500); // Remove the row after the anim
-                    //alert("Ingreso eliminado exitosamente.");
-                } else {
-                    alert("Error al eliminar el ingreso. Intenta nuevamente.");
-                }
-            }).catch(error => {
-                console.error('Error:', error);
-                alert("Ocurrió un error al intentar eliminar el ingreso.");
-            });
         });
     });
 
+    function quitar_ingreso(row, ingresoId) {
+        // Enviar la solicitud Ajax para actualizar 
+        fetch(`/quitar_ingreso/${ingresoId}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(response => {
+            console.log(response)
+            if (response.ok) {
+                // Si se elimina correctamente, eliminar la fila de la tabla                
+                row.style.transition = 'opacity 0.5s';
+                row.style.opacity = '0'; // Fading out the row
+                setTimeout(() => row.remove(), 500); // Remove the row after the anim
+                // Mostrar notificación de éxito
+                Toastify({
+                    text: "Compra removido exitosamente",
+                    duration: 5000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                }).showToast();
+            } else {
+                alert("Error al eliminar el ingreso. Intenta nuevamente.");
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert("Ocurrió un error al intentar eliminar el ingreso.");
+        });
+    }
 
     // Agregar el evento click a cada botón
     inventarioIngreso.forEach(button => {
         button.addEventListener('click', function (event) {
             event.preventDefault();
+
             selectedRow_ingreso = button.closest('tr');
             const row = button.closest('tr');
             const ingresoId = row.getAttribute('data-ingreso-id');
-            //alert('ingreso_id: ' + ingresoId);
-
             g_ingreso_id = row.getAttribute('data-ingreso-id');
-            selectFechaVencimiento.value = row.getAttribute('categoriafechavto');  // Actualiza el valor del select con el atricuto de la fila 
-            loadingSpinner.style.display = 'block'; // Mostrar el spinner antes de la solicitud Ajax
-            input_pu_unidad.classList.remove('is-invalid');
-            input_fecha_vencimiento.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
-            input_costo_nuevo.classList.remove('is-invalid');
-            input_p_ganancia_nuevo.classList.remove('is-invalid');
-            input_pu_unidad.disabled = false;
-            input_costo_nuevo.disabled = false;
-            input_p_ganancia_nuevo.disabled = false;
-            btn_actualizarUnidad.disabled = true;
-
-
-            //let unidad = 0;
-            fetch(`/obtiene_precioU_vigente_nuevo/${ingresoId}/`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('obtiene_precioU_vigente_nuevo: ', data)
-                    if (data.status === 'success') {
-                        const ingreso = data.ingreso;
-                        const button = document.getElementById('pu_aceptar');
-
-                        loadingSpinner.style.display = 'none'; // Ocultar el spinner cuando la solicitud Ajax es exitosa
-
-                        console.log('tabla_items_body.length: ', tabla_items_body_rows.length);
-                        console.log('data.unidad: ', data.unidad);
-                        //alert('items: ' + ingreso.nuevo.item);
-
-                        //if (!data.unidad) {
-                        if (!ingreso.nuevo.item) {
-                            btn_actualizarUnidad.disabled = true;
-                            btn_generaItem.disabled = true;
-                        }
-
-                        //if (data.unidad) {
-                        if (ingreso.nuevo.item > 0) {
-                            btn_actualizarUnidad.disabled = false;
-                            btn_generaItem.disabled = false;
-                            input_pu_unidad.disabled = true;
-                            document.getElementById('pu_unidad').value = ingreso.nuevo.item;
-                        } else {
-                            document.getElementById('pu_unidad').value = '';
-                        }
-
-                        g_nombre_producto = data.producto_nombre;
-                        //document.getElementById('item-vc').textContent = ingreso.nuevo.item;
-                        // Actualiza el valor del elemento id item-fv
-                        itemFechaVto.textContent = ingreso.nuevo.item;
-                        itemFechaVto.setAttribute('data-total-item', ingreso.nuevo.item);
-
-                        document.getElementById('pu_producto_nombre').textContent = data.producto_nombre;
-                        document.getElementById('producto_nombre_items').textContent = g_nombre_producto;
-
-                        //document.getElementById('pu_unidad').value = data.unidad;
-
-                        //g_unidad_entrante = data.unidad;
-                        g_unidad_entrante = ingreso.nuevo.item;
-
-                        document.getElementById('pu_costo_total').textContent = data.costo_total || '0.0';
-                        document.getElementById('pu_costoU_actual').textContent = ingreso.vigente.i_costo_unitario || '0.0';
-                        document.getElementById('pu_pGanancia_actual').textContent = ingreso.vigente.i_porcentaje_ganancia || '0.0';
-
-                        //document.getElementById('pu_ganancia_actual').textContent = '$ ' + ingreso.vigente.i_ganancia || '0.0';
-
-                        //document.getElementById('pu_ganancia_actual').textContent = '$ ' + ingreso.vigente.i_ganancia || '0.0';
-                        document.getElementById('pu_ganancia_actual').textContent = ingreso.vigente.i_ganancia || '0.0';
-
-                        //document.getElementById('pu_precioU_actual').textContent = '$ ' + ingreso.vigente.i_precio_unitario || '0.0';
-                        document.getElementById('pu_precioU_actual').textContent = ingreso.vigente.i_precio_unitario || '0.0';
-
-                        console.log('ingreso.nuevo.ingreso_fecha_compra: ', ingreso.nuevo.ingreso_fecha_compra);
-                        document.getElementById('fecha-compra').value = ingreso.nuevo.ingreso_fecha_compra;
-                        //document.getElementById('fecha-compra').value = "2024-11-12";
-                        document.getElementById('pu_costoU_nuevo').value = ingreso.nuevo.i_costo_unitario || '';
-                        document.getElementById('pu_costo_actual').textContent = ingreso.vigente.i_costo_unitario || '';
-                        document.getElementById('pu_costo_nuevo').textContent = ingreso.nuevo.i_costo_unitario || '0.00';
-
-                        //document.getElementById('pu_costoU_nuevo').value = ingreso.vigente.i_costo_unitario || '';
-
-                        //span_n_ganancia_unidad.textContent = '$ ' + ingreso.nuevo.i_ganancia;
-                        span_n_ganancia_unidad.textContent = ingreso.nuevo.i_ganancia;
-                        //span_n_precio_unidad.textContent = '$ ' + ingreso.nuevo.i_precio_unitario;
-                        span_n_precio_unidad.textContent = ingreso.nuevo.i_precio_unitario;
-
-                        if (!ingreso.nuevo.i_ganancia) {
-                            //span_n_ganancia_unidad.textContent = '$ 0.0';
-                            span_n_ganancia_unidad.textContent = '0.0';
-                        }
-
-                        if (!ingreso.nuevo.i_precio_unitario) {
-                            //span_n_precio_unidad.textContent = '$ 0.0';
-                            span_n_precio_unidad.textContent = '0.0';
-                        }
-
-                        g_ganancia_unidad = ingreso.nuevo.i_ganancia;
-                        g_precio_unidad = ingreso.nuevo.i_precio_unitario
-                        //console.log('ganancia unidad: ', g_ganancia_unidad);
-
-                        //console.log('porcentanje_ganancia: ', ingreso.nuevo.i_porcentaje_ganancia);
-                        if (ingreso.nuevo.i_porcentaje_ganancia) {
-                            console.log('True');
-                            input_p_ganancia_nuevo.value = ingreso.nuevo.i_porcentaje_ganancia;
-                        } else {
-                            console.log('False');
-                            if (ingreso.vigente.i_porcentaje_ganancia) {
-                                input_p_ganancia_nuevo.value = ingreso.vigente.i_porcentaje_ganancia;
-                            } else {
-                                input_p_ganancia_nuevo.value = '';
-                            }
-                        }
-
-                        // Agregar el atributo data-id con un valor específico
-                        button.setAttribute('data-id', ingresoId);
-                        modal_p_ingreso.show();
-                    } else {
-                        alert('error en la respuesta Ajax.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert("error en la solicitud Ajax.");
-                });
+            abrir_modal_compras(row, ingresoId);
         });
     });
+
+    function abrir_modal_compras(row, ingresoId) {
+        selectFechaVencimiento.value = row.getAttribute('categoriafechavto');  // Actualiza el valor del select con el atricuto de la fila 
+        input_pu_unidad.classList.remove('is-invalid');
+        input_fecha_vencimiento.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
+        input_costo_nuevo.classList.remove('is-invalid');
+        input_p_ganancia_nuevo.classList.remove('is-invalid');
+        input_pu_unidad.disabled = false;
+        input_costo_nuevo.disabled = false;
+        input_p_ganancia_nuevo.disabled = false;
+        btn_actualizarUnidad.disabled = true;
+
+        loadingSpinner.style.display = 'block'; // Mostrar el spinner antes de la solicitud Ajax            
+        fetch(`/obtiene_precioU_vigente_nuevo/${ingresoId}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.status === 'success') {
+                    const ingreso = data.ingreso;
+                    const button = document.getElementById('pu_aceptar');
+                    g_nombre_producto = data.producto_nombre;
+                    itemFechaVto.textContent = ingreso.nuevo.item; // Actualiza el valor del elemento id item-fv
+                    loadingSpinner.style.display = 'none'; // Ocultar el spinner cuando la solicitud Ajax es exitosa                                                                                           
+
+                    if (!ingreso.nuevo.item) {
+                        btn_actualizarUnidad.disabled = true;
+                        btn_generaItem.disabled = true;
+                    }
+
+                    if (ingreso.nuevo.item > 0) {
+                        btn_actualizarUnidad.disabled = false;
+                        btn_generaItem.disabled = false;
+                        input_pu_unidad.disabled = true;
+                        document.getElementById('pu_unidad').value = ingreso.nuevo.item;
+                    } else {
+                        document.getElementById('pu_unidad').value = '';
+                    }
+
+                    itemFechaVto.setAttribute('data-total-item', ingreso.nuevo.item);
+                    document.getElementById('pu_producto_nombre').textContent = data.producto_nombre;
+                    document.getElementById('producto_nombre_items').textContent = g_nombre_producto;
+                    g_unidad_entrante = ingreso.nuevo.item;
+
+                    document.getElementById('pu_costo_total').textContent = data.costo_total || '0.0';
+                    document.getElementById('pu_costoU_actual').textContent = ingreso.vigente.i_costo_unitario || '0.0';
+                    document.getElementById('pu_pGanancia_actual').textContent = ingreso.vigente.i_porcentaje_ganancia || '0.0';
+                    document.getElementById('pu_ganancia_actual').textContent = ingreso.vigente.i_ganancia || '0.0';
+                    document.getElementById('pu_precioU_actual').textContent = ingreso.vigente.i_precio_unitario || '0.0';
+                    document.getElementById('fecha-compra').value = ingreso.nuevo.ingreso_fecha_compra;
+                    document.getElementById('pu_costoU_nuevo').value = ingreso.nuevo.i_costo_unitario || '';
+                    document.getElementById('pu_costo_actual').textContent = ingreso.vigente.i_costo_unitario || '';
+                    document.getElementById('pu_costo_nuevo').textContent = ingreso.nuevo.i_costo_unitario || '0.00';
+                    span_n_ganancia_unidad.textContent = ingreso.nuevo.i_ganancia;
+                    span_n_precio_unidad.textContent = ingreso.nuevo.i_precio_unitario;
+
+                    if (!ingreso.nuevo.i_ganancia) {
+                        span_n_ganancia_unidad.textContent = '0.0';
+                    }
+
+                    if (!ingreso.nuevo.i_precio_unitario) {
+                        span_n_precio_unidad.textContent = '0.0';
+                    }
+
+                    g_ganancia_unidad = ingreso.nuevo.i_ganancia;
+                    g_precio_unidad = ingreso.nuevo.i_precio_unitario
+
+                    if (ingreso.nuevo.i_porcentaje_ganancia) {
+                        input_p_ganancia_nuevo.value = ingreso.nuevo.i_porcentaje_ganancia;
+                    } else {
+                        if (ingreso.vigente.i_porcentaje_ganancia) {
+                            input_p_ganancia_nuevo.value = ingreso.vigente.i_porcentaje_ganancia;
+                        } else {
+                            input_p_ganancia_nuevo.value = '';
+                        }
+                    }
+
+                    // Agregar el atributo data-id con un valor específico
+                    button.setAttribute('data-id', ingresoId);
+                    modal_p_ingreso.show();
+                } else {
+                    alert('error en la respuesta Ajax.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("error en la solicitud Ajax.");
+            });
+    }
 
 
     // Evento input sobre el elemento html con id pu_costoU_nuevo
@@ -1200,7 +1274,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <!-- Cuerpo del Popup -->
         <div id="popup-body-i" class="custom-popup-body p-3">
             <p><b>${input_pu_unidad.value} unidades</b> del producto <b>“${strong_producto_nombre.textContent}”</b> se añadirán al inventario. El precio unitario será <b>Bs. ${span_n_precio_unidad.textContent}</b></p>
-            <p>Los productos ${mensaje}.</p>
+            <p>Los items ${mensaje}.</p>
             <div class="custom-confirmation-message text-end mt-1">
                 ¿Desea continuar?
             </div>
@@ -1233,7 +1307,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Manejar el clic en el botón "Aceptar" dentro del popup
         document.getElementById('popup-aceptar').addEventListener('click', function () {
             //alert('popup-aceptar2');
-            mostrarSpinner();
+            //mostrarSpinner();
+            document.getElementById('loading-overlay').classList.remove('d-none');
             let datosTabla = [];
             console.log('filas: ', filas);
             console.log('filas length: ', filas.length);
@@ -1287,7 +1362,8 @@ document.addEventListener('DOMContentLoaded', function () {
             })
                 .then(response => response.json())
                 .then(data => {
-                    ocultarSpinner();
+                    //ocultarSpinner();
+                    document.getElementById('loading-overlay').classList.add('d-none');
                     console.log('data-> inventario_ingreso: ', data);
                     if (data.success) {
                         //const popupHeader = document.querySelector('.popup-header');
@@ -2280,8 +2356,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (itemFechaVto.textContent > 0) {
             //if (rowCount > 0) {
-            
-            
+
+
             mensaje_alerta = `
             <p class="mb-3">
                 <strong>Los ${input_pu_unidad.value} items creados previamente se eliminarán</strong>
@@ -2295,7 +2371,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </p> 
                 `;
             }
-            
+
 
             // Crear la superposición y el popup
             const overlayDiv = document.createElement('div');
@@ -2334,7 +2410,7 @@ document.addEventListener('DOMContentLoaded', function () {
             overlayDiv.appendChild(popupDiv);
             modalInv.appendChild(overlayDiv);
 
-            openPopup();
+            //openPopup();
 
             // Manejar el clic en el botón "Cancelar" dentro del popup
             document.getElementById('popup-cancelar').addEventListener('click', function () {
