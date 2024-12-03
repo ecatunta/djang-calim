@@ -450,10 +450,8 @@ header {
   }*/
 
   #producto {
-    padding-left: 10px;
-    /* Espacio para los íconos en el lado izquierdo */
-    width: calc(100% - 80px);
-    /* Reducir el ancho del input cuando hay íconos */
+    padding-left: 10px;    /* Espacio para los íconos en el lado izquierdo */
+    width: calc(100% - 80px);    /* Reducir el ancho del input cuando hay íconos */
   }
 
   /*#back-arrow {
@@ -485,7 +483,7 @@ header {
   #search-bar-container-padre {
     transition: all 0.3s ease;
     padding-top: 5px;
-    padding-bottom: 5px;
+    padding-bottom: 5px;    
   }
 
   /*.fixed-search-bar {
@@ -726,10 +724,9 @@ header {
 /* Añadir bordes redondeados completos y sombra a la barra de búsqueda */
 .search-bar-container {
   border-radius: 50px;
-  overflow: hidden;
-  /* Asegura que los elementos dentro del contenedor respeten los bordes redondeados */
+  overflow: hidden;  /* Asegura que los elementos dentro del contenedor respeten los bordes redondeados */
   transition: box-shadow 0.3s ease-in-out;
-  border: 1px solid blue;
+  /*border: 0px solid blue;*/
 }
 
 /* Efecto de enfoque para la barra de búsqueda */
@@ -742,17 +739,13 @@ header {
 
 /* Efecto de enfoque mejorado para la barra de búsqueda */
 .search-bar-container {
-  transition: box-shadow 0.3s ease, border 0.3s ease;
-  /* Transición suave */
+  transition: box-shadow 0.3s ease, border 0.3s ease;  /* Transición suave */
 }
 
 .search-bar-container:focus-within {
-  box-shadow: 0 0 12px rgba(0, 123, 255, 0.5);
-  /* Sombra más suave y color resaltado */
-  border: 1px solid rgba(0, 123, 255, 0.5);
-  /* Borde con color azul claro */
-  border-radius: 50px;
-  /* Asegura que el borde tenga esquinas redondeadas */
+  box-shadow: 0 0 12px rgba(0, 123, 255, 0.5);  /* Sombra más suave y color resaltado */
+  border: 1px solid rgba(0, 123, 255, 0.5);  /* Borde con color azul claro */
+  border-radius: 50px;  /* Asegura que el borde tenga esquinas redondeadas */
 }
 
 /* Ajustar los íconos para que no tengan borde y se mezclen con el fondo */
@@ -1733,4 +1726,46 @@ header {
 .restore-cell {
   background-color: transparent !important; /* Fondo original */
   transition: background-color 2s ease; /* Transición suave al restaurar */
+}
+
+
+/* Estilo para el título principal */
+.table-title {
+  font-family: 'Open Sans', sans-serif; /* Fuente elegante y profesional */
+  font-size: 1.4rem; /* Tamaño equilibrado para pantallas grandes */
+  color: #343A40; /* Gris oscuro clásico */
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* Estilo para el total */
+.table-title .table-total {
+  font-size: 1rem; /* Más pequeño que el título */
+  color: #6C757D; /* Gris más claro para contraste */
+  font-weight: 400;
+  margin-left: 0.3rem;
+  font-style: italic; /* Para un toque profesional */
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+  .table-title {
+      font-size: 1.2rem; /* Reducir el tamaño de letra */
+  }
+
+  .table-title .table-total {
+      font-size: 0.85rem; /* Ajustar tamaño del total */
+      display: block; /* Mover el total a la siguiente línea */
+      margin-top: 0.3rem;
+  }
+}
+
+/* Opcional: Línea decorativa debajo del título */
+.table-title::after {
+  content: "";
+  display: block;
+  width: 50%;
+  margin: 0.5rem auto 0;
+  border-bottom: 2px solid #007BFF; /* Azul corporativo */
 }

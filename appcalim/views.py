@@ -572,7 +572,8 @@ def Actualizar_subTotal_total(request):
 
 def Nuevo_ingreso(request):               
     #ingresos = Ingreso.objects.filter(ingreso_estado__in=['P', 'V']).order_by('-ingreso_fecha')   
-    ingresos = Ingreso.objects.filter(ingreso_estado__in=['P']).order_by('-ingreso_fecha')   
+    ingresos = Ingreso.objects.filter(ingreso_estado__in=['P']).order_by('-ingreso_fecha')  
+    print ("total:" ,ingresos.count())
     
     if request.method == 'GET':
         print('metodo (Nuevo_ingreso) -> método', request.method)
@@ -633,7 +634,7 @@ def Nuevo_ingreso(request):
         ingreso.ingreso_fecha_formateada = DateFormat(localtime(ingreso.ingreso_fecha)).format('Y/m/d H:i')
 
     print('ejecucion de render')
-    return render(request, 'ingreso.html', {'ingresos': ingresos})
+    return render(request, 'ingreso.html', {'ingresos': ingresos, 'total_ingreso': ingresos.count()})
 
 def Quitar_ingreso(request, ingreso_id):   
     try:         
@@ -1720,7 +1721,7 @@ def Actualiza_categoria_fechaVto (request, ingreso_id, cat_fechaVto):
                 'detalle': str(e)
                 }, status=500) 
     
-    return JsonResponse({'message': 'Actualización correcta', 
+    return JsonResponse({'message': 'El campo ingreso_categoriaFechaVto de la tabla ingreso fue actualizado correctamente.', 
         'success': True        
     }, status=200)
 

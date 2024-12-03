@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const inventarioIngreso = document.querySelectorAll('.inventario_ingreso');
     const suggestions = document.getElementById('suggestions');
     const input_producto = document.getElementById('producto');
-    const capaAdicionar = document.getElementById('capa-adicionar');
+    //const capaAdicionar = document.getElementById('capa-adicionar');
     // Mostrar mensaje de éxito con animación
     const mensajeExito = document.getElementById('mensaje-exito');
     const btn_actualizarUnidad = document.getElementById('actualizar-unidad');
@@ -66,12 +66,12 @@ document.addEventListener('DOMContentLoaded', function () {
     input_producto.value = '';
 
     // Selecciona el elemento por su ID
-    const header = document.getElementById("header");
+    //const header = document.getElementById("header");
     // Obtiene la posición "top" relativa al viewport
-    const topPosition = header.getBoundingClientRect().top;
+    //const topPosition = header.getBoundingClientRect().top;
 
 
-    capaAdicionar.classList.add('locked');
+    //capaAdicionar.classList.add('locked');
 
 
     btn_actualizarUnidad.disabled = true;
@@ -315,9 +315,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Barra de búsqueda
     document.getElementById('producto').addEventListener('input', function () {
-        capaAdicionar.classList.add('locked');
-        costoTotalInput.value = '';
-        btnAdicionar.disabled = true;
+        //capaAdicionar.classList.add('locked');
+        //costoTotalInput.value = '';
+        //btnAdicionar.disabled = true;
 
         const query = this.value.trim().toLowerCase();
         const suggestions = document.getElementById('suggestions');
@@ -365,12 +365,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         li.addEventListener('click', function () {
                             document.getElementById('producto').value = product.producto_nombre;
                             document.getElementById('id_producto_id').value = product.producto_id;
-                            document.getElementById('id_ingreso_unidad').value = 1;
-                            document.getElementById('id_ingreso_costoU').value = 0;
-                            document.getElementById('btn_adicionar').disabled = false;
+                            //document.getElementById('id_ingreso_unidad').value = 1;
+                            //document.getElementById('id_ingreso_costoU').value = 0;
+                            //document.getElementById('btn_adicionar').disabled = false;
                             suggestions.style.display = 'none';
-                            capaAdicionar.classList.remove('locked');
-                            btnAdicionar.disabled = false;
+                            //capaAdicionar.classList.remove('locked');
+                            //btnAdicionar.disabled = false;
                             //alert('producto: ' + product.producto_id);
 
 
@@ -448,6 +448,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         newRow.querySelector('.inventario_ingreso').addEventListener('click', () => {
                                             console.log(`Inventario para ingreso ID: ${data.ingreso_id}`);
                                             g_ingreso_id = data.ingreso_id;
+                                            selectedRow_ingreso = newRow;
                                             // Lógica para el botón "Inventario"
                                             abrir_modal_compras(newRow, data.ingreso_id);
                                         });
@@ -509,6 +510,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
+    /*
     // Evento input sobre el elemento html con id=id_ingreso_unidad
     document.getElementById('id_ingreso_unidad').addEventListener('input', function () {
         const unidad = parseFloat(this.value);
@@ -528,7 +530,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Calcular el costo total y mostrarlo en el campo correspondiente
         const costoTotal = unidad * costoUnitario;
-        costoTotalElement.value = costoTotal.toFixed(1); // Redondear a 2 decimales*/       
+        costoTotalElement.value = costoTotal.toFixed(1); 
 
     });
 
@@ -548,8 +550,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const costoTotal = unidad * costoUnitario;
-        costoTotalElement.value = costoTotal.toFixed(1); // Redondear a 2 decimales*/
+        costoTotalElement.value = costoTotal.toFixed(1); 
     });
+    */
 
     // Agregar evento a cada botón
     quitarIngreso.forEach(button => {
@@ -939,7 +942,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    console.log("Posición top del elemento header:", topPosition);
+    //console.log("Posición top del elemento header:", topPosition);
     //alert("Posición top del elemento header: " + topPosition)
 
     // Declarar el temporizador fuera del evento para que sea accesible en cada ejecución del evento 'input'
@@ -1935,6 +1938,7 @@ document.addEventListener('DOMContentLoaded', function () {
     modal_item_aceptar.addEventListener('click', (event) => {
         // Evita el cierre automático
         event.preventDefault();
+        //alert(select_fecha_vencimiento.value);
         // es fecha unificada ?
         if (select_fecha_vencimiento.value == 1) {
             // el input fecha de vto esta vacio ? 
@@ -1950,7 +1954,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         itemModal.hide();
 
-        console.log('actualiza-categoriaFechaVto: ', g_ingreso_id);
+        console.log('ingreso_id: ', g_ingreso_id);
         // Enviar la solicitud Ajax al backend        
         fetch(`/actualiza-categoriaFechaVto/${g_ingreso_id}/${+select_fecha_vencimiento.value}/`, {
             method: 'GET',
@@ -1964,7 +1968,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.success) {
                     selectedRow_ingreso.setAttribute('categoriafechavto', select_fecha_vencimiento.value);
                 }
-
             }).catch(error => {
                 console.error('Error en la solicitud ajax:', error);
             });
