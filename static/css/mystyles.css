@@ -1410,6 +1410,14 @@ header {
   font-weight: 500;
 }
 
+.current-value-label2{
+  width: 50%;
+  font-weight: 400;
+  font-style: normal;
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+
 .input-container input {
   width: 100%;
   text-align: center;

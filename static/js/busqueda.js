@@ -62,8 +62,12 @@ document.addEventListener('DOMContentLoaded', function () {
     let contador_inputs = 0;
     let g_nombre_producto = '';
     let selectedRow_ingreso = null;
-
+    //let totalIngresos_value = document.getElementById('total-ingresos').textContent;
+    // Obtener el valor numérico actual del span
+    let totalIngresos_value = parseInt(document.getElementById('total-ingresos').textContent.trim(), 10);
+    const totalIngresos = document.getElementById('total-ingresos');
     input_producto.value = '';
+    //alert(totalIngresos);
 
     // Selecciona el elemento por su ID
     //const header = document.getElementById("header");
@@ -385,7 +389,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                 .then(data => {
                                     console.log('response: ', data)
                                     if (data.success) {
-
                                         // Crear una nueva fila en el tbody table-ingreso-body
                                         const tableBody = document.getElementById('table-ingreso-body');
 
@@ -420,6 +423,10 @@ document.addEventListener('DOMContentLoaded', function () {
                                         tableBody.insertBefore(newRow, tableBody.firstChild);
 
                                         input_producto.value = '';
+
+                                        // Incrementar el valor
+                                        totalIngresos_value += 1;
+                                        totalIngresos.textContent = totalIngresos_value;
 
                                         const columns = newRow.querySelectorAll('td');
                                         // Añadir la clase de resaltado a cada columna
@@ -586,6 +593,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 row.style.transition = 'opacity 0.5s';
                 row.style.opacity = '0'; // Fading out the row
                 setTimeout(() => row.remove(), 500); // Remove the row after the anim
+                // Decrementar el valor
+                totalIngresos_value -= 1;
+                totalIngresos.textContent = totalIngresos_value;
                 // Mostrar notificación de éxito
                 Toastify({
                     text: "Compra removido exitosamente",
