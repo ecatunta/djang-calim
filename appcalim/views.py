@@ -949,7 +949,7 @@ def Inventario_ingreso(request, ingreso_id):
                 
                 #print('debug: insert inventario -> Ok')  
                 lista.append(datos_dic)                
-                return JsonResponse({'message': 'Ingreso actualizado correctamente.', 'success': True, 'lista': lista}, status=200)
+                return JsonResponse({'message': 'Ingreso registrado en el inventario correctamente.', 'success': True, 'ingreso_id': ingreso_id, 'lista': lista}, status=200)
         
         except Ingreso.DoesNotExist:
             return JsonResponse({'error': 'Ingreso no encontrado'}, status=404)

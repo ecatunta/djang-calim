@@ -171,7 +171,8 @@ Compras
     <!--<div id="mensaje-error" class="hide">Por favor, complete todos los campos requeridos.</div>-->
     <div id="mensaje-error" class="hide">Debe completar los campos requeridos.</div>
 
-    <div class="modal-dialog">
+    <!--<div class="modal-dialog">-->
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white" style="height:35px;">
                 <h5 class="modal-title" id="ingresoPrecioUModalLabel" style="color: #fff; font-size: 1.10rem;">
@@ -217,13 +218,36 @@ Compras
                                         </button>
                                     </div>
                                 </div>
+
+                                <!--
                                 <div class="input-container mb-2">
                                     <input type="text" id="pu_unidad" class="form-control text-center"
                                         autocomplete="off" inputmode="numeric"
                                         placeholder="Cantidad de unidades entrantes">
                                 </div>
                                 <div class="current-value-label text-center">
-                                    Costo total: $ <span id="pu_costo_total"></span>
+                                    Costo total <span>Bs</span>&nbsp;<span id="pu_costo_total"></span>
+                                </div>
+                                -->
+
+                                <div class="d-flex align-items-center">
+
+                                    <div class="input-container me-4" style="width: 50%;">
+                                        <input type="text" id="pu_unidad" class="form-control text-center"
+                                            autocomplete="off" inputmode="numeric" placeholder="Unidades">
+                                    </div>
+
+                                    <!--<div class="current-value-label2">
+                                        Costo total <span>Bs</span>&nbsp;<span id="pu_costo_total"></span>
+                                    </div>-->
+
+                                    <div class="current-value-label3 d-flex flex-column align-items-center"
+                                        style="width: 50%;">
+                                        <div class="text-primary fw-bold fs-5">
+                                            <span>Bs</span>&nbsp;<span id="pu_costo_total">0.00</span>
+                                        </div>
+                                        <small class="text-muted">Costo Total</small>
+                                    </div>
                                 </div>
                             </li>
 
@@ -239,17 +263,35 @@ Compras
                                     Costo unitario actual: $ <span id="pu_costoU_actual"></span>
                                 </div>
                                 -->
-
+                                <!--
                                 <div class="d-flex align-items-center">
-                                    <!-- capa de la izquierda -->
-                                    <div class="input-container me-2" style="width: 50%;">
+                                    <div class="input-container me-4" style="width: 50%;">
                                         <input type="text" id="pu_costoU_nuevo" class="form-control text-center"
                                             autocomplete="off" inputmode="numeric" placeholder="Monto en Bs">
                                     </div>
-                                    <!-- capa de la derecha -->
-                                    <div class="current-value-label2">                                        
-                                        <span>Bs</span>&nbsp;<span id="pu_costoU_actual"></span>
-                                        <span>(Monto Anterior)</span>                                        
+                                    <div class="current-value-label2">
+                                        <div class="text-center">
+                                            <span>Bs</span>&nbsp;<span id="pu_costoU_actual"></span>
+                                        </div>
+                                        <div class="text-center">Monto Anterior</div>
+                                    </div>
+                                </div>
+                            -->
+
+                                <div class="d-flex align-items-center">
+                                    <!-- Capa input -->
+                                    <div class="input-container me-3" style="width: 50%;">
+                                        <input type="text" id="pu_costoU_nuevo" class="form-control text-center"
+                                            autocomplete="off" inputmode="numeric" placeholder="Monto en Bs">
+                                    </div>
+
+                                    <!-- Capa valores no editables -->
+                                    <div class="current-value-label3 d-flex flex-column align-items-center"
+                                        style="width: 50%;">
+                                        <div class="text-primary fw-bold fs-5">
+                                            <span>Bs</span>&nbsp;<span id="pu_costoU_actual">0.00</span>
+                                        </div>
+                                        <small class="text-muted">Monto Anterior</small>
                                     </div>
                                 </div>
                             </li>
@@ -267,15 +309,23 @@ Compras
                                 -->
 
                                 <div class="d-flex align-items-center">
-                                    <div class="input-container me-2" style="width: 50%;">
+                                    <div class="input-container me-4" style="width: 50%;">
                                         <input type="text" id="pu_pGanancia_nuevo" class="form-control text-center"
                                             autocomplete="off" inputmode="numeric"
                                             placeholder="Nuevo porcentaje de margen">
                                     </div>
-                                    <div class="current-value-label2">
-                                        <!--Margen de ganancia actual: % <span id="pu_pGanancia_actual">15</span>-->
+                                    <!--
+                                    <div class="current-value-label2">                                        
+                                        <span>Margen Anterior</span>
                                         <span>%</span>&nbsp;<span id="pu_pGanancia_actual"></span>
-                                        <span>(Margen Anterior)</span>
+                                    </div>
+                                    -->
+                                    <div class="current-value-label3 d-flex flex-column align-items-center"
+                                        style="width: 50%;">
+                                        <div class="text-primary fw-bold fs-5">
+                                            <span>%</span>&nbsp;<span id="pu_pGanancia_actual">0.0</span>
+                                        </div>
+                                        <small class="text-muted">Margen Anterior</small>
                                     </div>
                                 </div>
                             </li>

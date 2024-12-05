@@ -1165,6 +1165,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Crear la superposición y el popup       
         const overlayDiv = document.createElement('div');
+        //const overlayDiv = document.createElement('div');
         const popupDiv = document.createElement('div');
 
         const tabla_items_body2 = document.getElementById('item-table-body');
@@ -1376,9 +1377,59 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     //ocultarSpinner();
-                    document.getElementById('loading-overlay').classList.add('d-none');
-                    console.log('data-> inventario_ingreso: ', data);
+                    //document.getElementById('loading-overlay').classList.add('d-none');
+                    document.getElementById('loading-overlay').classList.add('d-none');  // Ocultar el spinner
+                    console.log('respuesta inventario_ingreso: ', data);
+
                     if (data.success) {
+                        overlayDiv.remove();    // Elimina la alerta
+                        modal_p_ingreso.hide(); // Cierra la ventana modal 
+
+                        const row = tableIngresoBody.querySelector(`tr[data-ingreso-id="${data.ingreso_id}"]`);
+                        if (row) {
+                            /*
+                            row.remove();
+                            totalIngresos_value -= 1; // Decrementa el valor en 1                            
+                            totalIngresos.textContent = totalIngresos_value; //Actualiza el elemento html
+                            console.log(`Fila con ingreso-id ${data.ingreso_id} eliminada.`);
+                            */
+                            // Agregar animación de desvanecimiento antes de eliminar
+                            row.style.transition = 'opacity 0.5s';
+                            row.style.opacity = '0';
+
+                            setTimeout(() => {
+                                row.remove();
+                                totalIngresos_value -= 1; // Decrementa el valor en 1                            
+                                totalIngresos.textContent = totalIngresos_value; // Actualiza el elemento HTML
+                                console.log(`Fila con ingreso-id ${data.ingreso_id} eliminada.`);
+                            }, 500); // Esperar a que termine la animación
+
+
+                        } else {
+                            //console.log(`No se encontró una fila con ingreso-id ${data.ingreso_id}.`);
+                            console.warn(`No se encontró una fila con ingreso-id ${data.ingreso_id}.`);
+
+                            // Mostrar notificación de advertencia al usuario
+                            Toastify({
+                                text: `No se encontró la fila con ingreso ID ${data.ingreso_id}.`,
+                                duration: 5000,
+                                close: true,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                            }).showToast();
+                        }
+
+                        Toastify({
+                            text: "Su compra ha sido registrada en el inventario.",
+                            duration: 5000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                        }).showToast();
+
+                        /*
                         //const popupHeader = document.querySelector('.popup-header');
                         const popupHeader = document.getElementById('popup-header-i');
                         const popupBody = document.getElementById('popup-body-i');
@@ -1620,16 +1671,34 @@ document.addEventListener('DOMContentLoaded', function () {
                             const comprasUrl = this.getAttribute('data-url'); // Obtener la URL de 'nuevo_ingreso'
                             window.location.href = comprasUrl; // Redirigir a la URL de compras pendientes
                         });
+                    */
 
                     } else {
-                        //alert(data.message);
-                        alert(data.error);
+                        // Mostrar error en una notificación amigable
+                        Toastify({
+                            text: `Error: ${data.error || 'No se pudo procesar la solicitud.'}`,
+                            duration: 5000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                        }).showToast();
                     }
                 })
                 .catch(error => {
+                    //console.error('Error al actualizar el ingreso:', error);
                     console.error('Error al actualizar el ingreso:', error);
-                });
 
+                    // Mostrar notificación de error
+                    Toastify({
+                        text: "Error inesperado al procesar la solicitud.",
+                        duration: 5000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                    }).showToast();
+                });
         });
     });
 

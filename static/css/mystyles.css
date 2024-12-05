@@ -1374,7 +1374,7 @@ header {
 
 .container-custom {
   padding: 20px;
-  max-width: 600px;
+  /*max-width: 600px;*/
   margin: 0 auto;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -1401,7 +1401,7 @@ header {
   display: flex;
   align-items: center;
   gap: 5px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .current-value-label {
@@ -1416,6 +1416,22 @@ header {
   font-style: normal;
   color: #6c757d;
   font-size: 0.95rem;
+}
+
+.current-value-label2 {
+  width: 50%;
+  font-size: 0.95rem;
+  color: #495057;
+  text-align: center;
+}
+
+.current-value-label2 .text-primary {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.current-value-label2 small {
+  font-size: 0.85rem;
 }
 
 .input-container input {
