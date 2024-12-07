@@ -1418,19 +1418,19 @@ header {
   font-size: 0.95rem;
 }
 
-.current-value-label2 {
+.current-value-label3 {
   width: 50%;
   font-size: 0.95rem;
   color: #495057;
   text-align: center;
 }
 
-.current-value-label2 .text-primary {
+.current-value-label3 .text-primary {
   font-weight: bold;
   font-size: 1.2rem;
 }
 
-.current-value-label2 small {
+.current-value-label3 small {
   font-size: 0.85rem;
 }
 

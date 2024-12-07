@@ -1928,6 +1928,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Mostrar el modal secundario (itemModal)        
         itemModal.show();
+
         // Hacer que la ventana modal principal quede visible pero detrás de la secundaria
         document.querySelector('#ingresoPrecioUModal').classList.add('modal-visible-back');
         console.log('g_ingreso_id: ', g_ingreso_id);
@@ -1959,8 +1960,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     //llena_tabla_items2(data.item_out_list);
                     input_pu_unidad.disabled = true;
                     btn_actualizarUnidad.disabled = false;
-                    llena_tabla_items2(data.item_out_list2);
-                    tbody_items(select_fecha_vencimiento);
+                    //llena_tabla_items2(data.item_out_list2);
+                    create_tr_tbody(data.item_out_list2);
+                    //tbody_items(select_fecha_vencimiento);
                 }
                 capa_spinner_items.classList.add('d-none');
             }).catch(error => {
@@ -2066,7 +2068,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Generar las filas de la tabla 
         for (let i = 0; i <= items_list.length - 1; i++) {
-            console.log('lista_items: ', items_list[i])
+            //console.log('lista_items: ', items_list[i])
             //lista_interna = items_list[i];
             item_list_internal = items_list[i];
 
@@ -2086,7 +2088,7 @@ document.addEventListener('DOMContentLoaded', function () {
             dateInput.type = 'date';
             dateInput.className = 'form-control item-fecha-vencimiento';
             dateInput.setAttribute('data-fecha', '1');
-            console.log('item_list_internal[2]: ', item_list_internal[2]);
+            //console.log('item_list_internal[2]: ', item_list_internal[2]);
             dateInput.value = item_list_internal[2];
             // si es fecha unificada, actualizar el valor del input date
             /*
@@ -2122,6 +2124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('#ingresoPrecioUModal').classList.remove('modal-visible-back');
     });
 
+    /*
     function llena_tabla_items(puUnidad) {
         const itemTableBody = document.getElementById('item-table-body');
 
@@ -2168,6 +2171,7 @@ document.addEventListener('DOMContentLoaded', function () {
             itemTableBody.appendChild(row);
         }
     }
+    */
 
     // Seleccionamos el campo select y el campo de fecha
 
@@ -2313,32 +2317,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 fechaVencimientoInput.value = ''; // Resetea el campo de fecha
 
                 dateInputs.forEach(input => {
-                    input.disabled = true; // desactiva el input
-                    input.value = '';
+                    input.disabled = true; // Desactiva el input
+                    input.value = ''; // Resetea el valor del input a vacio
                 });
 
                 break;
+
             case '1': // fecha unificada 
                 console.log('select fecha vto:', selectFechaVto.value, '-', selectedOptionText); // Imprime: select fecha vto: 0 - Fecha No Requerida
                 fechaVencimientoInput.disabled = false; // Habilita el campo de fecha
                 //fechaVencimientoInput.focus(); // Enfocar el campo de fecha  
-                let sw1 = 0;
+                let sw1 = 0; // Activar el switch 
                 // Itera sobre los inputs y desactívalos
                 dateInputs.forEach(input => {
                     input.disabled = true; // Desactiva el input
-                    if (input.value && sw1 == 0) {
-                        fechaVencimientoInput.value = input.value;
-                        sw1 = 1;
+
+                    if (input.value && sw1 == 0) { // Si el input tiene valor y el sw esta activo 
+                        fechaVencimientoInput.value = input.value; // Setear el input con la fecha unificada
+                        sw1 = 1; // Desactivar el switch 
                     }
                 });
 
                 break;
+
             case '2': //fecha distinta
                 console.log('select fecha vto:', selectFechaVto.value, '-', selectedOptionText); // Imprime: select fecha vto: 0 - Fecha No Requerida
-                fechaVencimientoInput.value = ''; // Resetea el input fecha vto
-                fechaVencimientoInput.disabled = true; // deshabilita el input fecha vto
-                // Itera sobre los inputs y actívalos
-                dateInputs.forEach(input => {
+                fechaVencimientoInput.value = ''; // Resetea el input a vacio 
+                fechaVencimientoInput.disabled = true; // Deshabilita el input                
+                dateInputs.forEach(input => { // Itera sobre los inputs y los actíva
                     input.disabled = false; // activa el input
                 });
 
@@ -2347,6 +2353,76 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('Operador no valido.');
         }
     }
+
+    function create_tr_tbody(array) { // La funcion requiere un parametro de tipo array con elementos (array)
+
+        const tablaItemsBody_ = document.getElementById('item-table-body'); // Selecciona el cuerpo de la tabla (html)
+        const selectFechaVto = document.getElementById('select-fecha-vencimiento');
+        const inputFechaVto = document.getElementById('fecha-vencimiento');
+        const notificacionItems = document.getElementById('notificacion-items');
+
+        notificacionItems.classList.remove('show'); // Quita la clase show
+        notificacionItems.classList.add('hide'); // Agrega la clase hide
+        inputFechaVto.classList.remove('is-invalid'); // Quita la clase is-invalid
+
+        tablaItemsBody_.innerHTML = ''; // Limpia el contenido del cuerpo de la tabla 
+
+        for (let i = 0; i <= array.length - 1; i++) { // Itera el Array de elementos array                         
+            console.log('pos [', i, ']: ', array[i]);
+            sub_array = array[i];
+
+            // --------- Crea la fila ---------
+            const row = document.createElement('tr');
+            row.setAttribute('data-item-id', sub_array[0]); // Crea el atributo a la fila 
+
+            // --------- Crea la columna 1 ---------
+            const itemCell = document.createElement('td');
+            itemCell.textContent = i + 1; // Valor de la columna 1
+            row.appendChild(itemCell);  // Agrega la columna a la fila 
+
+            // --------- Crea la columna 2 ---------
+            const dateCell = document.createElement('td');
+            const dateInput = document.createElement('input'); // Crea el input
+            dateInput.type = 'date'; // Define el tipo de input 
+            dateInput.className = 'form-control item-fecha-vencimiento'; // Define las clases del elemento input
+            dateInput.value = sub_array[2]; // Valor de la columna 2
+            dateCell.appendChild(dateInput); // Agrega el input a la columna 
+            row.appendChild(dateCell); // Agrega la columna a la fila 
+
+            // Switch 
+            switch (selectFechaVto.value) {
+                case '0': // fecha no requerida                    
+                    dateInput.disabled = true; // Desactiva el input creado 
+                    inputFechaVto.value = ''; // Resetea el campo de fecha
+                    inputFechaVto.disabled = true;  // Deshabilita el input fecha
+                    break;
+
+                case '1': // fecha unificada 
+                    dateInput.disabled = true; // Desactiva el input creado                     
+                    inputFechaVto.value = sub_array[2]; // Resetea el input fecha con el valor unificado
+                    inputFechaVto.disabled = false;  // Deshabilita el campo de fecha
+                    break;
+
+                case '2': //fecha distinta  
+                    dateInput.disabled = false; // Activa el input creado      
+                    inputFechaVto.value = ''; // Resetea el campo de fecha
+                    inputFechaVto.disabled = true;  // Deshabilita el campo de fecha             
+                    break;
+
+                default:
+                    console.log('Operador no valido.');
+            }
+
+            // --------- Crea la columna 3 ---------
+            const codigoItemCell = document.createElement('td');
+            codigoItemCell.textContent = sub_array[1]; // Valor de la columna 3
+            row.appendChild(codigoItemCell); // Agrega la columna a la fila
+
+            // --------- Agrega la fila al cuerpo de la tabla ---------
+            tablaItemsBody_.appendChild(row);
+        }
+    }
+
 
     function limpia_columna_fecha_vencimiento(rows) {
         for (let i = 0; i < rows.length; i++) {

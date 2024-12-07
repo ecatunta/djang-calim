@@ -12,6 +12,7 @@ from django.contrib import messages
 from datetime import datetime
 from django.utils.timezone import localtime
 from django.utils.dateformat import DateFormat
+from decimal import Decimal
 import json
 
 # Create your views here.
@@ -1186,6 +1187,7 @@ def Actualizar_ingreso2(request, ingreso_id):
             costo_unitario = data.get('costo_unitario')
             porcentaje_ganancia = data.get('rentabilidad')
             unidad = data.get('unidad_entrante')
+            costo_total = data.get('costo_total')
 
             if data.get('costo_unitario')=='':
                 costo_unitario = None
@@ -1196,9 +1198,22 @@ def Actualizar_ingreso2(request, ingreso_id):
             if data.get('unidad_entrante')=='':
                 unidad = None
             
+            # Convertir valores a los tipos adecuados
+            try:
+                costo_unitario = Decimal(costo_unitario)  # Convertir a Decimal
+                unidad = int(unidad)  # Convertir a entero              
+            except (ValueError, TypeError) as e:
+                print(f"Error en la conversión de datos: {e}")
+
+            
             item_nuevos = Item.objects.filter(ingreso=ingreso_id, item_estado='N').count()
             if (item_nuevos > 0):
                 unidad = item_nuevos
+                #costo_total = unidad * costo_unitario
+                # Calcular el costo total
+                costo_total = unidad * costo_unitario
+            #print('------------ costo_total: ', costo_total)
+            print(f"Costo total: {costo_total}")
             
             ingreso = Ingreso.objects.get(pk=ingreso_id)
             ingreso.ingreso_unidad = unidad
@@ -1206,7 +1221,8 @@ def Actualizar_ingreso2(request, ingreso_id):
             ingreso.ingreso_porcentajeGanancia = porcentaje_ganancia
             ingreso.ingreso_ganancia = data.get('utilidad')
             ingreso.ingreso_precioUnitario = data.get('precio_unitario')
-            ingreso.ingreso_costoTotal = data.get('costo_total')
+            #ingreso.ingreso_costoTotal = data.get('costo_total')
+            ingreso.ingreso_costoTotal = costo_total
 
             ingreso.save()
             return JsonResponse({'success': True})
