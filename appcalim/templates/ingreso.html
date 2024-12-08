@@ -166,7 +166,7 @@ Compras
 
 <!-- Modal principal-->
 <div class="modal fade" id="ingresoPrecioUModal" tabindex="-1" aria-labelledby="ingresoPrecioUModalLabel"
-    aria-hidden="true">
+    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
 
     <!--<div id="mensaje-error" class="hide">Por favor, complete todos los campos requeridos.</div>-->
     <div id="mensaje-error" class="hide">Debe completar los campos requeridos.</div>
@@ -176,9 +176,10 @@ Compras
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white" style="height:35px;">
                 <h5 class="modal-title" id="ingresoPrecioUModalLabel" style="color: #fff; font-size: 1.10rem;">
-                    Compras
+                    <!--Compras-->
+                    Inventario
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
             </div>
 
             <div class="modal-body">
@@ -201,6 +202,7 @@ Compras
                             </li>
 
                             <li class="mb-4 value-section">
+                                <!--                                    
                                 <div class="d-flex justify-content-between align-items-center mb-2 flex-nowrap">
                                     <p class="value-label mb-0 text-container"><i class="bi bi-box-seam"></i> Unidades
                                         entrantes</p>
@@ -219,28 +221,11 @@ Compras
                                     </div>
                                 </div>
 
-                                <!--
-                                <div class="input-container mb-2">
-                                    <input type="text" id="pu_unidad" class="form-control text-center"
-                                        autocomplete="off" inputmode="numeric"
-                                        placeholder="Cantidad de unidades entrantes">
-                                </div>
-                                <div class="current-value-label text-center">
-                                    Costo total <span>Bs</span>&nbsp;<span id="pu_costo_total"></span>
-                                </div>
-                                -->
-
                                 <div class="d-flex align-items-center">
-
                                     <div class="input-container me-4" style="width: 50%;">
                                         <input type="text" id="pu_unidad" class="form-control text-center"
                                             autocomplete="off" inputmode="numeric" placeholder="Unidades">
                                     </div>
-
-                                    <!--<div class="current-value-label2">
-                                        Costo total <span>Bs</span>&nbsp;<span id="pu_costo_total"></span>
-                                    </div>-->
-
                                     <div class="current-value-label3 d-flex flex-column align-items-center"
                                         style="width: 50%;">
                                         <div class="text-primary fw-bold fs-5">
@@ -249,43 +234,56 @@ Compras
                                         <small class="text-muted">Costo Total</small>
                                     </div>
                                 </div>
-                            </li>
+                            -->
 
+                                <div class="card-custom">
+                                    <div class="card-header-custom"  style="position: relative;">
+                                        <i class="bi bi-currency-exchange"></i> Unidades entrantes
+                                        
+                                        <div class="button-group" style="position: absolute; right: 5px; top: 5px;">
+                                            <button id="actualizar-unidad" class="btn btn-outline-secondary me-1">
+                                                <i class="bi bi-arrow-clockwise"></i>
+                                            </button>
+                                            <button id="genera-item" type="button"
+                                                class="btn btn-primary position-relative">
+                                                <span id="item-fv"
+                                                    class="position-absolute translate-middle badge rounded-circle bg-danger text-white"
+                                                    data-total-item="0">
+                                                </span>
+                                                <i class="bi bi-table"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body-custom">
+                                        <!-- Capa Input -->
+                                        <div class="input-section mb-3">
+                                            <!--<label for="pu_costoU_nuevo" class="form-label">Cantidad</label>-->
+                                            <input type="text" id="pu_unidad" class="form-control text-center"
+                                                autocomplete="off" inputmode="numeric"
+                                                placeholder="Ingrese la cantidad de unidades">
+                                        </div>
+                                        <!-- Capa Valor No Editable -->
+                                        <div class="current-value-section">
+                                            <div class="value-display">
+                                                <span class="currency">Bs</span>&nbsp;<span
+                                                    id="pu_costo_total">0.00</span>
+                                            </div>
+                                            <small class="value-description">Costo Total</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <!--
                             <li class="mb-4 value-section">
                                 <p class="value-label"><i class="bi bi-currency-exchange"></i> Costo unitario del
                                     proveedor</p>
-                                <!--
-                                <div class="input-container mb-2" style="width: 50%;">
-                                    <input type="text" id="pu_costoU_nuevo" class="form-control text-center"
-                                        autocomplete="off" inputmode="numeric" placeholder="Monto en Bs">
-                                </div>
-                                <div class="current-value-label text-center">
-                                    Costo unitario actual: $ <span id="pu_costoU_actual"></span>
-                                </div>
-                                -->
-                                <!--
-                                <div class="d-flex align-items-center">
-                                    <div class="input-container me-4" style="width: 50%;">
-                                        <input type="text" id="pu_costoU_nuevo" class="form-control text-center"
-                                            autocomplete="off" inputmode="numeric" placeholder="Monto en Bs">
-                                    </div>
-                                    <div class="current-value-label2">
-                                        <div class="text-center">
-                                            <span>Bs</span>&nbsp;<span id="pu_costoU_actual"></span>
-                                        </div>
-                                        <div class="text-center">Monto Anterior</div>
-                                    </div>
-                                </div>
-                            -->
 
                                 <div class="d-flex align-items-center">
-                                    <!-- Capa input -->
                                     <div class="input-container me-3" style="width: 50%;">
                                         <input type="text" id="pu_costoU_nuevo" class="form-control text-center"
                                             autocomplete="off" inputmode="numeric" placeholder="Monto en Bs">
                                     </div>
-
-                                    <!-- Capa valores no editables -->
                                     <div class="current-value-label3 d-flex flex-column align-items-center"
                                         style="width: 50%;">
                                         <div class="text-primary fw-bold fs-5">
@@ -295,30 +293,59 @@ Compras
                                     </div>
                                 </div>
                             </li>
+                            -->
 
                             <li class="mb-4 value-section">
-                                <p class="value-label"><i class="bi bi-graph-up"></i> Margen de ganancia</p>
-                                <!--
-                                <div class="input-container mb-2">
-                                    <input type="text" id="pu_pGanancia_nuevo" class="form-control text-center"
-                                        autocomplete="off" inputmode="numeric" placeholder="Nuevo porcentaje de margen">
-                                </div>
-                                <div class="current-value-label text-center">
-                                    Margen de ganancia actual: % <span id="pu_pGanancia_actual">15</span>
-                                </div>
-                                -->
 
+                                <div class="card-custom">
+                                    <div class="card-header-custom">
+                                        <i class="bi bi-currency-exchange"></i> Costo unitario del proveedor
+                                    </div>
+                                    <div class="card-body-custom">
+                                        <!-- Capa Input -->
+                                        <div class="input-section mb-3">
+                                            <label for="pu_costoU_nuevo" class="form-label">Nuevo Monto (Bs)</label>
+                                            <input type="text" id="pu_costoU_nuevo" class="form-control text-center"
+                                                autocomplete="off" inputmode="numeric"
+                                                placeholder="Ingrese el nuevo monto">
+                                        </div>
+                                        <!-- Capa Valor No Editable -->
+                                        <div class="current-value-section">
+                                            <div class="value-display">
+                                                <span class="currency">Bs</span>&nbsp;<span
+                                                    id="pu_costoU_actual">0.00</span>
+                                            </div>
+                                            <small class="value-description">Monto anterior</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--
+                                <p class="value-label"><i class="bi bi-currency-exchange"></i> Costo unitario del
+                                    proveedor</p>
+                                <div class="d-flex align-items-center justify-content-between">                                    
+                                    <div class="input-container">
+                                        <input type="text" id="pu_costoU_nuevo" class="form-control text-center"
+                                            autocomplete="off" inputmode="numeric" placeholder="Nuevo monto en Bs">
+                                    </div>                                                                   
+                                    
+                                    <div class="current-value-label3">
+                                        <div class="text-primary fw-bold fs-5">
+                                            <span>Bs</span>&nbsp;<span id="pu_costoU_actual">0.00</span>
+                                        </div>
+                                        <small class="text-muted">Monto anterior</small>
+                                    </div>
+                                </div>
+                            -->
+                            </li>
+
+                            <li class="mb-4 value-section">
+                                <!--
+                                <p class="value-label"><i class="bi bi-graph-up"></i> Margen de ganancia</p>
                                 <div class="d-flex align-items-center">
                                     <div class="input-container me-4" style="width: 50%;">
                                         <input type="text" id="pu_pGanancia_nuevo" class="form-control text-center"
                                             autocomplete="off" inputmode="numeric" placeholder="Porcentaje">
                                     </div>
-                                    <!--
-                                    <div class="current-value-label2">                                        
-                                        <span>Margen Anterior</span>
-                                        <span>%</span>&nbsp;<span id="pu_pGanancia_actual"></span>
-                                    </div>
-                                    -->
                                     <div class="current-value-label3 d-flex flex-column align-items-center"
                                         style="width: 50%;">
                                         <div class="text-primary fw-bold fs-5">
@@ -327,11 +354,35 @@ Compras
                                         <small class="text-muted">Margen Anterior</small>
                                     </div>
                                 </div>
+                                -->
+                                <div class="card-custom">
+                                    <div class="card-header-custom">
+                                        <i class="bi bi-graph-up"></i> Margen de ganancia
+                                    </div>
+                                    <div class="card-body-custom">
+                                        <!-- Capa Input -->
+                                        <div class="input-section mb-3">
+                                            <label for="pu_costoU_nuevo" class="form-label">Nuevo Margen (%)</label>
+                                            <input type="text" id="pu_pGanancia_nuevo" class="form-control text-center"
+                                                autocomplete="off" inputmode="numeric"
+                                                placeholder="Ingrese el nuevo margen">
+                                        </div>
+                                        <!-- Capa Valor No Editable -->
+                                        <div class="current-value-section">
+                                            <div class="value-display">
+                                                <span class="currency">%</span>&nbsp;<span
+                                                    id="pu_pGanancia_actual"></span>
+                                            </div>
+                                            <small class="value-description">Margen anterior</small>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
 
                             <li class="mb-2 value-section">
-                                <label class="value-label"><i class="bi bi-calculator"></i> Montos calculados
-                                    unitarios</label>
+                                <!--<label class="value-label"><i class="bi bi-calculator"></i> Montos calculados unitarios</label>-->
+                                <label class="value-label"><i class="bi bi-calculator"></i> Montos unitarios
+                                    calculados</label>
                                 <div class="row text-center mb-2">
                                     <div class="col-4"><span class="label-header">Costo</span></div>
                                     <div class="col-4"><span class="label-header">Ganancia</span></div>
@@ -359,6 +410,31 @@ Compras
                     </div>
                 </div>
             </div>
+            <!--
+            <div class="row mb-3">
+                <div class="col-12">
+                    <div class="card-custom">
+                        <div class="card-header-custom">
+                            <i class="bi bi-currency-exchange"></i> Costo unitario del proveedor
+                        </div>
+                        <div class="card-body-custom">                            
+                            <div class="input-section mb-3">
+                                <label for="pu_costoU_nuevo" class="form-label">Nuevo Monto (Bs)</label>
+                                <input type="text" id="pu_costoU_nuevo" class="form-control text-center"
+                                    autocomplete="off" inputmode="numeric" placeholder="Ingrese el nuevo monto">
+                            </div>                            
+                            <div class="current-value-section">
+                                <div class="value-display">
+                                    <span class="currency">Bs</span>&nbsp;<span id="pu_costoU_actual">0.00</span>
+                                </div>
+                                <small class="value-description">Monto anterior</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+
 
             <div class="modal-footer justify-content-center">
                 <!--<button type="button" id="btn-salir-modal-ingreso" class="btn btn-light px-4 me-3" data-bs-dismiss="modal">-->
@@ -819,3 +895,28 @@ Compras
 
 {% endblock %}
 
+
+<!--
+<div class="row mb-1">
+    <div class="col-12 container-custom">
+        <ul class="list-unstyled" style="margin-bottom: 0;">
+            <li class="mb-4 value-section">
+                <p class="value-label"><i class="bi bi-currency-exchange"></i> Costo unitario del
+                    proveedor</p>
+                <div class="d-flex align-items-center">    
+                    <div class="input-container me-3" style="width: 50%;">
+                        <input type="text" id="pu_costoU_nuevo" class="form-control text-center" autocomplete="off"
+                            inputmode="numeric" placeholder="Monto en Bs">
+                    </div>    
+                    <div class="current-value-label3 d-flex flex-column align-items-center" style="width: 50%;">
+                        <div class="text-primary fw-bold fs-5">
+                            <span>Bs</span>&nbsp;<span id="pu_costoU_actual">0.00</span>
+                        </div>
+                        <small class="text-muted">Monto Anterior</small>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+-->
