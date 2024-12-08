@@ -1864,6 +1864,7 @@ header {
   overflow: hidden;
   background-color: #ffffff;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid  #c2c2c2;  
 }
 
 .card-custom:hover {
@@ -1966,15 +1967,16 @@ header {
 
 .card-header-custom {
   position: relative;
-  display: flex;
+  /*display: flex;*/
   align-items: center;
-  padding: 5px 10px;
+  padding: 15px 10px;
   background-color: #007bff;
   color: #fff;
   font-weight: bold;
   border-radius: 8px;
   overflow: visible;
   gap: 10px;  
+  text-align: center;
 }
 
 .button-group {
