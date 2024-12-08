@@ -1386,23 +1386,6 @@ header {
   font-size: 0.95rem;
 }
 
-.button-group {
-  flex-shrink: 0; /* Evita que el grupo de botones se reduzca de tamaño */
-  display: flex;
-  gap: 0.2rem; /* Espacio entre los botones */
-}
-
-.button-group .btn {
-  font-size: 1.1rem;
-  padding: 8px 12px;
-  transition: background-color 0.3s ease;
-}
-
-.button-group .btn:hover {
-  background-color: #0056b3;
-  color: #ffffff;
-}
-
 .value-new {  
   color: #155724; 
 }
@@ -1888,16 +1871,18 @@ header {
 }
 
 /* Encabezado */
-.card-header-custom {
+/*.card-header-custom {
   background-color: #007bff;
   color: #ffffff;
   padding: 15px;
-  /*font-size: 1.2rem;*/
   font-weight: bold;
   display: flex;
   align-items: center;
   gap: 10px;
 }
+*/
+
+
 
 /* Cuerpo */
 .card-body-custom {
@@ -1943,4 +1928,68 @@ header {
 .value-description {
   font-size: 0.9rem;
   color: #6c757d;
+}
+
+/*  
+.card-header-custom {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;  
+  font-weight: bold;
+  border-radius: 8px;
+  overflow: visible;
+  gap: 10px;
+}
+
+.button-group {
+  flex-shrink: 0; 
+  display: flex;
+  gap: 0.2rem; 
+}
+
+.button-group .btn {
+  font-size: 1.1rem;
+  padding: 8px 12px;
+  transition: background-color 0.3s ease;
+}
+
+.button-group .btn:hover {
+  background-color: #0056b3;
+  color: #ffffff;
+}*/
+
+
+
+.card-header-custom {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  overflow: visible;
+  gap: 10px;
+  padding-right: 80px; /* Agregado para dar espacio a los botones */
+}
+
+.button-group {
+  flex-shrink: 0;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.button-group .btn {
+  font-size: 1rem;
+  padding: 5px 12px;
+  transition: background-color 0.3s ease;
+}
+
+.button-group .btn:hover {
+  background-color: #0056b3;
+  color: #ffffff;
 }
