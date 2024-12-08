@@ -660,19 +660,26 @@ document.addEventListener('DOMContentLoaded', function () {
                         btn_generaItem.disabled = true;
                     }
 
-                    if (ingreso.nuevo.item > 0) {
+                    //if (ingreso.nuevo.item > 0) {
+                    if (data.unidad > 0) {
                         btn_actualizarUnidad.disabled = false;
                         btn_generaItem.disabled = false;
                         input_pu_unidad.disabled = true;
-                        document.getElementById('pu_unidad').value = ingreso.nuevo.item;
+                        itemFechaVto.textContent = data.unidad;
+                        //document.getElementById('pu_unidad').value = ingreso.nuevo.item;
                     } else {
-                        document.getElementById('pu_unidad').value = '';
+                        //document.getElementById('pu_unidad').value = '';
+                        itemFechaVto.textContent = 0;
+
                     }
+                    document.getElementById('pu_unidad').value = data.unidad;
 
                     itemFechaVto.setAttribute('data-total-item', ingreso.nuevo.item);
+                    //itemFechaVto.textContent = data.unidad;
                     document.getElementById('pu_producto_nombre').textContent = data.producto_nombre;
                     document.getElementById('producto_nombre_items').textContent = g_nombre_producto;
-                    g_unidad_entrante = ingreso.nuevo.item;
+                    //g_unidad_entrante = ingreso.nuevo.item;
+                    g_unidad_entrante = data.unidad
 
                     document.getElementById('pu_costo_total').textContent = data.costo_total || '0.0';
                     document.getElementById('pu_costoU_actual').textContent = ingreso.vigente.i_costo_unitario || '0.0';
@@ -970,7 +977,7 @@ document.addEventListener('DOMContentLoaded', function () {
         this.value = this.value.replace(/[^0-9]/g, '');
 
 
-
+        /*
         if (this.value != itemFechaVto.getAttribute('data-total-item')) { // si el valor ingresado en el input es diferente al atributo data-id del elemento span con id item-fv
             console.log('es diferente');
             itemFechaVto.textContent = 0; // es diferente el valor es 0, debe actualizar la tabla de items
@@ -979,10 +986,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('es igual');
                 itemFechaVto.textContent = itemFechaVto.getAttribute('data-total-item')
             }
-        }
+        }*/
 
         // Validar que el número sea mayor a 0
         if (parseInt(this.value, 10) <= 0) {
+            console.log('--------valida---------');
             this.value = ''; // Limpiar el campo si es 0 o menor
         }
 
@@ -995,9 +1003,11 @@ document.addEventListener('DOMContentLoaded', function () {
             costoTotalElement.textContent = '0.0';
             btn_actualizarUnidad.disabled = true;
             btn_generaItem.disabled = true;
+            itemFechaVto.textContent = 0;
             return;
         }
 
+        itemFechaVto.textContent = this.value;
         let costo_total = unidad * costoUnitario
         costoTotalElement.textContent = costo_total.toFixed(1);
         input_pu_unidad.classList.remove('is-invalid');
@@ -1037,6 +1047,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         //console.log("focus: Posición top del elemento header:", topPosition);
         //alert("focus: Posición top del elemento header: " + topPosition);
+
     });
 
 
@@ -1156,25 +1167,26 @@ document.addEventListener('DOMContentLoaded', function () {
         const precioNuevo = parseFloat(document.getElementById('pu_precioU_nuevo').textContent);
         const unidad = parseFloat(document.getElementById('pu_unidad').value);
         const costoTotal = parseFloat(document.getElementById('pu_costo_total').textContent);
-
         //const tablaItems = document.getElementById('tabla-items');
         //const filas = tablaItems.getElementsByTagName('tr');
-
         const tbody = document.getElementById('item-table-body'); // Seleccionar solo el tbody
         const filas = tbody.getElementsByTagName('tr'); // Obtener filas del tbody
-
         // Crear la superposición y el popup       
+
         const overlayDiv = document.createElement('div');
-        //const overlayDiv = document.createElement('div');
         const popupDiv = document.createElement('div');
 
         const tabla_items_body2 = document.getElementById('item-table-body');
         //const rowCount = tabla_items_body2.getElementsByTagName('tr').length;
         const row = tabla_items_body2.getElementsByTagName('tr');
         //alert(rowCount);
-        var contador = 0;
-        // Recorremos todas las filas del tbody
-        for (let i = 0; i < row.length; i++) {
+
+        const selectFechaVto = document.getElementById('select-fecha-vencimiento');
+        const selectedOptionText = selectFechaVto.selectedOptions[0].text; // Obtenemos el texto de la opción seleccionada
+
+        /*
+        var contador = 0;        
+        for (let i = 0; i < row.length; i++) { // Recorremos todas las filas del tbody
             const fechaCell = row[i].getElementsByTagName('td')[1]; // Obtener la segunda celda (índice 1)
             //alert('item');
             if (fechaCell) {
@@ -1193,33 +1205,11 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             mensaje = 'no tienen fecha de vencimiento';
         }
+        */
+
         //return;        
 
-        function validar_input_vacios(input, selectFechaV) {
-            /*
-            //alert(selectFechaV);
-            if (selectFechaV == 0) {
-                input.classList.remove('is-invalid');
-                return true;
-            }
-            if (selectFechaV == 1) { // si la fechaV es unificado, no debe estar vacio
-                if (input.value.trim() === '') {
-                    input.classList.add('is-invalid'); // Agrega borde rojo si está vacío    
-                } else {
-                    input.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
-                    return true;
-                }
-            } else {
-                if (input.value.trim() === '') {
-                    input.classList.add('is-invalid'); // Agrega borde rojo si está vacío
-                    return false;
-                } else {
-                    input.classList.remove('is-invalid'); // Quita borde rojo si tiene contenido
-                    return true;
-                }
-            }
-            */
-
+        function validar_input_vacios(input) {
             if (input.value.trim() === '') {
                 input.classList.add('is-invalid'); // Agrega borde rojo si está vacío
                 return false;
@@ -1231,39 +1221,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function valida_items() {
             /*
-            console.log('cantidad de filas: ', filas.length);
-            if (filas.length == 0) {
-                btn_generaItem.classList.remove('btn-primary');
-                btn_generaItem.classList.add('btn-danger');
-                return false;
-            }
-            return true;
-            */
-
-            //if (input_pu_unidad.value != itemFechaVto.getAttribute('data-total-item')) {
             if (input_pu_unidad.value != itemFechaVto.textContent) {
                 btn_generaItem.classList.remove('btn-primary');
                 btn_generaItem.classList.add('btn-danger');
                 return false;
             }
+            */
             return true;
         }
 
-        const i_unidad = validar_input_vacios(input_pu_unidad, null);
-        const i_costoN = validar_input_vacios(input_costo_nuevo, null);
-        const i_porcentajeG = validar_input_vacios(input_p_ganancia_nuevo, null);
-        //const i_fechaV = validar_input_vacios(input_fecha_vencimiento, select_fecha_vencimiento.value);
+        const i_unidad = validar_input_vacios(input_pu_unidad);
+        const i_costoN = validar_input_vacios(input_costo_nuevo);
+        const i_porcentajeG = validar_input_vacios(input_p_ganancia_nuevo);
         const i_items = valida_items();
 
-        //if (!i_unidad || !i_fechaV || !i_costoN || !i_porcentajeG || !i_items) {
         if (!i_unidad || !i_costoN || !i_porcentajeG || !i_items) {
-            // Mostrar mensaje de éxito con animación
-            const mensajeError = document.getElementById('mensaje-error');
+            const mensajeError = document.getElementById('mensaje-error');  // Mostrar mensaje de éxito con animación
             mensajeError.classList.remove('hide');
             mensajeError.classList.add('show');
 
-            // Ocultar el mensaje después de 5 segundos
-            setTimeout(() => {
+            setTimeout(() => { // Ocultar el mensaje después de 5 segundos
                 mensajeError.classList.remove('show');
                 mensajeError.classList.add('hide');
             }, 3000); // 3 segundos
@@ -1272,46 +1249,113 @@ document.addEventListener('DOMContentLoaded', function () {
 
         overlayDiv.classList.add('custom-popup-overlay');
         popupDiv.classList.add('custom-popup');
-        popupDiv.innerHTML = `
-        
-        <!-- Header del Popup --> 
+
+        popupDiv.innerHTML = `                       
         <div id="popup-header-i" class="custom-popup-header">
             <div class="custom-popup-header-bg p-2 d-flex align-items-center">
                 <div class="custom-icon-container me-3">
                     <i class="bi bi-info-circle-fill"></i>
-                </div>
-                <!--<h5 class="custom-popup-title mb-0 flex-grow-1">Aviso de Inventario</h5>-->
+                </div>                
                 <h5 class="custom-popup-title mb-0 flex-grow-1">Aviso</h5>
             </div>
         </div>
 
-        <!-- Cuerpo del Popup -->
-        <div id="popup-body-i" class="custom-popup-body p-3">
-            <p><b>${input_pu_unidad.value} unidades</b> del producto <b>“${strong_producto_nombre.textContent}”</b> se añadirán al inventario. El precio unitario será <b>Bs. ${span_n_precio_unidad.textContent}</b></p>
-            <p>Los items ${mensaje}.</p>
-            <div class="custom-confirmation-message text-end mt-1">
-                ¿Desea continuar?
-            </div>
-        </div> 
+        <div id="popup-body-i" class="custom-popup-body p-3">           
 
-        <!-- Footer del Popup --> 
+        </div>     
+        
         <div id="popup-footer-i" class="custom-popup-footer text-end p-2">
             <button type="button" class="btn btn-outline-secondary me-2" id="popup-cancelar">Cancelar</button>
             <button type="button" class="btn btn-primary" id="popup-aceptar">Si, Acepto</button>
         </div>
+   
+        <div id="loading-overlay-i" class="custom-loading-overlay d-none">
+            <div class="spinner-border custom-spinner mb-3" role="status">                
+            </div>
+            <span id="loading-overlay-i-text">Creando Items ...</span>
+        </div>        
+        `;
 
-        <div id="loading-overlay" class="custom-loading-overlay d-none">
+        overlayDiv.appendChild(popupDiv); // Agregar el popup al overlay y luego al cuerpo del modal        
+        modal_ingreso.appendChild(overlayDiv); // Agregar el mensaje de dialogo al modal principal  
+
+        const popupHeader = document.getElementById('popup-header-i');
+        const popupBody = document.getElementById('popup-body-i');
+        const popupFooter = document.getElementById('popup-footer-i');
+        const popupOverlay = document.getElementById('loading-overlay-i');
+        const loadingText = document.getElementById('loading-overlay-i-text');
+
+        const rowCount = tbody.rows.length;
+        console.log('cantidad de filas: ', rowCount);
+        console.log('ingreso id: ', g_ingreso_id);
+        if (rowCount != unidad) {
+            popupOverlay.classList.remove('d-none'); // Mostrar el spinner (loading)
+
+            /*setTimeout(() => {
+                fetchItems(g_ingreso_id, unidad);
+                popupOverlay.classList.add('d-none');
+                popupBody.innerHTML = `
+                <p><b>${input_pu_unidad.value} unidades</b> del producto <b>“${strong_producto_nombre.textContent}”</b> se añadirán al inventario. El precio unitario será <b>Bs. ${span_n_precio_unidad.textContent}</b></p>            
+                <p>Los items tienen fecha de vencimiento ${selectedOptionText}.</p>
+                <div class="custom-confirmation-message text-end mt-1">
+                    ¿Desea continuar?
+                </div>   
+            `;
+                loadingText.textContent = "Cargando ...";
+            }, 5000); // Esperar a que termine la animación
+            */
+
+            fetchItems(g_ingreso_id, unidad); // consumir la funcion para crear los items
+            popupOverlay.classList.add('d-none'); // Ocultar el spinner (loading)
+        }
+        //else {
+
+        popupBody.innerHTML = `
+            <p><b>${input_pu_unidad.value} unidades</b> del producto <b>“${strong_producto_nombre.textContent}”</b> se añadirán al inventario. El precio unitario será <b>Bs. ${span_n_precio_unidad.textContent}</b></p>            
+            <p>Los items tienen fecha de vencimiento ${selectedOptionText}.</p>
+            <div class="custom-confirmation-message text-end mt-1">
+                ¿Desea continuar?
+            </div>   
+        `;
+        loadingText.textContent = "Cargando ...";
+        //}
+
+        /*
+        overlayDiv.classList.add('custom-popup-overlay');
+        popupDiv.classList.add('custom-popup');
+        popupDiv.innerHTML = `                   
+        <div id="popup-header-i" class="custom-popup-header">
+            <div class="custom-popup-header-bg p-2 d-flex align-items-center">
+                <div class="custom-icon-container me-3">
+                    <i class="bi bi-info-circle-fill"></i>
+                </div>                
+                <h5 class="custom-popup-title mb-0 flex-grow-1">Aviso</h5>
+            </div>
+        </div>
+
+        <div id="popup-body-i" class="custom-popup-body p-3">                       
+            <p><b>${input_pu_unidad.value} unidades</b> del producto <b>“${strong_producto_nombre.textContent}”</b> se añadirán al inventario. El precio unitario será <b>Bs. ${span_n_precio_unidad.textContent}</b></p>            
+            <p>Los items tienen fecha de vencimiento ${selectedOptionText}.</p>
+            <div class="custom-confirmation-message text-end mt-1">
+                ¿Desea continuar?
+            </div>            
+        </div> 
+        
+        <div id="popup-footer-i" class="custom-popup-footer text-end p-2">
+            <button type="button" class="btn btn-outline-secondary me-2" id="popup-cancelar">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="popup-aceptar">Si, Acepto</button>
+        </div>
+   
+        <div id="loading-overlay" class="custom-loading-overlay d-none2">
             <div class="spinner-border custom-spinner mb-3" role="status">
                 <span class="visually-hidden">Cargando...</span>
             </div>
             <span>Cargando...</span>
-        </div>
+        </div>        
         `;
+        */
 
-        // Agregar el popup al overlay y luego al cuerpo del modal
-        overlayDiv.appendChild(popupDiv);
-        // Agregar el mensaje de dialogo al modal principal  
-        modal_ingreso.appendChild(overlayDiv);
+
 
         // Manejar el clic en el botón "Cancelar" dentro del popup
         document.getElementById('popup-cancelar').addEventListener('click', function () {
@@ -1322,7 +1366,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('popup-aceptar').addEventListener('click', function () {
             //alert('popup-aceptar2');
             //mostrarSpinner();
-            document.getElementById('loading-overlay').classList.remove('d-none');
+            document.getElementById('loading-overlay-i').classList.remove('d-none');
             let datosTabla = [];
             console.log('filas: ', filas);
             console.log('filas length: ', filas.length);
@@ -1378,7 +1422,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(data => {
                     //ocultarSpinner();
                     //document.getElementById('loading-overlay').classList.add('d-none');
-                    document.getElementById('loading-overlay').classList.add('d-none');  // Ocultar el spinner
+                    document.getElementById('loading-overlay-i').classList.add('d-none');  // Ocultar el spinner
                     console.log('respuesta inventario_ingreso: ', data);
 
                     if (data.success) {
@@ -1421,7 +1465,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
 
                         Toastify({
-                            text: "Su compra ha sido registrada en el inventario.",
+                            //text: "Su compra ha sido registrada en el inventario.",
+                            text: "Compra registrada en inventario",
                             duration: 5000,
                             close: true,
                             gravity: "top",
@@ -1917,26 +1962,19 @@ document.addEventListener('DOMContentLoaded', function () {
         // restaurar la clase css 
         btn_generaItem.classList.remove('btn-danger');
         btn_generaItem.classList.add('btn-primary');
-        capa_spinner_items.classList.remove('d-none');
+        document.querySelector('#ingresoPrecioUModal').classList.add('modal-visible-back'); // La ventana modal principal queda visible detrás del modal items
+        itemModal.show(); // Mostrar el modal item      
 
-        /*
-        if (select_fecha_vencimiento.value == 1) {
-            console.log('el select es fecha unificada');
-            input_fecha_vencimiento.disabled = false;
-        }
-        */
 
-        // Mostrar el modal secundario (itemModal)        
-        itemModal.show();
-
-        // Hacer que la ventana modal principal quede visible pero detrás de la secundaria
-        document.querySelector('#ingresoPrecioUModal').classList.add('modal-visible-back');
         console.log('g_ingreso_id: ', g_ingreso_id);
         console.log('g_unidad_entrante: ', g_unidad_entrante);
 
         // Limpiar la tabla antes de agregar nuevas filas
-        tabla_items_body.innerHTML = '';
+        //tabla_items_body.innerHTML = '';
 
+        //capa_spinner_items.classList.remove('d-none');
+        fetchItems(g_ingreso_id, g_unidad_entrante);
+        /*
         // Enviar la solicitud Ajax al backend        
         fetch(`/crea-items/${g_ingreso_id}/${g_unidad_entrante}/`, {
             method: 'GET',
@@ -1969,7 +2007,120 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error en la solicitud ajax:', error);
                 capa_spinner_items.classList.add('d-none');
             });
+            */
     });
+
+
+    function fetchItems(g_ingreso_id, g_unidad_entrante) {
+
+        const capaSpinneritems = document.getElementById('loading-overlay-items');
+        capaSpinneritems.classList.remove('d-none');
+        const url = `/crea-items/${g_ingreso_id}/${g_unidad_entrante}/`; // Construir la URL dinámica con los parámetros
+
+        // Enviar la solicitud AJAX al backend
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response: ', data);
+
+                // Actualizar valores en el DOM
+                thead_total_items.textContent = data.item_out_list.length;
+                itemFechaVto.textContent = data.item_out_list.length;
+                itemFechaVto.setAttribute('data-total-item', data.item_out_list.length);
+
+                console.log('item_out_list2_length: ', data.item_out_list2.length);
+                console.log('item_out_list2[0]: ', data.item_out_list2[0]);
+                console.log('item_out_list2: ', data.item_out_list2);
+
+                if (data.success && data.item_out_list.length > 0) { // Verificar la respuesta y actualizar el DOM si es necesario
+                    console.log('Generar HTML dinámico');
+                    input_pu_unidad.disabled = true;
+                    btn_actualizarUnidad.disabled = false;
+                    create_tr_tbody(data.item_out_list2);
+                    capaSpinneritems.classList.add('d-none'); // Ocultar spinner
+                }
+                capaSpinneritems.classList.add('d-none'); // Ocultar spinner
+            })
+            .catch(error => {
+                console.error('Error en la solicitud AJAX:', error);
+                capaSpinneritems.classList.add('d-none'); // Ocultar spinner 
+            });
+    }
+
+
+    function create_tr_tbody(array) { // La funcion requiere un parametro de tipo array con elementos (array)
+
+        const tablaItemsBody_ = document.getElementById('item-table-body'); // Selecciona el cuerpo de la tabla (html)
+        const selectFechaVto = document.getElementById('select-fecha-vencimiento');
+        const inputFechaVto = document.getElementById('fecha-vencimiento');
+        const notificacionItems = document.getElementById('notificacion-items');
+
+        notificacionItems.classList.remove('show'); // Quita la clase show
+        notificacionItems.classList.add('hide'); // Agrega la clase hide
+        inputFechaVto.classList.remove('is-invalid'); // Quita la clase is-invalid
+
+        tablaItemsBody_.innerHTML = ''; // Limpia el contenido del cuerpo de la tabla 
+
+        for (let i = 0; i <= array.length - 1; i++) { // Itera el Array de elementos array                         
+            console.log('pos [', i, ']: ', array[i]);
+            sub_array = array[i];
+
+            // --------- Crea la fila ---------
+            const row = document.createElement('tr');
+            row.setAttribute('data-item-id', sub_array[0]); // Crea el atributo a la fila 
+
+            // --------- Crea la columna 1 ---------
+            const itemCell = document.createElement('td');
+            itemCell.textContent = i + 1; // Valor de la columna 1
+            row.appendChild(itemCell);  // Agrega la columna a la fila 
+
+            // --------- Crea la columna 2 ---------
+            const dateCell = document.createElement('td');
+            const dateInput = document.createElement('input'); // Crea el input
+            dateInput.type = 'date'; // Define el tipo de input 
+            dateInput.className = 'form-control item-fecha-vencimiento'; // Define las clases del elemento input
+            dateInput.value = sub_array[2]; // Valor de la columna 2
+            dateCell.appendChild(dateInput); // Agrega el input a la columna 
+            row.appendChild(dateCell); // Agrega la columna a la fila 
+
+            // Switch 
+            switch (selectFechaVto.value) {
+                case '0': // fecha no requerida                    
+                    dateInput.disabled = true; // Desactiva el input creado 
+                    inputFechaVto.value = ''; // Resetea el campo de fecha
+                    inputFechaVto.disabled = true;  // Deshabilita el input fecha
+                    break;
+
+                case '1': // fecha unificada 
+                    dateInput.disabled = true; // Desactiva el input creado                     
+                    inputFechaVto.value = sub_array[2]; // Resetea el input fecha con el valor unificado
+                    inputFechaVto.disabled = false;  // Deshabilita el campo de fecha
+                    break;
+
+                case '2': //fecha distinta  
+                    dateInput.disabled = false; // Activa el input creado      
+                    inputFechaVto.value = ''; // Resetea el campo de fecha
+                    inputFechaVto.disabled = true;  // Deshabilita el campo de fecha             
+                    break;
+
+                default:
+                    console.log('Operador no valido.');
+            }
+
+            // --------- Crea la columna 3 ---------
+            const codigoItemCell = document.createElement('td');
+            codigoItemCell.textContent = sub_array[1]; // Valor de la columna 3
+            row.appendChild(codigoItemCell); // Agrega la columna a la fila
+
+            // --------- Agrega la fila al cuerpo de la tabla ---------
+            tablaItemsBody_.appendChild(row);
+        }
+    }
 
     /*
     tabla_items_body_rows.forEach((fila, index) => {
@@ -2354,74 +2505,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function create_tr_tbody(array) { // La funcion requiere un parametro de tipo array con elementos (array)
-
-        const tablaItemsBody_ = document.getElementById('item-table-body'); // Selecciona el cuerpo de la tabla (html)
-        const selectFechaVto = document.getElementById('select-fecha-vencimiento');
-        const inputFechaVto = document.getElementById('fecha-vencimiento');
-        const notificacionItems = document.getElementById('notificacion-items');
-
-        notificacionItems.classList.remove('show'); // Quita la clase show
-        notificacionItems.classList.add('hide'); // Agrega la clase hide
-        inputFechaVto.classList.remove('is-invalid'); // Quita la clase is-invalid
-
-        tablaItemsBody_.innerHTML = ''; // Limpia el contenido del cuerpo de la tabla 
-
-        for (let i = 0; i <= array.length - 1; i++) { // Itera el Array de elementos array                         
-            console.log('pos [', i, ']: ', array[i]);
-            sub_array = array[i];
-
-            // --------- Crea la fila ---------
-            const row = document.createElement('tr');
-            row.setAttribute('data-item-id', sub_array[0]); // Crea el atributo a la fila 
-
-            // --------- Crea la columna 1 ---------
-            const itemCell = document.createElement('td');
-            itemCell.textContent = i + 1; // Valor de la columna 1
-            row.appendChild(itemCell);  // Agrega la columna a la fila 
-
-            // --------- Crea la columna 2 ---------
-            const dateCell = document.createElement('td');
-            const dateInput = document.createElement('input'); // Crea el input
-            dateInput.type = 'date'; // Define el tipo de input 
-            dateInput.className = 'form-control item-fecha-vencimiento'; // Define las clases del elemento input
-            dateInput.value = sub_array[2]; // Valor de la columna 2
-            dateCell.appendChild(dateInput); // Agrega el input a la columna 
-            row.appendChild(dateCell); // Agrega la columna a la fila 
-
-            // Switch 
-            switch (selectFechaVto.value) {
-                case '0': // fecha no requerida                    
-                    dateInput.disabled = true; // Desactiva el input creado 
-                    inputFechaVto.value = ''; // Resetea el campo de fecha
-                    inputFechaVto.disabled = true;  // Deshabilita el input fecha
-                    break;
-
-                case '1': // fecha unificada 
-                    dateInput.disabled = true; // Desactiva el input creado                     
-                    inputFechaVto.value = sub_array[2]; // Resetea el input fecha con el valor unificado
-                    inputFechaVto.disabled = false;  // Deshabilita el campo de fecha
-                    break;
-
-                case '2': //fecha distinta  
-                    dateInput.disabled = false; // Activa el input creado      
-                    inputFechaVto.value = ''; // Resetea el campo de fecha
-                    inputFechaVto.disabled = true;  // Deshabilita el campo de fecha             
-                    break;
-
-                default:
-                    console.log('Operador no valido.');
-            }
-
-            // --------- Crea la columna 3 ---------
-            const codigoItemCell = document.createElement('td');
-            codigoItemCell.textContent = sub_array[1]; // Valor de la columna 3
-            row.appendChild(codigoItemCell); // Agrega la columna a la fila
-
-            // --------- Agrega la fila al cuerpo de la tabla ---------
-            tablaItemsBody_.appendChild(row);
-        }
-    }
 
 
     function limpia_columna_fecha_vencimiento(rows) {

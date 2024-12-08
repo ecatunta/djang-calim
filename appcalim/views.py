@@ -1180,6 +1180,7 @@ def Actualizar_ingreso(request, ingreso_id):
 
 
 def Actualizar_ingreso2(request, ingreso_id):
+    # Si el metodo es POST
     if request.method == 'POST':
         try:
             # Recuperar los datos enviados desde Ajax via POST
@@ -1187,16 +1188,16 @@ def Actualizar_ingreso2(request, ingreso_id):
             costo_unitario = data.get('costo_unitario')
             porcentaje_ganancia = data.get('rentabilidad')
             unidad = data.get('unidad_entrante')
-            costo_total = data.get('costo_total')
+            costo_total = data.get('costo_total')           
 
-            if data.get('costo_unitario')=='':
-                costo_unitario = None
-                
-            if data.get('rentabilidad')=='':
-                porcentaje_ganancia = None
-
-            if data.get('unidad_entrante')=='':
+            if data.get('unidad_entrante') == '':
                 unidad = None
+
+            if data.get('costo_unitario') == '':
+                costo_unitario = None
+
+            if data.get('rentabilidad') == '':
+                porcentaje_ganancia = None
             
             # Convertir valores a los tipos adecuados
             try:
@@ -1204,15 +1205,12 @@ def Actualizar_ingreso2(request, ingreso_id):
                 unidad = int(unidad)  # Convertir a entero              
             except (ValueError, TypeError) as e:
                 print(f"Error en la conversión de datos: {e}")
-
-            
+                            
             item_nuevos = Item.objects.filter(ingreso=ingreso_id, item_estado='N').count()
             if (item_nuevos > 0):
-                unidad = item_nuevos
-                #costo_total = unidad * costo_unitario
+                unidad = item_nuevos                
                 # Calcular el costo total
-                costo_total = unidad * costo_unitario
-            #print('------------ costo_total: ', costo_total)
+                costo_total = unidad * costo_unitario            
             print(f"Costo total: {costo_total}")
             
             ingreso = Ingreso.objects.get(pk=ingreso_id)
