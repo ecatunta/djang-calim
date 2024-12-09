@@ -1199,19 +1199,26 @@ def Actualizar_ingreso2(request, ingreso_id):
             if data.get('rentabilidad') == '':
                 porcentaje_ganancia = None
             
-            # Convertir valores a los tipos adecuados
+           
             try:
+                 # Convertir valores a los tipos adecuados
                 costo_unitario = Decimal(costo_unitario)  # Convertir a Decimal
                 unidad = int(unidad)  # Convertir a entero              
             except (ValueError, TypeError) as e:
                 print(f"Error en la conversión de datos: {e}")
                             
             item_nuevos = Item.objects.filter(ingreso=ingreso_id, item_estado='N').count()
+            print('cantidad items: ' ,item_nuevos)
             if (item_nuevos > 0):
-                unidad = item_nuevos                
-                # Calcular el costo total
-                costo_total = unidad * costo_unitario            
-            print(f"Costo total: {costo_total}")
+                unidad = item_nuevos                                
+                #costo_total = unidad * costo_unitario   # Calcular el costo total         
+                
+                if (unidad and costo_unitario):
+                    costo_total = unidad * costo_unitario   # Calcular el costo total         
+                else:
+                    costo_total = costo_total
+                
+            print(f"costo total: {costo_total}")
             
             ingreso = Ingreso.objects.get(pk=ingreso_id)
             ingreso.ingreso_unidad = unidad

@@ -1126,6 +1126,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // operacion para actualizar el ingreso 
     function actualizar_ingreso2(ingreso_id) {
+        
         fetch(`/actualizar_ingreso2/${ingreso_id}/`, {
             method: 'POST',
             headers: {
