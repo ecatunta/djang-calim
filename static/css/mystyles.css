@@ -194,8 +194,7 @@
   width: 2px;
   height: 20px;
   /*background-color: #A0F1F0;  Color para la línea de jaba */
-  background-color: #757272;
-  /* Color para la línea de jaba */
+  background-color: #757272;  /* Color para la línea de jaba */
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -205,10 +204,8 @@
 .linea-descripcion-jaba::before {
   content: '';
   width: 4px;
-  height: 8px;
-  /*background-color: #A0F1F0; /* Color para la línea de jaba */
-  background-color: #757272;
-  /* Color para la línea de jaba */
+  height: 8px;  /*background-color: #A0F1F0; /* Color para la línea de jaba */
+  background-color: #757272;  /* Color para la línea de jaba */
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -217,10 +214,8 @@
 
 /* Estilo base para todas las imágenes */
 .carousel-item img {
-  height: 700px;
-  /* Define una altura fija */
-  object-fit: cover;
-  /* Asegura que la imagen se ajuste sin distorsionarse */
+  height: 700px;  /* Define una altura fija */
+  object-fit: cover;  /* Asegura que la imagen se ajuste sin distorsionarse */
 }
 
 /* Para dispositivos pequeños (por ejemplo, teléfonos móviles) */
@@ -320,29 +315,22 @@
 }
 
 .card:hover {
-  background-color: #007bff;
-  /* Fondo azul */
-  color: white;
-  /* Texto blanco */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  /* Sombra ligera */
-  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
-  /* Animación suave */
+  background-color: #007bff;  /* Fondo azul */
+  color: white;  /* Texto blanco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Sombra ligera */
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;  /* Animación suave */
 }
 
 .card:hover .card-title {
-  color: white;
-  /* Cambia el color del título también */
+  color: white;  /* Cambia el color del título también */
 }
 
 .card:hover i {
-  color: white;
-  /* Cambia el color del ícono */
+  color: white;  /* Cambia el color del ícono */
 }
 
 .card:active {
-  background-color: #0056b3;
-  /* Fondo más oscuro en clic */
+  background-color: #0056b3;  /* Fondo más oscuro en clic */
   color: white;
 }
 
@@ -352,18 +340,14 @@
   align-items: center;
   justify-content: center;
   height: 240px;
-  overflow: hidden;
-  /* Oculta cualquier desbordamiento */
+  overflow: hidden;  /* Oculta cualquier desbordamiento */
 }
 
 .scat-container-img img {
   width: 100%;
-  height: 100%;
-  /*  object-fit: cover; /* Hace que la imagen cubra todo el espacio sin distorsionarse */
-  object-fit: contain;
-  /* Cambia a 'contain' para evitar recortes */
-  object-position: center;
-  /* Centra la imagen */
+  height: 100%;  /*  object-fit: cover; /* Hace que la imagen cubra todo el espacio sin distorsionarse */
+  object-fit: contain;  /* Cambia a 'contain' para evitar recortes */
+  object-position: center;  /* Centra la imagen */
 }
 
 .sb {
@@ -639,22 +623,27 @@ header {
 /* Estilos para pantallas pequeñas */
 @media (max-width: 768px) {
   .label-unidad::before {
-    content: "Unidad";
-    /* Cambia el texto de "Unidad" a "Uni" */
+    content: "Unidad";    /* Cambia el texto de "Unidad" a "Uni" */
   }
 
   .label-costoU::before {
-    content: "Bs C/u";
-    /* Cambia el texto de "Costo Unidad" a "$ C/u" */
+    content: "Bs C/u";    /* Cambia el texto de "Costo Unidad" a "$ C/u" */
   }
 
   .label-costoT::before {
-    content: "Bs Total";
-    /* Cambia el texto de "Costo Total ($)" a "Total ($)" */
+    content: "Bs Total";    /* Cambia el texto de "Costo Total ($)" a "Total ($)" */
   }
 
   #capa-adicionar {
     margin-top: -10px;
+  }
+
+  .value-display {
+    font-size: 1.1rem !important;
+  }
+
+  .value-description {
+    font-size: 0.8rem !important;  
   }
 }
 
@@ -663,29 +652,20 @@ header {
 }
 
 #btn_adicionar_sm i {
-  font-size: 2.8rem;
-  /* Ajusta el tamaño del ícono */
-  color: #fff;
-  /* Color del ícono */
+  font-size: 2.8rem;  /* Ajusta el tamaño del ícono */
+  color: #fff;  /* Color del ícono */
 }
 
 /* ticket */
 .ticket-display {
   display: inline-block;
-  background-color: #007bff;
-  /* Color de fondo azul de Bootstrap */
-  color: white;
-  /* Texto en blanco */
-  padding: 15px 30px;
-  /* Espaciado interno */
-  border-radius: 10px;
-  /* Bordes redondeados */
-  font-size: 2rem;
-  /* Tamaño de fuente grande */
-  font-weight: bold;
-  /* Texto en negrita */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  /* Sombra suave */
+  background-color: #007bff;  /* Color de fondo azul de Bootstrap */
+  color: white;  /* Texto en blanco */
+  padding: 15px 30px;  /* Espaciado interno */
+  border-radius: 10px;  /* Bordes redondeados */
+  font-size: 2rem;  /* Tamaño de fuente grande */
+  font-weight: bold;  /* Texto en negrita */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);  /* Sombra suave */
 }
 
 .row-tabla-ventas {
@@ -764,29 +744,24 @@ header {
 .input-group-text {
   border: none;
   background-color: transparent;
-  color: #6c757d;
-  /* Color gris oscuro para los íconos */
+  color: #6c757d;  /* Color gris oscuro para los íconos */
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: opacity 0.3s ease;
-  /* Suaviza la transición de opacidad */
+  transition: opacity 0.3s ease;  /* Suaviza la transición de opacidad */
 }
 
 
 /* Cambiar el color del ícono al pasar el cursor para una mejor UX */
 .input-group-text:hover {
-  color: #000;
-  /* Cambia el color del ícono a negro al pasar el cursor */
+  color: #000;  /* Cambia el color del ícono a negro al pasar el cursor */
 }
 
 /* Estilo del input para que combine con el diseño general */
 .form-control:focus {
-  box-shadow: none;
-  /* Eliminar el efecto de foco predeterminado de Bootstrap */
-  outline: none;
-  /* Eliminar el borde del navegador en el enfoque */
+  box-shadow: none;  /* Eliminar el efecto de foco predeterminado de Bootstrap */
+  outline: none;  /* Eliminar el borde del navegador en el enfoque */
 }
 
 
@@ -805,25 +780,18 @@ header {
   max-height: 400px;
   overflow-y: auto;
   position: absolute;
-  top: 100%;
-  /* Alinea el panel justo debajo de la barra de búsqueda */
+  top: 100%;  /* Alinea el panel justo debajo de la barra de búsqueda */
   left: 0;
-  width: 100%;
-  /* Ajusta el ancho para que sea igual al de la barra de búsqueda */
+  width: 100%;  /* Ajusta el ancho para que sea igual al de la barra de búsqueda */
   z-index: 1000;
   background-color: white;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  /* Bordes redondeados */
+  border-radius: 10px;  /* Bordes redondeados */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 0;
-  /* Sin relleno exterior */
-  opacity: 0;
-  /* Inicialmente oculto para la animación */
-  transform: translateY(-10px);
-  /* Posición inicial para animación */
-  transition: all 0.3s ease-in-out;
-  /* Transición para la animación */
+  padding: 0;  /* Sin relleno exterior */
+  opacity: 0;  /* Inicialmente oculto para la animación */
+  transform: translateY(-10px);  /* Posición inicial para animación */
+  transition: all 0.3s ease-in-out;  /* Transición para la animación */
 }
 
 /* Estilo del panel de sugerencias */
@@ -831,83 +799,60 @@ header {
   max-height: 400px;
   overflow-y: auto;
   position: absolute;
-  top: 100%;
-  /* Alinea el panel justo debajo de la barra de búsqueda */
+  top: 100%;  /* Alinea el panel justo debajo de la barra de búsqueda */
   left: 0;
-  width: 100%;
-  /* Ajusta el ancho para que sea igual al de la barra de búsqueda */
+  width: 100%;  /* Ajusta el ancho para que sea igual al de la barra de búsqueda */
   z-index: 1000;
   background-color: white;
   border: 1px solid #ccc;
-  border-radius: 10px;
-  /* Bordes redondeados */
+  border-radius: 10px;  /* Bordes redondeados */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 0;
-  /* Sin relleno exterior */
-  opacity: 0;
-  /* Inicialmente oculto para la animación */
-  transform: translateY(-10px);
-  /* Posición inicial para animación */
-  transition: all 0.3s ease-in-out;
-  /* Transición para la animación */
+  padding: 0;  /* Sin relleno exterior */
+  opacity: 0;  /* Inicialmente oculto para la animación */
+  transform: translateY(-10px);  /* Posición inicial para animación */
+  transition: all 0.3s ease-in-out;  /* Transición para la animación */
 }
 
 #suggestions.show {
-  opacity: 1;
-  /* Visible cuando se muestra */
-  transform: translateY(0);
-  /* Posición final para la animación */
+  opacity: 1;  /* Visible cuando se muestra */
+  transform: translateY(0);  /* Posición final para la animación */
 }
 
 #suggestions li {
-  padding: 10px;
-  /* Relleno para mejorar la legibilidad */
+  padding: 10px;  /* Relleno para mejorar la legibilidad */
   cursor: pointer;
-  display: flex;
-  /* Alineación del ícono y el texto */
-  align-items: center;
-  /* Centra verticalmente el contenido */
-  border-bottom: none;
-  /* Sin líneas entre los elementos */
+  display: flex;  /* Alineación del ícono y el texto */
+  align-items: center;  /* Centra verticalmente el contenido */
+  border-bottom: none;  /* Sin líneas entre los elementos */
 }
 
 #suggestions li i {
-  margin-right: 10px;
-  /* Espacio entre el ícono y el texto */
-  color: #888;
-  /* Color gris para el ícono */
+  margin-right: 10px;  /* Espacio entre el ícono y el texto */
+  color: #888;  /* Color gris para el ícono */
 }
 
 #suggestions li:hover {
-  background-color: #f1f1f1;
-  /* Efecto hover */
+  background-color: #f1f1f1;  /* Efecto hover */
 }
 
 
 #capa-adicionar {
   position: relative;
-  background-color: #f9f9f9;
-  /* Fondo claro por defecto */
-  border: 1px solid transparent;
-  /* Borde invisible por defecto */
-  box-shadow: none;
-  /* Sin sombra por defecto */
+  background-color: #f9f9f9;  /* Fondo claro por defecto */
+  border: 1px solid transparent;  /* Borde invisible por defecto */
+  box-shadow: none;  /* Sin sombra por defecto */
   transform: scale(1);
   transition: background-color 0.5s ease, border 0.5s ease, box-shadow 0.5s ease, transform 0.3s ease;
 }
 
 #capa-adicionar.locked {
-  position: relative;
-  /* Necesario para que la capa de bloqueo se posicione correctamente */
-  opacity: 0.5;
-  /* Dar una apariencia de deshabilitado */
-  pointer-events: none;
-  /* Bloquear la interacción con todos los elementos hijos */
+  position: relative;  /* Necesario para que la capa de bloqueo se posicione correctamente */
+  opacity: 0.5;  /* Dar una apariencia de deshabilitado */
+  pointer-events: none;  /* Bloquear la interacción con todos los elementos hijos */
   background-color: rgba(200, 200, 200, 0.5);
   /* Fondo gris claro semi-transparente al estar bloqueado */
   /*filter: blur(0px);  Efecto de desenfoque en el contenido */
-  transition: opacity 0.9s ease;
-  /* Transición suave de la opacidad */
+  transition: opacity 0.9s ease;  /* Transición suave de la opacidad */
 }
 
 #capa-adicionar:not(.locked) {
@@ -931,19 +876,14 @@ header {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  /* Color semi-transparente similar a un fondo modal */
-  transition: background-color 0.5s ease;
-  /* Transición suave para el color de fondo */
-  z-index: 1;
-  /* Asegurar que esté sobre todos los elementos hijos */
-  opacity: 1;
-  /* Mostrar superposición cuando está bloqueado */
+  background-color: rgba(0, 0, 0, 0.5);  /* Color semi-transparente similar a un fondo modal */
+  transition: background-color 0.5s ease;  /* Transición suave para el color de fondo */
+  z-index: 1;  /* Asegurar que esté sobre todos los elementos hijos */
+  opacity: 1;  /* Mostrar superposición cuando está bloqueado */
 }
 
 #capa-adicionar:not(.locked)::before {
-  opacity: 0;
-  /* Ocultar la superposición cuando está desbloqueado */
+  opacity: 0;  /* Ocultar la superposición cuando está desbloqueado */
 }
 
 #capa-adicionar.locked::after {
@@ -958,17 +898,13 @@ header {
   padding: 10px 20px;
   border-radius: 5px;
   font-size: 1.2em;
-  z-index: 2;
-  /* Asegura que esté sobre todo el contenido */
-  transition: opacity 0.5s ease;
-  /* Transición suave para la opacidad del texto */
-  opacity: 1;
-  /* Mostrar cuando esté bloqueado */
+  z-index: 2;  /* Asegura que esté sobre todo el contenido */
+  transition: opacity 0.5s ease;  /* Transición suave para la opacidad del texto */
+  opacity: 1;  /* Mostrar cuando esté bloqueado */
 }
 
 #capa-adicionar:not(.locked)::after {
-  opacity: 0;
-  /* Ocultar cuando no esté bloqueado */
+  opacity: 0;  /* Ocultar cuando no esté bloqueado */
 }
 
 /* Mejora del botón Adicionar */
@@ -976,8 +912,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  /* Espacio entre el ícono y el texto */
+  gap: 5px;  /* Espacio entre el ícono y el texto */
   background-color: #007bff;
   border: none;
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -985,15 +920,12 @@ header {
 }
 
 .btn-custom-adicionar:hover {
-  background-color: #0056b3;
-  /* Color al pasar el mouse */
-  transform: scale(1.05);
-  /* Efecto de agrandamiento al pasar el mouse */
+  background-color: #0056b3;  /* Color al pasar el mouse */
+  transform: scale(1.05);  /* Efecto de agrandamiento al pasar el mouse */
 }
 
 .btn-custom-adicionar:disabled {
-  background-color: #c0c0c0;
-  /* Color cuando está deshabilitado */
+  background-color: #c0c0c0;  /* Color cuando está deshabilitado */
   cursor: not-allowed;
 }
 
@@ -1973,7 +1905,7 @@ header {
   background-color: #007bff;
   color: #fff;
   font-weight: bold;
-  border-radius: 8px;
+  border-radius: 8px 8px 0px 0px;
   overflow: visible;
   gap: 10px;  
   text-align: center;
