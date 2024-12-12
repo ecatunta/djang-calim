@@ -36,5 +36,7 @@ urlpatterns = [
     path('actualiza-fecha-vto/<int:item_id>/<str:fecha_vto>/', views.Actualiza_fecha_vencimiento, name='actualiza_fecha_vto'),    
     path('actualiza-categoriaFechaVto/<int:ingreso_id>/<int:cat_fechaVto>/', views.Actualiza_categoria_fechaVto, name='actualiza_categoria_Fechavto'),
     path('nuevo-ingreso2/<int:producto_id>/', views.Nuevo_ingreso2, name='nuevo_ingreso2'),   
+    path('nuevo-producto/', views.Nuevo_producto, name='producto'),   
+    path('obtiene-subcategoria/<int:categoria>/', views.Obtiene_subcategoria, name='obtiene_subcategoria'),   
 
 ]

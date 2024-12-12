@@ -13,6 +13,7 @@ from datetime import datetime
 from django.utils.timezone import localtime
 from django.utils.dateformat import DateFormat
 from decimal import Decimal
+from django.core.serializers import serialize
 import json
 
 # Create your views here.
@@ -1746,4 +1747,24 @@ def Actualiza_categoria_fechaVto (request, ingreso_id, cat_fechaVto):
         'success': True        
     }, status=200)
 
+def Nuevo_producto(request):
+    # El metodo es GET
+    if request.method == 'GET':
+        print ('método es: ',request.method)
+        categorias = Categoria.objects.all()        
+        return render(request,'form_producto.html', {
+                            'categorias': categorias })        
 
+def Obtiene_subcategoria(request, categoria):    
+    if request.method == 'GET':        
+        #subcategorias = Subcategoria.objects.filter(categoria=categoria)  # Filtra las subcategorías por la categoria        
+        subcategorias = Subcategoria.objects.filter(categoria=categoria).values('id', 'subcategoria_nombre')  # Incluye los campos necesarios       
+        #print('subcategoria: ',subcategorias)
+        return JsonResponse({
+            'message': 'proceso realizado correctamente.', 
+            'success': True,
+            #'subcategorias':  serialize('json', subcategorias)  # Serializa el QuerySet a JSON
+            'subcategorias':  list(subcategorias)  # Convierte el QuerySet a una lista
+        }, status=200)
+        
+        

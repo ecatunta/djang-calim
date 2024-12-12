@@ -1208,29 +1208,6 @@ header {
   /*border-left: 2px solid #d6d8db;  Borde izquierdo gris suave para separación */
 }
 
-
-/* Estilos para las columnas del cuerpo de la tabla */
-/*
-#tabla-registro-inventario tbody td:nth-child(2) {
-  background-color: #e9f7ef; 
-  border-right: 2px solid #d4efdf; 
-}
-*/
-
-/*
-#tabla-registro-inventario tbody td:nth-child(3) {
-  background-color: #f4e8e8; 
-  border-left: 2px solid #f5c6cb;
-}
-*/
-
-/*
-#tabla-registro-inventario tbody td:nth-child(3)>span {
-  background-color: #f3f3f3;
-  padding:2px 7px 2px 7px;
-}
-*/
-
 /* Estilo para la primera columna del cuerpo de la tabla */
 #tabla-registro-inventario tbody td:first-child {
   font-weight: bold;
@@ -1239,26 +1216,6 @@ header {
   /* Alineación a la derecha */
   color: #5a5858 !important;
 }
-
-/*
-@media (max-width: 768px) {
-  .modal.fade .modal-dialog {
-      transition: none; 
-  }      
-}
-*/
-
-/*
-.modal.fade .modal-dialog {
-  transition: transform 0.5s ease-out !important;  
-  transform: translateY(-25%);
-}
-  
-.modal.show .modal-dialog {
-  transform: translateY(0);
-}
-*/
-
 
 .modal-visible-back {
   z-index: 1045 !important;  /* Un nivel más bajo que el modal secundario */
@@ -1397,23 +1354,10 @@ header {
   line-height: 1.5;
 }
 
-#popup-body-i hr {
-  /*border-color: #dee2e6; */  
-  /*margin-top: 7px;*/
-  /*margin-bottom: 10px;*/
-}
-
 #popup-body-i .col-result{
   border: 0px solid red;
   padding-left: 0;
 }
-
-
-/*.position-relative {
-  display: inline-block;
-  width: 80px;
-  height: 80px;
-}*/
 
 .position-relative2 {
   position: relative;
@@ -1715,80 +1659,6 @@ header {
 }
 
 
-
-/*
-.container-custom {
-  padding: 20px;
-  margin: 0 auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-}
-
-.value-section {
-  background-color: #f8f9fa;
-  border-radius: 10px;
-  padding: 20px 15px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.2s ease, transform 0.1s ease;
-}
-
-.value-section:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  transform: translateY(-3px);
-}
-
-.value-label {
-  color: #495057;
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.input-container input {
-  width: 100%;
-  border: 1px solid #ced4da;
-  border-radius: 8px;
-  padding: 10px;
-  transition: all 0.3s ease;
-}
-
-.input-container input:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.25);
-}
-
-.current-value-label3 {
-  text-align: center;
-}
-
-.current-value-label3 .text-primary {
-  font-weight: bold;
-  font-size: 1.3rem;
-}
-
-.current-value-label3 small {
-  font-size: 0.9rem;
-  color: #6c757d;
-}
-
-.divider {
-  width: 1px;
-  background-color: #dee2e6;
-  height: 40px;
-  margin: 0 15px;
-}
-
-.d-flex.align-items-center .input-container,
-.d-flex.align-items-center .current-value-label3 {
-  flex: 1;
-}*/
-
-
 /* Contenedor Principal */
 .card-custom {
   border-radius: 12px;
@@ -1928,4 +1798,30 @@ header {
   /*background-color: #0056b3;
   color: #ffffff;
   */
+}
+
+.validation-error {
+  display: none; /*Oculto por defecto */
+  /*visibility: hidden;*/
+  opacity: 0;
+  padding: 8px;
+  background-color: rgba(255, 69, 58, 0.9); /* Rojo vibrante semitransparente */
+  color: #fff;
+  border: 1px solid rgba(255, 0, 0, 0.8); /* Bordes definidos */
+  border-radius: 5px;
+  font-size: 0.9rem; /* Texto más pequeño y limpio */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Transición para el efecto */
+  opacity: 0; /* Transparente por defecto */
+  transform: translateY(-10px); /* Posición inicial para animación */
+  position: relative;
+}
+
+
+.validation-error.show {
+  /*display: block; /* Mostrar el elemento */
+  display: flex; /* Mostrar el elemento */
+  /*visibility: visible;*/
+  opacity: 1; /* Hacerlo visible */
+  transform: translateY(0); /* Animación desde arriba */
 }

@@ -1,0 +1,110 @@
+{% extends 'inicio.html' %}
+{% load static %}
+
+
+{% block title %}
+Nuevo Producto
+{% endblock %}
+
+{% block content %}
+
+<section style="margin-top: 50px;">
+    <div class="container">
+        <div class="row">
+            <!-- Parte izquierda con el formulario -->
+            <div class="col-12 col-md-6">
+                <h2 class="mb-4">Producto</h2>
+                <form method="post" action="" class="">
+
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <p class="mb-1"><strong>Categoria</strong></p>
+                            <select id="select-categoria" class="form-select">
+                                <option value="0">-- Elegir Opción --</option>
+                                {% for categoria in categorias %}
+                                <option value="{{ categoria.id }}">{{ categoria.categoria_nombre }}</option>
+                                {% endfor %}
+                            </select>
+                            <div id="validacion-categoria" class="validation-error">Elija una categoría válida.</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-12">                            
+                            <p class="mb-1"><strong>Sub Categoria</strong></p>
+                            <select id="select-subcategoria" class="form-select">
+                                <option value="0">-- Elegir Opción --</option>
+                            </select>
+                            <div id="validacion-subcategoria" class="validation-error">Elija una subcategoría válida.
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <p class="mb-1"><strong>Descripcion corta</strong></p>
+                            <input type="text" id="desCorta" name="" class="form-control v-placeholder" placeholder="">
+                            <div id="validacion-desCorta" class="validation-error">Ingrese una descripción válida.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <p class="mb-1"><strong>Marca</strong></p>
+                            <input type="text" id="marca" name="" class="form-control v-placeholder"
+                                placeholder="Marca del producto por Ej. COCACOLA">
+                            <div id="validacion-marca" class="validation-error">Ingrese una marca válida.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <p class="mb-1"><strong>Medida</strong></p>
+                            <input type="text" id="medida" name="" class="form-control v-placeholder"
+                                placeholder="Medida del producto por Ej. 1 LITRO">
+                            <div id="validacion-medida" class="validation-error">Ingrese una medida válida.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <p class="mb-1"><strong>Nombre del producto</strong></p>                            
+                            <input type="text" id="nombre-producto" class="form-control" disabled>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <p class="mb-1"><strong>Sigla</strong></p>
+                            <input type="text" id="sigla" class="form-control" disabled>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <button type="button" id="guarda_producto" class="btn btn-primary">
+                                Registrar
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Parte derecha para otros componentes -->
+            <div class="col-12 col-md-6">
+                <h3>Contenido adicional</h3>
+                <p>Aquí puedes agregar componentes adicionales como tablas, gráficos o cualquier contenido HTML que
+                    desees.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'js/producto2.js' %}"></script>
+
+{% endblock %}
