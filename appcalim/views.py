@@ -1766,5 +1766,24 @@ def Obtiene_subcategoria(request, categoria):
             #'subcategorias':  serialize('json', subcategorias)  # Serializa el QuerySet a JSON
             'subcategorias':  list(subcategorias)  # Convierte el QuerySet a una lista
         }, status=200)
+    
+def Detalle_subcategoria(request, subcategoria):
+    # si el método es GET
+    if request.method == 'GET':
+        subcategoria = Subcategoria.objects.filter(id=subcategoria).first()
+        tipo = subcategoria.subcategoria_tipo
+        marca = subcategoria.subcategoria_marca
+        medida = subcategoria.subcategoria_medida
+        
+        return JsonResponse({'message': 'consulta exitosa.', 
+            'success': True,
+            'scategoria_tipo': tipo, 
+            'scategoria_marca': marca, 
+            'scategoria_medida': medida
+        }, status=200)
+
+
+
+
         
         

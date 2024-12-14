@@ -1801,8 +1801,8 @@ header {
 }
 
 .validation-error {
-  display: none; /*Oculto por defecto */
-  /*visibility: hidden;*/
+  /*display: none; /*Oculto por defecto */
+  visibility: hidden;
   opacity: 0;
   padding: 8px;
   background-color: rgba(255, 69, 58, 0.9); /* Rojo vibrante semitransparente */
@@ -1815,13 +1815,28 @@ header {
   opacity: 0; /* Transparente por defecto */
   transform: translateY(-10px); /* Posición inicial para animación */
   position: relative;
+  /*margin-top: 5px;*/
 }
 
 
 .validation-error.show {
   /*display: block; /* Mostrar el elemento */
-  display: flex; /* Mostrar el elemento */
-  /*visibility: visible;*/
+  /*display: flex; /* Mostrar el elemento */
+  visibility: visible;
   opacity: 1; /* Hacerlo visible */
   transform: translateY(0); /* Animación desde arriba */
+}
+
+.form-label {
+  font-size: 1.1rem;
+  color: #495057;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #007bff, #0056b3);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, #0056b3, #003d7a);
 }

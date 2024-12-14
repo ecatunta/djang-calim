@@ -12,15 +12,20 @@ class Categoria (models.Model):
     class Meta:
         db_table = 'categoria'
 
+
 class Subcategoria(models.Model):
     subcategoria_nombre = models.CharField(max_length=100)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE) 
-    subcategoria_imagen = models.ImageField(upload_to='imagenes/subcategoria/')       
+    subcategoria_imagen = models.ImageField(upload_to='imagenes/subcategoria/')
+    subcategoria_marca = models.CharField(max_length=200, null=True, blank=True)
+    subcategoria_medida = models.CharField(max_length=200, null=True, blank=True)
+    subcategoria_tipo = models.CharField(max_length=200, null=True, blank=True)     
 
     def __str__(self):
         return self.subcategoria_nombre
     class Meta:
         db_table = 'subcategoria'
+
 
 class Producto(models.Model):
     producto_id = models.BigAutoField(primary_key=True)
@@ -94,6 +99,7 @@ class Ticket(models.Model):
 
     class Meta:
         db_table = 'ticket'  # Nombre de la tabla en la base de datos
+
 
 class Venta(models.Model):
     venta_id = models.BigAutoField(primary_key=True)
@@ -170,6 +176,7 @@ class IngresoProducto(models.Model):
     class Meta:
         db_table = 'ingreso_producto'  # Nombre exacto de la tabla en la base de datos
 '''
+
 
 class Item(models.Model):
     item_id = models.BigAutoField(primary_key=True)

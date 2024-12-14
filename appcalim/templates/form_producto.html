@@ -7,13 +7,11 @@ Nuevo Producto
 {% endblock %}
 
 {% block content %}
-
-<section style="margin-top: 50px;">
+<!--<section style="margin-top: 50px;">
     <div class="container">
-        <div class="row">
-            <!-- Parte izquierda con el formulario -->
+        <div class="row">            
             <div class="col-12 col-md-6">
-                <h2 class="mb-4">Producto</h2>
+                <h3 class="mb-4">Producto</h3>
                 <form method="post" action="" class="">
 
                     <div class="row mb-4">
@@ -24,8 +22,7 @@ Nuevo Producto
                                 {% for categoria in categorias %}
                                 <option value="{{ categoria.id }}">{{ categoria.categoria_nombre }}</option>
                                 {% endfor %}
-                            </select>
-                            <div id="validacion-categoria" class="validation-error">Elija una categoría válida.</div>
+                            </select>                            
                         </div>
                     </div>
 
@@ -34,19 +31,14 @@ Nuevo Producto
                             <p class="mb-1"><strong>Sub Categoria</strong></p>
                             <select id="select-subcategoria" class="form-select">
                                 <option value="0">-- Elegir Opción --</option>
-                            </select>
-                            <div id="validacion-subcategoria" class="validation-error">Elija una subcategoría válida.
-                            </div>
+                            </select>                            
                         </div>
                     </div>
-
-
+                    
                     <div class="row mb-4">
                         <div class="col-12">
-                            <p class="mb-1"><strong>Descripcion corta</strong></p>
-                            <input type="text" id="desCorta" name="" class="form-control v-placeholder" placeholder="">
-                            <div id="validacion-desCorta" class="validation-error">Ingrese una descripción válida.
-                            </div>
+                            <p class="mb-1"><strong>Descripción Corta</strong></p>
+                            <input type="text" id="desCorta" name="" class="form-control v-placeholder" placeholder="Escribe una descripción breve del producto">                            
                         </div>
                     </div>
 
@@ -54,9 +46,7 @@ Nuevo Producto
                         <div class="col-12">
                             <p class="mb-1"><strong>Marca</strong></p>
                             <input type="text" id="marca" name="" class="form-control v-placeholder"
-                                placeholder="Marca del producto por Ej. COCACOLA">
-                            <div id="validacion-marca" class="validation-error">Ingrese una marca válida.
-                            </div>
+                                placeholder="Indica la marca del producto">                            
                         </div>
                     </div>
 
@@ -64,11 +54,9 @@ Nuevo Producto
                         <div class="col-12">
                             <p class="mb-1"><strong>Medida</strong></p>
                             <input type="text" id="medida" name="" class="form-control v-placeholder"
-                                placeholder="Medida del producto por Ej. 1 LITRO">
-                            <div id="validacion-medida" class="validation-error">Ingrese una medida válida.
-                            </div>
+                                placeholder="Especifica la medida del producto">                           
                         </div>
-                    </div>
+                    </div>                    
 
                     <div class="row mb-4">
                         <div class="col-12">
@@ -89,23 +77,231 @@ Nuevo Producto
                             <button type="button" id="guarda_producto" class="btn btn-primary">
                                 Registrar
                             </button>
+                            <div id="validacion-form-producto" class="validation-error">Complete los campos que son requeridos.</div>
                         </div>
                     </div>
 
                 </form>
             </div>
-
-            <!-- Parte derecha para otros componentes -->
-            <div class="col-12 col-md-6">
-                <!--
+            
+            <div class="col-12 col-md-6">                
                 <h3>Contenido adicional</h3>
                 <p>Aquí puedes agregar componentes adicionales como tablas, gráficos o cualquier contenido HTML que
-                    desees.</p>
-                -->
+                    desees.</p>                
+            </div>
+        </div>
+    </div>
+</section>-->
+
+<!--
+<section style="margin-top: 50px;">
+    <div class="container">
+        <div class="row g-4">            
+            <div class="col-12 col-lg-6">
+                <h3 class="mb-4 text-primary">Registro de Producto</h3>
+                <form method="post" action="" novalidate>
+                    
+                    <div class="mb-4">
+                        <label for="select-categoria" class="form-label fw-bold">
+                            <i class="bi bi-list"></i> Categoría
+                        </label>
+                        <select id="select-categoria" class="form-select">
+                            <option value="0">-- Elegir Opción --</option>
+                            {% for categoria in categorias %}
+                            <option value="{{ categoria.id }}">{{ categoria.categoria_nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="select-subcategoria" class="form-label fw-bold">
+                            <i class="bi bi-list-nested"></i> Subcategoría
+                        </label>
+                        <select id="select-subcategoria" class="form-select">
+                            <option value="0">-- Elegir Opción --</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="desCorta" class="form-label fw-bold">
+                            <i class="bi bi-card-text"></i> Descripción Corta
+                        </label>
+                        <input type="text" id="desCorta" name="descripcion" class="form-control"
+                            placeholder="Ejemplo: Leche normal, queso, mantequilla">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="marca" class="form-label fw-bold">
+                            <i class="bi bi-tag"></i> Marca
+                        </label>
+                        <input type="text" id="marca" name="marca" class="form-control"
+                            placeholder="Ejemplo: PIL, KLIM, REGIA">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="medida" class="form-label fw-bold">
+                            <i class="bi bi-rulers"></i> Medida
+                        </label>
+                        <input type="text" id="medida" name="medida" class="form-control"
+                            placeholder="Ejemplo: 946 ml, 850 gr">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="nombre-producto" class="form-label fw-bold">
+                            <i class="bi bi-box"></i> Nombre del Producto
+                        </label>
+                        <input type="text" id="nombre-producto" class="form-control" disabled>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="sigla" class="form-label fw-bold">
+                            <i class="bi bi-signpost"></i> Sigla
+                        </label>
+                        <input type="text" id="sigla" class="form-control" disabled>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="button" id="guarda_producto" class="btn btn-primary btn-lg">
+                            <i class="bi bi-save"></i> Registrar Producto
+                        </button>
+                    </div>
+                    
+                    <div id="validacion-form-producto" class="validation-error" role="alert">
+                        <i class="bi bi-exclamation-circle"></i> Complete los campos requeridos.
+                    </div>
+                </form>
+            </div>
+            
+            <div class="col-12 col-lg-6">
+                <h3 class="text-secondary">Contenido adicional</h3>
+                <p class="text-muted">
+                    Aquí puedes incluir información extra como imágenes, gráficos o una descripción del producto.
+                </p>
+                
+                <div class="p-3 bg-light rounded shadow-sm">
+                    <h5 class="text-primary">Ayuda rápida</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Selecciona una categoría.</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Completa todos los campos.</li>
+                        <li><i class="bi bi-check-circle-fill text-success"></i> Verifica antes de registrar.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>-->
+
+<section style="margin-top: 50px;">
+    <div class="container">
+        <div class="row">
+            <!-- Parte izquierda con el formulario -->
+            <div class="col-12 col-md-6">
+                <div class="p-3 border rounded shadow-sm bg-light">
+                    <!--<h2 class="text-primary mb-3 text-center">Registro de Producto</h2>-->
+                    <h2 class="text-primary mb-4 mt-2 text-center">PRODUCTO</h2>
+                    <!--<p class="text-muted text-center mb-4">Por favor, completa la información requerida para registrar un producto en el sistema.</p>-->
+                    
+                    <form method="post" action="">
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label for="select-categoria" class="form-label"><strong>Categoría</strong></label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-list"></i></span>
+                                    <select id="select-categoria" class="form-select">
+                                        <option value="0">-- Elegir Opción --</option>
+                                        {% for categoria in categorias %}
+                                        <option value="{{ categoria.id }}">{{ categoria.categoria_nombre }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label for="select-subcategoria" class="form-label"><strong>Subcategoría</strong></label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-list-nested"></i></span>
+                                    <select id="select-subcategoria" class="form-select">
+                                        <option value="0">-- Elegir Opción --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label for="desCorta" class="form-label"><strong>Descripción Corta</strong></label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                                    <input type="text" id="desCorta" name="" class="form-control" placeholder="Escribe una descripción breve del producto">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label for="marca" class="form-label"><strong>Marca</strong></label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-tag"></i></span>
+                                    <input type="text" id="marca" name="" class="form-control" placeholder="Indica la marca del producto">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label for="medida" class="form-label"><strong>Medida</strong></label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-rulers"></i></span>
+                                    <input type="text" id="medida" name="" class="form-control" placeholder="Especifica la medida del producto">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <label for="nombre-producto" class="form-label"><strong>Nombre del Producto</strong></label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-box"></i></span>
+                                    <input type="text" id="nombre-producto" class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-1">
+                            <div class="col-12">
+                                <label for="sigla" class="form-label"><strong>Sigla</strong></label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-signpost"></i></span>
+                                    <input type="text" id="sigla" class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-12 text-center">
+                                <div id="validacion-form-producto" class="validation-error mt-2 mb-2">Complete los campos que son requeridos.</div>
+                                <button type="button" id="guarda_producto" class="btn btn-primary px-4">
+                                    Registrar
+                                </button>                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Parte derecha para otros componentes -->
+            <div class="col-12 col-md-6 mt-4 mt-md-0">
+                <div class="p-3 border rounded shadow-sm bg-white">
+                    <h3 class="text-secondary">Contenido adicional</h3>
+                    <p>Aquí puedes agregar componentes adicionales como tablas, gráficos o cualquier contenido HTML que desees.</p>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
 
 <script src="{% static 'js/producto2.js' %}"></script>
 
