@@ -1579,6 +1579,12 @@ header {
       display: block; /* Mover el total a la siguiente línea */
       margin-top: 0.3rem;
   }
+  #contenido_principal{
+    margin-top: 15px !important;
+  }
+}
+#contenido_principal{
+  margin-top: 50px;
 }
 
 /* Opcional: Línea decorativa debajo del título */
