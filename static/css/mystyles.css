@@ -1800,11 +1800,6 @@ header {
   /*background-color: black;*/
 }
 
-.button-group .btn:hover {
-  /*background-color: #0056b3;
-  color: #ffffff;
-  */
-}
 
 .validation-error {
   /*display: none; /*Oculto por defecto */
@@ -1838,6 +1833,7 @@ header {
   color: #495057;
 }
 
+/*
 .btn-primary {
   background: linear-gradient(45deg, #007bff, #0056b3);
   border: none;
@@ -1846,3 +1842,4 @@ header {
 .btn-primary:hover {
   background: linear-gradient(45deg, #0056b3, #003d7a);
 }
+  */

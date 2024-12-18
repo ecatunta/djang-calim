@@ -7,100 +7,14 @@ Nuevo Producto
 {% endblock %}
 
 {% block content %}
-<!--<section style="margin-top: 50px;">
-    <div class="container">
-        <div class="row">            
-            <div class="col-12 col-md-6">
-                <h3 class="mb-4">Producto</h3>
-                <form method="post" action="" class="">
-
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <p class="mb-1"><strong>Categoria</strong></p>
-                            <select id="select-categoria" class="form-select">
-                                <option value="0">-- Elegir Opción --</option>
-                                {% for categoria in categorias %}
-                                <option value="{{ categoria.id }}">{{ categoria.categoria_nombre }}</option>
-                                {% endfor %}
-                            </select>                            
-                        </div>
-                    </div>
-
-                    <div class="row mb-4">
-                        <div class="col-12">                            
-                            <p class="mb-1"><strong>Sub Categoria</strong></p>
-                            <select id="select-subcategoria" class="form-select">
-                                <option value="0">-- Elegir Opción --</option>
-                            </select>                            
-                        </div>
-                    </div>
-                    
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <p class="mb-1"><strong>Descripción Corta</strong></p>
-                            <input type="text" id="desCorta" name="" class="form-control v-placeholder" placeholder="Escribe una descripción breve del producto">                            
-                        </div>
-                    </div>
-
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <p class="mb-1"><strong>Marca</strong></p>
-                            <input type="text" id="marca" name="" class="form-control v-placeholder"
-                                placeholder="Indica la marca del producto">                            
-                        </div>
-                    </div>
-
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <p class="mb-1"><strong>Medida</strong></p>
-                            <input type="text" id="medida" name="" class="form-control v-placeholder"
-                                placeholder="Especifica la medida del producto">                           
-                        </div>
-                    </div>                    
-
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <p class="mb-1"><strong>Nombre del producto</strong></p>                            
-                            <input type="text" id="nombre-producto" class="form-control" disabled>
-                        </div>
-                    </div>
-
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <p class="mb-1"><strong>Sigla</strong></p>
-                            <input type="text" id="sigla" class="form-control" disabled>
-                        </div>
-                    </div>
-
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <button type="button" id="guarda_producto" class="btn btn-primary">
-                                Registrar
-                            </button>
-                            <div id="validacion-form-producto" class="validation-error">Complete los campos que son requeridos.</div>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-            
-            <div class="col-12 col-md-6">                
-                <h3>Contenido adicional</h3>
-                <p>Aquí puedes agregar componentes adicionales como tablas, gráficos o cualquier contenido HTML que
-                    desees.</p>                
-            </div>
-        </div>
-    </div>
-</section>-->
-
 
 <section id="contenido_principal">
     <div class="container">
         <div class="row g-4">
             <div class="col-12 col-lg-6">
                 <div class="p-3 border rounded shadow-sm bg-light">
-                    
-                    <h2 class="text-primary mb-4 mt-2 text-center">PRODUCTO</h2>                        
+
+                    <h2 class="text-primary mb-4 mt-2 text-center">PRODUCTO</h2>
                     <form method="post" action="" novalidate>
                         <div class="mb-4">
                             <label for="select-categoria" class="form-label fw-bold">
@@ -128,7 +42,7 @@ Nuevo Producto
                                 <i class="bi bi-card-text"></i> Descripción Corta
                             </label>
                             <input type="text" id="desCorta" name="descripcion" class="form-control"
-                                placeholder="Ejemplo: Leche normal, queso, mantequilla">
+                                placeholder="Escribe una descripción breve del producto" autocomplete="off">
                         </div>
 
                         <div class="mb-4">
@@ -136,7 +50,7 @@ Nuevo Producto
                                 <i class="bi bi-tag"></i> Marca
                             </label>
                             <input type="text" id="marca" name="marca" class="form-control"
-                                placeholder="Ejemplo: PIL, KLIM, REGIA">
+                                placeholder="Indica la marca del producto" autocomplete="off">
                         </div>
 
                         <div class="mb-4">
@@ -144,7 +58,7 @@ Nuevo Producto
                                 <i class="bi bi-rulers"></i> Medida
                             </label>
                             <input type="text" id="medida" name="medida" class="form-control"
-                                placeholder="Ejemplo: 946 ml, 850 gr">
+                                placeholder="Especifica la medida del producto" autocomplete="off">
                         </div>
 
                         <div class="mb-4">
@@ -172,10 +86,11 @@ Nuevo Producto
 
                         <div class="row mb-1">
                             <div class="col-12 text-center">
-                                <div id="validacion-form-producto" class="validation-error mt-2 mb-2">Complete los campos que son requeridos.</div>
+                                <div id="validacion-form-producto" class="validation-error mt-2 mb-2">Complete los
+                                    campos que son requeridos.</div>
                                 <button type="button" id="guarda_producto" class="btn btn-primary px-4">
-                                    Registrar
-                                </button>                                
+                                    Validar
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -183,6 +98,7 @@ Nuevo Producto
             </div>
 
             <div class="col-12 col-lg-6">
+                <!--
                 <h3 class="text-secondary">Contenido adicional</h3>
                 <p class="text-muted">
                     Aquí puedes incluir información extra como imágenes, gráficos o una descripción del producto.
@@ -196,123 +112,46 @@ Nuevo Producto
                         <li><i class="bi bi-check-circle-fill text-success"></i> Verifica antes de registrar.</li>
                     </ul>
                 </div>
+            -->
             </div>
         </div>
     </div>
 </section>
 
 <!--
-<section id="contenido_principal">
-    <div class="container">
-        <div class="row">
-            
-            <div class="col-12 col-md-6">
-                <div class="p-3 border rounded shadow-sm bg-light">                    
-                    <h2 class="text-primary mb-4 mt-2 text-center">PRODUCTO</h2>                   
-                    
-                    <form method="post" action="">
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <label for="select-categoria" class="form-label"><strong>Categoría</strong></label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-list"></i></span>
-                                    <select id="select-categoria" class="form-select">
-                                        <option value="0">-- Elegir Opción --</option>
-                                        {% for categoria in categorias %}
-                                        <option value="{{ categoria.id }}">{{ categoria.categoria_nombre }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <label for="select-subcategoria" class="form-label"><strong>Subcategoría</strong></label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-list-nested"></i></span>
-                                    <select id="select-subcategoria" class="form-select">
-                                        <option value="0">-- Elegir Opción --</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <label for="desCorta" class="form-label"><strong>Descripción Corta</strong></label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-card-text"></i></span>
-                                    <input type="text" id="desCorta" name="" class="form-control" placeholder="Escribe una descripción breve del producto">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <label for="marca" class="form-label"><strong>Marca</strong></label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-tag"></i></span>
-                                    <input type="text" id="marca" name="" class="form-control" placeholder="Indica la marca del producto">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <label for="medida" class="form-label"><strong>Medida</strong></label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-rulers"></i></span>
-                                    <input type="text" id="medida" name="" class="form-control" placeholder="Especifica la medida del producto">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <label for="nombre-producto" class="form-label"><strong>Nombre del Producto</strong></label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-box"></i></span>
-                                    <input type="text" id="nombre-producto" class="form-control" disabled>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-1">
-                            <div class="col-12">
-                                <label for="sigla" class="form-label"><strong>Sigla</strong></label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-signpost"></i></span>
-                                    <input type="text" id="sigla" class="form-control" disabled>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-2">
-                            <div class="col-12 text-center">
-                                <div id="validacion-form-producto" class="validation-error mt-2 mb-2">Complete los campos que son requeridos.</div>
-                                <button type="button" id="guarda_producto" class="btn btn-primary px-4">
-                                    Registrar
-                                </button>                                
-                            </div>
-                        </div>
-                    </form>
+<div class="custom-popup-overlay-b" id="popupOverlay-b" style="display: none;">
+    <div class="custom-popup-b">
+        <div id="popup-header-i" class="custom-popup-header">
+            <div class="custom-popup-header-bg p-2 d-flex align-items-center">
+                <div class="custom-icon-container me-3">
+                    <i class="bi bi-info-circle-fill"></i>
                 </div>
-            </div>
-
-            
-            <div class="col-12 col-md-6 mt-4 mt-md-0">
-                <div class="p-3 border rounded shadow-sm bg-white">
-                    <h3 class="text-secondary">Contenido adicional</h3>
-                    <p>Aquí puedes agregar componentes adicionales como tablas, gráficos o cualquier contenido HTML que desees.</p>
-                </div>
+                <h5 class="custom-popup-title mb-0 flex-grow-1">Aviso</h5>
             </div>
         </div>
+        <div id="popup-body-i" class="custom-popup-body p-3">
+            <p><b>400 unidades</b> del producto <b>“PAÑALES BEBITUS DESECHABLE TALLA XXG”</b> se añadirán al inventario.
+                El precio unitario será <b>Bs. 54</b></p>
+            <p>Los productos no tienen fecha de vencimiento.</p>
+            <div class="custom-confirmation-message text-end mt-1">
+                ¿Desea continuar?
+            </div>
+        </div>
+        <div id="popup-footer-i" class="custom-popup-footer text-end p-2">
+            <button type="button" class="btn btn-outline-secondary me-2" id="popup-cancelar">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="popup-aceptar">Si, Acepto</button>
+        </div>
+        <div id="loading-overlay" class="custom-loading-overlay d-none">
+            <div class="spinner-border custom-spinner mb-3" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
+            <span>Cargando...</span>
+        </div>
     </div>
-</section>
+</div>
 -->
 
-
+<script src="{% static 'js/cookie.js' %}"></script>
 <script src="{% static 'js/producto2.js' %}"></script>
 
 {% endblock %}

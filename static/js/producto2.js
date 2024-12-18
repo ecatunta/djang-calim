@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const marca = document.getElementById('marca');
     const medida = document.getElementById('medida');
     const producto = document.getElementById('nombre-producto');
-    const guardaProducto = document.getElementById('guarda_producto');
+    const registraProducto = document.getElementById('guarda_producto');
 
     const validacionCategoria = document.getElementById('validacion-categoria');
     const validacionSubCategoria = document.getElementById('validacion-subcategoria');
@@ -90,48 +90,37 @@ document.addEventListener('DOMContentLoaded', function () {
         medida.value = this.value.toUpperCase();
     });
 
-    guardaProducto.addEventListener('click', function () {
+
+    registraProducto.addEventListener('click', function () {
         let validacion = 0;
         producto.value == ''
-        console.log('sin nombre para el producto');
         const nombre_producto = `${desCorta.value} ${marca.value} ${medida.value}`.trim();
         producto.value = nombre_producto;
-
         const validacionFormProducto = document.getElementById('validacion-form-producto');
 
         // Validación de categoría
         if (selectCategoria.value == "0") {
             selectCategoria.classList.add('is-invalid');
             validacion = validacion + 1;
-            //validacionCategoria.classList.add('show');
-            //setTimeout(() => validacionCategoria.classList.remove('show'), 5000); // Ocultar después de 5s            
         }
 
         // Validación de subcategoría
         if (selectSubCategoria.value == "0") {
             selectSubCategoria.classList.add('is-invalid');
             validacion = validacion + 1;
-            //validacionSubCategoria.classList.add('show');
-            //setTimeout(() => validacionSubCategoria.classList.remove('show'), 5000); // Ocultar después de 5s            
         }
 
         if (desCorta.value == "") {
             desCorta.classList.add('is-invalid');
             validacion = validacion + 1;
-            //validacionDesCorta.classList.add('show');
-            //setTimeout(() => validacionDesCorta.classList.remove('show'), 5000); // Ocultar después de 5s            
         }
 
         if (marca.value == "") {
             marca.classList.add('is-invalid');
             validacion = validacion + 1;
-            //validacionMarca.classList.add('show');
-            //setTimeout(() => validacionMarca.classList.remove('show'), 5000); // Ocultar después de 5s            
         }
 
         if (medida.value == "") {
-            //validacionMedida.classList.add('show');
-            //setTimeout(() => validacionMedida.classList.remove('show'), 5000); // Ocultar después de 5s            
             medida.classList.add('is-invalid');
             validacion = validacion + 1;
         }
@@ -149,9 +138,111 @@ document.addEventListener('DOMContentLoaded', function () {
                 medida.classList.remove('is-invalid');
 
             }, 5000); // 5 segundos
+            //return;
         }
+
+        // creación del popup (ventana modal)
+        const overlayDiv = document.createElement('div');
+        overlayDiv.classList.add('custom-popup-overlay');
+
+        const popupDiv = document.createElement('div');
+        popupDiv.classList.add('custom-popup');
+
+        popupDiv.innerHTML = `                       
+                <div id="popup-header-i" class="custom-popup-header">
+                    <div class="custom-popup-header-bg p-2 d-flex align-items-center">
+                        <div class="custom-icon-container me-3">
+                            <i class="bi bi-info-circle-fill"></i>
+                        </div>                
+                        <h5 class="custom-popup-title mb-0 flex-grow-1">Aviso</h5>
+                    </div>
+                </div>
+        
+                <div id="popup-body-i" class="custom-popup-body p-3">           
+        
+                </div>     
+                
+                <div id="popup-footer-i" class="custom-popup-footer text-end p-2">
+                    <button id="popup-cancelar" type="button" class="btn btn-outline-secondary me-2">Cancelar</button>
+                    <!--<button type="button" class="btn btn-primary" id="popup-aceptar">Si, Acepto</button>-->
+                </div>
+           
+                <div id="loading-overlay-i" class="custom-loading-overlay">
+                    <div class="spinner-border custom-spinner mb-3" role="status">                
+                    </div>
+                    <span id="loading-overlay-i-text">Procesando ...</span>
+                </div>        
+                `;
+
+        overlayDiv.appendChild(popupDiv); // Agregar el popup al overlay y luego al body  
+        document.body.appendChild(overlayDiv);
+        const popupBody = document.getElementById('popup-body-i');
+        const loadingOverlay = document.getElementById('loading-overlay-i');
+
+        // enviar la solicitud Ajax al backend        
+        fetch(`/registrar-producto/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken // Token CSRF para seguridad
+            },
+            body: JSON.stringify({
+                nombre_producto: nombre_producto,
+                marca: marca.value
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log(data)
+                    loadingOverlay.classList.add('d-none');
+                    popupBody.innerHTML = `
+                        <p class="text-center">${nombre_producto}</p>
+                    `;
+                    data.coincidencias.forEach(coincidencia => {
+                        // Crear el contenedor de cada fila
+                        const row = document.createElement('div');
+                        row.classList.add('row', 'mb-2'); // Clases de Bootstrap para diseño de filas y márgenes
+
+                        // Columna 1: Nombre del producto
+                        const colNombre = document.createElement('div');
+                        colNombre.classList.add('col-8'); // Ancho de la columna ajustado (8/12)
+                        colNombre.textContent = coincidencia.nombre_producto; // Agregar el nombre del producto
+
+                        // Columna 2: Botón de actualizar
+                        const colBoton = document.createElement('div');
+                        colBoton.classList.add('col-4', 'text-end'); // Ancho de la columna ajustado (4/12) y alineado a la derecha
+
+                        const botonActualizar = document.createElement('button');
+                        botonActualizar.classList.add('btn', 'btn-primary', 'btn-sm'); // Clases Bootstrap para estilo del botón
+                        botonActualizar.textContent = 'Actualizar';
+                        botonActualizar.addEventListener('click', function () {
+                            // Lógica de actualización aquí
+                            console.log(`Actualizar: ${coincidencia.nombre_producto}`);
+                            alert(`Actualizar: ${coincidencia.nombre_producto}`);
+                        });
+
+                        colBoton.appendChild(botonActualizar); // Agregar botón a la columna
+
+                        // Agregar columnas a la fila
+                        row.appendChild(colNombre);
+                        row.appendChild(colBoton);
+
+                        // Agregar fila al cuerpo del popup
+                        popupBody.appendChild(row);
+
+                    });
+
+                    // Manejar el clic en el botón "Cancelar" dentro del popup
+                    document.getElementById('popup-cancelar').addEventListener('click', function () {
+                        overlayDiv.remove(); // Eliminar la alerta si el usuario cancela
+                    });
+
+                }
+            })
+            .catch(error => {
+                console.error('error en la solicitud:', error);
+            });
 
     });
 });
-
-

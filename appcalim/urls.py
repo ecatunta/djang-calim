@@ -39,4 +39,5 @@ urlpatterns = [
     path('nuevo-producto/', views.Nuevo_producto, name='producto'),   
     path('obtiene-subcategoria/<int:categoria>/', views.Obtiene_subcategoria, name='obtiene_subcategoria'),   
     path('detalle-subcategoria/<int:subcategoria>/', views.Detalle_subcategoria, name='detalle_subcategoria'),   
+    path('registrar-producto/', views.registra_producto, name='registra_producto'),   
 ]

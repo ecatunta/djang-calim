@@ -1356,8 +1356,6 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
         */
 
-
-
         // Manejar el clic en el botón "Cancelar" dentro del popup
         document.getElementById('popup-cancelar').addEventListener('click', function () {
             overlayDiv.remove(); // Eliminar la alerta si el usuario cancela

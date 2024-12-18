@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.apps import apps
 from django.db import connection, models, transaction, DatabaseError
 from django.utils import timezone
-from django.db.models import ForeignKey, OneToOneField, ManyToManyField, Sum, Max
+from django.db.models import ForeignKey, OneToOneField, ManyToManyField, Sum, Max, Q
 from .models import Categoria, Subcategoria, Producto, Higiene, ParametroAtributo, Venta, Ticket, Ingreso, Inventario, InventarioIngreso, InventarioVenta, Item
 from .forms import ParametroAtributoForm, VentaForm, IngresoForm
 from django.core.paginator import Paginator
@@ -1783,7 +1783,186 @@ def Detalle_subcategoria(request, subcategoria):
         }, status=200)
 
 
+def registra_producto(request):
+    if request.method == 'POST':
+        print(request.method)
+        data = json.loads(request.body)
+        nombre_producto = data.get('nombre_producto')
+        marca = data.get('marca')
+        #coincidencias = obtiene_coincidencias_nproducto2(nombre_producto)
+        productos = obtiene_coincidencias_nproducto(nombre_producto)
+        
+        lista = []
+        print('\n** coincidencias **')
+        for producto in productos:            
+            #lista.append(producto)
+            print(producto.producto_nombre)
+            lista.append({
+                'nombre_producto': producto.producto_nombre
+            })
+        
+        return JsonResponse({
+            'message': 'proceso realizado correctamente.', 
+            'success': True,                
+            'coincidencias':  lista
+        }, status=200)      
+            
+
+def obtiene_coincidencias_nproducto(texto):
+    print('Texto:', texto)
+    
+    # 1. Separar el texto en palabras clave
+    palabras_clave = texto.split()
+    
+    # 2. Generar fragmentos de cada palabra clave
+    fragmentos = []  # Usamos una lista para preservar el orden
+    for palabra in palabras_clave:
+        print('palabra: ', palabra)
+        for i in range(len(palabra)):            
+            frag = palabra[:i + 2]  # Substring progresivo desde el inicio
+            print(f'{i} -> frag: ', frag)
+            if frag not in fragmentos:  # Evitar duplicados
+                fragmentos.append(frag)
+    
+    print('Fragmentos generados:', fragmentos)
+    
+    # 3. Aplicar filtros de forma recursiva
+    universo_actual = Producto.objects.all()  # Universo inicial (todos los productos)
+    for frag in fragmentos:
+        print(f'Filtrando por fragmento: {frag}')
+        nuevos_resultados = universo_actual.filter(producto_nombre__icontains=frag).distinct()
+        
+        if nuevos_resultados.exists():
+            universo_actual = nuevos_resultados
+            print(f'Resultados tras aplicar "{frag}": {[r.producto_nombre for r in universo_actual]}')
+        else:
+            print(f'Sin resultados tras aplicar "{frag}". Conservando el universo actual.')
+    
+    # 4. Retornar los resultados finales
+    return universo_actual
+
+'''
+def obtiene_coincidencias_nproducto(nombre_producto):
+    productos = Producto.objects.filter(producto_nombre__icontains=nombre_producto)
+    return productos
+
+def obtiene_coincidencias_nproducto2(marca):
+    print('marca: ',marca)
+    productos = Producto.objects.filter(producto_nombre__icontains=marca)
+    return productos
+
+def obtiene_coincidencias_nproducto3(texto):
+    print('texto: ', texto)
+    # Dividir la marca en fragmentos
+    #fragmentos = [marca[i:j] for i in range(len(marca)) for j in range(i + 1, len(marca) + 1)]
+    fragmentos = [texto[i:j] for i in range(len(texto)) for j in range(i + 5, len(texto) + 1)]  # Mínimo 3 caracteres
+
+    # Crear un filtro que busque coincidencias parciales
+    filtro = Q()
+    print('\n** fragmentos **')
+    for fragmento in fragmentos:
+        print ('frag: ' ,fragmento)
+        filtro |= Q(producto_nombre__icontains=fragmento)
+
+    # Filtrar productos que coincidan con algún fragmento de la marca
+    productos = Producto.objects.filter(filtro).distinct()
+    return productos
 
 
+def obtiene_coincidencias_nproducto4(texto):
+    print('texto: ', texto)
+    # 1. Separar el texto en palabras clave
+    palabras_clave = texto.split()
+    
+    # 2. Generar fragmentos de cada palabra clave
+    fragmentos = set()
+    for palabra in palabras_clave:
+        print('palabra: ',palabra)
+        for i in range(len(palabra)):
+            print('\t palabra ',i,': ',palabra)
+            #print('valor de i' , i)
+            fragmentos.add(palabra[:i + 3])  # Substring progresivo desde el inicio
+            print('\t\t palabra: ', palabra[:i + 3])
+            print('\t\t\t fragmento: ', fragmentos)
+    
+    print('fragmentos: ',fragmentos)
+    # 3. Construir el filtro dinámico
+    q_objects = Q()  # Usamos Q para construir consultas OR
+    for frag in fragmentos:
+        print('frag: ',frag)
+        q_objects |= Q(producto_nombre__icontains=frag)
+    
+    # 4. Obtener resultados únicos de la base de datos
+    resultados = Producto.objects.filter(q_objects).distinct()
+    
+    # 5. Ordenar los resultados por relevancia (opcional)
+    resultados = sorted(resultados, key=lambda x: texto in x.producto_nombre, reverse=True)
+    
+    return resultados
+
+
+def obtiene_coincidencias_nproducto5(texto):
+    print('texto: ', texto)
+    
+    # 1. Separar el texto en palabras clave
+    palabras_clave = texto.split()
+    
+    # 2. Generar fragmentos de cada palabra clave
+    fragmentos = []  # Usamos una lista para preservar el orden
+    for palabra in palabras_clave:
+        print('palabra: ', palabra)
+        for i in range(len(palabra)):
+            frag = palabra[:i + 2]  # Substring progresivo desde el inicio
+            if frag not in fragmentos:  # Evitar duplicados
+                fragmentos.append(frag)
+                print('\t palabra: ', frag)
+                print('\t\t fragmentos: ', fragmentos)
+
+    print('fragmentos: ', fragmentos)
+    
+    # 3. Construir el filtro dinámico
+    q_objects = Q()  # Usamos Q para construir consultas OR
+    for frag in fragmentos:
+        print('frag: ', frag)
+        q_objects |= Q(producto_nombre__icontains=frag)
+    
+    # 4. Obtener resultados únicos de la base de datos
+    resultados = Producto.objects.filter(q_objects).distinct()
+    
+    # 5. Ordenar los resultados por relevancia (opcional)
+    resultados = sorted(resultados, key=lambda x: texto in x.producto_nombre, reverse=True)
+    
+    return resultados
+
+
+def obtiene_coincidencias_nproducto6(texto):
+    print('Texto:', texto)
+    
+    # 1. Separar el texto en palabras clave
+    palabras_clave = texto.split()
+    
+    # 2. Generar fragmentos de cada palabra clave
+    fragmentos = []  # Usamos una lista para preservar el orden
+    for palabra in palabras_clave:
+        for i in range(len(palabra)):
+            frag = palabra[:i + 2]  # Substring progresivo desde el inicio
+            if frag not in fragmentos:  # Evitar duplicados
+                fragmentos.append(frag)
+    
+    print('Fragmentos generados:', fragmentos)
+    
+    # 3. Aplicar filtros de forma recursiva
+    resultados = Producto.objects.all()  # Universo inicial (todos los productos)
+    for frag in fragmentos:
+        print(f'Filtrando por fragmento: {frag}')
+        resultados = resultados.filter(producto_nombre__icontains=frag).distinct()
+        print(f'Resultados tras aplicar "{frag}": {[r.producto_nombre for r in resultados]}')
         
-        
+        # Si en algún momento no hay resultados, podemos salir del bucle
+        if not resultados.exists():
+            print(f'Sin resultados tras aplicar el fragmento "{frag}". Deteniendo.')
+            break
+    
+    # 4. Retornar los resultados finales
+    return resultados
+'''
