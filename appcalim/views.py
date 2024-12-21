@@ -1788,19 +1788,39 @@ def registra_producto(request):
         print(request.method)
         data = json.loads(request.body)
         nombre_producto = data.get('nombre_producto')
+        desCorta = data.get('desCorta')
         marca = data.get('marca')
+        medida = data.get('medida')
+
         #coincidencias = obtiene_coincidencias_nproducto2(nombre_producto)
-        productos = obtiene_coincidencias_nproducto(nombre_producto)
-        
+        #productos = obtiene_coincidencias_nproducto_1(marca, nombre_producto)
+        #productos = obtiene_coincidencias_nproducto_3(nombre_producto)        
+
+        #productos = obtiene_coincidencias_nproducto_con_puntuacion(nombre_producto)
+        resultados = obtiene_coincidencias_nproducto_con_puntuacion3(desCorta, marca, medida)
         lista = []
         print('\n** coincidencias **')
+        '''
         for producto in productos:            
             #lista.append(producto)
             print(producto.producto_nombre)
             lista.append({
                 'nombre_producto': producto.producto_nombre
             })
-        
+        '''
+        for resultado in resultados:
+            producto = resultado['producto']
+            puntuacion = resultado['puntuacion']
+            detalles = resultado['detalles']
+            lista.append({
+                'nombre_producto': producto.producto_nombre,
+                'puntuacion': puntuacion
+            })
+    
+            print(f"Producto: {producto.producto_nombre}")
+            print(f"Puntuación: {puntuacion}")
+            print(f"Detalles: {detalles}")
+
         return JsonResponse({
             'message': 'proceso realizado correctamente.', 
             'success': True,                
@@ -1841,128 +1861,347 @@ def obtiene_coincidencias_nproducto(texto):
     # 4. Retornar los resultados finales
     return universo_actual
 
-'''
-def obtiene_coincidencias_nproducto(nombre_producto):
-    productos = Producto.objects.filter(producto_nombre__icontains=nombre_producto)
-    return productos
+def obtiene_coincidencias_nproducto_1(marca, texto):
+    print('Marca:', marca)
+    print('Texto:', texto)
 
-def obtiene_coincidencias_nproducto2(marca):
-    print('marca: ',marca)
-    productos = Producto.objects.filter(producto_nombre__icontains=marca)
-    return productos
-
-def obtiene_coincidencias_nproducto3(texto):
-    print('texto: ', texto)
-    # Dividir la marca en fragmentos
-    #fragmentos = [marca[i:j] for i in range(len(marca)) for j in range(i + 1, len(marca) + 1)]
-    fragmentos = [texto[i:j] for i in range(len(texto)) for j in range(i + 5, len(texto) + 1)]  # Mínimo 3 caracteres
-
-    # Crear un filtro que busque coincidencias parciales
-    filtro = Q()
-    print('\n** fragmentos **')
-    for fragmento in fragmentos:
-        print ('frag: ' ,fragmento)
-        filtro |= Q(producto_nombre__icontains=fragmento)
-
-    # Filtrar productos que coincidan con algún fragmento de la marca
-    productos = Producto.objects.filter(filtro).distinct()
-    return productos
-
-
-def obtiene_coincidencias_nproducto4(texto):
-    print('texto: ', texto)
-    # 1. Separar el texto en palabras clave
-    palabras_clave = texto.split()
+    # Genera el fragmento para la marca
+    fragmentos_marca = [] # Usamos una lista para preservar el orden
+    for i in range(len(marca)):
+        frag = marca[:i + 2] # Substring progresivo desde el inicio
+        if frag not in fragmentos_marca: # Evitar duplicacdos
+            fragmentos_marca.append(frag) # Incluir en la lista 
+    print('Fragmentos marca: ', fragmentos_marca)
     
-    # 2. Generar fragmentos de cada palabra clave
-    fragmentos = set()
-    for palabra in palabras_clave:
-        print('palabra: ',palabra)
-        for i in range(len(palabra)):
-            print('\t palabra ',i,': ',palabra)
-            #print('valor de i' , i)
-            fragmentos.add(palabra[:i + 3])  # Substring progresivo desde el inicio
-            print('\t\t palabra: ', palabra[:i + 3])
-            print('\t\t\t fragmento: ', fragmentos)
+     # Generar el universo actual (aplicar filtros de forma recursiva)
+    universo_actual = Producto.objects.all() # Universo inicial 
+    for frag_m in fragmentos_marca: # Iterar la lista de los fragmentos de la marca         
+        universo = universo_actual.filter(producto_nombre__icontains=frag_m).distinct() # Filtra los distintos
+        if universo.exists(): # Hay datos
+            universo_actual = universo # Nuevos datos para el universo
+            print(f'Resultados tras aplicar "{frag_m}": {[r.producto_nombre for r in universo_actual]}')
+        else:
+            print(f'Sin resultados tras aplicar "{frag_m}". Conservando el universo actual.')
     
-    print('fragmentos: ',fragmentos)
-    # 3. Construir el filtro dinámico
-    q_objects = Q()  # Usamos Q para construir consultas OR
-    for frag in fragmentos:
-        print('frag: ',frag)
-        q_objects |= Q(producto_nombre__icontains=frag)
+    print(f'Universo actual : {[r.producto_nombre for r in universo_actual]}')
     
-    # 4. Obtener resultados únicos de la base de datos
-    resultados = Producto.objects.filter(q_objects).distinct()
-    
-    # 5. Ordenar los resultados por relevancia (opcional)
-    resultados = sorted(resultados, key=lambda x: texto in x.producto_nombre, reverse=True)
-    
-    return resultados
-
-
-def obtiene_coincidencias_nproducto5(texto):
-    print('texto: ', texto)
-    
-    # 1. Separar el texto en palabras clave
-    palabras_clave = texto.split()
-    
-    # 2. Generar fragmentos de cada palabra clave
+    # Separar el texto en palabras clave 
+    palabras_clave = texto.split()     
+    # Generar fragmentos de cada palabra clave
     fragmentos = []  # Usamos una lista para preservar el orden
     for palabra in palabras_clave:
         print('palabra: ', palabra)
-        for i in range(len(palabra)):
+        for i in range(len(palabra)):            
             frag = palabra[:i + 2]  # Substring progresivo desde el inicio
+            #print(f'{i} -> frag: ', frag)
             if frag not in fragmentos:  # Evitar duplicados
-                fragmentos.append(frag)
-                print('\t palabra: ', frag)
-                print('\t\t fragmentos: ', fragmentos)
+                fragmentos.append(frag) 
+    
+    print('Fragmentos texto:', fragmentos) 
 
-    print('fragmentos: ', fragmentos)
-    
-    # 3. Construir el filtro dinámico
-    q_objects = Q()  # Usamos Q para construir consultas OR
-    for frag in fragmentos:
-        print('frag: ', frag)
-        q_objects |= Q(producto_nombre__icontains=frag)
-    
-    # 4. Obtener resultados únicos de la base de datos
-    resultados = Producto.objects.filter(q_objects).distinct()
-    
-    # 5. Ordenar los resultados por relevancia (opcional)
-    resultados = sorted(resultados, key=lambda x: texto in x.producto_nombre, reverse=True)
-    
-    return resultados
-
-
-def obtiene_coincidencias_nproducto6(texto):
-    print('Texto:', texto)
-    
-    # 1. Separar el texto en palabras clave
-    palabras_clave = texto.split()
-    
-    # 2. Generar fragmentos de cada palabra clave
-    fragmentos = []  # Usamos una lista para preservar el orden
-    for palabra in palabras_clave:
-        for i in range(len(palabra)):
-            frag = palabra[:i + 2]  # Substring progresivo desde el inicio
-            if frag not in fragmentos:  # Evitar duplicados
-                fragmentos.append(frag)
-    
-    print('Fragmentos generados:', fragmentos)
-    
-    # 3. Aplicar filtros de forma recursiva
-    resultados = Producto.objects.all()  # Universo inicial (todos los productos)
+    # Aplicar filtros de forma recursiva 
     for frag in fragmentos:
         print(f'Filtrando por fragmento: {frag}')
-        resultados = resultados.filter(producto_nombre__icontains=frag).distinct()
-        print(f'Resultados tras aplicar "{frag}": {[r.producto_nombre for r in resultados]}')
+        nuevos_resultados = universo_actual.filter(producto_nombre__icontains=frag).distinct()
         
-        # Si en algún momento no hay resultados, podemos salir del bucle
-        if not resultados.exists():
-            print(f'Sin resultados tras aplicar el fragmento "{frag}". Deteniendo.')
-            break
+        if nuevos_resultados.exists():
+            universo_actual = nuevos_resultados
+            print(f'Resultados tras aplicar "{frag}": {[r.producto_nombre for r in universo_actual]}')
+        else:
+            print(f'Sin resultados tras aplicar "{frag}". Conservando el universo actual.')
     
-    # 4. Retornar los resultados finales
-    return resultados
+    # Retornar los resultados finales
+    return universo_actual
+
 '''
+def obtiene_coincidencias_nproducto_con_puntuacion(texto):    
+    print('Texto:', texto)       
+    # Separar el texto en palabras clave 
+    palabras_clave = texto.split()     
+    # Generar fragmentos de cada palabra clave
+    fragmentos = []  # Usamos una lista para preservar el orden
+    for palabra in palabras_clave:
+        for i in range(len(palabra)):            
+            frag = palabra[:i + 5]  # Substring progresivo desde el inicio
+            if frag not in fragmentos:  # Evitar duplicados
+                fragmentos.append(frag) 
+    
+    print('Fragmentos generados:', fragmentos) 
+
+    # Construir el filtro dinámico usando Q
+    filtro = Q()
+    for frag in fragmentos:
+        filtro |= Q(producto_nombre__icontains=frag)  # Agregar cada fragmento al filtro
+
+    # Filtrar los productos una sola vez con todos los fragmentos
+    universo_actual = Producto.objects.filter(filtro).distinct()
+
+    print(f'Resultados tras aplicar todos los fragmentos: {[r.producto_nombre for r in universo_actual]}')
+    
+    print('Palabras clave: ', palabras_clave)
+    # Evaluar puntuación para cada producto
+    resultados_con_puntuacion = []
+    for producto in universo_actual:
+        puntuacion = 0
+        detalles_puntuacion = {}
+        for palabra in palabras_clave:
+        #for frag in fragmentos:
+            if palabra.lower() in producto.producto_nombre.lower():  # Comparación insensible a mayúsculas
+                puntuacion += 1
+                detalles_puntuacion[palabra] = 1
+            else:
+                detalles_puntuacion[palabra] = 0
+        
+        resultados_con_puntuacion.append({
+            'producto': producto,
+            'puntuacion': puntuacion,
+            'detalles': detalles_puntuacion,
+        })
+    
+    # Imprimir los resultados con puntuación
+    for resultado in resultados_con_puntuacion:
+        print(f"Producto: {resultado['producto'].producto_nombre}, Puntuación: {resultado['puntuacion']}")
+        print(f"Detalles: {resultado['detalles']}")
+    
+    # Retornar los resultados ordenados por puntuación descendente
+    resultados_ordenados = sorted(resultados_con_puntuacion, key=lambda x: x['puntuacion'], reverse=True)
+    return resultados_ordenados
+
+'''
+
+def obtiene_coincidencias_nproducto_con_puntuacion(desCorta, marca, medida):
+    # Unir los parámetros en el orden especificado
+    texto = f"{desCorta} {marca} {medida}".strip()
+    print('Texto combinado:', texto)
+
+    # Separar el texto en palabras clave 
+    palabras_clave = texto.split()
+
+    # Generar fragmentos de cada palabra clave
+    fragmentos = []
+    for palabra in palabras_clave:
+        for i in range(len(palabra)):
+            frag = palabra[:i + 5]  # Substring progresivo desde el inicio
+            if frag not in fragmentos:  # Evitar duplicados
+                fragmentos.append(frag)
+
+    print('Fragmentos generados:', fragmentos)
+
+    # Construir el filtro dinámico usando Q
+    filtro = Q()
+    for frag in fragmentos:
+        filtro |= Q(producto_nombre__icontains=frag) # Agregar cada fragmento al filtro
+
+    # Filtrar los productos una sola vez con todos los fragmentos
+    universo_actual = Producto.objects.filter(filtro).distinct()
+
+    print(f'Resultados tras aplicar todos los fragmentos: {[r.producto_nombre for r in universo_actual]}')
+
+    print('\n**Evaluar puntuación para cada producto')
+    # Evaluar puntuación para cada producto
+    resultados_con_puntuacion = []
+    for producto in universo_actual:
+        puntuacion = 0
+        detalles_puntuacion = {}
+
+        # Evaluar desCorta
+        if desCorta.lower() in producto.producto_nombre.lower(): # Comparación insensible a mayúsculas
+            puntuacion += 1
+            detalles_puntuacion['desCorta'] = 1
+        else:
+            detalles_puntuacion['desCorta'] = 0
+
+        # Evaluar marca
+        if marca.lower() in producto.producto_nombre.lower():
+            puntuacion += 3
+            detalles_puntuacion['marca'] = 3
+        else:
+            detalles_puntuacion['marca'] = 0
+
+        # Evaluar medida
+        if medida.lower() in producto.producto_nombre.lower():
+            puntuacion += 2
+            detalles_puntuacion['medida'] = 2
+        else:
+            detalles_puntuacion['medida'] = 0 
+
+        resultados_con_puntuacion.append({
+            'producto': producto,
+            'puntuacion': puntuacion,
+            'detalles': detalles_puntuacion,
+        })
+
+    # Imprimir los resultados con puntuación
+    for resultado in resultados_con_puntuacion:
+        print(f"Producto: {resultado['producto'].producto_nombre}, Puntuación: {resultado['puntuacion']}")
+        print(f"Detalles: {resultado['detalles']}")
+
+    # Retornar los resultados ordenados por puntuación descendente
+    resultados_ordenados = sorted(resultados_con_puntuacion, key=lambda x: x['puntuacion'], reverse=True)
+    return resultados_ordenados
+
+'''
+def obtiene_coincidencias_nproducto_con_puntuacion2(desCorta, marca, medida):
+    # Separar cada parámetro en palabras individuales
+    palabras_desCorta = desCorta.split() if desCorta else []
+    palabras_marca = marca.split() if marca else []
+    palabras_medida = medida.split() if medida else []
+
+    # Generar texto combinado para los fragmentos
+    texto = f"{desCorta} {marca} {medida}".strip()
+    print('Texto combinado:', texto)
+    palabras_clave = texto.split()
+
+    # Generar fragmentos de cada palabra clave
+    fragmentos = []
+    for palabra in palabras_clave:
+        for i in range(len(palabra)):
+            frag = palabra[:i + 5]  # Substring progresivo desde el inicio
+            if frag not in fragmentos:  # Evitar duplicados
+                fragmentos.append(frag)
+
+    print('Fragmentos generados:', fragmentos)
+
+    # Construir el filtro dinámico usando Q
+    filtro = Q()
+    for frag in fragmentos:
+        filtro |= Q(producto_nombre__icontains=frag)  # Agregar cada fragmento al filtro
+
+    # Filtrar los productos una sola vez con todos los fragmentos
+    universo_actual = Producto.objects.filter(filtro).distinct()
+
+    print(f'Resultados tras aplicar todos los fragmentos: {[r.producto_nombre for r in universo_actual]}')
+
+    # Evaluar puntuación para cada producto
+    resultados_con_puntuacion = []
+    for producto in universo_actual:
+        puntuacion = 0
+        detalles_puntuacion = {}
+
+        # Evaluar palabras de desCorta
+        puntuacion_desCorta = 0
+        for palabra in palabras_desCorta:
+            if palabra.lower() in producto.producto_nombre.lower():
+                puntuacion += 1
+                puntuacion_desCorta += 1
+        detalles_puntuacion['desCorta'] = puntuacion_desCorta
+
+        # Evaluar palabras de marca
+        puntuacion_marca = 0
+        for palabra in palabras_marca:
+            if palabra.lower() in producto.producto_nombre.lower():
+                puntuacion += 3
+                puntuacion_marca += 3
+        detalles_puntuacion['marca'] = puntuacion_marca
+
+        # Evaluar palabras de medida
+        puntuacion_medida = 0
+        for palabra in palabras_medida:
+            if palabra.lower() in producto.producto_nombre.lower():
+                puntuacion += 2
+                puntuacion_medida += 2
+        detalles_puntuacion['medida'] = puntuacion_medida
+
+        resultados_con_puntuacion.append({
+            'producto': producto,
+            'puntuacion': puntuacion,
+            'detalles': detalles_puntuacion,
+        })
+
+    # Imprimir los resultados con puntuación
+    for resultado in resultados_con_puntuacion:
+        print(f"Producto: {resultado['producto'].producto_nombre}, Puntuación: {resultado['puntuacion']}")
+        print(f"Detalles: {resultado['detalles']}")
+
+    # Retornar los resultados ordenados por puntuación descendente
+    resultados_ordenados = sorted(resultados_con_puntuacion, key=lambda x: x['puntuacion'], reverse=True)
+    return resultados_ordenados
+'''
+
+def obtiene_coincidencias_nproducto_con_puntuacion3(desCorta, marca, medida):
+    # Separar cada parámetro en palabras individuales
+    palabras_desCorta = desCorta.split() if desCorta else []
+    palabras_marca = marca.split() if marca else []
+    palabras_medida = medida.split() if medida else []
+
+    # Generar texto combinado para los fragmentos
+    texto = f"{desCorta} {marca} {medida}".strip()
+    print('Texto combinado:', texto)
+    palabras_clave = texto.split()
+
+    # Generar fragmentos de cada palabra clave
+    fragmentos = []
+    for palabra in palabras_clave:
+        for i in range(len(palabra)):
+            frag = palabra[:i + 5]  # Substring progresivo desde el inicio
+            if frag not in fragmentos:  # Evitar duplicados
+                fragmentos.append(frag)
+
+    print('Fragmentos generados:', fragmentos)
+
+    # Construir el filtro dinámico usando Q
+    filtro = Q()
+    for frag in fragmentos:
+        filtro |= Q(producto_nombre__icontains=frag)  # Agregar cada fragmento al filtro
+
+    # Filtrar los productos una sola vez con todos los fragmentos
+    universo_actual = Producto.objects.filter(filtro).distinct()
+
+    print(f'Resultados tras aplicar todos los fragmentos: {[r.producto_nombre for r in universo_actual]}')
+
+    # Evaluar puntuación para cada producto
+    resultados_con_puntuacion = []
+    for producto in universo_actual:
+        puntuacion = 0
+        detalles_puntuacion = {}
+
+        # Evaluar palabras de desCorta
+        puntuacion_desCorta = 0
+        for palabra in palabras_desCorta:
+            if palabra.lower() in producto.producto_nombre.lower():
+                if palabra.lower() in producto.producto_nombre.lower().split():
+                    puntuacion += 2  # Doble puntuación si coincide exactamente
+                    puntuacion_desCorta += 2
+                else:
+                    puntuacion += 1  # Puntuación normal si solo contiene
+                    puntuacion_desCorta += 1
+        detalles_puntuacion['desCorta'] = puntuacion_desCorta
+
+        # Evaluar palabras de marca
+        puntuacion_marca = 0
+        for palabra in palabras_marca:
+            if palabra.lower() in producto.producto_nombre.lower():
+                if palabra.lower() in producto.producto_nombre.lower().split():
+                    puntuacion += 6  # Doble puntuación si coincide exactamente
+                    puntuacion_marca += 6
+                else:
+                    puntuacion += 3  # Puntuación normal si solo contiene
+                    puntuacion_marca += 3
+        detalles_puntuacion['marca'] = puntuacion_marca
+
+        # Evaluar palabras de medida
+        puntuacion_medida = 0
+        for palabra in palabras_medida:
+            if palabra.lower() in producto.producto_nombre.lower():
+                if palabra.lower() in producto.producto_nombre.lower().split():
+                    puntuacion += 4  # Doble puntuación si coincide exactamente
+                    puntuacion_medida += 4
+                else:
+                    puntuacion += 2  # Puntuación normal si solo contiene
+                    puntuacion_medida += 2
+        detalles_puntuacion['medida'] = puntuacion_medida
+
+        resultados_con_puntuacion.append({
+            'producto': producto,
+            'puntuacion': puntuacion,
+            'detalles': detalles_puntuacion,
+        })
+
+    # Imprimir los resultados con puntuación
+    for resultado in resultados_con_puntuacion:
+        print(f"Producto: {resultado['producto'].producto_nombre}, Puntuación: {resultado['puntuacion']}")
+        print(f"Detalles: {resultado['detalles']}")
+
+    # Retornar los resultados ordenados por puntuación descendente
+    resultados_ordenados = sorted(resultados_con_puntuacion, key=lambda x: x['puntuacion'], reverse=True)
+    return resultados_ordenados

@@ -188,7 +188,9 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify({
                 nombre_producto: nombre_producto,
-                marca: marca.value
+                desCorta: desCorta.value,
+                marca: marca.value,
+                medida: medida.value
             })
         })
             .then(response => response.json())
@@ -241,6 +243,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .catch(error => {
+                loadingOverlay.classList.add('d-none');
+                alert('error en la solicitud:', error);
                 console.error('error en la solicitud:', error);
             });
 
