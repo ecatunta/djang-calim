@@ -1797,7 +1797,7 @@ def registra_producto(request):
         #productos = obtiene_coincidencias_nproducto_3(nombre_producto)        
 
         #productos = obtiene_coincidencias_nproducto_con_puntuacion(nombre_producto)
-        resultados = obtiene_coincidencias_nproducto_con_puntuacion3(desCorta, marca, medida)
+        resultados = obtiene_coincidencias_nproducto_con_puntuacion4(desCorta, marca, medida)
         lista = []
         print('\n** coincidencias **')
         '''
@@ -1811,15 +1811,19 @@ def registra_producto(request):
         for resultado in resultados:
             producto = resultado['producto']
             puntuacion = resultado['puntuacion']
+            puntuacion_e = resultado['puntuacion_e']
+            puntuacion_ok = resultado['puntuacion_ok']
+            ctrl_marca = resultado['ctrl_marca']
             detalles = resultado['detalles']
             lista.append({
                 'nombre_producto': producto.producto_nombre,
-                'puntuacion': puntuacion
+                'puntuacion': puntuacion,
+                'puntuacion_e': puntuacion_e
             })
     
             print(f"Producto: {producto.producto_nombre}")
-            print(f"Puntuación: {puntuacion}")
-            print(f"Detalles: {detalles}")
+            print(f"Puntuación: {puntuacion}, Puntuación_e: {puntuacion_e}, Puntuación_ok: {puntuacion_ok}, Ctrl_marca: {ctrl_marca}")
+            print(f"Detalles: {detalles}")           
 
         return JsonResponse({
             'message': 'proceso realizado correctamente.', 
@@ -2160,11 +2164,11 @@ def obtiene_coincidencias_nproducto_con_puntuacion3(desCorta, marca, medida):
         for palabra in palabras_desCorta:
             if palabra.lower() in producto.producto_nombre.lower():
                 if palabra.lower() in producto.producto_nombre.lower().split():
-                    puntuacion += 2  # Doble puntuación si coincide exactamente
-                    puntuacion_desCorta += 2
+                    puntuacion += 4  # Doble puntuación si coincide exactamente
+                    puntuacion_desCorta += 4
                 else:
-                    puntuacion += 1  # Puntuación normal si solo contiene
-                    puntuacion_desCorta += 1
+                    puntuacion += 2  # Puntuación normal si solo contiene
+                    puntuacion_desCorta += 2
         detalles_puntuacion['desCorta'] = puntuacion_desCorta
 
         # Evaluar palabras de marca
@@ -2184,11 +2188,11 @@ def obtiene_coincidencias_nproducto_con_puntuacion3(desCorta, marca, medida):
         for palabra in palabras_medida:
             if palabra.lower() in producto.producto_nombre.lower():
                 if palabra.lower() in producto.producto_nombre.lower().split():
-                    puntuacion += 4  # Doble puntuación si coincide exactamente
-                    puntuacion_medida += 4
-                else:
-                    puntuacion += 2  # Puntuación normal si solo contiene
+                    puntuacion += 2  # Doble puntuación si coincide exactamente
                     puntuacion_medida += 2
+                else:
+                    puntuacion += 1  # Puntuación normal si solo contiene
+                    puntuacion_medida += 1
         detalles_puntuacion['medida'] = puntuacion_medida
 
         resultados_con_puntuacion.append({
@@ -2204,4 +2208,90 @@ def obtiene_coincidencias_nproducto_con_puntuacion3(desCorta, marca, medida):
 
     # Retornar los resultados ordenados por puntuación descendente
     resultados_ordenados = sorted(resultados_con_puntuacion, key=lambda x: x['puntuacion'], reverse=True)
+    return resultados_ordenados
+
+
+
+def obtiene_coincidencias_nproducto_con_puntuacion4(desCorta, marca, medida):
+    # Separar cada parámetro en palabras individuales
+    palabras_desCorta = desCorta.split() if desCorta else []
+    palabras_marca = marca.split() if marca else []
+    palabras_medida = medida.split() if medida else []
+
+    # Generar texto combinado para los fragmentos
+    texto = f"{desCorta} {marca} {medida}".strip()
+    print('Texto combinado:', texto)
+    palabras_clave = texto.split()
+
+    # Generar fragmentos de cada palabra clave
+    fragmentos = []
+    for palabra in palabras_clave:
+        for i in range(len(palabra)):
+            frag = palabra[:i + 5]  # Substring progresivo desde el inicio
+            if frag not in fragmentos:  # Evitar duplicados
+                fragmentos.append(frag)
+
+    print('Fragmentos generados:', fragmentos)
+
+    # Construir el filtro dinámico usando Q
+    filtro = Q()
+    for frag in fragmentos:
+        filtro |= Q(producto_nombre__icontains=frag)  # Agregar cada fragmento al filtro
+
+    # Filtrar los productos una sola vez con todos los fragmentos
+    universo_actual = Producto.objects.filter(filtro).distinct()
+
+    print(f'Resultados tras aplicar todos los fragmentos: {[r.producto_nombre for r in universo_actual]}')
+
+    # Evaluar puntuación para cada producto
+    print(f'\nEvaluar puntuación para cada producto')
+    resultados_con_puntuacion = []
+    for producto in universo_actual: # Itera cada producto del universo
+        puntuacion = 0 # Inicializa la puntuacion en 0
+        ctrl_marca = 0
+        detalles_puntuacion = {} # Declara un diccionario 
+
+        palabra_producto = producto.producto_nombre.split() # Separa por palabras el texto producto
+        for palabra in palabra_producto: # Recorre cada palabra por producto                        
+            if palabra.lower() in texto.lower(): # Si la palabra contiene el nombre del producto                
+                if palabra.lower() in texto.lower().split(): # Si la palabra coincide exactamente
+                    puntuacion += 1 # Incrementa la puntuacion en 1 
+                    detalles_puntuacion[palabra] = 1 # Clave es palabra, valor es 1
+                else: 
+                    detalles_puntuacion[palabra] = 0 # Clave es palabra, valor es 0
+            else:
+                detalles_puntuacion[palabra] = 0 # Clave es palabra, valor es 0
+                        
+            if palabra.lower() in marca.lower(): # Si la marca contiene a la palabra                
+                if palabra.lower() in marca.lower().split(): # Si coincide exactamente 
+                   ctrl_marca = 1
+        
+        puntuacion_ok = 0
+        if puntuacion == len(palabra_producto):
+            puntuacion_ok = 1
+    
+        resultados_con_puntuacion.append({
+            'producto': producto,
+            'puntuacion': puntuacion,
+            'puntuacion_e': len(palabra_producto),
+            'ctrl_marca': ctrl_marca,
+            'puntuacion_ok': puntuacion_ok,
+            'detalles': detalles_puntuacion            
+        })
+    
+    # Imprimir los resultados con puntuación
+    for resultado in resultados_con_puntuacion:
+        print(f"Producto: {resultado['producto'].producto_nombre}, Puntuación: {resultado['puntuacion']}, Puntuacion_e: {resultado['puntuacion_e']}, Marca: {resultado['ctrl_marca']}, Puntuación_Ok: {resultado['puntuacion_ok']}")
+        print(f"Detalles: {resultado['detalles']}")
+
+    # Retornar los resultados ordenados por puntuación descendente
+    #resultados_ordenados = sorted(resultados_con_puntuacion, key=lambda x: x['puntuacion'], reverse=True)
+
+    # Ordenar los resultados
+    resultados_ordenados = sorted(
+        resultados_con_puntuacion,
+        key=lambda x: (x['puntuacion_ok'], x['ctrl_marca'], x['puntuacion']),
+        reverse=True
+    )
+
     return resultados_ordenados
